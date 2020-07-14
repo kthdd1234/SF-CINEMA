@@ -33,7 +33,7 @@ export default function Header() {
                 padding: '0 24px',
               }}
             >
-              외계인
+              평점이 높은순
             </li>
             <span>|</span>
             <li
@@ -42,7 +42,7 @@ export default function Header() {
                 padding: '0 24px',
               }}
             >
-              인간과 우주
+              영화 개봉순
             </li>
             <span>|</span>
             <li
@@ -51,7 +51,7 @@ export default function Header() {
                 padding: '0 24px',
               }}
             >
-              로봇 * AI
+              운영자 추천
             </li>
             <span>|</span>
             <li
@@ -60,7 +60,7 @@ export default function Header() {
                 padding: '0 24px',
               }}
             >
-              시간 여행
+              시리즈물
             </li>
             <span>|</span>
             <li
@@ -69,7 +69,7 @@ export default function Header() {
                 padding: '0 24px',
               }}
             >
-              슈퍼 히어로
+              SF 명작
             </li>
           </ul>
         </nav>

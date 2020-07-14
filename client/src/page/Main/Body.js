@@ -2,11 +2,11 @@ import React from 'react';
 import TopSlideShow from './TopSlideShow';
 import DownSlideShow from './DownSlideShow';
 
-export default function Body() {
+export default function Body({ imgList }) {
   return (
     <div>
       <TopSlideShow />
-      <DownSlideShow />
+      <DownSlideShow imgList={imgList} />
     </div>
   );
 }

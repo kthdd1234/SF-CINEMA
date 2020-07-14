@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import 'react-slideshow-image/dist/styles.css';
 // eslint-disable-next-line
 ReactDOM.render(
   <BrowserRouter>

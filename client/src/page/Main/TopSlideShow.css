@@ -1,16 +1,10 @@
-.containerSlide {
-  width: 50%;
-  margin: auto;
-}
-
-.containerSlide img {
-  width: 60%;
+.slick-slide.slick-center img {
+  transform: scale(1.11);
   height: 600px;
 }
 
-.each-slide > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-size: cover;
+.slick-slide img {
+  width: 95%;
+  height: 550px;
+  padding: 10px;
 }
