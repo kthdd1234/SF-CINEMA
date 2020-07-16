@@ -1,7 +1,7 @@
 const axios = require('axios');
+const { movie_title } = require('../movie_title');
+const { get_kmdb_naver_APIData } = require('../getAPIData');
 
 module.exports = {
-  get: (req, res) => {
-    console.log('평점 높은 순');
-  },
+  get: async (req, res) => {},
 };

@@ -15,6 +15,7 @@ const imgList = [
   'https://happyspacenoises.files.wordpress.com/2018/08/after-earth.jpg',
   'https://image.yes24.com/momo/TopCate1508/MidCate005/123838213.jpg',
 ];
+
 export default class Main extends Component {
   render() {
     return (

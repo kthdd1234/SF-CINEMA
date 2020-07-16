@@ -25,7 +25,7 @@ function DownSlideShow({ imgList }) {
   let id = 0;
   return (
     <div>
-      <h2 className="mainSubject">평점이 높은 영화 SF 영화(9점이상)</h2>
+      <h2 className="mainSubject">평점이 높은 SF 영화(9점이상)</h2>
       <div className="container-all-Slide">
         <Slider {...settings}>
           {imgList.map((img) => (

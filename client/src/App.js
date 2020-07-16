@@ -6,6 +6,7 @@ import Login from './page/Login/Login';
 import Detail from './page/Detail/Detail';
 import Myinfo from './page/Myinfo/Myinfo';
 import Subject from './page/Subject/Subject';
+import axios from 'axios';
 
 export default class App extends Component {
   constructor(props) {

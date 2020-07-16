@@ -1,39 +1,103 @@
-const fetch = require('node-fetch');
-const title = '컨택트';
+require('dotenv').config();
+const axios = require('axios');
+const kmdbUrl =
+  'http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp';
+const naverUrl = 'https://openapi.naver.com/v1/search/movie.json';
 
-var kmdbUrl = `http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp?collection=kmdb_new&detail=Y&ServiceKey=&genre=SF&type=극영화&title=${title}&listCount=1`;
-fetch(encodeURI(kmdbUrl), {
-  methods: 'GET',
-})
-  .then((res) => res.json())
-  .then((data) => {
+let title = '루시드 드림';
+let releaseDts = '';
+let releaseDte = '';
+
+if (Array.isArray(title)) {
+  let divideArg = title;
+  title = divideArg[0];
+  releaseDts = releaseDte = divideArg[1];
+}
+
+axios
+  .get(encodeURI(kmdbUrl), {
+    params: {
+      collection: 'kmdb_new',
+      detail: 'Y',
+      ServiceKey: process.env.KMDB_SERVICEKEY,
+      type: '극영화',
+      title: title,
+      listCount: 1,
+      createDts: 1980,
+      releaseDts: releaseDts,
+      releaseDte: releaseDte,
+    },
+  })
+  .then(({ data }) => {
     console.log('kmdb 영화 데이터 => ', data.Data[0].Result);
     const prodYear = data.Data[0].Result[0].prodYear;
+    const actor = data.Data[0].Result[0].actor;
+    const { directorNm } = data.Data[0].Result[0].director[0];
+    const {
+      ratingGrade,
+      releaseDate,
+      runtime,
+    } = data.Data[0].Result[0].rating[0];
+    const movieGrade = ratingGrade.includes('|')
+      ? ratingGrade.substring(0, ratingGrade.indexOf('|'))
+      : ratingGrade;
+    const movieReleaseDate = releaseDate.includes('|')
+      ? releaseDate.substring(0, releaseDate.indexOf('|'))
+      : releaseDate;
+    const movieRuntime = runtime.includes('|')
+      ? runtime.substring(0, runtime.indexOf('|'))
+      : runtime;
+    const actorPersons = actor.map((data) => {
+      return data.actorNm;
+    });
+
+    const posters = data.Data[0].Result[0].posters
+      .replace(/\|/gi, ' ')
+      .split(' ');
+
     const movie_Data = {
       title: title,
-      titleEn: data.Data[0].Result[0].titleEng,
-      director: data.Data[0].Result[0].director,
-      actor: data.Data[0].Result[0].actor,
+      titleEng: data.Data[0].Result[0].titleEng,
+      director: directorNm,
       nation: data.Data[0].Result[0].nation,
       plot: data.Data[0].Result[0].plot,
-      runtime: data.Data[0].Result[0].runtime,
-      rating: data.Data[0].Result[0].rating,
-      posters: data.Data[0].Result[0].posters,
-      prodYear: data.Data[0].Result[0].prodYear,
-      ReleaseDate: data.Data[0].Result[0].regDate,
+      posters: posters,
+      actors: actorPersons,
+      releaseDate:
+        movieReleaseDate ||
+        data.Data[0].Result[0].repRlsDate ||
+        data.Data[0].Result[0].repRatDate,
+      runtime: movieRuntime,
+      ratingGrade: movieGrade,
     };
-    const naverUrl = `https://openapi.naver.com/v1/search/movie.json?yearfrom=${prodYear}&yearto=${prodYear}&display=1&query=${title}`;
-    fetch(encodeURI(naverUrl), {
-      methods: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => {
-        return res.json();
+
+    axios
+      .get(encodeURI(naverUrl), {
+        params: {
+          yearfrom: Number(prodYear) - 2,
+          yearto: Number(prodYear) + 1,
+          display: 1,
+          query: title,
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Naver-Client-ID': `${process.env.NAVER_CLIENT_ID}`,
+          'X-Naver-Client-Secret': `${process.env.NAVER_CLIENT_SECRET}`,
+        },
       })
-      .then((movie) => {
-        console.log(movie);
+      .then(({ data }) => {
+        console.log(data);
+        data.items[0].userRating === ''
+          ? ''
+          : (movie_Data.userRating = data.items[0].userRating);
+        movie_Data.posters[0] === ''
+          ? (movie_Data.posters = data.items[0].image)
+          : '';
+        movie_Data.titleEng === ''
+          ? (movie_Data.titleEng = data.items[0].subtitle)
+          : '';
+        // console.log(data.items[0]);
+        console.log(movie_Data);
       });
   })
   .catch((err) => {
