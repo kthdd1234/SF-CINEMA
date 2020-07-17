@@ -30,7 +30,7 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       releaseDate: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       runtime: {
         type: Sequelize.STRING,
@@ -39,7 +39,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       userRating: {
-        type: Sequelize.STRING,
+        type: Sequelize.FLOAT,
       },
     });
   },

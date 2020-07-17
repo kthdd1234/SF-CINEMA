@@ -4,7 +4,7 @@ const kmdbUrl =
   'http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp';
 const naverUrl = 'https://openapi.naver.com/v1/search/movie.json';
 
-let title = '루시드 드림';
+let title = ['블레이드 러너', '19930508'];
 let releaseDts = '';
 let releaseDte = '';
 
@@ -22,7 +22,7 @@ axios
       ServiceKey: process.env.KMDB_SERVICEKEY,
       type: '극영화',
       title: title,
-      listCount: 1,
+      listCount: 5,
       createDts: 1980,
       releaseDts: releaseDts,
       releaseDte: releaseDte,

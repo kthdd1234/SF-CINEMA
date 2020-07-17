@@ -101,10 +101,13 @@ module.exports = {
                 : '';
 
               resolve(movie_Data);
+            })
+            .catch((err) => {
+              console.log(err, title);
             });
         })
         .catch((err) => {
-          reject(err);
+          reject(err, title);
         });
     });
   },

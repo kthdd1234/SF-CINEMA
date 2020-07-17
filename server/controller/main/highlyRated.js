@@ -1,7 +1,19 @@
-const axios = require('axios');
-const { movie_title } = require('../movie_title');
-const { get_kmdb_naver_APIData } = require('../getAPIData');
+const { movies } = require('../../models');
 
 module.exports = {
-  get: async (req, res) => {},
+  get: async (req, res) => {
+    movies
+      .findAll({
+        order: [['userRating', 'DESC']],
+        limit: 30,
+        raw: true,
+      })
+      .then((movie) => {
+        res.status(200).send(movie);
+      })
+      .catch((err) => {
+        res.status(404).send(err);
+        console.log(err);
+      });
+  },
 };

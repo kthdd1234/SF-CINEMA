@@ -31,36 +31,42 @@ const port = 5000;
 app.listen(port, () => {
   console.log('server listen on 5000!');
 });
-let count = 0;
-var timer = setInterval(function () {
-  console.log(count, movie_title.length);
-  if (count === movie_title.length) {
-    clearInterval(timer);
-    console.log('실행 종료!');
-    return;
-  }
-  movie_title[count].forEach(async (title) => {
-    let movie = await get_kmdb_naver_APIData(title);
 
-    models.movies.findOrCreate({
-      where: {
-        title: movie.title,
-      },
-      defaults: {
-        titleEng: movie.title,
-        titleEng: movie.titleEng,
-        director: movie.director,
-        nation: movie.nation,
-        plot: movie.plot,
-        posters: JSON.stringify(movie.posters),
-        actors: JSON.stringify(movie.actors),
-        releaseDate: movie.releaseDate,
-        runtime: movie.runtime,
-        ratingGrade: movie.ratingGrade,
-        userRating: movie.userRating,
-      },
-    });
-  });
-  console.log(count + '번째 성공!');
-  count++;
-}, 1000);
+// let count = 0;
+// var timer = setInterval(function () {
+//   console.log(count, movie_title.length);
+//   if (count === movie_title.length) {
+//     clearInterval(timer);
+//     console.log('실행 종료!');
+//     return;
+//   }
+//   movie_title[count].forEach(async (title) => {
+//     let movie = await get_kmdb_naver_APIData(title);
+//     movie.title === '아바타' ? (movie.userRating = '9.07') : null;
+//     movie.title === '스타워즈: 깨어난 포스'
+//       ? (movie.userRating = '7.75')
+//       : null;
+//     movie.title === '맨 프럼 어스' ? (movie.releaseDate = '20070610') : null;
+
+//     models.movies.findOrCreate({
+//       where: {
+//         title: movie.title,
+//       },
+//       defaults: {
+//         titleEng: movie.title,
+//         titleEng: movie.titleEng,
+//         director: movie.director,
+//         nation: movie.nation,
+//         plot: movie.plot,
+//         posters: JSON.stringify(movie.posters),
+//         actors: JSON.stringify(movie.actors),
+//         releaseDate: Number(movie.releaseDate),
+//         runtime: movie.runtime,
+//         ratingGrade: movie.ratingGrade,
+//         userRating: Number(movie.userRating),
+//       },
+//     });
+//   });
+//   console.log(count + '번째 성공!');
+//   count++;
+// }, 1000);

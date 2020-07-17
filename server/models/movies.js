@@ -20,10 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       plot: DataTypes.TEXT,
       posters: DataTypes.TEXT,
       actors: DataTypes.TEXT,
-      releaseDate: DataTypes.STRING,
+      releaseDate: DataTypes.INTEGER,
       runtime: DataTypes.STRING,
       ratingGrade: DataTypes.STRING,
-      userRating: DataTypes.STRING,
+      userRating: DataTypes.FLOAT,
     },
     {
       sequelize,
