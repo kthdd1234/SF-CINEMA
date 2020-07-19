@@ -1,4 +1,5 @@
 module.exports = {
+  randomMovies: require('./randomMovies'),
   highlyRated: require('./highlyRated'),
   recentlyReleased: require('./recentlyReleased'),
   operatorMovies: require('./operatorMovies'),

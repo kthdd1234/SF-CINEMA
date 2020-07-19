@@ -3,6 +3,9 @@ const router = express.Router();
 
 const { mainController } = require('../controller');
 
+// * GET /main/randomMovies
+router.get('/randomMovies', mainController.randomMovies.get);
+
 // * GET /main/highlyRated
 router.get('/highlyRated', mainController.highlyRated.get);
 

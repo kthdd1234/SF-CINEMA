@@ -35,7 +35,7 @@ export default function Header() {
             >
               평점이 높은순
             </li>
-            <span>|</span>
+            <span>꒐</span>
             <li
               style={{
                 display: 'inline-block',
@@ -44,7 +44,7 @@ export default function Header() {
             >
               영화 개봉순
             </li>
-            <span>|</span>
+            <span>꒐</span>
             <li
               style={{
                 display: 'inline-block',
@@ -53,7 +53,7 @@ export default function Header() {
             >
               운영자 추천
             </li>
-            <span>|</span>
+            <span>꒐</span>
             <li
               style={{
                 display: 'inline-block',
@@ -62,7 +62,7 @@ export default function Header() {
             >
               시리즈물
             </li>
-            <span>|</span>
+            <span>꒐</span>
             <li
               style={{
                 display: 'inline-block',
