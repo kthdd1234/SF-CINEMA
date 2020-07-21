@@ -4,28 +4,6 @@ import './DownSlideShow.css';
 import SlideImgEntry from './SlideImgEntry';
 import NextArrow from './NextArrow';
 import PrevArrow from './PreArrow';
-// import AsNavFor from './AsNavFor';
-
-// const series_list = [
-//   'http://file.koreafilm.or.kr/thm/02/00/05/32/tn_DPF019142.jpg',
-//   'http://file.koreafilm.or.kr/thm/02/00/01/62/tn_DPF002718.JPG',
-//   'http://file.koreafilm.or.kr/thm/02/00/03/29/tn_DPF01761B.jpg',
-//   'http://file.koreafilm.or.kr/thm/02/00/02/77/tn_DPF007247.JPG',
-//   'http://file.koreafilm.or.kr/thm/02/00/04/01/tn_DPF011271.jpg',
-//   'http://file.koreafilm.or.kr/thm/02/00/04/07/tn_DPF011623.jpg',
-//   'http://file.koreafilm.or.kr/thm/02/00/02/83/tn_DPF007444.JPG',
-//   'http://file.koreafilm.or.kr/thm/02/00/04/54/tn_DPF014055.jpg',
-//   'http://file.koreafilm.or.kr/thm/02/00/02/77/tn_DPF007286.JPG',
-//   '',
-//   'http://file.koreafilm.or.kr/thm/02/00/05/14/tn_DPF018019.jpg',
-//   'http://file.koreafilm.or.kr/thm/02/00/01/15/tn_DPF000759.jpg',
-//   '',
-//   '',
-//   'http://file.koreafilm.or.kr/thm/02/00/04/04/tn_DPF011489.jpg',
-//   '',
-//   '',
-//   'http://file.koreafilm.or.kr/thm/02/00/05/32/tn_DPF019109.jpg',
-// ];
 
 function DownSlideShow({
   highlyRated,
@@ -33,6 +11,8 @@ function DownSlideShow({
   operatorMovies,
   masterpiece,
   series,
+  setModalVisible,
+  handleCurrentMovie,
 }) {
   const settings = {
     infinite: true,
@@ -56,14 +36,19 @@ function DownSlideShow({
   };
 
   let id = 0;
-  console.log(series);
   return (
     <div>
       <h2 className="mainSubject">평점이 높은 SF 영화(9점이상)</h2>
       <div className="container-all-Slide">
         <Slider {...settings}>
           {highlyRated.map((movie) => (
-            <SlideImgEntry key={id++} movie={movie} alt={id} />
+            <SlideImgEntry
+              key={id++}
+              movie={movie}
+              alt={id}
+              setModalVisible={setModalVisible}
+              handleCurrentMovie={handleCurrentMovie}
+            />
           ))}
         </Slider>
       </div>
@@ -71,7 +56,13 @@ function DownSlideShow({
       <div className="container-all-Slide">
         <Slider {...settings}>
           {recentlyReleased.map((movie) => (
-            <SlideImgEntry key={id++} movie={movie} alt={id} />
+            <SlideImgEntry
+              key={id++}
+              movie={movie}
+              alt={id}
+              setModalVisible={setModalVisible}
+              handleCurrentMovie={handleCurrentMovie}
+            />
           ))}
         </Slider>
       </div>
@@ -79,7 +70,13 @@ function DownSlideShow({
       <div className="container-all-Slide">
         <Slider {...settings}>
           {operatorMovies.map((movie) => (
-            <SlideImgEntry key={id++} movie={movie} alt={id} />
+            <SlideImgEntry
+              key={id++}
+              movie={movie}
+              alt={id}
+              setModalVisible={setModalVisible}
+              handleCurrentMovie={handleCurrentMovie}
+            />
           ))}
         </Slider>
       </div>
@@ -87,7 +84,13 @@ function DownSlideShow({
       <div className="container-all-Slide">
         <Slider {...settings}>
           {masterpiece.map((movie) => (
-            <SlideImgEntry key={id++} movie={movie} alt={id} />
+            <SlideImgEntry
+              key={id++}
+              movie={movie}
+              alt={id}
+              setModalVisible={setModalVisible}
+              handleCurrentMovie={handleCurrentMovie}
+            />
           ))}
         </Slider>
       </div>
@@ -95,7 +98,13 @@ function DownSlideShow({
       <div className="container-all-Slide">
         <Slider {...series_settings}>
           {series.map((movie) => (
-            <SlideImgEntry key={id++} movie={movie} alt={id} />
+            <SlideImgEntry
+              key={id++}
+              movie={movie}
+              alt={id}
+              setModalVisible={setModalVisible}
+              handleCurrentMovie={handleCurrentMovie}
+            />
           ))}
         </Slider>
       </div>

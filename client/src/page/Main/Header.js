@@ -4,12 +4,18 @@ export default function Header() {
   return (
     <div>
       <center>
-        <h1 style={{}}>SF CINEMA</h1>
+        <h1
+          style={{
+            padding: '15px 0 0 0',
+          }}
+        >
+          SF CINEMA
+        </h1>
         <div
           style={{
             position: 'absolute',
             left: '72%',
-            top: '60px',
+            top: '5%',
           }}
         >
           로그인

@@ -4,7 +4,7 @@ import Slider from 'react-slick';
 import './TopSlideShow.css';
 import TopSlideDetailImg from './TopSlide-detail-Img';
 
-function TopSlideShow({ randomMovies }) {
+function TopSlideShow({ randomMovies, setModalVisible, handleCurrentMovie }) {
   const settings = {
     className: 'center',
     centerMode: true,
@@ -21,7 +21,13 @@ function TopSlideShow({ randomMovies }) {
       <div className="containerSlide">
         <Slider {...settings}>
           {randomMovies.map((movie) => (
-            <TopSlideDetailImg key={id++} movie={movie} alt={id} />
+            <TopSlideDetailImg
+              key={id++}
+              movie={movie}
+              alt={id}
+              setModalVisible={setModalVisible}
+              handleCurrentMovie={handleCurrentMovie}
+            />
           ))}
         </Slider>
       </div>

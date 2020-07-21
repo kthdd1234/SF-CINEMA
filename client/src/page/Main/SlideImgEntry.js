@@ -1,9 +1,9 @@
 import React from 'react';
 import './DownSlideShow.css';
 
-function SlideImgEntry({ movie, alt }) {
+function SlideImgEntry({ movie, alt, setModalVisible, handleCurrentMovie }) {
   if (movie !== '') {
-    let { title, titleEng, posters, releaseDate, userRating } = movie;
+    let { title, posters, releaseDate, userRating } = movie;
     let poster = JSON.parse(posters);
     let convertStrDate = String(releaseDate);
 
@@ -20,10 +20,16 @@ function SlideImgEntry({ movie, alt }) {
         }}
       >
         <div>
-          <img src={poster} alt={`img${alt}`} />
+          <img
+            src={poster}
+            alt={`img${alt}`}
+            onClick={() => {
+              setModalVisible(true);
+              handleCurrentMovie(arguments[0].movie);
+            }}
+          />
         </div>
         <div className="title">{title}</div>
-        {/* <div className="title-eng">{titleEng}</div> */}
         <span className="releaseDate">{convertStrDate}</span>
         <span> ꒐ </span>
         <span className="rating">⭐ {userRating}</span>
@@ -36,7 +42,6 @@ function SlideImgEntry({ movie, alt }) {
           <img />
         </div>
         <div>없음</div>
-
         <div>⭐</div>
       </div>
     );

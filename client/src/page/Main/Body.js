@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import TopSlideShow from './TopSlideShow';
 import DownSlideShow from './DownSlideShow';
+import { Modal, Button } from 'antd';
+import ModalPage from './ModalPage';
 import axios from 'axios';
 
 class Body extends Component {
@@ -13,6 +15,8 @@ class Body extends Component {
       operatorMovies: [],
       masterpiece: [],
       series: [],
+      modalVisible: false,
+      currentMovie: {},
     };
   }
   async componentDidMount() {
@@ -66,6 +70,17 @@ class Body extends Component {
       series: array,
     });
   }
+
+  setModalVisible = (modalVisible) => {
+    this.setState({ modalVisible });
+  };
+
+  handleCurrentMovie = (movie) => {
+    this.setState({
+      currentMovie: movie,
+    });
+  };
+
   render() {
     const {
       randomMovies,
@@ -74,11 +89,19 @@ class Body extends Component {
       operatorMovies,
       masterpiece,
       series,
+      modalVisible,
+      currentMovie,
     } = this.state;
+    console.log(currentMovie);
+
     return (
       <div>
         {randomMovies.length ? (
-          <TopSlideShow randomMovies={randomMovies} />
+          <TopSlideShow
+            randomMovies={randomMovies}
+            setModalVisible={this.setModalVisible}
+            handleCurrentMovie={this.handleCurrentMovie}
+          />
         ) : null}
         {masterpiece.length ? (
           <DownSlideShow
@@ -87,8 +110,22 @@ class Body extends Component {
             operatorMovies={operatorMovies}
             masterpiece={masterpiece}
             series={series}
+            setModalVisible={this.setModalVisible}
+            handleCurrentMovie={this.handleCurrentMovie}
           />
         ) : null}
+        <Modal
+          title="(로고) SF CINEMA"
+          centered
+          width={1150}
+          visible={modalVisible}
+          onOk={() => this.setModalVisible(false)}
+          onCancel={() => this.setModalVisible(false)}
+        >
+          {Object.keys(currentMovie).length ? (
+            <ModalPage currentMovie={currentMovie} />
+          ) : null}
+        </Modal>
       </div>
     );
   }

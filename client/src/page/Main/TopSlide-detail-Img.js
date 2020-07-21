@@ -1,6 +1,11 @@
 import React from 'react';
 
-function TopSlideDetailImg({ movie, alt }) {
+function TopSlideDetailImg({
+  movie,
+  alt,
+  setModalVisible,
+  handleCurrentMovie,
+}) {
   let { posters } = movie;
   let poster = JSON.parse(posters);
   poster = Array.isArray(poster) ? poster[0] : poster;
@@ -8,7 +13,14 @@ function TopSlideDetailImg({ movie, alt }) {
   return (
     <div>
       <div>
-        <img src={poster} alt={`img${alt}`} />
+        <img
+          src={poster}
+          alt={`img${alt}`}
+          onClick={() => {
+            setModalVisible(true);
+            handleCurrentMovie(arguments[0].movie);
+          }}
+        />
       </div>
     </div>
   );
