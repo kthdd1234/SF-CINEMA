@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
+import Slider from 'react-slick';
+import ModalImage from './Modal-image';
+import ModalSummarySubs from './Modal-summary-subs';
+import './ModalPage.css';
 
 class ModalPage extends Component {
    constructor(props) {
@@ -7,183 +11,130 @@ class ModalPage extends Component {
       this.state = {};
    }
    render() {
-      const {
+      let {
          title,
          titleEng,
          director,
          plot,
          posters,
+         nation,
          actors,
          releaseDate,
          runtime,
-         rating,
+         ratingGrade,
          userRating,
       } = this.props.currentMovie;
+
+      const settings = {
+         fade: true,
+         infinite: true,
+         autoplay: true,
+         autoplaySpeed: 2000,
+         speed: 4000,
+         slidesToShow: 1,
+         slidesToScroll: 1,
+      };
+
+      let MoviePlot = '';
+      let lengthOfPlot = plot.length;
+      if (lengthOfPlot > 310) {
+         let check_spc = /[.!,(]/;
+         MoviePlot = plot.substring(0, 310);
+         let lastStr = '';
+         do {
+            lastStr = MoviePlot[MoviePlot.length - 1];
+            MoviePlot = MoviePlot.slice(0, -1);
+         } while (!check_spc.test(lastStr));
+         MoviePlot = MoviePlot + '...';
+      } else {
+         for (let i = lengthOfPlot; i < 310; i++) {
+            plot = plot + ' ' + '\u00A0';
+         }
+         MoviePlot = plot;
+      }
+
+      actors = JSON.parse(actors).slice(0, 4);
+      actors = actors.join(', ');
+
+      var poster_list = JSON.parse(posters);
+      poster_list = Array.isArray(poster_list) ? poster_list : [poster_list];
+
+      // let img_list = [
+      //    'http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010393.JPG',
+      //    'http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010396.jpg',
+      //    'http://file.koreafilm.or.kr/thm/02/00/02/69/tn_DPF006739.JPG',
+      //    'http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010395.jpg',
+      //    'http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010394.jpg',
+      // ];
+
+      let convertStrDate = String(releaseDate);
+      let year = convertStrDate.slice(0, 4);
+      convertStrDate = convertStrDate
+         .replace(/(.{4})/, '$1.')
+         .replace(/(.{7})/, '$1.');
+
+      let summay_subs = [
+         'SF/모험',
+         nation,
+         convertStrDate + ' 개봉',
+         ratingGrade,
+         runtime + '분',
+      ];
+
       return (
          <div>
-            <div className="img-box">
-               <img
-                  className="image"
-                  src="http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010393.JPG"
-               />
-            </div>
-            <div
-               style={{
-                  position: 'absolute',
-                  bottom: '160px',
-                  left: '70px',
-               }}
-            >
-               <strong
-                  style={{
-                     fontSize: '45px',
-                  }}
-               >
-                  인터스텔라
+            <Slider {...settings}>
+               {poster_list.map((img, i) => (
+                  <ModalImage key={i} img={img} alt={i++} />
+               ))}
+            </Slider>
+
+            <div className="modal-container">
+               <strong className="modal-header-title">{title}</strong>
+               <strong className="modal-header-titleEng_year">
+                  {title.length < 11 ? `(${titleEng}, ${year})` : null}
                </strong>
-               <strong style={{ marginLeft: '5px', fontSize: '15px' }}>
-                  {' '}
-                  (interSteller, 2014)
-               </strong>
+               <div>
+                  {title.length >= 11 ? (
+                     <strong className="modal-header-titleEng_year">
+                        {`(${titleEng}, ${year})`}
+                     </strong>
+                  ) : null}
+               </div>
 
                <div>
-                  <ul
-                     style={{
-                        listStyle: 'none',
-                        display: 'block',
-                        padding: '5px',
-                     }}
-                  >
-                     <li
-                        style={{
-                           display: 'inline-block',
-                           padding: '0 15px 0 0',
-                           fontSize: '20px',
-                        }}
-                     >
-                        평점 ⭐ ⭐ ⭐ ⭐ ⭐ 9.14
+                  <ul className="modal-rating-list">
+                     <li className="modal-user-rating">
+                        <strong>평점</strong> ⭐ ⭐ ⭐ ⭐ ⭐ {userRating}
                      </li>
 
-                     <li
-                        style={{
-                           display: 'inline-block',
-                           padding: '0 15px 0 0',
-                           fontSize: '20px',
-                        }}
-                     >
-                        내 평점 ☆☆☆☆☆☆
+                     <li className="modal-my-rating">
+                        <strong>내 평점</strong> ☆☆☆☆☆☆
                      </li>
                   </ul>
                </div>
-               <hr
-                  style={{
-                     color: 'darkgray',
-                     border: '1px solid #f0f0f0',
-                     borderRadius: '2px 2px 0 0',
-                  }}
-               />
+
+               <hr className="border-bottom-line" />
+
                <div>
-                  <ul
-                     style={{
-                        listStyle: 'none',
-                        display: 'block',
-                        padding: '5px',
-                     }}
-                  >
-                     <li
-                        style={{
-                           display: 'inline-block',
-                           padding: '0 10px 0 10px',
-                           fontSize: '15px',
-                        }}
-                     >
-                        SF/모험
-                     </li>
-                     <span> ꒐ </span>
-                     <li
-                        style={{
-                           display: 'inline-block',
-                           padding: '0 10px 0 10px',
-                           fontSize: '15px',
-                        }}
-                     >
-                        미국
-                     </li>
-                     <span> ꒐ </span>
-                     <li
-                        style={{
-                           display: 'inline-block',
-                           padding: '0 10px 0 10px',
-                           fontSize: '15px',
-                        }}
-                     >
-                        2014.11.06 개봉
-                     </li>
-                     <span> ꒐ </span>
-                     <li
-                        style={{
-                           display: 'inline-block',
-                           padding: '0 10px 0 10px',
-                           fontSize: '15px',
-                        }}
-                     >
-                        12세 관람가
-                     </li>
-                     <span> ꒐ </span>
-                     <li
-                        style={{
-                           display: 'inline-block',
-                           padding: '0 10px 0 10px',
-                           fontSize: '15px',
-                        }}
-                     >
-                        145분
-                     </li>
+                  <ul className="modal-summary">
+                     {summay_subs.map((sub, i) => (
+                        <ModalSummarySubs key={i} sub={sub} i={i} />
+                     ))}
                   </ul>
                </div>
-               <div style={{ width: '610px', marginBottom: '30px' }}>
-                  “우린 답을 찾을 거야, 늘 그랬듯이”세계 각국의 정부와 경제가
-                  완전히 붕괴된 미래가 다가온다. 지난 20세기에 범한 잘못이 전
-                  세계적인 식량 부족을 불러왔고, NASA도 해체되었다. 이때
-                  시공간에 불가사의한 틈이 열리고, 남은 자들에게는 이 곳을
-                  탐험해 인류를 구해야 하는 임무가 지워진다. 사랑하는 가족들을
-                  뒤로 한 채 인류라는 더 큰 가족을 위해, 그들은 이제 희망을 찾아
-                  우주로 간다. 그리고 우린 답을 찾을 것이다. 늘 그랬듯이…
-               </div>
-               <hr
-                  style={{
-                     color: 'darkgray',
-                     border: '1px solid #f0f0f0',
-                     borderRadius: '2px 2px 0 0',
-                  }}
-               />
+               <div className="modal-plot">{MoviePlot}</div>
+               <hr className="border-bottom-line" />
                <div>
                   <div>
-                     <strong style={{ padding: '0 10px 0 10px' }}>감독</strong>
-                     크리스토퍼 놀란
+                     <strong className="modal-director">감독</strong>
+                     {director}
                   </div>
                   <div>
-                     <strong style={{ padding: '0 10px 0 10px' }}>출연</strong>
-                     매슈 매코너헤이, 제시카 차스테인 , 앤 해서웨이, 맷 데이먼
+                     <strong className="modal-actors">출연</strong>
+                     {actors}
                   </div>
                </div>
-               {/* <div>
-                  <div>
-                     <img src="http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010393.JPG" />
-                  </div>
-                  <div>
-                     <img src="http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010396.jpg" />
-                  </div>
-                  <div>
-                     <img src="http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010395.jpg" />
-                  </div>
-                  <div>
-                     <img src="http://file.koreafilm.or.kr/thm/02/00/02/69/tn_DPF006739.JPG" />
-                  </div>
-                  <div>
-                     <img src="http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010394.jpg" />
-                  </div>
-               </div> */}
             </div>
          </div>
       );
