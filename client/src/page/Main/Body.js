@@ -11,7 +11,7 @@ class Body extends Component {
       this.state = {
          randomMovies: [],
          highlyRated: [],
-         recentlyReleased: [],
+         releaseOrder: [],
          operatorMovies: [],
          masterpiece: [],
          series: [],
@@ -23,7 +23,7 @@ class Body extends Component {
       const path_list = [
          'randomMovies',
          'highlyRated',
-         'recentlyReleased',
+         'releaseOrder',
          'operatorMovies',
          'masterpiece',
       ];
@@ -34,9 +34,17 @@ class Body extends Component {
       });
 
       path_list.forEach((path) => {
-         serverUrl.get(`/${path}`).then(({ data }) => {
-            this.setState({ [path]: data });
-         });
+         serverUrl
+            .get(`/${path}`, {
+               params: {
+                  ratedCount: 30,
+                  ratedunder: 10,
+                  ratedmoreThen: 9,
+               },
+            })
+            .then(({ data }) => {
+               this.setState({ [path]: data });
+            });
       });
 
       let series_get_data = series_title.map((title) => {
@@ -85,7 +93,7 @@ class Body extends Component {
       const {
          randomMovies,
          highlyRated,
-         recentlyReleased,
+         releaseOrder,
          operatorMovies,
          masterpiece,
          series,
@@ -105,7 +113,7 @@ class Body extends Component {
             {masterpiece.length ? (
                <DownSlideShow
                   highlyRated={highlyRated}
-                  recentlyReleased={recentlyReleased}
+                  releaseOrder={releaseOrder}
                   operatorMovies={operatorMovies}
                   masterpiece={masterpiece}
                   series={series}
@@ -130,4 +138,5 @@ class Body extends Component {
    }
 }
 
+// eslint-disable-next-line
 export default Body;

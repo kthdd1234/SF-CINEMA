@@ -1,40 +1,19 @@
-.container-all-Slide {
-  width: 80%;
-  margin: auto;
+.main-slide-sub {
+   margin: 2vw 0 0.5vw 9.5vw;
+   font-weight: bold;
 }
 
-.container-all-Slide img {
-  width: 95%;
-  height: 200px;
+.slider-multiple-items {
+   width: 80%;
+   margin: auto;
 }
 
-.mainSubject {
-  margin: 60px 0 0 200px;
+.slider-multiple-items img {
+   margin: auto;
+   width: 99%;
+   height: 15vw;
 }
 
 .noting {
-  visibility: hidden;
+   visibility: hidden;
 }
-
-/* .series-list {
-  margin: 0 0 0 170px;
-  list-style: none;
-  display: block;
-} */
-
-/* .subheading {
-  display: inline-block;
-  padding: 0 10px 0 0;
-} */
-/* .series-first-Slick img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  height: 300px;
-}
-
-.series-container {
-  width: 80%;
-  margin: auto;
-} */

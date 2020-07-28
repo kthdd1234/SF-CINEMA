@@ -9,8 +9,8 @@ router.get('/randomMovies', mainController.randomMovies.get);
 // * GET /main/highlyRated
 router.get('/highlyRated', mainController.highlyRated.get);
 
-// * GET /main/recentlyReleased
-router.get('/recentlyReleased', mainController.recentlyReleased.get);
+// * GET /main/releaseOrder
+router.get('/releaseOrder', mainController.releaseOrder.get);
 
 // * GET /main/operatorMovies
 router.get('/operatorMovies', mainController.operatorMovies.get);

@@ -1,7 +1,7 @@
 import React from 'react';
-import './Modal-summary-subs.css';
+import './Modal-summary.css';
 
-export default function ModalSummarySubs({ sub, i }) {
+function ModalSummary({ sub, i }) {
    return (
       <li className="Modal-summary-each-sub">
          {sub}
@@ -11,3 +11,5 @@ export default function ModalSummarySubs({ sub, i }) {
       </li>
    );
 }
+
+export default ModalSummary;

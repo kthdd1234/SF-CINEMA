@@ -5,34 +5,34 @@ import './TopSlideShow.css';
 import TopSlideDetailImg from './TopSlide-detail-Img';
 
 function TopSlideShow({ randomMovies, setModalVisible, handleCurrentMovie }) {
-  const settings = {
-    className: 'center',
-    centerMode: true,
-    infinite: true,
-    centerPadding: '100px',
-    slidesToShow: 3,
-    speed: 500,
-    autoplay: true,
-  };
-  let id = 0;
+   const settings = {
+      className: 'center',
+      centerMode: true,
+      infinite: true,
 
-  return (
-    <div>
-      <div className="containerSlide">
-        <Slider {...settings}>
-          {randomMovies.map((movie) => (
-            <TopSlideDetailImg
-              key={id++}
-              movie={movie}
-              alt={id}
-              setModalVisible={setModalVisible}
-              handleCurrentMovie={handleCurrentMovie}
-            />
-          ))}
-        </Slider>
+      slidesToShow: 5,
+      speed: 500,
+      autoplay: true,
+   };
+   let id = 0;
+
+   return (
+      <div>
+         <div className="containerSlide">
+            <Slider {...settings}>
+               {randomMovies.map((movie) => (
+                  <TopSlideDetailImg
+                     key={id++}
+                     movie={movie}
+                     alt={id}
+                     setModalVisible={setModalVisible}
+                     handleCurrentMovie={handleCurrentMovie}
+                  />
+               ))}
+            </Slider>
+         </div>
       </div>
-    </div>
-  );
+   );
 }
 
 export default TopSlideShow;
@@ -46,7 +46,7 @@ export default TopSlideShow;
 //   arrows: true,
 // };
 {
-  /* <Slide {...proprietes}>
+   /* <Slide {...proprietes}>
         <div className="each-slide">
           <div>
             <img

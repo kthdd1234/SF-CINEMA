@@ -1,10 +1,17 @@
-.slick-slide.slick-center img {
-  transform: scale(1.11);
-  height: 600px;
+.containerSlide {
+   margin-top: 1vw;
 }
 
-.slick-slide img {
-  width: 95%;
-  height: 550px;
-  padding: 10px;
+.containerSlide img {
+   width: 18.3vw;
+   height: 30vw;
+   border: 1px solid whitesmoke;
+   border-radius: 2vw;
+   padding: 15px;
+}
+
+.slick-slide.slick-center img {
+   border-radius: 1.5vw;
+   height: 31vw;
+   padding: 0px;
 }

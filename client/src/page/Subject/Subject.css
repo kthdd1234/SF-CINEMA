@@ -1,0 +1,102 @@
+.movie-container {
+   margin: 2vw 20vw 2vw 20vw;
+}
+
+.moive-content {
+   position: relative;
+   margin: 3vw 1vw 1vw 1vw;
+   padding: 1vw 1vw 2vw 4vw;
+   border: 5px solid whitesmoke;
+   border-radius: 1.5vw;
+}
+
+.movie-img-box {
+   float: right;
+   margin: 1vw 3vw 0 0;
+}
+
+.movie-img {
+   border-radius: 7px;
+   width: 14vw;
+}
+
+.movie-info {
+   padding: 1vw 22vw 1vw 1vw;
+}
+
+.movie-headers {
+   text-align: left;
+}
+
+.movie-title-list {
+}
+
+.movie-title {
+   font-size: 2.5vw;
+}
+
+.movie-titleEng_year {
+   margin-left: 0.5vw;
+
+   font-size: 0.85vw;
+}
+
+.movie-rating-list {
+   list-style: none;
+   display: block;
+   padding-left: 0.4vw;
+   padding-top: 0.3vw;
+}
+
+.movie-rating {
+   padding-right: 0.3vw;
+}
+
+.movie-user-rating {
+   padding-right: 0.7vw;
+   display: inline-block;
+   font-size: 1.2vw;
+}
+
+.movie-my-rating {
+   display: inline-block;
+   font-size: 1.2vw;
+}
+
+.movie-body {
+}
+
+.movie-summary {
+   list-style: none;
+   display: block;
+   text-align: left;
+   padding: 0.2vw 0 0 0.5vw;
+   font-size: 0.8vw;
+}
+
+.movie-summary-each-sub {
+   padding: 0 0 0 0.5vw;
+   display: inline-block;
+}
+
+.movie-summary-each-boundary {
+   padding-left: 0.3vw;
+   font-size: 0.6vw;
+}
+
+.movie-plot {
+   padding-bottom: 1vw;
+   padding-left: 0.3vw;
+   font-size: 0.75vw;
+   text-align: left;
+}
+
+.movie-director_actors_awards {
+   font-size: 0.75vw;
+   padding-left: 0.4vw;
+   text-align: left;
+}
+
+.movie-sub {
+   padding-right: 0.5vw;
+}

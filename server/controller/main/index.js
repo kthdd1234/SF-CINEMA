@@ -1,7 +1,7 @@
 module.exports = {
   randomMovies: require('./randomMovies'),
   highlyRated: require('./highlyRated'),
-  recentlyReleased: require('./recentlyReleased'),
+  releaseOrder: require('./releaseOrder'),
   operatorMovies: require('./operatorMovies'),
   masterpiece: require('./masterpiese'),
   series: require('./series'),

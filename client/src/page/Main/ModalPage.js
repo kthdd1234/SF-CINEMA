@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import Slider from 'react-slick';
 import ModalImage from './Modal-image';
-import ModalSummarySubs from './Modal-summary-subs';
+import ModalSummary from './Modal-summary';
 import './ModalPage.css';
 
 class ModalPage extends Component {
@@ -29,8 +29,8 @@ class ModalPage extends Component {
          fade: true,
          infinite: true,
          autoplay: true,
-         autoplaySpeed: 2000,
          speed: 4000,
+         autoplaySpeed: 3000,
          slidesToShow: 1,
          slidesToScroll: 1,
       };
@@ -57,18 +57,11 @@ class ModalPage extends Component {
       actors = actors.join(', ');
 
       var poster_list = JSON.parse(posters);
+      console.log(poster_list);
       poster_list = Array.isArray(poster_list) ? poster_list : [poster_list];
 
-      // let img_list = [
-      //    'http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010393.JPG',
-      //    'http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010396.jpg',
-      //    'http://file.koreafilm.or.kr/thm/02/00/02/69/tn_DPF006739.JPG',
-      //    'http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010395.jpg',
-      //    'http://file.koreafilm.or.kr/thm/02/00/03/19/tn_DPF010394.jpg',
-      // ];
-
       let convertStrDate = String(releaseDate);
-      let year = convertStrDate.slice(0, 4);
+      let releaseYear = convertStrDate.slice(0, 4);
       convertStrDate = convertStrDate
          .replace(/(.{4})/, '$1.')
          .replace(/(.{7})/, '$1.');
@@ -92,12 +85,12 @@ class ModalPage extends Component {
             <div className="modal-container">
                <strong className="modal-header-title">{title}</strong>
                <strong className="modal-header-titleEng_year">
-                  {title.length < 11 ? `(${titleEng}, ${year})` : null}
+                  {title.length < 11 ? `(${titleEng}, ${releaseYear})` : null}
                </strong>
                <div>
                   {title.length >= 11 ? (
                      <strong className="modal-header-titleEng_year">
-                        {`(${titleEng}, ${year})`}
+                        {`(${titleEng}, ${releaseYear})`}
                      </strong>
                   ) : null}
                </div>
@@ -119,7 +112,7 @@ class ModalPage extends Component {
                <div>
                   <ul className="modal-summary">
                      {summay_subs.map((sub, i) => (
-                        <ModalSummarySubs key={i} sub={sub} i={i} />
+                        <ModalSummary key={i} sub={sub} i={i} />
                      ))}
                   </ul>
                </div>
@@ -141,4 +134,5 @@ class ModalPage extends Component {
    }
 }
 
+// eslint-disable-next-line
 export default ModalPage;
