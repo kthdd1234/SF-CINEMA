@@ -52,7 +52,7 @@ function DownSlideShow({
                ))}
             </Slider>
          </div>
-         <h2 className="main-slide-sub">최근 개봉한 SF 영화(2020~2017)</h2>
+         <h2 className="main-slide-sub">최근 개봉한 SF 영화(2020~2018)</h2>
          <div className="slider-multiple-items">
             <Slider {...settings}>
                {releaseOrder.map((movie) => (

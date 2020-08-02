@@ -1,12 +1,14 @@
 const { movies } = require('../../models');
+const Sequelize = require('sequelize');
 
 module.exports = {
   get: (req, res) => {
+    const { count } = req.query;
     const operator_Recommend_Movies = [
       '인터스텔라',
       '컨택트',
       '프로메테우스',
-      '에일리언: 커버넌트',
+      '에이리언: 커버넌트',
       '나는 전설이다',
       '콘택트',
       '엣지 오브 투모로우',
@@ -33,13 +35,26 @@ module.exports = {
       '투모로우',
       '그녀',
       '로건',
+      '헝거게임: 판엠의 불꽃',
+      '월드워Z',
+      '콰이어트 플레이스',
+      '28주 후',
+      '28일 후',
+      '레지던트 이블',
+      '미스트',
+      '타임머신',
+      '시간을 달리는 소녀',
+      '너의 이름은',
+      '업그레이드',
     ];
     movies
       .findAll({
         where: {
           title: operator_Recommend_Movies,
         },
+        order: Sequelize.literal('rand()'),
         raw: true,
+        limit: Number(count),
       })
       .then((movie) => {
         res.status(200).send(movie);

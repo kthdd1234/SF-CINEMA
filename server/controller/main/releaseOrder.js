@@ -1,11 +1,20 @@
 const { movies } = require('../../models');
+const Sequelize = require('sequelize');
 
 module.exports = {
   get: async (req, res) => {
+    let { yearCount, yearunder, yearmoreThen } = req.query;
+
     movies
       .findAll({
+        where: {
+          releaseDate: {
+            [Sequelize.Op.lt]: Number(yearunder),
+            [Sequelize.Op.gte]: Number(yearmoreThen),
+          },
+        },
         order: [['releaseDate', 'DESC']],
-        limit: 30,
+        limit: Number(yearCount),
         raw: true,
       })
       .then((movie) => {

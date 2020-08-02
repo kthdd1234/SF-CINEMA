@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SubjectListEntry from './SubjectListEntry';
 import './Subject.css';
 
-class Subject extends Component {
+class MenuItems extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -11,7 +11,7 @@ class Subject extends Component {
    }
 
    componentDidUpdate = async (prevProps, prevState) => {
-      let movies = await this.props.subEachMoiveData;
+      let movies = await this.props.MenuItem;
       console.log('prevProps', movies);
       console.log('지금 secretKey', this.props.secretKey);
       console.log('그전에 키', prevProps.secretKey);
@@ -24,7 +24,7 @@ class Subject extends Component {
    };
 
    componentDidMount = async () => {
-      let movies = await this.props.subEachMoiveData;
+      let movies = await this.props.MenuItem;
       console.log('props로 받은 데이터', movies);
       this.setState({ movies: movies });
    };
@@ -64,4 +64,4 @@ class Subject extends Component {
 }
 
 // eslint-disable-next-line
-export default Subject;
+export default MenuItems;

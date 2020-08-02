@@ -1,49 +1,50 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('movies', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER,
-      },
-      title: {
-        type: Sequelize.STRING,
-      },
-      titleEng: {
-        type: Sequelize.STRING,
-      },
-      director: {
-        type: Sequelize.STRING,
-      },
-      nation: {
-        type: Sequelize.STRING,
-      },
-      plot: {
-        type: Sequelize.TEXT,
-      },
-      posters: {
-        type: Sequelize.TEXT,
-      },
-      actors: {
-        type: Sequelize.TEXT,
-      },
-      releaseDate: {
-        type: Sequelize.INTEGER,
-      },
-      runtime: {
-        type: Sequelize.STRING,
-      },
-      ratingGrade: {
-        type: Sequelize.STRING,
-      },
-      userRating: {
-        type: Sequelize.FLOAT,
-      },
+    await queryInterface.addColumn('movies', 'seriesName', {
+      type: Sequelize.STRING,
+      defaultValue: '',
     });
   },
-  down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('movies');
-  },
+  down: async (queryInterface, Sequelize) => {},
 };
+
+// id: {
+//   allowNull: false,
+//   autoIncrement: true,
+//   primaryKey: true,
+//   type: Sequelize.INTEGER,
+// },
+// title: {
+//   type: Sequelize.STRING,
+// },
+// titleEng: {
+//   type: Sequelize.STRING,
+// },
+// director: {
+//   type: Sequelize.STRING,
+// },
+// nation: {
+//   type: Sequelize.STRING,
+// },
+// plot: {
+//   type: Sequelize.TEXT,
+// },
+// posters: {
+//   type: Sequelize.TEXT,
+// },
+// actors: {
+//   type: Sequelize.TEXT,
+// },
+// releaseDate: {
+//   type: Sequelize.INTEGER,
+// },
+// runtime: {
+//   type: Sequelize.STRING,
+// },
+// ratingGrade: {
+//   type: Sequelize.STRING,
+// },
+// userRating: {
+//   type: Sequelize.FLOAT,
+// },

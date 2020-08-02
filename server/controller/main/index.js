@@ -3,6 +3,6 @@ module.exports = {
   highlyRated: require('./highlyRated'),
   releaseOrder: require('./releaseOrder'),
   operatorMovies: require('./operatorMovies'),
-  masterpiece: require('./masterpiese'),
+  masterpiece: require('./masterpiece'),
   series: require('./series'),
 };

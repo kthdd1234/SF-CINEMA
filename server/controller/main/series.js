@@ -1,15 +1,12 @@
 const { movies } = require('../../models');
-const { Op } = require('sequelize');
 
 module.exports = {
   get: (req, res) => {
-    const { tilte } = req.query;
+    const { seriesName } = req.query;
     movies
       .findAll({
         where: {
-          title: {
-            [Op.like]: '%' + tilte + '%',
-          },
+          seriesName: seriesName,
         },
         order: [['releaseDate', 'ASC']],
         raw: true,

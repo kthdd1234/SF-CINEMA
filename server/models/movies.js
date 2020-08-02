@@ -8,7 +8,16 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      movies.belongsToMany(models.User, {
+        through: 'favoritedMovies',
+        foreignKey: 'movieId',
+        timestamps: false,
+      });
+      movies.belongsToMany(models.User, {
+        through: 'ratedMovies',
+        foreignKey: 'movieId',
+        timestamps: false,
+      });
     }
   }
   movies.init(
@@ -24,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       runtime: DataTypes.STRING,
       ratingGrade: DataTypes.STRING,
       userRating: DataTypes.FLOAT,
+      seriesName: DataTypes.STRING,
     },
     {
       sequelize,

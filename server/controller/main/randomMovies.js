@@ -6,7 +6,7 @@ module.exports = {
     movies
       .findAll({
         order: Sequelize.literal('rand()'),
-        limit: 30,
+        limit: 50,
         raw: true,
       })
       .then((movie_Data) => {

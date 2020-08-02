@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Checkbox, message } from 'antd';
-import { LoginOutlined, FormOutlined } from '@ant-design/icons';
+import { Form, Input, Button, message } from 'antd';
+import { FormOutlined } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
+import ProfilePictiore from './ProfilePicture';
 import axios from 'axios';
 
 const layout = {
@@ -19,33 +20,51 @@ const tailLayout = {
    },
 };
 
-class Login extends Component {
+class SignUp extends Component {
    constructor(props) {
       super(props);
       this.state = {
          loginID: '',
          password: '',
+         confirmPassword: '',
+         username: '',
+         profilePicture: '',
       };
    }
 
-   handleCheckLogin = () => {
-      const { loginID, password } = this.state;
-      const url = 'http://localhost:5000/user/login';
-      axios
-         .post(url, {
-            loginID: loginID,
-            password: password,
-         })
-         .then(({ data }) => {
-            if (data === '가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.') {
-               return message.error(data);
-            }
-            const { accessToken } = data;
-         });
+   onFinishedSignUp = () => {
+      this.props.history.push('/login');
    };
 
-   handleMoveSignUpPage = () => {
-      this.props.history.push('/signup');
+   handleCheckSignUp = () => {
+      const {
+         loginID,
+         password,
+         confirmPassword,
+         username,
+         profilePicture,
+      } = this.state;
+
+      if (password !== confirmPassword) {
+         return message.error('입력하신 비밀번호가 일치하지 않습니다.');
+      } else {
+         const url = 'http://localhost:5000/user/signup';
+         axios
+            .post(url, {
+               loginID: loginID,
+               password: password,
+               username: username,
+               profilePicture: profilePicture,
+            })
+            .then(({ data }) => {
+               if (data === '이미 회원가입한 계정입니다.') {
+                  return message.warning(data);
+               }
+               message.success(data);
+               setTimeout(this.onFinishedSignUp, 1000);
+            })
+            .catch((err) => console.log(err));
+      }
    };
 
    handleInputValue = (key) => (e) => {
@@ -56,13 +75,13 @@ class Login extends Component {
       return (
          <div
             style={{
-               margin: '2vw 25vw 0 25vw',
+               margin: '0 25vw 0 25vw',
                padding: '3vw 12vw 0 12vw',
             }}
          >
             <div
                style={{
-                  padding: '0 0 1vw 0',
+                  padding: '0 0 2vw 3.5vw',
                }}
             >
                <strong
@@ -71,7 +90,7 @@ class Login extends Component {
                      fontSize: '2.5vw',
                   }}
                >
-                  Login
+                  Sign Up
                </strong>
             </div>
 
@@ -81,9 +100,18 @@ class Login extends Component {
                initialValues={{
                   remember: true,
                }}
-               onFinish={this.handleCheckLogin}
+               onFinish={this.handleCheckSignUp}
                size="large"
             >
+               <Form.Item label="프로필 사진" name="프로필 사진">
+                  <div
+                     style={{
+                        margin: '0 0 0 6vw',
+                     }}
+                  >
+                     <ProfilePictiore />
+                  </div>
+               </Form.Item>
                <Form.Item
                   label="아이디"
                   name="아이디"
@@ -113,55 +141,46 @@ class Login extends Component {
                </Form.Item>
 
                <Form.Item
-                  {...tailLayout}
-                  name="remember"
-                  valuePropName="checked"
+                  label="비밀번호 확인"
+                  name="비밀번호 확인"
+                  rules={[
+                     {
+                        required: true,
+                        message: '비밀번호를 재확인해주세요',
+                     },
+                  ]}
                >
-                  <Checkbox>로그인 상태 유지하기</Checkbox>
+                  <Input.Password
+                     onChange={this.handleInputValue('confirmPassword')}
+                  />
+               </Form.Item>
+               <Form.Item
+                  label="이름"
+                  name="이름"
+                  rules={[
+                     {
+                        required: true,
+                        message: '이름을 입력해주세요',
+                     },
+                  ]}
+               >
+                  <Input onChange={this.handleInputValue('username')} />
                </Form.Item>
 
                <Form.Item {...tailLayout}>
                   <Button
                      type="primary"
                      htmlType="submit"
-                     icon={<LoginOutlined />}
-                     style={{
-                        width: '17.3vw',
-                     }}
-                  >
-                     로그인
-                  </Button>
-               </Form.Item>
-               <Form.Item {...tailLayout}>
-                  <Button
-                     type="primary"
                      icon={<FormOutlined />}
                      style={{
                         width: '17.3vw',
                      }}
-                     onClick={this.handleMoveSignUpPage}
+                     onClick={() => this.handleClickSignUp}
                   >
-                     회원가입
+                     가입하기
                   </Button>
                </Form.Item>
-               {/* <hr
-                  style={{
-                     width: '20vw',
-                  }}
-               /> */}
-               <Form.Item {...tailLayout}>
-                  <Button
-                     type="primary"
-                     htmlType="submit"
-                     icon={<LoginOutlined />}
-                     style={{
-                        width: '17.3vw',
-                     }}
-                     ghost={true}
-                  >
-                     구글 로그인
-                  </Button>
-               </Form.Item>
+
                <Form.Item {...tailLayout}>
                   <Button
                      type="primary"
@@ -171,8 +190,9 @@ class Login extends Component {
                         width: '17.3vw',
                      }}
                      ghost={true}
+                     onClick={() => this.props.history.push('/login')}
                   >
-                     카카오 로그인
+                     구글 계정이나 카카오 계정이 있나요?
                   </Button>
                </Form.Item>
             </Form>
@@ -182,5 +202,5 @@ class Login extends Component {
 }
 
 // eslint-disable-next-line
-export default withRouter(Login);
+export default withRouter(SignUp);
 // eslint-disable-next-line

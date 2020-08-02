@@ -1,11 +1,18 @@
 const { movies } = require('../../models');
+const Sequelize = require('sequelize');
 
 module.exports = {
   get: async (req, res) => {
+    const { count } = req.query;
     movies
       .findAll({
-        order: [['releaseDate', 'ASC']],
-        limit: 20,
+        where: {
+          releaseDate: {
+            [Sequelize.Op.lt]: 20060000,
+          },
+        },
+        order: Sequelize.literal('rand()'),
+        limit: Number(count),
         raw: true,
       })
       .then((movie) => {

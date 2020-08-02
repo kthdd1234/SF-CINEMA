@@ -1,10 +1,11 @@
 require('dotenv').config();
+const models = require('./models/index');
 const axios = require('axios');
 const kmdbUrl =
   'http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json.jsp';
 const naverUrl = 'https://openapi.naver.com/v1/search/movie.json';
 
-let title = ['블레이드 러너', '19930508'];
+let title = '더 씽';
 let releaseDts = '';
 let releaseDte = '';
 
@@ -22,7 +23,7 @@ axios
       ServiceKey: process.env.KMDB_SERVICEKEY,
       type: '극영화',
       title: title,
-      listCount: 5,
+      listCount: 1,
       createDts: 1980,
       releaseDts: releaseDts,
       releaseDte: releaseDte,
@@ -98,6 +99,25 @@ axios
           : '';
         // console.log(data.items[0]);
         console.log(movie_Data);
+
+        // models.movies.findOrCreate({
+        //   where: {
+        //     title: movie_Data.title,
+        //   },
+        //   defaults: {
+        //     titleEng: movie_Data.title,
+        //     titleEng: movie_Data.titleEng,
+        //     director: movie_Data.director,
+        //     nation: movie_Data.nation,
+        //     plot: movie_Data.plot,
+        //     posters: JSON.stringify(movie_Data.posters),
+        //     actors: JSON.stringify(movie_Data.actors),
+        //     releaseDate: Number(movie_Data.releaseDate),
+        //     runtime: movie_Data.runtime,
+        //     ratingGrade: movie_Data.ratingGrade,
+        //     userRating: Number(movie_Data.userRating),
+        //   },
+        // });
       });
   })
   .catch((err) => {
