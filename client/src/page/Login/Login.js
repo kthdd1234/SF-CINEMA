@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Checkbox, message } from 'antd';
-import { LoginOutlined, FormOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Checkbox, message, Divider } from 'antd';
+import { LoginOutlined, FormOutlined, GoogleOutlined } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import axios from 'axios';
+import GoogleLogin from 'react-google-login';
+import KakaoLogin from 'react-kakao-login';
+import './Login.css';
+import Kakao from './kakao';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const layout = {
    labelCol: {
@@ -19,6 +26,10 @@ const tailLayout = {
    },
 };
 
+const serverUrl = axios.create({
+   baseURL: 'http://localhost:5000/user',
+});
+
 class Login extends Component {
    constructor(props) {
       super(props);
@@ -27,12 +38,11 @@ class Login extends Component {
          password: '',
       };
    }
-
    handleCheckLogin = () => {
       const { loginID, password } = this.state;
-      const url = 'http://localhost:5000/user/login';
-      axios
-         .post(url, {
+      const { handleLoginChange, handleProfileUpdate } = this.props;
+      serverUrl
+         .post('/login', {
             loginID: loginID,
             password: password,
          })
@@ -41,7 +51,77 @@ class Login extends Component {
                return message.error(data);
             }
             const { accessToken } = data;
+            reactLocalStorage.set('SFCinemaUserToken', accessToken);
+            serverUrl
+               .get('/profile', {
+                  headers: {
+                     Authorization: 'Bearer ' + accessToken,
+                  },
+               })
+               .then(({ data }) => {
+                  console.log(data);
+                  handleLoginChange();
+                  handleProfileUpdate(data);
+                  message.success('로그인 성공!');
+                  this.handleMoveMainCinemaPage();
+               });
          });
+   };
+   successResponseGoogle = (response) => {
+      const { email, name, imageUrl } = response.profileObj;
+      console.log(imageUrl);
+      this.setState({
+         loginID: email,
+         password: '',
+      });
+      serverUrl
+         .post('/signup', {
+            loginID: email,
+            password: '',
+            username: name,
+            profileImg: imageUrl,
+            provider: 'GoogleLogin',
+         })
+         .then(({ data }) => {
+            this.handleCheckLogin();
+         });
+   };
+
+   failureResponseGoogle = (response) => {
+      console.log('구글 로그인 실패', response);
+      return message.error('구글 로그인에 실패하였습니다.');
+   };
+
+   successResponseKakao = (response) => {
+      console.log('카카오 로그인 성공', response.profile);
+      const { kakao_account, properties } = response.profile;
+      const email = kakao_account.email;
+      const username = properties.nickname;
+      const profile_image = properties.profile_image;
+      this.setState({
+         loginID: email,
+         password: '',
+      });
+      serverUrl
+         .post('/signup', {
+            loginID: email,
+            password: '',
+            username: username,
+            profileImg: profile_image,
+            provider: 'KakaoLogin',
+         })
+         .then(({ data }) => {
+            this.handleCheckLogin();
+         });
+   };
+
+   failureResponseGoogle = (response) => {
+      console.log('카카오 로그인 실패', response);
+      return message.error('카카오 로그인에 실패하였습니다.');
+   };
+
+   handleMoveMainCinemaPage = () => {
+      this.props.history.push('/');
    };
 
    handleMoveSignUpPage = () => {
@@ -144,36 +224,67 @@ class Login extends Component {
                      회원가입
                   </Button>
                </Form.Item>
-               {/* <hr
+               <Divider
+                  orientation="center"
+                  plain
                   style={{
-                     width: '20vw',
+                     fontStyle: 'bored',
+                     marginLeft: '23px',
                   }}
-               /> */}
+               >
+                  <span className="dividerLogin">소셜 계정으로 로그인</span>
+               </Divider>
                <Form.Item {...tailLayout}>
-                  <Button
-                     type="primary"
-                     htmlType="submit"
-                     icon={<LoginOutlined />}
-                     style={{
-                        width: '17.3vw',
-                     }}
-                     ghost={true}
-                  >
-                     구글 로그인
-                  </Button>
+                  <GoogleLogin
+                     clientId={process.env.REACT_APP_Google}
+                     onSuccess={this.successResponseGoogle}
+                     onFailure={this.failureResponseGoogle}
+                     cookiePolicy={'single_host_origin'}
+                     render={(renderProps) => (
+                        <Button
+                           type="primary"
+                           style={{
+                              width: '17.3vw',
+                              borderColor: 'red',
+                              color: 'red',
+                              borderRadius: '4px',
+                           }}
+                           icon={<GoogleOutlined />}
+                           onClick={renderProps.onClick}
+                           disabled={renderProps.disabled}
+                           ghost={true}
+                        >
+                           구글 로그인
+                        </Button>
+                     )}
+                  />
                </Form.Item>
                <Form.Item {...tailLayout}>
-                  <Button
-                     type="primary"
-                     htmlType="submit"
-                     icon={<FormOutlined />}
-                     style={{
-                        width: '17.3vw',
-                     }}
-                     ghost={true}
-                  >
-                     카카오 로그인
-                  </Button>
+                  <KakaoLogin
+                     jsKey={process.env.REACT_APP_KAKAO_API}
+                     onSuccess={this.successResponseKakao}
+                     onFailure={this.failureResponseGoogle}
+                     getProfile={true}
+                     className="kakao-login"
+                     render={(props) => (
+                        <Button
+                           type="primary"
+                           style={{
+                              width: '17.3vw',
+                              borderColor: 'rgb(205, 195, 58)',
+                              color: 'rgb(205, 195, 58)',
+                              borderRadius: '4px',
+                           }}
+                           icon={<Kakao />}
+                           onClick={props.onClick}
+                           disabled={props.disabled}
+                           ghost={true}
+                           className="kakaoButton"
+                        >
+                           카카오 로그인
+                        </Button>
+                     )}
+                  ></KakaoLogin>
                </Form.Item>
             </Form>
          </div>
@@ -181,6 +292,9 @@ class Login extends Component {
    }
 }
 
-// eslint-disable-next-line
 export default withRouter(Login);
-// eslint-disable-next-line
+function newFunction() {
+   const dotenv = require('dotenv');
+   dotenv.config();
+   return dotenv;
+}

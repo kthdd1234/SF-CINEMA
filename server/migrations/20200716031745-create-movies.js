@@ -1,9 +1,8 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('movies', 'seriesName', {
+    return queryInterface.addColumn('movies', 'videoId', {
       type: Sequelize.STRING,
-      defaultValue: '',
     });
   },
   down: async (queryInterface, Sequelize) => {},

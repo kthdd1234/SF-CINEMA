@@ -1,0 +1,34 @@
+.ant-list-item-meta-title {
+   border: 0px;
+   margin: 9px 0 0 0;
+   font-weight: bolder;
+   font-size: 10px;
+}
+
+.divider-text {
+   color: rgb(211, 101, 101);
+}
+
+.myInfo-username {
+   font-size: 18px;
+}
+
+.myInfo-savedMovie-img:hover {
+   cursor: pointer;
+   transform: scale(1.1);
+}
+
+.myInfo-savedMovie-title:hover {
+   cursor: pointer;
+   color: rgb(223, 116, 116);
+}
+
+.myInfo-likedMovie-img:hover {
+   cursor: pointer;
+   transform: scale(1.1);
+}
+
+.myInfo-likedMovie-title:hover {
+   cursor: pointer;
+   color: rgb(223, 116, 116);
+}

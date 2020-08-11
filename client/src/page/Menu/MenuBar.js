@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import { withRouter } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Drawer, Button, Input } from 'antd';
 import {
    StarFilled,
    ThunderboltFilled,
@@ -10,16 +12,62 @@ import {
    HomeOutlined,
    LoginOutlined,
    FormOutlined,
+   UserOutlined,
+   SearchOutlined,
 } from '@ant-design/icons';
-
+import MyInfo from '../MyInfo/MyInfo';
+import './MenuBar.css';
+import SFCINEMA from '../../SFCINEMA.png';
+import Search from 'antd/lib/input/Search';
 const { Header } = Layout;
 const { SubMenu } = Menu;
+const { TextArea } = Input;
 
-class Headers extends Component {
+const marvelSeriesList = [
+   '어벤져스',
+   '스파이더맨',
+   '아이언맨',
+   '앤트맨',
+   '캡틴 아메리카',
+   '데드풀',
+   '엑스맨',
+   '가디언즈 오브 갤럭시',
+];
+
+const horrorSeriesList = ['레지던트 이블', '클로버필드', '28일 후'];
+
+const alienAndSpaceSeriesList = [
+   '에이리언',
+   '맨 인 블랙',
+   '스타워즈',
+   '스타트렉',
+];
+
+const actionAndAdventureSeriesList = [
+   '메이즈 러너',
+   '백 투 더 퓨쳐',
+   '헝거게임',
+   '다이버전트',
+   '블레이드 러너',
+   '혹성탈출',
+   '쥬라기 월드',
+];
+
+const robotAndAISeriesList = ['트랜스포머', '터미네이터', '퍼시픽 림'];
+
+class MenuBar extends Component {
    constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {
+         visible: false,
+         profile: {},
+      };
    }
+
+   handleLogoutChange = () => {
+      reactLocalStorage.remove('SFCinemaUserToken');
+      location.reload(true);
+   };
 
    NavigateToHighlyRataedAndReleaseOrder = (
       path,
@@ -40,45 +88,55 @@ class Headers extends Component {
       this.props.history.push(`${path}?key=${key}&count=${count}`);
    };
 
+   showDrawer = () => {
+      const accessToken = reactLocalStorage.get('SFCinemaUserToken');
+
+      if (this.props.isLogin) {
+         if (accessToken) {
+            axios
+               .get('http://localhost:5000/user/profile', {
+                  headers: {
+                     Authorization: 'Bearer ' + accessToken,
+                  },
+               })
+               .then(({ data }) => {
+                  this.setState({
+                     profile: data,
+                  });
+               });
+         }
+      }
+
+      this.setState({
+         visible: true,
+      });
+   };
+
+   onClose = () => {
+      this.setState({
+         visible: false,
+      });
+   };
+
    render() {
-      const marvelSeriesList = [
-         '어벤져스',
-         '스파이더맨',
-         '아이언맨',
-         '앤트맨',
-         '캡틴 아메리카',
-         '데드풀',
-         '엑스맨',
-         '가디언즈 오브 갤럭시',
-      ];
-
-      const horrorSeriesList = ['레지던트 이블', '클로버필드', '28일 후'];
-
-      const alienAndSpaceSeriesList = [
-         '에이리언',
-         '맨 인 블랙',
-         '스타워즈',
-         '스타트렉',
-      ];
-
-      const actionAndAdventureSeriesList = [
-         '메이즈 러너',
-         '백 투 더 퓨쳐',
-         '헝거게임',
-         '다이버전트',
-         '블레이드 러너',
-         '혹성탈출',
-         '쥬라기 월드',
-      ];
-
-      const robotAndAISeriesList = ['트랜스포머', '터미네이터', '퍼시픽 림'];
+      const { handleLoginChange, profile, isLogin } = this.props;
       return (
          <div>
             <Layout className="layout">
                <Header>
-                  <div className="logo"></div>
-                  <Menu onClick={this.handleClick} mode="horizontal" theme="">
-                     <SubMenu icon={<StarFilled />} title="평점 높은순">
+                  <img className="logo" src={SFCINEMA}></img>
+                  <Menu
+                     onClick={this.handleClick}
+                     mode="horizontal"
+                     theme="dark"
+                  >
+                     <SubMenu
+                        icon={<StarFilled />}
+                        title="평점 높은순"
+                        style={{
+                           marginLeft: '20vw',
+                        }}
+                     >
                         <Menu.Item
                            key="1"
                            onClick={({ key }) =>
@@ -317,34 +375,88 @@ class Headers extends Component {
                      >
                         <a>SF 명작</a>
                      </Menu.Item>
+
                      <Menu.Item
                         icon={<HomeOutlined />}
                         key="home"
                         onClick={() => this.props.history.push('/')}
+                        style={{
+                           marginLeft: '20vw',
+                        }}
                      >
                         <a>홈</a>
                      </Menu.Item>
-                     <Menu.Item
-                        icon={<LoginOutlined />}
-                        key="login"
-                        onClick={() => this.props.history.push('/login')}
-                     >
-                        <a>로그인</a>
-                     </Menu.Item>
-                     <Menu.Item
-                        icon={<FormOutlined />}
-                        key="signUp"
-                        onClick={() => this.props.history.push('/signUp')}
-                     >
-                        <a>회원가입</a>
-                     </Menu.Item>
+
+                     {!isLogin ? (
+                        <Menu.Item
+                           icon={<LoginOutlined />}
+                           key="login"
+                           onClick={() => this.props.history.push('/login')}
+                        >
+                           <a>로그인</a>
+                        </Menu.Item>
+                     ) : null}
+
+                     {!isLogin ? (
+                        <Menu.Item
+                           icon={<FormOutlined />}
+                           key="signUp"
+                           onClick={() => this.props.history.push('/signUp')}
+                        >
+                           <a>회원가입</a>
+                        </Menu.Item>
+                     ) : null}
+
+                     {isLogin ? (
+                        <Menu.Item
+                           icon={<UserOutlined />}
+                           key="profile"
+                           onClick={this.showDrawer}
+                        >
+                           <a>프로필 관리</a>
+                        </Menu.Item>
+                     ) : null}
                   </Menu>
                </Header>
             </Layout>
+            <Drawer
+               width={350}
+               closable={false}
+               onClose={this.onClose}
+               visible={this.state.visible}
+               footer={
+                  <div
+                     style={{
+                        margin: '0 0 15pt 40pt',
+                     }}
+                  >
+                     <div>
+                        <Button
+                           type="primary"
+                           htmlType="submit"
+                           style={{
+                              width: '180pt',
+                              margin: '10pt 0 0 0',
+                              borderRadius: '3px',
+                           }}
+                           onClick={this.handleLogoutChange}
+                        >
+                           로그아웃
+                        </Button>
+                     </div>
+                  </div>
+               }
+            >
+               <MyInfo
+                  isLogin={this.props.isLogin}
+                  profile={this.state.profile}
+                  handleLoginChange={handleLoginChange}
+               />
+            </Drawer>
          </div>
       );
    }
 }
 // eslint-disable-next-line
-export default withRouter(Headers);
+export default withRouter(MenuBar);
 // eslint-disable-next-line

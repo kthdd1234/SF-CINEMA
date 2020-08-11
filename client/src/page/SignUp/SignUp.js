@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
 import { withRouter } from 'react-router-dom';
-import ProfilePictiore from './ProfilePicture';
 import axios from 'axios';
 
 const layout = {
@@ -28,7 +27,7 @@ class SignUp extends Component {
          password: '',
          confirmPassword: '',
          username: '',
-         profilePicture: '',
+         profileImg: '',
       };
    }
 
@@ -42,7 +41,7 @@ class SignUp extends Component {
          password,
          confirmPassword,
          username,
-         profilePicture,
+         profileImg,
       } = this.state;
 
       if (password !== confirmPassword) {
@@ -54,7 +53,8 @@ class SignUp extends Component {
                loginID: loginID,
                password: password,
                username: username,
-               profilePicture: profilePicture,
+               profileImg: profileImg,
+               provider: 'SFCinema',
             })
             .then(({ data }) => {
                if (data === '이미 회원가입한 계정입니다.') {
@@ -103,15 +103,6 @@ class SignUp extends Component {
                onFinish={this.handleCheckSignUp}
                size="large"
             >
-               <Form.Item label="프로필 사진" name="프로필 사진">
-                  <div
-                     style={{
-                        margin: '0 0 0 6vw',
-                     }}
-                  >
-                     <ProfilePictiore />
-                  </div>
-               </Form.Item>
                <Form.Item
                   label="아이디"
                   name="아이디"

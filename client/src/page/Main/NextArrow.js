@@ -8,7 +8,7 @@ export default function NextArrow(props) {
          style={{
             boxSizing: 'border-box',
             display: 'block',
-            padding: '5pt 20pt 19.7pt 5pt',
+            padding: '70pt 20pt 80pt 5pt',
             background: 'rgb(220, 214, 214)',
             border: '3px solid rgb(220, 214, 214)',
             borderRadius: '20px',

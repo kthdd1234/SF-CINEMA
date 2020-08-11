@@ -25,3 +25,27 @@ code {
 .ant-layout-header {
    padding: 0;
 }
+
+.ant-list-item {
+   border-bottom: 0px;
+   border-bottom-width: 0px;
+}
+.ant-modal-content {
+   position: relative;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   border: 0;
+}
+
+.ant-modal-body {
+   padding: 0px;
+}
+
+.ant-modal-content {
+   height: 600px;
+}
+
+.random-movies-spin {
+   margin-top: 400px;
+}

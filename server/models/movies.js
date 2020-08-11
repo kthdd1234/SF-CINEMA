@@ -9,12 +9,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       movies.belongsToMany(models.User, {
-        through: 'favoritedMovies',
+        as: 'savedMovie',
+        through: 'savedMovies',
         foreignKey: 'movieId',
         timestamps: false,
       });
       movies.belongsToMany(models.User, {
-        through: 'ratedMovies',
+        as: 'likedMovie',
+        through: 'likedMovies',
+        foreignKey: 'movieId',
+        timestamps: false,
+      });
+      movies.belongsToMany(models.User, {
+        as: 'disLikedMovie',
+        through: 'disLikedMovies',
         foreignKey: 'movieId',
         timestamps: false,
       });
@@ -34,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       ratingGrade: DataTypes.STRING,
       userRating: DataTypes.FLOAT,
       seriesName: DataTypes.STRING,
+      videoId: DataTypes.STRING,
     },
     {
       sequelize,

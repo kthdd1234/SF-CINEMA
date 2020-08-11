@@ -1,14 +1,13 @@
-// eslint-disable-next-line
 import React, { Component } from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
-import Headers from './page/Main/Header';
+import MenuBar from './page/Menu/MenuBar';
 import MainCinema from './page/Main/MainCinema';
-import MenuItems from './page/Menu/MenuItems';
+import MenuItems from './page/Menu/ItemList';
 import Login from './page/Login/Login';
-import MyInfo from './page/MyInfo/MyInfo';
 import SignUp from './page/SignUp/SignUp';
 import axios from 'axios';
+import { reactLocalStorage } from 'reactjs-localstorage';
 
 const serverUrl = axios.create({
    baseURL: 'http://localhost:5000/main',
@@ -17,8 +16,28 @@ const serverUrl = axios.create({
 class App extends Component {
    constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {
+         isLogin: false,
+         profile: {},
+      };
    }
+
+   componentDidMount = () => {
+      const accessToken = reactLocalStorage.get('SFCinemaUserToken');
+      if (accessToken) {
+         this.setState({
+            isLogin: true,
+         });
+      }
+   };
+
+   handleLoginChange = () => {
+      this.setState({ isLogin: !this.state.isLogin });
+   };
+
+   handleProfileUpdate = (data) => {
+      this.setState({ profile: data });
+   };
 
    axiosRequestHighlyRated = async (path, count, under, moreThen) => {
       return await serverUrl
@@ -111,9 +130,15 @@ class App extends Component {
    };
 
    render() {
+      const { isLogin, profile } = this.state;
       return (
          <div>
-            <Headers handleMovieDataUpdate={this.handleMovieDataUpdate} />
+            <MenuBar
+               handleMovieDataUpdate={this.handleMovieDataUpdate}
+               handleLoginChange={this.handleLoginChange}
+               profile={profile}
+               isLogin={isLogin}
+            />
             <Switch>
                <Route
                   exact
@@ -130,9 +155,17 @@ class App extends Component {
                      />
                   )}
                />
-               <Route exact path="/login" render={() => <Login />} />
+               <Route
+                  exact
+                  path="/login"
+                  render={() => (
+                     <Login
+                        handleLoginChange={this.handleLoginChange}
+                        handleProfileUpdate={this.handleProfileUpdate}
+                     />
+                  )}
+               />
                <Route exact path="/signUp" render={() => <SignUp />} />
-               <Route exact path="/myInfo" render={() => <MyInfo />} />
                <Route
                   path="/highlyRated/rating"
                   render={({ location }) => {
@@ -146,7 +179,13 @@ class App extends Component {
                      );
                      const MenuItem = this.handleMovieDataUpdate(HighlyRated);
 
-                     return <MenuItems MenuItem={MenuItem} secretKey={key} />;
+                     return (
+                        <MenuItems
+                           MenuItem={MenuItem}
+                           secretKey={key}
+                           isLogin={isLogin}
+                        />
+                     );
                   }}
                />
                <Route
@@ -162,7 +201,13 @@ class App extends Component {
                      );
                      const MenuItem = this.handleMovieDataUpdate(ReleaseOrder);
 
-                     return <MenuItems MenuItem={MenuItem} secretKey={key} />;
+                     return (
+                        <MenuItems
+                           MenuItem={MenuItem}
+                           secretKey={key}
+                           isLogin={isLogin}
+                        />
+                     );
                   }}
                />
                <Route
@@ -176,7 +221,13 @@ class App extends Component {
                      );
                      const MenuItem = this.handleMovieDataUpdate(series);
 
-                     return <MenuItems MenuItem={MenuItem} secretKey={key} />;
+                     return (
+                        <MenuItems
+                           MenuItem={MenuItem}
+                           secretKey={key}
+                           isLogin={isLogin}
+                        />
+                     );
                   }}
                />
                <Route
@@ -190,7 +241,13 @@ class App extends Component {
                      );
                      const MenuItem = this.handleMovieDataUpdate(series);
 
-                     return <MenuItems MenuItem={MenuItem} secretKey={key} />;
+                     return (
+                        <MenuItems
+                           MenuItem={MenuItem}
+                           secretKey={key}
+                           isLogin={isLogin}
+                        />
+                     );
                   }}
                />
                <Route
@@ -204,7 +261,13 @@ class App extends Component {
                      );
                      const MenuItem = this.handleMovieDataUpdate(series);
 
-                     return <MenuItems MenuItem={MenuItem} secretKey={key} />;
+                     return (
+                        <MenuItems
+                           MenuItem={MenuItem}
+                           secretKey={key}
+                           isLogin={isLogin}
+                        />
+                     );
                   }}
                />
                <Route
@@ -219,6 +282,8 @@ class App extends Component {
                            this.axiosRequestOperatorMovies
                         }
                         axiosRequestMasterpiece={this.axiosRequestMasterpiece}
+                        isLogin={isLogin}
+                        profile={profile}
                      />
                   )}
                />

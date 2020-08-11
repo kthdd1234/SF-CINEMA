@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SubjectSummary({ sub, i }) {
+function itemSub({ sub, i }) {
    return (
       <li className="movie-summary-each-sub">
          {sub}
@@ -11,4 +11,4 @@ function SubjectSummary({ sub, i }) {
    );
 }
 
-export default SubjectSummary;
+export default itemSub;

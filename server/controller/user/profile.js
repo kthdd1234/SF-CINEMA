@@ -1,4 +1,10 @@
-const { User, movies } = require('../../models/index');
+const {
+  User,
+  savedMovies,
+  likedMovies,
+  disLikedMovies,
+  movies,
+} = require('../../models/index');
 
 module.exports = {
   get: (req, res) => {
@@ -13,6 +19,15 @@ module.exports = {
       include: [
         {
           model: movies,
+          as: 'savedMovie',
+        },
+        {
+          model: movies,
+          as: 'likedMovie',
+        },
+        {
+          model: movies,
+          as: 'disLikedMovie',
         },
       ],
     })

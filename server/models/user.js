@@ -13,12 +13,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.belongsToMany(models.movies, {
-        through: 'favoritedMovies',
+        as: 'savedMovie',
+        through: 'savedMovies',
         foreignKey: 'UserId',
         timestamps: false,
       });
       User.belongsToMany(models.movies, {
-        through: 'ratedMovies',
+        as: 'likedMovie',
+        through: 'likedMovies',
+        foreignKey: 'UserId',
+        timestamps: false,
+      });
+      User.belongsToMany(models.movies, {
+        as: 'disLikedMovie',
+        through: 'disLikedMovies',
         foreignKey: 'UserId',
         timestamps: false,
       });

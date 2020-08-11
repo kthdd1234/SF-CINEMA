@@ -1,29 +1,27 @@
 import React from 'react';
 
 function TopSlideDetailImg({
-  movie,
-  alt,
-  setModalVisible,
-  handleCurrentMovie,
+   movie,
+   alt,
+   setModalVisible,
+   handleCurrentMovie,
 }) {
-  let { posters } = movie;
-  let poster = JSON.parse(posters);
-  poster = Array.isArray(poster) ? poster[0] : poster;
+   const posters = JSON.parse(movie.posters);
 
-  return (
-    <div>
+   return (
       <div>
-        <img
-          src={poster}
-          alt={`img${alt}`}
-          onClick={() => {
-            setModalVisible(true);
-            handleCurrentMovie(arguments[0].movie);
-          }}
-        />
+         <div className="slide-center-mode">
+            <img
+               src={posters[0]}
+               alt={`img${movie.id}`}
+               onClick={() => {
+                  setModalVisible(true);
+                  handleCurrentMovie(movie);
+               }}
+            />
+         </div>
       </div>
-    </div>
-  );
+   );
 }
 
 export default TopSlideDetailImg;

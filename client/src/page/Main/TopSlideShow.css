@@ -1,17 +1,25 @@
-.containerSlide {
+.slide-center-mode {
    margin-top: 1vw;
 }
 
-.containerSlide img {
-   width: 18.3vw;
-   height: 30vw;
+.slide-center-mode img {
+   width: 13vw;
+   height: 20vw;
    border: 1px solid whitesmoke;
    border-radius: 2vw;
    padding: 15px;
+   cursor: pointer;
+}
+
+.slide-center-mode img:hover {
+   padding-top: 1.1vw;
+   transform: scale(1.1);
+   transition: 250ms all;
 }
 
 .slick-slide.slick-center img {
    border-radius: 1.5vw;
-   height: 31vw;
+   height: 21vw;
    padding: 0px;
+   transform: scale(1);
 }
