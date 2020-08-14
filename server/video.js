@@ -5,16 +5,19 @@ const Sequelize = require('sequelize');
 
 let url = 'https://www.googleapis.com/youtube/v3/search';
 
-// movies.update(
-//   {
-//     videoId: 'B8_dgqfPXFg',
-//   },
-//   {
-//     where: {
-//       id: 77,
-//     },
-//   }
-// );
+movies.update(
+  {
+    backgroundImg: JSON.stringify([
+      'bfS76yEsad1hnhCVJhwweIeyaIZ.jpg',
+      'jvUKejL9uZtI0yi2aoQZ2oykRTA.jpg',
+    ]),
+  },
+  {
+    where: {
+      id: 33,
+    },
+  }
+);
 // 	&times;
 // movies
 //   .findAll({

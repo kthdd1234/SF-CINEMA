@@ -1,4 +1,4 @@
-.logo {
+.header-logo {
    position: absolute;
    width: 190px;
    border-radius: 15px;
@@ -14,4 +14,13 @@
    background: rgb(5, 6, 11);
    font-size: 15px;
    color: white;
+}
+
+.max-small-logo {
+   width: 100px;
+   border-radius: 10px;
+}
+
+.ant-drawer-header {
+   background: whitesmoke;
 }

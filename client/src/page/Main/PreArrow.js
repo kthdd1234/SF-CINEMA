@@ -1,20 +1,20 @@
 import React from 'react';
+import { Button } from 'antd';
+import { LeftOutlined } from '@ant-design/icons';
+import './PreArrow.css';
 
-export default function PrevArrow(props) {
+function PrevArrow(props) {
    const { className, onClick } = props;
    return (
-      <div
-         className={className}
-         style={{
-            boxSizing: 'border-box',
-            display: 'block',
-            padding: '70pt 20pt 80pt 5pt',
-            background: 'rgb(220, 214, 214)',
-            border: '3px solid rgb(220, 214, 214)',
-            borderRadius: '20px',
-            margin: '0 0 0 -30px',
-         }}
-         onClick={onClick}
-      />
+      <div className={className}>
+         <Button
+            type="link"
+            className="pre-arrow-btn"
+            icon={<LeftOutlined className="direction-icon-left" />}
+            onClick={onClick}
+         />
+      </div>
    );
 }
+
+export default PrevArrow;

@@ -1,3 +1,7 @@
+.ant-modal-header {
+   background: whitesmoke;
+}
+
 .ant-modal-body {
    padding: 30px;
 }

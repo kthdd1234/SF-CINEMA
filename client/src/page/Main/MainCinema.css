@@ -1,9 +1,59 @@
-.main-content-introduce {
+.main-content {
+   box-shadow: 0 0px 50px 10px;
    position: relative;
-   box-shadow: inset 0 70px 100px 50px rgba(0, 0, 0, 0.5), 0px 0px 60px 0px;
-
-   background-image: url('https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/pbrkL804c8yAv3zBZR4QPEafpAR.jpg');
-   padding-bottom: 550px;
+   height: 89vh;
+   overflow: hidden;
 }
 
-/* /pbrkL804c8yAv3zBZR4QPEafpAR.jpg */
+.main-content-background {
+   width: 100%;
+   overflow: hidden;
+}
+
+.box-shadow-top {
+   position: absolute;
+   z-index: 1;
+   padding: 0 0 0 1920px;
+   box-shadow: 0 10px 50px 20px;
+}
+
+.main-content-wrap {
+   z-index: 1;
+   position: absolute;
+}
+
+.main-logo {
+   width: 190px;
+   border-radius: 15px;
+}
+
+.main-title {
+   padding: 60px;
+}
+
+.main-title-welcome {
+   color: whitesmoke;
+   font-size: 5em;
+   font-weight: 700;
+   line-height: 1;
+   margin: 10px 0 0 0;
+   padding: 0;
+}
+
+.main-description {
+   color: whitesmoke;
+   font-size: 4em;
+   font-weight: 600;
+   margin: 0;
+   padding: 0;
+}
+.movie-search-bar {
+   margin: 0 auto;
+   max-width: 1000px;
+   padding-top: 50px;
+}
+
+.small-logo {
+   width: 150px;
+   border-radius: 10px;
+}

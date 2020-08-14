@@ -19,9 +19,11 @@ class MyInfo extends Component {
 
    handleCurrentSavedMovie = (currentMovieId) => {
       const { savedMovie } = this.props.profile;
+
       const currentMovie = savedMovie.filter((movie) => {
          return movie.id === currentMovieId;
       });
+
       this.setState({
          modalVisible: true,
          currentMovie: currentMovie[0],
@@ -30,9 +32,11 @@ class MyInfo extends Component {
 
    handleCurrentLikedMovie = (currentMovieId) => {
       const { likedMovie } = this.props.profile;
+
       const currentMovie = likedMovie.filter((movie) => {
          return movie.id === currentMovieId;
       });
+
       this.setState({
          modalVisible: true,
          currentMovie: currentMovie[0],
@@ -53,8 +57,6 @@ class MyInfo extends Component {
 
       return (
          <div>
-            <strong>SF CINEMA</strong>
-            <Divider />
             <List
                itemLayout="vertical"
                dataSource={[
@@ -148,7 +150,7 @@ class MyInfo extends Component {
                               size="large"
                               className="myInfo-likedMovie-img"
                               onClick={() =>
-                                 this.handleCurrentSavedMovie(item.id)
+                                 this.handleCurrentLikedMovie(item.id)
                               }
                            />
                         }
@@ -156,7 +158,7 @@ class MyInfo extends Component {
                            <strong
                               className="myInfo-likedMovie-title"
                               onClick={() =>
-                                 this.handleCurrentSavedMovie(item.id)
+                                 this.handleCurrentLikedMovie(item.id)
                               }
                            >
                               {(item.title + item.titleEng).length > 20
@@ -174,6 +176,7 @@ class MyInfo extends Component {
                   </List.Item>
                )}
             />
+
             <Modal
                title="SF CINEMA"
                centered

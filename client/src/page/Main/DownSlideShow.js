@@ -4,7 +4,6 @@ import './DownSlideShow.css';
 import SlideImgEntry from './SlideImgEntry';
 import NextArrow from './NextArrow';
 import PrevArrow from './PreArrow';
-import { Divider } from 'antd';
 
 function DownSlideShow({
    highlyRated,
@@ -18,22 +17,18 @@ function DownSlideShow({
    const settings = {
       infinite: true,
       slidesToShow: 7,
-      slidesToScroll: 7,
+      slidesToScroll: 6,
       nextArrow: <NextArrow />,
       prevArrow: <PrevArrow />,
       adaptiveHeight: true,
    };
-   const series_settings = {
-      className: 'center',
+   const seriesSettings = {
+      infinite: true,
+      slidesToShow: 7,
+      slidesToScroll: 7,
       nextArrow: <NextArrow />,
       prevArrow: <PrevArrow />,
       adaptiveHeight: true,
-      infinite: true,
-      centerPadding: '60px',
-      slidesToShow: 5,
-      rows: 3,
-      slidesPerRow: 1,
-      swipeToSlide: true,
    };
 
    let id = 0;
@@ -52,6 +47,7 @@ function DownSlideShow({
                   />
                ))}
             </Slider>
+            <div className="box-shadow-right" />
          </div>
 
          <h2 className="main-slide-sub">최근 개봉한 SF 영화(2020~2018)</h2>
@@ -67,6 +63,7 @@ function DownSlideShow({
                   />
                ))}
             </Slider>
+            <div className="box-shadow-right" />
          </div>
 
          <h2 className="main-slide-sub">운영자가 추천하는 SF 영화</h2>
@@ -82,6 +79,7 @@ function DownSlideShow({
                   />
                ))}
             </Slider>
+            <div className="box-shadow-right" />
          </div>
 
          <h2 className="main-slide-sub">주말에 몰아보기 좋은 SF 명작 추천</h2>
@@ -97,13 +95,12 @@ function DownSlideShow({
                   />
                ))}
             </Slider>
+            <div className="box-shadow-right" />
          </div>
 
-         <h2 className="main-slide-sub sub-series">
-            SF 시리즈물 강력 추천(Top3)
-         </h2>
-         <div className="slider-multiple-items slider-series">
-            <Slider {...series_settings}>
+         <h2 className="main-slide-sub">SF 시리즈물 강력 추천</h2>
+         <div className="slider-multiple-items">
+            <Slider {...seriesSettings}>
                {series.map((movie) => (
                   <SlideImgEntry
                      key={id++}
@@ -114,6 +111,7 @@ function DownSlideShow({
                   />
                ))}
             </Slider>
+            <div className="box-shadow-right" />
          </div>
       </div>
    );

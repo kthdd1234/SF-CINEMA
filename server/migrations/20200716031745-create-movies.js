@@ -1,11 +1,15 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    return queryInterface.addColumn('movies', 'videoId', {
+    return queryInterface.addColumn('movies', 'backgroundImg', {
       type: Sequelize.STRING,
     });
   },
-  down: async (queryInterface, Sequelize) => {},
+  down: async (queryInterface, Sequelize) => {
+    return queryInterface.addColumn('movies', 'backgroundImg', {
+      type: Sequelize.STRING,
+    });
+  },
 };
 
 // id: {

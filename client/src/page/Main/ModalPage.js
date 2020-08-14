@@ -15,7 +15,6 @@ import {
    CloseOutlined,
 } from '@ant-design/icons';
 import $ from 'jquery';
-import { Carousel } from 'antd';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import Trailer from './Trailer';
@@ -195,6 +194,7 @@ class ModalPage extends Component {
 
    navigateToLoginPage = () => {
       this.props.history.push('/login');
+      window.scrollTo(0, 0);
    };
 
    setModalTrailerVisible = (tralierShow) => {
@@ -208,6 +208,8 @@ class ModalPage extends Component {
    };
 
    render() {
+      console.log(this.props.currentMovie);
+
       let {
          id,
          title,
@@ -254,7 +256,7 @@ class ModalPage extends Component {
          .replace(/(.{7})/, '$1.');
 
       let summay_subs = [
-         'SF/모험',
+         'SF',
          nation,
          convertStrDate + ' 개봉',
          ratingGrade,
@@ -305,9 +307,7 @@ class ModalPage extends Component {
 
                <div>
                   <ul className="modal-rating-list">
-                     <li className="modal-user-rating">
-                        <strong>평점</strong> ⭐ ⭐ ⭐ ⭐ ⭐ {userRating}
-                     </li>
+                     <li className="modal-user-rating">⭐ {userRating}</li>
 
                      <li className="modal-my-rating">
                         <Popconfirm

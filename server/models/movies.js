@@ -43,6 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       userRating: DataTypes.FLOAT,
       seriesName: DataTypes.STRING,
       videoId: DataTypes.STRING,
+      backgroundImg: DataTypes.STRING,
     },
     {
       sequelize,

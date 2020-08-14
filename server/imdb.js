@@ -32,7 +32,7 @@ movies
           axios
             .get(imgUrl, {
               params: {
-                api_key: 'a3f2dd845f961cc6ea8d04c944383159',
+                api_key: '',
               },
             })
             .then(async ({ data }) => {

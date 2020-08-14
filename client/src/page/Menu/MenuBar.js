@@ -18,10 +18,9 @@ import {
 import MyInfo from '../MyInfo/MyInfo';
 import './MenuBar.css';
 import SFCINEMA from '../../SFCINEMA.png';
-import Search from 'antd/lib/input/Search';
+
 const { Header } = Layout;
 const { SubMenu } = Menu;
-const { TextArea } = Input;
 
 const marvelSeriesList = [
    '어벤져스',
@@ -124,7 +123,7 @@ class MenuBar extends Component {
          <div>
             <Layout className="layout">
                <Header>
-                  <img className="logo" src={SFCINEMA}></img>
+                  <img className="header-logo" src={SFCINEMA}></img>
                   <Menu
                      onClick={this.handleClick}
                      mode="horizontal"
@@ -420,6 +419,7 @@ class MenuBar extends Component {
                </Header>
             </Layout>
             <Drawer
+               title={<img src={SFCINEMA} className="max-small-logo" />}
                width={350}
                closable={false}
                onClose={this.onClose}

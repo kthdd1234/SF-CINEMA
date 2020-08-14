@@ -1,20 +1,20 @@
 import React from 'react';
+import { Button } from 'antd';
+import { RightOutlined } from '@ant-design/icons';
+import './NextArrow.css';
 
-export default function NextArrow(props) {
+function NextArrow(props) {
    const { className, onClick } = props;
    return (
-      <div
-         className={className}
-         style={{
-            boxSizing: 'border-box',
-            display: 'block',
-            padding: '70pt 20pt 80pt 5pt',
-            background: 'rgb(220, 214, 214)',
-            border: '3px solid rgb(220, 214, 214)',
-            borderRadius: '20px',
-            margin: '0 -30px 0 0',
-         }}
-         onClick={onClick}
-      />
+      <div className={className}>
+         <Button
+            type="link"
+            className="next-arrow-btn"
+            icon={<RightOutlined className="direction-icon-right" />}
+            onClick={onClick}
+         />
+      </div>
    );
 }
+
+export default NextArrow;

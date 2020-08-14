@@ -3,6 +3,12 @@ const router = express.Router();
 
 const { mainController } = require('../controller');
 
+// * GET/main/backgroundImg
+router.get('/backgroundImg', mainController.backgroundImg.get);
+
+// * POST/main/searchMovie
+router.get('/searchMovie', mainController.searchMovie.get);
+
 // * GET /main/randomMovies
 router.get('/randomMovies', mainController.randomMovies.get);
 

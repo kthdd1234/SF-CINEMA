@@ -2,3 +2,8 @@
    color: darkgray;
    font-size: 14px;
 }
+
+.ant-checkbox-wrapper {
+   font-weight: bold;
+   color: whitesmoke;
+}

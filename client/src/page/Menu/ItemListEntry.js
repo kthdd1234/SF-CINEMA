@@ -281,10 +281,7 @@ class ItemListEntry extends React.Component {
                         </div>
                      </div>
                      <ul className="movie-rating-list">
-                        <li className="movie-user-rating">
-                           <strong className="movie-rating">평점</strong>⭐ ⭐
-                           ⭐ ⭐ ⭐ {userRating}
-                        </li>
+                        <li className="movie-user-rating">⭐ {userRating}</li>
                         <li className="movie-my-rating">
                            <strong className="movie-rating">
                               <Popconfirm
