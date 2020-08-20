@@ -3,21 +3,79 @@ const axios = require('axios');
 const YOUTUBE_API_KEY = '';
 const Sequelize = require('sequelize');
 
-let url = 'https://www.googleapis.com/youtube/v3/search';
+// let url = 'https://www.googleapis.com/youtube/v3/search';
+// const genres = [226];
+
+// for (let i = 0; i < genres.length; i++) {
+//   movies.update(
+//     {
+//       genre: '액션',
+//     },
+//     {
+//       where: {
+//         id: genres[i],
+//       },
+//     }
+//   );
+// }
+
+// for (let i = 0; i < movieData.length; i++) {
+//   let movieId = movieData[i].id;
+//   let MoviePlot = '';
+//   let plot = movieData[i].plot;
+//   let plotofCount = plot.length;
+
+//   if (plotofCount > 300) {
+//     MoviePlot = plot.substring(0, 301);
+//     let lastStr = '';
+//     let check_spc = /[.!,(]/;
+
+//     do {
+//       lastStr = MoviePlot[MoviePlot.length - 1];
+//       MoviePlot = MoviePlot.slice(0, -1);
+//     } while (!check_spc.test(lastStr));
+
+//     MoviePlot = MoviePlot + '...';
+
+//     movies.update(
+//       {
+//         plot: MoviePlot,
+//       },
+//       {
+//         where: {
+//           id: movieId,
+//         },
+//       }
+//     );
+//   }
+// }
 
 movies.update(
   {
-    backgroundImg: JSON.stringify([
-      'bfS76yEsad1hnhCVJhwweIeyaIZ.jpg',
-      'jvUKejL9uZtI0yi2aoQZ2oykRTA.jpg',
-    ]),
+    genre: '외계인',
   },
   {
     where: {
-      id: 33,
+      id: 94,
     },
   }
 );
+
+// movies.update(
+//   {
+//     backgroundImg: JSON.stringify([
+//       'pbrkL804c8yAv3zBZR4QPEafpAR.jpg',
+//       'rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg',
+//       '46LvLzMD19tzyoPc7HUf4PPvi62.jpg',
+//       'pZvZjxPFfWWIwtPQodsNygQ6u5Z.jpg',
+//     ]),
+//   },
+//   {
+//     where: {
+//       id: 2,
+//     },
+//   }
+// );
 // 	&times;
 // movies
 //   .findAll({

@@ -1,7 +1,20 @@
 .next-arrow-btn {
-   bottom: 35pt;
+   bottom: 20pt;
 }
 
 .direction-icon-right {
    font-size: 8vh;
+}
+
+.slick-arrow {
+   background: red;
+   color: red;
+}
+
+.anticon .anticon-right .direction-icon-right {
+   background: #f0f2f5;
+}
+
+.slick-next:before {
+   display: none;
 }

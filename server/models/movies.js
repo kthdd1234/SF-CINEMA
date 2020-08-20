@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) => {
       titleEng: DataTypes.STRING,
       director: DataTypes.STRING,
       nation: DataTypes.STRING,
+      genre: DataTypes.STRING,
       plot: DataTypes.TEXT,
       posters: DataTypes.TEXT,
       actors: DataTypes.TEXT,
@@ -44,6 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       seriesName: DataTypes.STRING,
       videoId: DataTypes.STRING,
       backgroundImg: DataTypes.STRING,
+      backDrop: DataTypes.STRING,
     },
     {
       sequelize,

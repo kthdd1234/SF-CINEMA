@@ -1,3 +1,7 @@
+.ant-modal-content {
+   background: #f0f2f5;
+}
+
 .ant-modal-header {
    background: whitesmoke;
 }
@@ -8,7 +12,7 @@
 
 .image-box img {
    margin: 30px 0 30px 69%;
-
+   border-radius: 10px;
    width: 320px;
    height: 450px;
 }
@@ -72,6 +76,14 @@
    padding: 0 10px 0 10px;
 }
 
+.like-out {
+   border: none;
+}
+
+.dislike-out {
+   border: none;
+}
+
 .like-out:hover {
    color: rgb(106, 106, 230);
 }
@@ -81,16 +93,18 @@
 }
 
 .like-fill {
-   border: 1px solid blue;
-   border-radius: 4px;
+   border: none;
    color: blue;
 }
 
 .dislike-fill {
-   border: 1px solid blue;
-   border-radius: 4px;
+   border: none;
    color: blue;
 }
+
+/* .trailer-btn {
+   background: blue;
+} */
 
 .trailer-close {
    position: absolute;

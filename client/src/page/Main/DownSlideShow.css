@@ -1,25 +1,25 @@
-.main-slide-sub {
-   margin: 2vw 0 0.5vw 13vw;
+.recommend-title {
+   margin: auto;
+   max-width: 76vw;
+   padding: 10px;
    font-weight: bold;
 }
 
-.slick-slider .slick-initialized {
-   position: relative;
-}
-
-.slider-multiple-items {
-   position: relative;
-   width: 75%;
+.recommend-items {
    margin: auto;
+   max-width: 75vw;
    padding-bottom: 30px;
    border-bottom: 1px solid #f0f0f0;
-   border-radius: 2px 2px 0 0;
 }
 
-.slider-multiple-items img {
-   border-radius: 8px;
-   margin: auto;
+.movie-card {
+   width: 10.5vw;
+   border-radius: 7px;
 
+   overflow: hidden;
+}
+
+.recommend-items img {
    height: 15vw;
    cursor: pointer;
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { withRouter } from 'react-router-dom';
-import { Button, Popconfirm, Modal } from 'antd';
+import { Button, Popconfirm, Modal, Pagination } from 'antd';
 import {
    LikeOutlined,
    DislikeOutlined,
@@ -209,9 +209,9 @@ class ItemListEntry extends React.Component {
       const {
          title,
          titleEng,
+         genre,
          director,
          plot,
-         posters,
          nation,
          actors,
          releaseDate,
@@ -219,13 +219,14 @@ class ItemListEntry extends React.Component {
          runtime,
          ratingGrade,
          userRating,
+         backDrop,
          videoId,
       } = this.props;
 
       const { pushpin, like, dislike } = this.state;
 
       const sub_list = [
-         'SF/모험',
+         genre,
          nation,
          `${releaseDate} 개봉`,
          ratingGrade,
@@ -236,7 +237,11 @@ class ItemListEntry extends React.Component {
          <div>
             <div className="moive-content">
                <div className="movie-img-box">
-                  <img className="movie-img" src={posters}></img>
+                  <div className="img-shadow" />
+                  <img
+                     className="movie-img"
+                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces${backDrop}`}
+                  />
                </div>
                <div className="movie-info">
                   <div className="movie-headers">
@@ -259,17 +264,17 @@ class ItemListEntry extends React.Component {
                            cancelText="닫기"
                         >
                            <Button
+                              className="pushpin-btn"
                               icon={
                                  pushpin ? (
-                                    <PushpinFilled />
+                                    <PushpinFilled className="pushpin-icon" />
                                  ) : (
-                                    <PushpinOutlined />
+                                    <PushpinOutlined className="pushpin-icon" />
                                  )
                               }
                               shape="circle"
                               onClick={this.handlePushpinButton}
-                              danger={true}
-                           ></Button>
+                           />
                         </Popconfirm>
                      </div>
                      <div className="movie-title-list">
@@ -306,9 +311,13 @@ class ItemListEntry extends React.Component {
                                     icon={
                                        like ? <LikeFilled /> : <LikeOutlined />
                                     }
-                                    className={like ? 'like-fill' : 'like-out'}
+                                    className={
+                                       like
+                                          ? 'like-fill btn-color'
+                                          : 'like-out btn-color'
+                                    }
                                     onClick={this.handleLikeButton}
-                                    type="text"
+                                    type="ghost"
                                  >
                                     좋아요
                                  </Button>
@@ -340,10 +349,12 @@ class ItemListEntry extends React.Component {
                                        )
                                     }
                                     className={
-                                       dislike ? 'dislike-fill' : 'dislike-out'
+                                       dislike
+                                          ? 'dislike-fill btn-color'
+                                          : 'dislike-out btn-color'
                                     }
                                     onClick={this.handleDisLikeButton}
-                                    type="text"
+                                    type="ghost"
                                  >
                                     노잼
                                  </Button>
@@ -379,8 +390,6 @@ class ItemListEntry extends React.Component {
                      </ul>
                   </div>
 
-                  <hr className="border-bottom-line" />
-
                   <div className="movie-body">
                      <ul className="movie-summary">
                         {sub_list.map((sub, i) => (
@@ -389,9 +398,7 @@ class ItemListEntry extends React.Component {
                      </ul>
                      <div className="movie-plot">{plot}</div>
 
-                     <hr className="border-bottom-line" />
-
-                     <div className="movie-director_actors_awards">
+                     <div className="movie-director_actors">
                         <div className="movie-director">
                            <strong className="movie-sub">감독</strong>
                            {director}
@@ -459,7 +466,7 @@ export default withRouter(ItemListEntry);
 //                   </ul>
 //                </div>
 
-//                <hr className="border-bottom-line" />
+//                <hr className="Divider" />
 
 //                <div className="movie-body">
 //                   <ul className="movie-summary">
@@ -469,7 +476,7 @@ export default withRouter(ItemListEntry);
 //                   </ul>
 //                   <div className="movie-plot">{plot}</div>
 
-//                   <hr className="border-bottom-line" />
+//                   <hr className="Divider" />
 
 //                   <div className="movie-director_actors_awards">
 //                      <div className="movie-director">

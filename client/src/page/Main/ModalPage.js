@@ -208,8 +208,6 @@ class ModalPage extends Component {
    };
 
    render() {
-      console.log(this.props.currentMovie);
-
       let {
          id,
          title,
@@ -222,32 +220,19 @@ class ModalPage extends Component {
          releaseDate,
          runtime,
          ratingGrade,
+         genre,
          userRating,
          videoId,
       } = this.props.currentMovie;
 
-      let MoviePlot = '';
-      let lengthOfPlot = plot.length;
-      if (lengthOfPlot > 310) {
-         let check_spc = /[.!,(]/;
-         MoviePlot = plot.substring(0, 310);
-         let lastStr = '';
-         do {
-            lastStr = MoviePlot[MoviePlot.length - 1];
-            MoviePlot = MoviePlot.slice(0, -1);
-         } while (!check_spc.test(lastStr));
-         MoviePlot = MoviePlot + '...';
-      } else {
-         for (let i = lengthOfPlot; i < 310; i++) {
+      if (plot.length < 300) {
+         for (let i = plot.length; i < 300; i++) {
             plot = plot + ' ' + '\u00A0';
          }
-         MoviePlot = plot;
       }
 
       actors = JSON.parse(actors).slice(0, 4);
       actors = actors.join(', ');
-
-      JSON.parse(posters);
 
       let convertStrDate = String(releaseDate);
       let releaseYear = convertStrDate.slice(0, 4);
@@ -255,8 +240,8 @@ class ModalPage extends Component {
          .replace(/(.{4})/, '$1.')
          .replace(/(.{7})/, '$1.');
 
-      let summay_subs = [
-         'SF',
+      const summay_subs = [
+         genre,
          nation,
          convertStrDate + ' 개봉',
          ratingGrade,
@@ -289,7 +274,7 @@ class ModalPage extends Component {
                         shape="circle"
                         onClick={this.handlePushpinButton}
                         danger={true}
-                     ></Button>
+                     />
                   </Popconfirm>
                </div>
 
@@ -329,7 +314,7 @@ class ModalPage extends Component {
                               icon={like ? <LikeFilled /> : <LikeOutlined />}
                               className={like ? 'like-fill' : 'like-out'}
                               onClick={this.handleLikeButton}
-                              type="text"
+                              type="ghost"
                            >
                               좋아요
                            </Button>
@@ -363,7 +348,7 @@ class ModalPage extends Component {
                                  dislike ? 'dislike-fill' : 'dislike-out'
                               }
                               onClick={this.handleDisLikeButton}
-                              type="text"
+                              type="ghost"
                            >
                               노잼
                            </Button>
@@ -371,26 +356,12 @@ class ModalPage extends Component {
                      </li>
                      <Button
                         icon={<PlayCircleOutlined />}
+                        className="trailer-btn"
                         type="primary"
                         onClick={() => this.setModalTrailerVisible(true)}
                      >
                         예고편 보기
                      </Button>
-                     <Modal
-                        visible={this.state.tralierShow}
-                        onOk={() => this.setModalTrailerVisible(false)}
-                        onCancel={() => this.setModalTrailerVisible(false)}
-                        footer={null}
-                        width={1300}
-                     >
-                        <Button
-                           ghost
-                           icon={<CloseOutlined />}
-                           className="trailer-close"
-                           onClick={() => this.setModalTrailerVisible(false)}
-                        />
-                        <Trailer videoId={videoId} />
-                     </Modal>
                   </ul>
                </div>
 
@@ -403,7 +374,7 @@ class ModalPage extends Component {
                      ))}
                   </ul>
                </div>
-               <div className="modal-plot">{MoviePlot}</div>
+               <div className="modal-plot">{plot}</div>
                <hr className="border-bottom-line" />
                <div>
                   <div>
@@ -416,6 +387,22 @@ class ModalPage extends Component {
                   </div>
                </div>
             </div>
+            <Modal
+               centered
+               visible={this.state.tralierShow}
+               onOk={() => this.setModalTrailerVisible(false)}
+               onCancel={() => this.setModalTrailerVisible(false)}
+               footer={null}
+               width={1300}
+            >
+               <Button
+                  ghost
+                  icon={<CloseOutlined />}
+                  className="trailer-close"
+                  onClick={() => this.setModalTrailerVisible(false)}
+               />
+               <Trailer videoId={videoId} />
+            </Modal>
          </div>
       );
    }

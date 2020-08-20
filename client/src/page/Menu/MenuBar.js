@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Layout, Menu, Drawer, Button, Input } from 'antd';
 import {
    StarFilled,
-   ThunderboltFilled,
+   SketchCircleFilled,
    VideoCameraFilled,
    GiftFilled,
    CrownFilled,
@@ -13,7 +13,17 @@ import {
    LoginOutlined,
    FormOutlined,
    UserOutlined,
-   SearchOutlined,
+   BarsOutlined,
+   EyeInvisibleFilled,
+   RocketFilled,
+   RedditCircleFilled,
+   DingdingOutlined,
+   ThunderboltFilled,
+   GitlabFilled,
+   RobotFilled,
+   HourglassFilled,
+   ReadFilled,
+   FireFilled,
 } from '@ant-design/icons';
 import MyInfo from '../MyInfo/MyInfo';
 import './MenuBar.css';
@@ -33,26 +43,45 @@ const marvelSeriesList = [
    '가디언즈 오브 갤럭시',
 ];
 
-const horrorSeriesList = ['레지던트 이블', '클로버필드', '28일 후'];
+const zombieAndMonsterSeriesList = [
+   '레지던트 이블',
+   '클로버필드',
+   '28일 후',
+   '쥬라기 월드',
+   '혹성탈출',
+];
 
 const alienAndSpaceSeriesList = [
    '에이리언',
    '맨 인 블랙',
    '스타워즈',
    '스타트렉',
+   '트랜스포머',
+   '콰이어트 플레이스',
+   '퍼시픽 림',
 ];
 
 const actionAndAdventureSeriesList = [
+   '터미네이터',
    '메이즈 러너',
    '백 투 더 퓨쳐',
    '헝거게임',
    '다이버전트',
    '블레이드 러너',
-   '혹성탈출',
-   '쥬라기 월드',
 ];
 
-const robotAndAISeriesList = ['트랜스포머', '터미네이터', '퍼시픽 림'];
+const geners = [
+   ['우주 탐사', <RocketFilled />],
+   ['외계인', <RedditCircleFilled />],
+   ['슈퍼 히어로', <DingdingOutlined />],
+   ['액션', <ThunderboltFilled />],
+   ['몬스터', <GitlabFilled />],
+   ['가상 현실 또는 AI', <RobotFilled />],
+   ['시간 여행', <HourglassFilled />],
+   ['드라마', <ReadFilled />],
+   ['좀비', <EyeInvisibleFilled />],
+   ['재난', <FireFilled />],
+];
 
 class MenuBar extends Component {
    constructor(props) {
@@ -60,12 +89,17 @@ class MenuBar extends Component {
       this.state = {
          visible: false,
          profile: {},
+         selectKey: '',
       };
    }
 
    handleLogoutChange = () => {
       reactLocalStorage.remove('SFCinemaUserToken');
       location.reload(true);
+   };
+
+   NavigateToGenres = (path, key, genre) => {
+      this.props.history.push(`${path}?key=${key}&genre=${genre}`);
    };
 
    NavigateToHighlyRataedAndReleaseOrder = (
@@ -118,239 +152,118 @@ class MenuBar extends Component {
    };
 
    render() {
-      const { handleLoginChange, profile, isLogin } = this.props;
+      const { handleLoginChange, isLogin } = this.props;
+      let currentpath = window.location.pathname;
+      let currentParams = window.location.search;
+      currentpath =
+         currentpath === '/series' || currentpath === '/genres'
+            ? ''
+            : currentpath;
+      let paramsKey = currentParams.slice(
+         currentParams.indexOf('=') + 1,
+         currentParams.indexOf('&'),
+      );
+
+      paramsKey = isNaN(paramsKey) ? '' : paramsKey;
+
+      history.replaceState({}, null, location.pathname);
+
       return (
          <div>
-            <Layout className="layout">
+            <Layout
+               className="layout"
+               style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  zIndex: 2,
+               }}
+            >
                <Header>
-                  <img className="header-logo" src={SFCINEMA}></img>
+                  <img
+                     className="header-logo"
+                     src={SFCINEMA}
+                     onClick={() => this.props.history.push('/')}
+                  />
+
                   <Menu
+                     selectedKeys={[currentpath + paramsKey]}
                      onClick={this.handleClick}
                      mode="horizontal"
                      theme="dark"
                   >
-                     <SubMenu
-                        icon={<StarFilled />}
-                        title="평점 높은순"
+                     <Menu.Item
+                        icon={<HomeOutlined />}
+                        key="/"
+                        onClick={() => this.props.history.push('/')}
                         style={{
-                           marginLeft: '20vw',
+                           float: 'left',
+                           marginLeft: '30px',
                         }}
                      >
-                        <Menu.Item
-                           key="1"
-                           onClick={({ key }) =>
-                              this.NavigateToHighlyRataedAndReleaseOrder(
-                                 '/highlyRated/rating',
-                                 key,
-                                 100,
-                                 10,
-                                 9,
-                              )
-                           }
-                        >
-                           9점대 평점
-                        </Menu.Item>
-                        <Menu.Item
-                           key="2"
-                           onClick={({ key }) =>
-                              this.NavigateToHighlyRataedAndReleaseOrder(
-                                 '/highlyRated/rating',
-                                 key,
-                                 100,
-                                 9,
-                                 8,
-                              )
-                           }
-                        >
-                           8점대 평점
-                        </Menu.Item>
-                        <Menu.Item
-                           key="3"
-                           onClick={({ key }) =>
-                              this.NavigateToHighlyRataedAndReleaseOrder(
-                                 '/highlyRated/rating',
-                                 key,
-                                 100,
-                                 8,
-                                 7,
-                              )
-                           }
-                        >
-                           7점대 평점
-                        </Menu.Item>
-                        <Menu.Item
-                           key="4"
-                           onClick={({ key }) =>
-                              this.NavigateToHighlyRataedAndReleaseOrder(
-                                 '/highlyRated/rating',
-                                 key,
-                                 100,
-                                 7,
-                                 0,
-                              )
-                           }
-                        >
-                           6점대 평점 / 이하
-                        </Menu.Item>
-                     </SubMenu>
-                     <SubMenu icon={<VideoCameraFilled />} title="영화 개봉순">
-                        <Menu.Item
-                           key="5"
-                           onClick={({ key }) =>
-                              this.NavigateToHighlyRataedAndReleaseOrder(
-                                 '/releaseOrder/year',
-                                 key,
-                                 100,
-                                 20210000,
-                                 20150000,
-                              )
-                           }
-                        >
-                           2020~2015
-                        </Menu.Item>
-                        <Menu.Item
-                           key="6"
-                           onClick={({ key }) =>
-                              this.NavigateToHighlyRataedAndReleaseOrder(
-                                 '/releaseOrder/year',
-                                 key,
-                                 100,
-                                 20150000,
-                                 20100000,
-                              )
-                           }
-                        >
-                           2014~2010
-                        </Menu.Item>
-                        <Menu.Item
-                           key="7"
-                           onClick={({ key }) =>
-                              this.NavigateToHighlyRataedAndReleaseOrder(
-                                 '/releaseOrder/year',
-                                 key,
-                                 100,
-                                 20100000,
-                                 20050000,
-                              )
-                           }
-                        >
-                           2009~2005
-                        </Menu.Item>
-                        <Menu.Item
-                           key="8"
-                           onClick={({ key }) =>
-                              this.NavigateToHighlyRataedAndReleaseOrder(
-                                 '/releaseOrder/year',
-                                 key,
-                                 100,
-                                 20050000,
-                                 0,
-                              )
-                           }
-                        >
-                           2004년 이하
-                        </Menu.Item>
-                     </SubMenu>
+                        <a>홈</a>
+                     </Menu.Item>
+
                      <SubMenu
-                        icon={<ThunderboltFilled />}
-                        title="SF 시리즈"
+                        icon={<BarsOutlined />}
+                        title="SF 장르"
                         mode="horizontal"
+                        key="/genres"
                      >
-                        <SubMenu key="seriesMenuItem-1" title="마블 시리즈">
-                           {marvelSeriesList.map((name, i) => (
-                              <Menu.Item
-                                 key={i + 9}
-                                 onClick={({ key }) =>
-                                    this.NavigateToSeries(
-                                       '/series/seriesName',
-                                       key,
-                                       name,
-                                    )
-                                 }
-                              >
-                                 {name}
-                              </Menu.Item>
-                           ))}
-                        </SubMenu>
-                        {/* key=16 까지 */}
-                        <SubMenu key="seriesMenuItem-2" title="호러 시리즈">
-                           {horrorSeriesList.map((name, i) => (
-                              <Menu.Item
-                                 key={i + 17}
-                                 onClick={({ key }) =>
-                                    this.NavigateToSeries(
-                                       '/series/seriesName',
-                                       key,
-                                       name,
-                                    )
-                                 }
-                              >
-                                 {name}
-                              </Menu.Item>
-                           ))}
-                        </SubMenu>
-                        {/* key=19 까지 */}
-                        <SubMenu
-                           key="seriesMenuItem-3"
-                           title="외계인/우주 탐사 시리즈"
-                        >
-                           {alienAndSpaceSeriesList.map((name, i) => (
-                              <Menu.Item
-                                 key={i + 20}
-                                 onClick={({ key }) =>
-                                    this.NavigateToSeries(
-                                       '/series/seriesName',
-                                       key,
-                                       name,
-                                    )
-                                 }
-                              >
-                                 {name}
-                              </Menu.Item>
-                           ))}
-                        </SubMenu>
-                        {/* key=23 까지 */}
-                        <SubMenu
-                           key="seriesMenuItem-4"
-                           title="액션/모험 시리즈"
-                        >
-                           {actionAndAdventureSeriesList.map((name, i) => (
-                              <Menu.Item
-                                 key={i + 24}
-                                 onClick={({ key }) =>
-                                    this.NavigateToSeries(
-                                       '/series/seriesName',
-                                       key,
-                                       name,
-                                    )
-                                 }
-                              >
-                                 {name}
-                              </Menu.Item>
-                           ))}
-                        </SubMenu>
-                        {/* key=30 까지 */}
-                        <SubMenu key="seriesMenuItem-5" title="로봇/AI 시리즈">
-                           {robotAndAISeriesList.map((name, i) => (
-                              <Menu.Item
-                                 key={i + 31}
-                                 onClick={({ key }) =>
-                                    this.NavigateToSeries(
-                                       '/series/seriesName',
-                                       key,
-                                       name,
-                                    )
-                                 }
-                              >
-                                 {name}
-                              </Menu.Item>
-                           ))}
-                        </SubMenu>
-                        {/* key=33 까지 */}
+                        {geners.map((gener, i) => (
+                           <Menu.Item
+                              key={i + 40 + ''}
+                              icon={gener[1]}
+                              onClick={({ key }) =>
+                                 this.NavigateToGenres('/genres', key, gener[0])
+                              }
+                           >
+                              {gener[0]}
+                           </Menu.Item>
+                        ))}
                      </SubMenu>
+
+                     <Menu.Item
+                        icon={<VideoCameraFilled />}
+                        title="최신 영화"
+                        key="/releaseOrder"
+                        style={{
+                           marginLeft: '10vw',
+                        }}
+                        onClick={({ key }) =>
+                           this.NavigateToHighlyRataedAndReleaseOrder(
+                              '/releaseOrder',
+                              key,
+                              100,
+                              20210000,
+                              20200000,
+                           )
+                        }
+                     >
+                        최신 영화
+                     </Menu.Item>
+
+                     <Menu.Item
+                        icon={<StarFilled />}
+                        title="별점이 높은 영화"
+                        key="/highlyRated"
+                        onClick={({ key }) =>
+                           this.NavigateToHighlyRataedAndReleaseOrder(
+                              '/highlyRated',
+                              key,
+                              100,
+                              10,
+                              8.5,
+                           )
+                        }
+                     >
+                        별점이 높은 영화
+                     </Menu.Item>
+
                      <Menu.Item
                         icon={<GiftFilled />}
-                        key="34"
+                        key="/operatorMovies"
                         onClick={({ key }) =>
                            this.NavigateToOperatorAndMasterpiece(
                               '/operatorMovies',
@@ -361,9 +274,10 @@ class MenuBar extends Component {
                      >
                         <a>운영자 추천</a>
                      </Menu.Item>
+
                      <Menu.Item
                         icon={<CrownFilled />}
-                        key="35"
+                        key="/masterpiece"
                         onClick={({ key }) =>
                            this.NavigateToOperatorAndMasterpiece(
                               '/masterpiece',
@@ -375,42 +289,110 @@ class MenuBar extends Component {
                         <a>SF 명작</a>
                      </Menu.Item>
 
-                     <Menu.Item
-                        icon={<HomeOutlined />}
-                        key="home"
-                        onClick={() => this.props.history.push('/')}
-                        style={{
-                           marginLeft: '20vw',
-                        }}
+                     <SubMenu
+                        icon={<SketchCircleFilled />}
+                        title="SF 시리즈"
+                        mode="horizontal"
+                        key="/series"
                      >
-                        <a>홈</a>
-                     </Menu.Item>
+                        <SubMenu key="seriesMenuItem-1" title="마블 시리즈">
+                           {marvelSeriesList.map((name, i) => (
+                              <Menu.Item
+                                 key={i + ''}
+                                 onClick={({ key }) =>
+                                    this.NavigateToSeries('/series', key, name)
+                                 }
+                              >
+                                 {name}
+                              </Menu.Item>
+                           ))}
+                        </SubMenu>
+
+                        {/* key=16 까지 */}
+                        <SubMenu
+                           key="/seriesMenuItem-2"
+                           title="좀비/몬스터 시리즈"
+                        >
+                           {zombieAndMonsterSeriesList.map((name, i) => (
+                              <Menu.Item
+                                 key={i + 8 + ''}
+                                 onClick={({ key }) =>
+                                    this.NavigateToSeries('/series', key, name)
+                                 }
+                              >
+                                 {name}
+                              </Menu.Item>
+                           ))}
+                        </SubMenu>
+                        {/* key=19 까지 */}
+                        <SubMenu
+                           key="/seriesMenuItem-3"
+                           title="외계인/우주 탐사 시리즈"
+                        >
+                           {alienAndSpaceSeriesList.map((name, i) => (
+                              <Menu.Item
+                                 key={i + 14 + ''}
+                                 onClick={({ key }) =>
+                                    this.NavigateToSeries('/series', key, name)
+                                 }
+                              >
+                                 {name}
+                              </Menu.Item>
+                           ))}
+                        </SubMenu>
+                        {/* key=23 까지 */}
+                        <SubMenu
+                           key="/seriesMenuItem-4"
+                           title="액션/모험 시리즈"
+                        >
+                           {actionAndAdventureSeriesList.map((name, i) => (
+                              <Menu.Item
+                                 key={i + 30 + ''}
+                                 onClick={({ key }) =>
+                                    this.NavigateToSeries('/series', key, name)
+                                 }
+                              >
+                                 {name}
+                              </Menu.Item>
+                           ))}
+                        </SubMenu>
+                     </SubMenu>
 
                      {!isLogin ? (
                         <Menu.Item
-                           icon={<LoginOutlined />}
-                           key="login"
-                           onClick={() => this.props.history.push('/login')}
+                           icon={<FormOutlined />}
+                           key="/signUp"
+                           onClick={() => this.props.history.push('/signUp')}
+                           style={{
+                              float: 'right',
+                              marginRight: '50px',
+                           }}
                         >
-                           <a>로그인</a>
+                           <a>회원가입</a>
                         </Menu.Item>
                      ) : null}
 
                      {!isLogin ? (
                         <Menu.Item
-                           icon={<FormOutlined />}
-                           key="signUp"
-                           onClick={() => this.props.history.push('/signUp')}
+                           icon={<LoginOutlined />}
+                           key="/login"
+                           onClick={() => this.props.history.push('/login')}
+                           style={{
+                              float: 'right',
+                           }}
                         >
-                           <a>회원가입</a>
+                           <a>로그인</a>
                         </Menu.Item>
                      ) : null}
 
                      {isLogin ? (
                         <Menu.Item
                            icon={<UserOutlined />}
-                           key="profile"
+                           key="/profile"
                            onClick={this.showDrawer}
+                           style={{
+                              float: 'right',
+                           }}
                         >
                            <a>프로필 관리</a>
                         </Menu.Item>
@@ -418,10 +400,11 @@ class MenuBar extends Component {
                   </Menu>
                </Header>
             </Layout>
+
             <Drawer
                title={<img src={SFCINEMA} className="max-small-logo" />}
                width={350}
-               closable={false}
+               closable={true}
                onClose={this.onClose}
                visible={this.state.visible}
                footer={

@@ -1,12 +1,28 @@
 .main-content {
    box-shadow: 0 0px 50px 10px;
-   position: relative;
+
    height: 89vh;
    overflow: hidden;
+   margin-top: 3.3vw;
+}
+
+.main-img-shadow {
+   position: absolute;
+   width: 45%;
+   height: 89vh;
+   background-image: linear-gradient(
+      to right,
+      rgb(20, 21, 23) 0%,
+      rgba(20, 21, 23, 0.7) 26%,
+      rgba(20, 21, 23, 0.45) 60%,
+      rgba(20, 21, 23, 0.2) 90%,
+      rgba(20, 21, 23, 0) 100%
+   );
 }
 
 .main-content-background {
-   width: 100%;
+   height: 100%;
+
    overflow: hidden;
 }
 
@@ -28,7 +44,7 @@
 }
 
 .main-title {
-   padding: 60px;
+   padding: 5vw;
 }
 
 .main-title-welcome {

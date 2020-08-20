@@ -1,8 +1,9 @@
 .header-logo {
-   position: absolute;
-   width: 190px;
+   width: 140px;
    border-radius: 15px;
-   margin: 14px 28px 16px 80px;
+   margin: 20px 0 0 50px;
+   float: left;
+   cursor: pointer;
 }
 
 .menubar-search {

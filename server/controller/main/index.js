@@ -7,4 +7,5 @@ module.exports = {
   series: require('./series'),
   backgroundImg: require('./backgroundImg'),
   searchMovie: require('./searchMovie'),
+  genres: require('./genres'),
 };

@@ -1,38 +1,50 @@
-.movie-container {
-   margin: 2vw 20vw 2vw 20vw;
+.img-shadow {
+   position: absolute;
+   width: 45%;
+   height: 100%;
+   background-image: linear-gradient(
+      to right,
+      rgb(20, 21, 23) 3%,
+      rgba(20, 21, 23, 0.7) 26%,
+      rgba(20, 21, 23, 0.45) 50%,
+      rgba(20, 21, 23, 0.2) 80%,
+      rgba(20, 21, 23, 0) 100%
+   );
 }
 
 .moive-content {
-   position: relative;
-   margin: 3vw 1vw 1vw 1vw;
-   padding: 1vw 1vw 2vw 4vw;
-   border: 5px solid whitesmoke;
-   border-radius: 1.5vw;
+   background: rgb(20, 21, 23);
+   padding: 3.3vw 0 0vw 0;
 }
 
 .movie-img-box {
-   float: right;
-   margin: 2vw 3vw 0 0;
+   position: absolute;
+   width: 61.5vw;
+   left: 38vw;
 }
 
 .movie-img {
-   border-radius: 7px;
-   width: 14vw;
+   width: 100%;
 }
 
 .movie-info {
-   padding: 1vw 22vw 1vw 1vw;
+   color: whitesmoke;
+   background: rgb(20, 21, 23);
+
+   padding: 0 0 15vw 5vw;
 }
 
 .movie-headers {
+   margin-top: 5vw;
    text-align: left;
 }
 
 .movie-title-list {
+   width: 29vw;
 }
 
 .movie-title {
-   font-size: 2.5vw;
+   font-size: 3vw;
 }
 
 .movie-titleEng_year {
@@ -63,9 +75,6 @@
    font-size: 1.2vw;
 }
 
-.movie-body {
-}
-
 .movie-summary {
    list-style: none;
    display: block;
@@ -85,13 +94,16 @@
 }
 
 .movie-plot {
+   width: 30vw;
+   margin-right: 100vw;
    padding-bottom: 1vw;
    padding-left: 0.3vw;
-   font-size: 0.75vw;
+
+   font-size: 0.85vw;
    text-align: left;
 }
 
-.movie-director_actors_awards {
+.movie-director_actors {
    font-size: 0.75vw;
    padding-left: 0.4vw;
    text-align: left;
@@ -99,4 +111,72 @@
 
 .movie-sub {
    padding-right: 0.5vw;
+}
+
+.btn-color {
+   border: none;
+   color: rgb(160, 145, 145);
+}
+
+.ant-pagination {
+   margin: 0 0 0 5vw;
+   padding: 0 0 8vw 0;
+   color: whitesmoke;
+}
+
+.ant-pagination-item {
+   background: rgb(0, 0, 0);
+   border-radius: 15px;
+}
+
+.ant-pagination-item:hover {
+   background: blue;
+}
+
+.ant-pagination-next .ant-pagination-item-link {
+   background: rgb(0, 0, 0);
+   color: whitesmoke;
+   border-radius: 5px;
+   font-size: 13.5px;
+}
+
+.ant-pagination-prev .ant-pagination-item-link {
+   background: rgb(0, 0, 0);
+   color: whitesmoke;
+   border-radius: 5px;
+   font-size: 13.5px;
+}
+
+.ant-pagination-item-active {
+   background: blue;
+}
+
+.ant-pagination-item a {
+   color: whitesmoke;
+}
+
+.ant-pagination-jump-next
+   .ant-pagination-item-container
+   .ant-pagination-item-ellipsis {
+   color: whitesmoke;
+}
+
+.pushpin-btn {
+   padding: 0 0 15px 0;
+   border: none;
+   background: none;
+}
+
+.pushpin-btn:hover {
+   border: none;
+   background: none;
+}
+
+.pushpin-icon {
+   font-size: 33px;
+   color: red;
+}
+
+.pushpin-btn:focus {
+   background: none;
 }

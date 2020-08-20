@@ -19,6 +19,8 @@ import SFCINEMA from '../../SFCINEMA.png';
 import './MainCinema.css';
 import Slider from 'react-slick';
 import { seriesList } from './seriesList';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const { Search } = Input;
 const { Meta } = Card;
@@ -34,7 +36,8 @@ class MainCinema extends Component {
          backgroundImg: [],
          randomMovies: [],
          highlyRated: [],
-         releaseOrder: [],
+         aliensMovies: [],
+         superHeroMovies: [],
          operatorMovies: [],
          masterpiece: [],
          series: [],
@@ -54,6 +57,7 @@ class MainCinema extends Component {
          axiosRequestSeries,
          axiosRequestOperatorMovies,
          axiosRequestMasterpiece,
+         axiosGenres,
       } = this.props;
 
       /*  백그라운드 이미지 */
@@ -70,7 +74,7 @@ class MainCinema extends Component {
          });
       });
 
-      /* 평점 높은순 */
+      /* 별점이 9점 이상인 영화 */
       const highlyRated = await axiosRequestHighlyRated(
          '/highlyRated',
          100,
@@ -88,15 +92,27 @@ class MainCinema extends Component {
       );
       this.setState({ releaseOrder: releaseOrder });
 
+      /* 외계인 영화 추천 */
+      const aliensMovies = await axiosGenres('/genres', '외계인', 15);
+      this.setState({
+         aliensMovies: aliensMovies,
+      });
+
+      /* 슈퍼히어로 영화 추천 */
+      const superHeroMovies = await axiosGenres('/genres', '슈퍼 히어로', 15);
+      this.setState({
+         superHeroMovies: superHeroMovies,
+      });
+
       /* 운영자가 추천하는 SF 영화*/
       const operatorMovies = await axiosRequestOperatorMovies(
          '/operatorMovies',
-         24,
+         21,
       );
       this.setState({ operatorMovies: operatorMovies });
 
       /* 주말에 몰아보기 좋은 SF 명작 추천 */
-      const masterpiece = await axiosRequestMasterpiece('/masterpiece', 24);
+      const masterpiece = await axiosRequestMasterpiece('/masterpiece', 21);
       this.setState({ masterpiece: masterpiece });
 
       /* SF 시리즈물 강력 추천(Top3) */
@@ -117,34 +133,34 @@ class MainCinema extends Component {
          series: resultMovieList,
       });
       //////////////////////////////////////////////////////////////////
-      // const movieTitleEng = 'life';
-      // axios
-      //    .get('https://api.themoviedb.org/3/search/movie', {
-      //       params: {
-      //          api_key: 'a3f2dd845f961cc6ea8d04c944383159',
-      //          query: movieTitleEng,
-      //          page: 1,
-      //       },
-      //    })
-      //    .then(async ({ data }) => {
-      //       const imgId = data.results[0].id;
-      //       console.log(imgId);
+      const movieTitleEng = '더 플랫폼';
+      axios
+         .get('https://api.themoviedb.org/3/search/movie', {
+            params: {
+               api_key: '',
+               query: movieTitleEng,
+               page: 1,
+            },
+         })
+         .then(async ({ data }) => {
+            const imgId = data.results[0].id;
+            console.log(imgId);
 
-      //       axios
-      //          .get(`https://api.themoviedb.org/3/movie/${imgId}/images`, {
-      //             params: { api_key: 'a3f2dd845f961cc6ea8d04c944383159' },
-      //          })
-      //          .then(({ data }) => {
-      //             const imgList = data.backdrops.map((obj, i) => {
-      //                console.log(`${i} 번 사진`, obj.file_path);
-      //                return `https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${obj.file_path}`;
-      //             });
+            axios
+               .get(`https://api.themoviedb.org/3/movie/${imgId}/images`, {
+                  params: { api_key: '' },
+               })
+               .then(({ data }) => {
+                  const imgList = data.backdrops.map((obj, i) => {
+                     console.log(`${i} 번 사진`, obj.file_path);
+                     return `https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${obj.file_path}`;
+                  });
 
-      //             this.setState({
-      //                imgList: imgList,
-      //             });
-      //          });
-      //    });
+                  this.setState({
+                     imgList: imgList,
+                  });
+               });
+         });
    }
 
    handleUpdateSearchKeyword = (e) => {
@@ -193,7 +209,7 @@ class MainCinema extends Component {
    };
 
    setModalVisible = (modalVisible) => {
-      this.setState({ modalVisible: modalVisible });
+      this.setState({ modalVisible });
    };
 
    handleCurrentMovie = (movie) => {
@@ -205,6 +221,7 @@ class MainCinema extends Component {
    onClose = () => {
       this.setState({
          drawerVisible: false,
+         currentMovie: [],
       });
    };
 
@@ -213,7 +230,6 @@ class MainCinema extends Component {
          backgroundImg,
          randomMovies,
          highlyRated,
-         releaseOrder,
          operatorMovies,
          masterpiece,
          series,
@@ -221,17 +237,26 @@ class MainCinema extends Component {
          currentMovie,
          searchResult,
          imgList,
+         aliensMovies,
+         superHeroMovies,
       } = this.state;
 
       return (
          <div>
             <div className="main-content">
+               <div
+                  className="main-img-shadow"
+                  style={{
+                     zIndex: 1,
+                  }}
+               />
                <div className="main-content-wrap">
                   <div className="main-title">
                      <img className="main-logo" src={SFCINEMA} />
+
                      <h2 className="main-title-welcome">Welcome.</h2>
                      <h3 className="main-description">
-                        lot of SF movies to discover. <div>Explore now.</div>
+                        lot of SF movies to discover <div>Explore now</div>
                      </h3>
                   </div>
                </div>
@@ -270,7 +295,7 @@ class MainCinema extends Component {
                title={`검색 결과 총 ${
                   searchResult ? searchResult.length : 0
                }건`}
-               height={460}
+               height={800}
                onClose={this.onClose}
                visible={this.state.drawerVisible}
                placement="bottom"
@@ -291,14 +316,14 @@ class MainCinema extends Component {
                                  style={{
                                     width: 200,
                                     marginBottom: 10,
-                                    borderRadius: 5,
+                                    borderRadius: '7px',
+                                    overflow: 'hidden',
                                  }}
                                  cover={
                                     <img
                                        src={JSON.parse(movie.posters)[0]}
                                        style={{
                                           height: '300px',
-                                          borderRadius: 5,
                                        }}
                                     />
                                  }
@@ -315,6 +340,20 @@ class MainCinema extends Component {
                            </Col>
                         ))}
                      </Row>
+                     <Modal
+                        title={<img src={SFCINEMA} className="small-logo" />}
+                        centered
+                        width={1150}
+                        visible={modalVisible}
+                        onOk={() => this.setModalVisible(false)}
+                        onCancel={() => this.setModalVisible(false)}
+                        footer={null}
+                     >
+                        <ModalPage
+                           currentMovie={currentMovie}
+                           isLogin={this.props.isLogin}
+                        />
+                     </Modal>
                   </div>
                ) : (
                   <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
@@ -336,18 +375,16 @@ class MainCinema extends Component {
             {masterpiece.length ? (
                <DownSlideShow
                   highlyRated={highlyRated}
-                  releaseOrder={releaseOrder}
                   operatorMovies={operatorMovies}
                   masterpiece={masterpiece}
                   series={series}
+                  aliensMovies={aliensMovies}
+                  superHeroMovies={superHeroMovies}
                   setModalVisible={this.setModalVisible}
                   handleCurrentMovie={this.handleCurrentMovie}
                />
             ) : null}
             <Modal
-               style={{
-                  zIndex: 2,
-               }}
                title={<img src={SFCINEMA} className="small-logo" />}
                centered
                width={1150}
@@ -361,13 +398,13 @@ class MainCinema extends Component {
                   isLogin={this.props.isLogin}
                />
             </Modal>
-            {/* {imgList.length
+            {imgList.length
                ? imgList.map((data, i) => (
                     <div
                        key={i}
                        style={{
                           width: '1920px',
-                          height: '550px',
+
                           overflow: 'hidden',
                        }}
                     >
@@ -379,7 +416,7 @@ class MainCinema extends Component {
                        ></img>
                     </div>
                  ))
-               : null} */}
+               : null}
          </div>
       );
    }

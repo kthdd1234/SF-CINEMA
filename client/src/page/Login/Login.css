@@ -7,3 +7,26 @@
    font-weight: bold;
    color: whitesmoke;
 }
+
+.background-image {
+   height: 100vh;
+   overflow: hidden;
+}
+
+.background-shadow {
+   position: absolute;
+   z-index: 0;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   height: 100%;
+   background-image: linear-gradient(
+      to top,
+      rgb(20, 21, 23) 0%,
+      rgba(20, 21, 23, 0.7) 0%,
+      rgba(20, 21, 23, 0.45) 0%,
+      rgba(20, 21, 23, 0.2) 100%,
+      rgba(20, 21, 23, 0) 100%
+   );
+}

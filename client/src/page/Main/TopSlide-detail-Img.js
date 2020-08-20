@@ -10,7 +10,7 @@ function TopSlideDetailImg({
 
    return (
       <div>
-         <div className="slide-center-mode">
+         <div className="movie-poster-list">
             <img
                src={posters[0]}
                alt={`img${movie.id}`}

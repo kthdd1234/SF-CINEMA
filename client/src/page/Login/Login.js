@@ -132,7 +132,7 @@ class Login extends Component {
    };
 
    handleMoveSignUpPage = () => {
-      this.props.history.push('/signup');
+      this.props.history.push('/signUp');
    };
 
    handleInputValue = (key) => (e) => {
@@ -144,8 +144,9 @@ class Login extends Component {
          <div>
             <div
                style={{
+                  zIndex: 1,
                   position: 'absolute',
-                  margin: '60px 0 0 450pt',
+                  margin: '5.5vw 0 0 450pt',
                   padding: '50px 150px 50px 0px',
                   background: 'rgba(0,0,0,.75)',
                   borderRadius: '10px',
@@ -329,9 +330,12 @@ class Login extends Component {
                </div>
             </div>
             {this.state.backgroundImg === '' ? null : (
-               <img
-                  src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.backgroundImg}`}
-               />
+               <div className="background-image">
+                  <div className="background-shadow"> </div>
+                  <img
+                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.backgroundImg}`}
+                  />
+               </div>
             )}
          </div>
       );

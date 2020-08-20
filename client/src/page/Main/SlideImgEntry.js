@@ -19,10 +19,7 @@ function SlideImgEntry({ movie, alt, setModalVisible, handleCurrentMovie }) {
             <Card
                size="small"
                hoverable
-               style={{
-                  width: 200,
-                  borderRadius: '5px',
-               }}
+               className="movie-card"
                onClick={() => {
                   setModalVisible(true);
                   handleCurrentMovie(arguments[0].movie);
@@ -35,28 +32,6 @@ function SlideImgEntry({ movie, alt, setModalVisible, handleCurrentMovie }) {
                />
             </Card>
          </div>
-         // <div
-         //    style={{
-         //       textAlign: 'center',
-         //    }}
-         // >
-         //    <div>
-         //       <img
-         //          src={poster}
-         //          alt={`img${alt}`}
-         //          onClick={() => {
-         //             setModalVisible(true);
-         //             handleCurrentMovie(arguments[0].movie);
-         //          }}
-         //       />
-         //    </div>
-         //    <div className="title">
-         //       <strong>{title}</strong>
-         //    </div>
-         //    <span className="releaseDate">{convertStrDate}</span>
-         //    <span> ꒐ </span>
-         //    <span className="rating">⭐ {userRating}</span>
-         // </div>
       );
    } else {
       return (

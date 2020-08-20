@@ -7,10 +7,11 @@ import PrevArrow from './PreArrow';
 
 function DownSlideShow({
    highlyRated,
-   releaseOrder,
    operatorMovies,
    masterpiece,
    series,
+   aliensMovies,
+   superHeroMovies,
    setModalVisible,
    handleCurrentMovie,
 }) {
@@ -34,9 +35,9 @@ function DownSlideShow({
    let id = 0;
    return (
       <div>
-         <h2 className="main-slide-sub">평점이 높은 SF 영화(9점이상)</h2>
-         <div className="slider-multiple-items">
-            <Slider {...settings} slickNext>
+         <h2 className="recommend-title">별점이 9점 이상인 영화</h2>
+         <div className="recommend-items">
+            <Slider {...settings}>
                {highlyRated.map((movie) => (
                   <SlideImgEntry
                      key={id++}
@@ -47,13 +48,12 @@ function DownSlideShow({
                   />
                ))}
             </Slider>
-            <div className="box-shadow-right" />
          </div>
 
-         <h2 className="main-slide-sub">최근 개봉한 SF 영화(2020~2018)</h2>
-         <div className="slider-multiple-items">
+         <h2 className="recommend-title">외계인 영화 추천</h2>
+         <div className="recommend-items">
             <Slider {...settings}>
-               {releaseOrder.map((movie) => (
+               {aliensMovies.map((movie) => (
                   <SlideImgEntry
                      key={id++}
                      movie={movie}
@@ -63,11 +63,25 @@ function DownSlideShow({
                   />
                ))}
             </Slider>
-            <div className="box-shadow-right" />
          </div>
 
-         <h2 className="main-slide-sub">운영자가 추천하는 SF 영화</h2>
-         <div className="slider-multiple-items">
+         <h2 className="recommend-title">슈퍼히어로 영화 추천</h2>
+         <div className="recommend-items">
+            <Slider {...settings}>
+               {superHeroMovies.map((movie) => (
+                  <SlideImgEntry
+                     key={id++}
+                     movie={movie}
+                     alt={id}
+                     setModalVisible={setModalVisible}
+                     handleCurrentMovie={handleCurrentMovie}
+                  />
+               ))}
+            </Slider>
+         </div>
+
+         <h2 className="recommend-title">운영자가 추천하는 영화</h2>
+         <div className="recommend-items">
             <Slider {...settings}>
                {operatorMovies.map((movie) => (
                   <SlideImgEntry
@@ -79,11 +93,10 @@ function DownSlideShow({
                   />
                ))}
             </Slider>
-            <div className="box-shadow-right" />
          </div>
 
-         <h2 className="main-slide-sub">주말에 몰아보기 좋은 SF 명작 추천</h2>
-         <div className="slider-multiple-items">
+         <h2 className="recommend-title">주말에 몰아보기 좋은 SF 명작 추천</h2>
+         <div className="recommend-items">
             <Slider {...settings}>
                {masterpiece.map((movie) => (
                   <SlideImgEntry
@@ -95,11 +108,10 @@ function DownSlideShow({
                   />
                ))}
             </Slider>
-            <div className="box-shadow-right" />
          </div>
 
-         <h2 className="main-slide-sub">SF 시리즈물 강력 추천</h2>
-         <div className="slider-multiple-items">
+         <h2 className="recommend-title">SF 시리즈물 강력 추천</h2>
+         <div className="recommend-items">
             <Slider {...seriesSettings}>
                {series.map((movie) => (
                   <SlideImgEntry
@@ -111,7 +123,6 @@ function DownSlideShow({
                   />
                ))}
             </Slider>
-            <div className="box-shadow-right" />
          </div>
       </div>
    );

@@ -1,8 +1,12 @@
 .pre-arrow-btn {
-   bottom: 35pt;
+   bottom: 20pt;
    right: 3vw;
 }
 
 .direction-icon-left {
    font-size: 8vh;
+}
+
+.slick-prev:before {
+   display: none;
 }

@@ -19,6 +19,10 @@ const tailLayout = {
    },
 };
 
+const serverUrl = axios.create({
+   baseURL: 'http://localhost:5000/',
+});
+
 class SignUp extends Component {
    constructor(props) {
       super(props);
@@ -31,6 +35,14 @@ class SignUp extends Component {
          backgroundImg: '',
       };
    }
+
+   componentDidMount = () => {
+      serverUrl.get('main/backgroundImg').then(({ data }) => {
+         this.setState({
+            backgroundImg: data[1][1],
+         });
+      });
+   };
 
    onFinishedSignUp = () => {
       this.props.history.push('/login');
@@ -77,8 +89,9 @@ class SignUp extends Component {
          <div>
             <div
                style={{
+                  zIndex: 1,
                   position: 'absolute',
-                  margin: '40px 0 0 150pt',
+                  margin: '7.5vw 0 0 130pt',
                   padding: '60px',
                   background: 'rgba(0,0,0,.75)',
                   borderRadius: '10px',
@@ -195,24 +208,6 @@ class SignUp extends Component {
                      >
                         <Input onChange={this.handleInputValue('username')} />
                      </Form.Item>
-                     <Form.Item
-                        label={
-                           <strong
-                              style={{
-                                 color: 'white',
-                              }}
-                           ></strong>
-                        }
-                        name="이름"
-                        rules={[
-                           {
-                              required: true,
-                              message: '이름을 입력해주세요',
-                           },
-                        ]}
-                     >
-                        <Input onChange={this.handleInputValue('username')} />
-                     </Form.Item>
 
                      <Form.Item {...tailLayout}>
                         <Button
@@ -234,8 +229,6 @@ class SignUp extends Component {
                            type="primary"
                            htmlType="submit"
                            icon={<FormOutlined />}
-                           style={{}}
-                           ghost={true}
                            onClick={() => this.props.history.push('/login')}
                            style={{
                               width: '100%',
@@ -247,16 +240,13 @@ class SignUp extends Component {
                   </Form>
                </div>
             </div>
-            {this.state.backgroundImg === '' ? (
-               <img
-                  src={
-                     'https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces//wzJRB4MKi3yK138bJyuL9nx47y6.jpg'
-                  }
-               />
-            ) : (
-               <img
-                  src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.backgroundImg}`}
-               />
+            {this.state.backgroundImg === '' ? null : (
+               <div className="background-image">
+                  <div className="background-shadow"> </div>
+                  <img
+                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.backgroundImg}`}
+                  />
+               </div>
             )}
          </div>
       );
