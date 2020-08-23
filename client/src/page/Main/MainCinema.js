@@ -42,7 +42,7 @@ class MainCinema extends Component {
          masterpiece: [],
          series: [],
          modalVisible: false,
-         currentMovie: {},
+         currentMovie: null,
          imgList: [],
          searchResult: [],
          keyword: '',
@@ -133,7 +133,7 @@ class MainCinema extends Component {
          series: resultMovieList,
       });
       //////////////////////////////////////////////////////////////////
-      const movieTitleEng = '더 플랫폼';
+      const movieTitleEng = 'arrival';
       axios
          .get('https://api.themoviedb.org/3/search/movie', {
             params: {
@@ -209,7 +209,9 @@ class MainCinema extends Component {
    };
 
    setModalVisible = (modalVisible) => {
-      this.setState({ modalVisible });
+      this.setState({
+         modalVisible,
+      });
    };
 
    handleCurrentMovie = (movie) => {
@@ -218,10 +220,9 @@ class MainCinema extends Component {
       });
    };
 
-   onClose = () => {
+   onClose = (key) => {
       this.setState({
          drawerVisible: false,
-         currentMovie: [],
       });
    };
 
@@ -243,24 +244,18 @@ class MainCinema extends Component {
 
       return (
          <div>
-            <div className="main-content">
-               <div
-                  className="main-img-shadow"
-                  style={{
-                     zIndex: 1,
-                  }}
-               />
-               <div className="main-content-wrap">
-                  <div className="main-title">
-                     <img className="main-logo" src={SFCINEMA} />
+            <div className="top-layout">
+               <div className="content-wrap">
+                  <div className="content-title">
+                     <img className="content-logo" src={SFCINEMA} />
 
-                     <h2 className="main-title-welcome">Welcome.</h2>
-                     <h3 className="main-description">
-                        lot of SF movies to discover <div>Explore now</div>
+                     <h2 className="content-title-welcome">Welcome.</h2>
+                     <h3 className="content-description">
+                        lot of SF movies to discover. <div>Explore now.</div>
                      </h3>
                   </div>
                </div>
-               <div className="box-shadow-top" />
+
                <Slider
                   fade={true}
                   infinite={true}
@@ -273,11 +268,13 @@ class MainCinema extends Component {
                   pauseOnHover={false}
                >
                   {backgroundImg.map((img, i) => (
-                     <img
-                        key={i}
-                        className="main-content-background"
-                        src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${img}`}
-                     />
+                     <div className="background-container" key={i}>
+                        <div className="background-left-shadow" />
+                        <img
+                           className="background-images"
+                           src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${img}`}
+                        />
+                     </div>
                   ))}
                </Slider>
             </div>
@@ -328,8 +325,8 @@ class MainCinema extends Component {
                                     />
                                  }
                                  onClick={() => {
-                                    this.handleCurrentMovie(movie);
                                     this.setModalVisible(true);
+                                    this.handleCurrentMovie(movie);
                                  }}
                               >
                                  <Meta
@@ -340,6 +337,7 @@ class MainCinema extends Component {
                            </Col>
                         ))}
                      </Row>
+
                      <Modal
                         title={<img src={SFCINEMA} className="small-logo" />}
                         centered
@@ -384,6 +382,7 @@ class MainCinema extends Component {
                   handleCurrentMovie={this.handleCurrentMovie}
                />
             ) : null}
+
             <Modal
                title={<img src={SFCINEMA} className="small-logo" />}
                centered
@@ -392,12 +391,14 @@ class MainCinema extends Component {
                onOk={() => this.setModalVisible(false)}
                onCancel={() => this.setModalVisible(false)}
                footer={null}
+               maskClosable={false}
             >
                <ModalPage
                   currentMovie={currentMovie}
                   isLogin={this.props.isLogin}
                />
             </Modal>
+
             {imgList.length
                ? imgList.map((data, i) => (
                     <div

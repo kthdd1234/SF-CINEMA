@@ -10,14 +10,7 @@ module.exports = {
     dialect: 'mysql',
     operatorsAliases: false,
   },
-  test: {
-    username: env.DB_USERNAME,
-    password: env.DB_PASSWORD,
-    host: env.DB_HOSTNAME,
-    database: 'SFcinemaDB',
-    dialect: 'mysql',
-    operatorsAliases: false,
-  },
+
   production: {
     username: env.RDS_USERNAME,
     password: env.RDS_PASSWORD,

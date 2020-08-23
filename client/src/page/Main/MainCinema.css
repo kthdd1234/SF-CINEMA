@@ -1,15 +1,14 @@
-.main-content {
+.top-layout {
    box-shadow: 0 0px 50px 10px;
 
-   height: 89vh;
-   overflow: hidden;
    margin-top: 3.3vw;
 }
 
-.main-img-shadow {
+.background-left-shadow {
+   z-index: 1;
    position: absolute;
    width: 45%;
-   height: 89vh;
+   height: 100%;
    background-image: linear-gradient(
       to right,
       rgb(20, 21, 23) 0%,
@@ -20,34 +19,29 @@
    );
 }
 
-.main-content-background {
-   height: 100%;
+.background-container {
+   height: 89vh;
+}
 
+.background-images {
    overflow: hidden;
 }
 
-.box-shadow-top {
-   position: absolute;
-   z-index: 1;
-   padding: 0 0 0 1920px;
-   box-shadow: 0 10px 50px 20px;
-}
-
-.main-content-wrap {
+.content-wrap {
    z-index: 1;
    position: absolute;
 }
 
-.main-logo {
+.content-logo {
    width: 190px;
    border-radius: 15px;
 }
 
-.main-title {
+.content-title {
    padding: 5vw;
 }
 
-.main-title-welcome {
+.content-title-welcome {
    color: whitesmoke;
    font-size: 5em;
    font-weight: 700;
@@ -56,7 +50,7 @@
    padding: 0;
 }
 
-.main-description {
+.content-description {
    color: whitesmoke;
    font-size: 4em;
    font-weight: 600;

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import ModalImage from './Modal-image';
 import ModalSummary from './Modal-summary';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import 'antd/dist/antd.css';
-import { Button, Popconfirm, Modal } from 'antd';
+import { Button, Popconfirm, Modal, notification } from 'antd';
 import {
    LikeOutlined,
    DislikeOutlined,
@@ -16,7 +17,7 @@ import {
 } from '@ant-design/icons';
 import $ from 'jquery';
 import axios from 'axios';
-import { reactLocalStorage } from 'reactjs-localstorage';
+
 import Trailer from './Trailer';
 import './ModalPage.css';
 
@@ -38,6 +39,36 @@ class ModalPage extends Component {
          tralierShow: false,
       };
    }
+
+   componentDidMount = () => {
+      if (this.props.isLogin) {
+         const accessToken = reactLocalStorage.get('SFCinemaUserToken');
+         if (accessToken) {
+            axios
+               .get('http://localhost:5000/user/profile', {
+                  headers: {
+                     Authorization: 'Bearer ' + accessToken,
+                  },
+               })
+               .then(({ data }) => {
+                  const {
+                     loginID,
+                     savedMovie,
+                     likedMovie,
+                     disLikedMovie,
+                  } = data;
+                  this.setState({
+                     loginID: loginID,
+                  });
+                  this.handleUserFavoritedData(
+                     savedMovie,
+                     likedMovie,
+                     disLikedMovie,
+                  );
+               });
+         }
+      }
+   };
 
    componentDidUpdate = (prevProps) => {
       if (this.props.isLogin) {
@@ -80,35 +111,71 @@ class ModalPage extends Component {
          }
       }
    };
+   successPushpinNotification = (placement) => {
+      notification.success({
+         message: `영화 정보 저장 완료!`,
+         description: '프로필 관리 목록에 해당 영화 정보를 저장하였습니다.',
+         placement,
+         icon: (
+            <PushpinFilled
+               style={{
+                  color: 'red',
+               }}
+            />
+         ),
+      });
+   };
 
-   componentDidMount = () => {
-      if (this.props.isLogin) {
-         const accessToken = reactLocalStorage.get('SFCinemaUserToken');
-         if (accessToken) {
-            axios
-               .get('http://localhost:5000/user/profile', {
-                  headers: {
-                     Authorization: 'Bearer ' + accessToken,
-                  },
-               })
-               .then(({ data }) => {
-                  const {
-                     loginID,
-                     savedMovie,
-                     likedMovie,
-                     disLikedMovie,
-                  } = data;
-                  this.setState({
-                     loginID: loginID,
-                  });
-                  this.handleUserFavoritedData(
-                     savedMovie,
-                     likedMovie,
-                     disLikedMovie,
-                  );
-               });
-         }
-      }
+   cancelPushpinNotification = (placement) => {
+      notification.warn({
+         message: `영화 정보 저장 취소!`,
+         description: '프로필 관리 목록에 해당 영화 정보를 삭제하였습니다.',
+         placement,
+      });
+   };
+
+   successLikeNotification = (placement) => {
+      notification.success({
+         message: `좋아요 완료!`,
+         description: '좋아요 목록에 해당 영화 정보가 추가되었습니다.',
+         placement,
+         icon: (
+            <LikeFilled
+               style={{
+                  color: 'blue',
+               }}
+            />
+         ),
+      });
+   };
+
+   cancelLikeNotification = (placement) => {
+      notification.warn({
+         message: `좋아요 취소!`,
+         description: '좋아요 목록에 해당 영화 정보를 삭제하였습니다.',
+         placement,
+      });
+   };
+
+   successDisLikeNotification = (placement) => {
+      notification.success({
+         message: `영화 정보에 노잼 표시를 하였습니다.`,
+         placement,
+         icon: (
+            <DislikeFilled
+               style={{
+                  color: 'blue',
+               }}
+            />
+         ),
+      });
+   };
+
+   cancelDisLikeNotification = (placement) => {
+      notification.warn({
+         message: `영화 정보에 노잼 표시를 취소하였습니다.`,
+         placement,
+      });
    };
 
    onVisibleChange = (target) => (visible) => {
@@ -135,11 +202,13 @@ class ModalPage extends Component {
                loginID: loginID,
                movieId: this.props.currentMovie.id,
             });
+            this.successPushpinNotification('topLeft');
          } else {
             serverUrl.post('/cancelSavedMovie', {
                loginID: loginID,
                movieId: this.props.currentMovie.id,
             });
+            this.cancelPushpinNotification('topLeft');
          }
          this.setState({
             pushpin: !pushpin,
@@ -156,11 +225,13 @@ class ModalPage extends Component {
                loginID: loginID,
                movieId: this.props.currentMovie.id,
             });
+            this.successLikeNotification('topLeft');
          } else {
             serverUrl.post('/cancelLikedMovie', {
                loginID: loginID,
                movieId: this.props.currentMovie.id,
             });
+            this.cancelLikeNotification('topLeft');
          }
          this.setState({
             like: !like,
@@ -179,11 +250,13 @@ class ModalPage extends Component {
                loginID: loginID,
                movieId: this.props.currentMovie.id,
             });
+            this.successDisLikeNotification('topLeft');
          } else {
             serverUrl.post('/cancelDisLikedMovie', {
                loginID: loginID,
                movieId: this.props.currentMovie.id,
             });
+            this.cancelDisLikeNotification('topLeft');
          }
          this.setState({
             dislike: !dislike,

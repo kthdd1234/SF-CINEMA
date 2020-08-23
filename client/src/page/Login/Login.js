@@ -66,7 +66,6 @@ class Login extends Component {
                   },
                })
                .then(({ data }) => {
-                  console.log(data);
                   handleLoginChange();
                   handleProfileUpdate(data);
                   message.success('로그인 성공!');
@@ -76,7 +75,7 @@ class Login extends Component {
    };
    successResponseGoogle = (response) => {
       const { email, name, imageUrl } = response.profileObj;
-      console.log(imageUrl);
+
       this.setState({
          loginID: email,
          password: '',

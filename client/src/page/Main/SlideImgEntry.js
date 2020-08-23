@@ -13,7 +13,6 @@ function SlideImgEntry({ movie, alt, setModalVisible, handleCurrentMovie }) {
       convertStrDate = convertStrDate
          .replace(/(.{4})/, '$1.')
          .replace(/(.{7})/, '$1.');
-
       return (
          <div>
             <Card

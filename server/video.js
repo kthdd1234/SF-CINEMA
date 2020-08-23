@@ -50,32 +50,30 @@ const Sequelize = require('sequelize');
 //   }
 // }
 
-movies.update(
-  {
-    genre: '외계인',
-  },
-  {
-    where: {
-      id: 94,
-    },
-  }
-);
-
 // movies.update(
 //   {
-//     backgroundImg: JSON.stringify([
-//       'pbrkL804c8yAv3zBZR4QPEafpAR.jpg',
-//       'rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg',
-//       '46LvLzMD19tzyoPc7HUf4PPvi62.jpg',
-//       'pZvZjxPFfWWIwtPQodsNygQ6u5Z.jpg',
-//     ]),
+//     backDrop: '/egg7KFi18TSQc1s24RMmR9i2zO6.jpg',
 //   },
 //   {
 //     where: {
-//       id: 2,
+//       id: 245,
 //     },
 //   }
 // );
+
+movies.update(
+  {
+    backgroundImg: JSON.stringify([
+      'hNCqkXbWd40eftqSdjq8TmV7Mqr.jpg',
+      'i6lWGg9in57oByTZ94HSI5DKgmW.jpg',
+    ]),
+  },
+  {
+    where: {
+      id: 8,
+    },
+  }
+);
 // 	&times;
 // movies
 //   .findAll({

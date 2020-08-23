@@ -166,7 +166,7 @@ class MenuBar extends Component {
 
       paramsKey = isNaN(paramsKey) ? '' : paramsKey;
 
-      history.replaceState({}, null, location.pathname);
+      // history.replaceState({}, null, location.pathname);
 
       return (
          <div>

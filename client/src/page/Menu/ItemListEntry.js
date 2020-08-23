@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { withRouter } from 'react-router-dom';
-import { Button, Popconfirm, Modal, Pagination } from 'antd';
+import { Button, Popconfirm, Modal, notification } from 'antd';
 import {
    LikeOutlined,
    DislikeOutlined,
@@ -133,16 +133,40 @@ class ItemListEntry extends React.Component {
                loginID: loginID,
                movieId: this.props.id,
             });
+            this.successPushpinNotification('bottomLeft');
          } else {
             serverUrl.post('/cancelSavedMovie', {
                loginID: loginID,
                movieId: this.props.id,
             });
+            this.cancelPushpinNotification('bottomLeft');
          }
          this.setState({
             pushpin: !pushpin,
          });
       }
+   };
+   successPushpinNotification = (placement) => {
+      notification.success({
+         message: `영화 정보 저장 완료!`,
+         description: '프로필 관리 목록에 해당 영화 정보를 저장하였습니다.',
+         placement,
+         icon: (
+            <PushpinFilled
+               style={{
+                  color: 'red',
+               }}
+            />
+         ),
+      });
+   };
+
+   cancelPushpinNotification = (placement) => {
+      notification.warn({
+         message: `영화 정보 저장 취소!`,
+         description: '프로필 관리 목록에 해당 영화 정보를 삭제하였습니다.',
+         placement,
+      });
    };
 
    handleLikeButton = () => {
@@ -154,17 +178,42 @@ class ItemListEntry extends React.Component {
                loginID: loginID,
                movieId: this.props.id,
             });
+            this.successLikeNotification('bottomLeft');
          } else {
             serverUrl.post('/cancelLikedMovie', {
                loginID: loginID,
                movieId: this.props.id,
             });
+            this.cancelLikeNotification('bottomLeft');
          }
          this.setState({
             like: !like,
             dislike: false,
          });
       }
+   };
+
+   successLikeNotification = (placement) => {
+      notification.success({
+         message: `좋아요 완료!`,
+         description: '좋아요 목록에 해당 영화 정보가 추가되었습니다.',
+         placement,
+         icon: (
+            <LikeFilled
+               style={{
+                  color: 'blue',
+               }}
+            />
+         ),
+      });
+   };
+
+   cancelLikeNotification = (placement) => {
+      notification.warn({
+         message: `좋아요 취소!`,
+         description: '좋아요 목록에 해당 영화 정보를 삭제하였습니다.',
+         placement,
+      });
    };
 
    handleDisLikeButton = () => {
@@ -177,17 +226,40 @@ class ItemListEntry extends React.Component {
                loginID: loginID,
                movieId: this.props.id,
             });
+            this.successDisLikeNotification('bottomLeft');
          } else {
             serverUrl.post('/cancelDisLikedMovie', {
                loginID: loginID,
                movieId: this.props.id,
             });
+            this.cancelDisLikeNotification('bottomLeft');
          }
          this.setState({
             dislike: !dislike,
             like: false,
          });
       }
+   };
+
+   successDisLikeNotification = (placement) => {
+      notification.success({
+         message: `영화 정보에 노잼 표시를 하였습니다.`,
+         placement,
+         icon: (
+            <DislikeFilled
+               style={{
+                  color: 'blue',
+               }}
+            />
+         ),
+      });
+   };
+
+   cancelDisLikeNotification = (placement) => {
+      notification.warn({
+         message: `영화 정보에 노잼 표시를 취소하였습니다.`,
+         placement,
+      });
    };
 
    navigateToLoginPage = () => {
