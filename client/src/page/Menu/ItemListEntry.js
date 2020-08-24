@@ -19,7 +19,7 @@ import './ItemListEntry.css';
 import $ from 'jquery';
 
 const serverUrl = axios.create({
-   baseURL: 'http://localhost:5000/user',
+   baseURL: 'http://54.180.32.31:5000/user',
 });
 
 class ItemListEntry extends React.Component {
@@ -48,7 +48,7 @@ class ItemListEntry extends React.Component {
             const accessToken = reactLocalStorage.get('SFCinemaUserToken');
             if (accessToken) {
                axios
-                  .get('http://localhost:5000/user/profile', {
+                  .get('http://54.180.32.31:5000/user/profile', {
                      headers: {
                         Authorization: 'Bearer ' + accessToken,
                      },
@@ -84,7 +84,7 @@ class ItemListEntry extends React.Component {
          const accessToken = reactLocalStorage.get('SFCinemaUserToken');
          if (accessToken) {
             axios
-               .get('http://localhost:5000/user/profile', {
+               .get('http://54.180.32.31:5000/user/profile', {
                   headers: {
                      Authorization: 'Bearer ' + accessToken,
                   },

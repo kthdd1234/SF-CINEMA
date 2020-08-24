@@ -24,7 +24,7 @@ const tailLayout = {
 };
 
 const serverUrl = axios.create({
-   baseURL: 'http://localhost:5000/',
+   baseURL: 'http://54.180.32.31:5000/',
 });
 
 class Login extends Component {

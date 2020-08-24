@@ -11,7 +11,7 @@ import { Layout } from 'antd';
 const { Header, Content, Footer } = Layout;
 
 const serverUrl = axios.create({
-   baseURL: 'http://localhost:5000/main',
+   baseURL: 'http://54.180.32.31:5000/main',
 });
 
 class App extends Component {
@@ -152,7 +152,7 @@ class App extends Component {
    };
 
    render() {
-      const { isLogin, profile, collapsed } = this.state;
+      const { isLogin, profile, backgroundImg } = this.state;
 
       return (
          <div>
@@ -351,6 +351,7 @@ class App extends Component {
                               axiosGenres={this.axiosGenres}
                               isLogin={isLogin}
                               profile={profile}
+                              backgroundImg={backgroundImg}
                            />
                         )}
                      />

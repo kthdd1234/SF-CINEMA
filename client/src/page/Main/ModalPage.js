@@ -22,7 +22,7 @@ import Trailer from './Trailer';
 import './ModalPage.css';
 
 const serverUrl = axios.create({
-   baseURL: 'http://localhost:5000/user',
+   baseURL: 'http://54.180.32.31:5000/user',
 });
 
 class ModalPage extends Component {
@@ -45,7 +45,7 @@ class ModalPage extends Component {
          const accessToken = reactLocalStorage.get('SFCinemaUserToken');
          if (accessToken) {
             axios
-               .get('http://localhost:5000/user/profile', {
+               .get('http://54.180.32.31:5000/user/profile', {
                   headers: {
                      Authorization: 'Bearer ' + accessToken,
                   },
@@ -81,7 +81,7 @@ class ModalPage extends Component {
             const accessToken = reactLocalStorage.get('SFCinemaUserToken');
             if (accessToken) {
                axios
-                  .get('http://localhost:5000/user/profile', {
+                  .get('http://54.180.32.31:5000/user/profile', {
                      headers: {
                         Authorization: 'Bearer ' + accessToken,
                      },

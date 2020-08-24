@@ -127,7 +127,7 @@ class MenuBar extends Component {
       if (this.props.isLogin) {
          if (accessToken) {
             axios
-               .get('http://localhost:5000/user/profile', {
+               .get('http://54.180.32.31:5000/user/profile', {
                   headers: {
                      Authorization: 'Bearer ' + accessToken,
                   },

@@ -20,7 +20,7 @@ const tailLayout = {
 };
 
 const serverUrl = axios.create({
-   baseURL: 'http://localhost:5000/',
+   baseURL: 'http://54.180.32.31:5000/',
 });
 
 class SignUp extends Component {
@@ -60,7 +60,7 @@ class SignUp extends Component {
       if (password !== confirmPassword) {
          return message.error('입력하신 비밀번호가 일치하지 않습니다.');
       } else {
-         const url = 'http://localhost:5000/user/signup';
+         const url = 'http://54.180.32.31:5000/user/signup';
          axios
             .post(url, {
                loginID: loginID,

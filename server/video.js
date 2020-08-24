@@ -52,28 +52,28 @@ const Sequelize = require('sequelize');
 
 // movies.update(
 //   {
-//     backDrop: '/egg7KFi18TSQc1s24RMmR9i2zO6.jpg',
+//     backDrop: '/hTDAWiohFTwJaKNcCNlsKs64bip.jpg',
 //   },
 //   {
 //     where: {
-//       id: 245,
+//       id: 226,
 //     },
 //   }
 // );
 
-movies.update(
-  {
-    backgroundImg: JSON.stringify([
-      'hNCqkXbWd40eftqSdjq8TmV7Mqr.jpg',
-      'i6lWGg9in57oByTZ94HSI5DKgmW.jpg',
-    ]),
-  },
-  {
-    where: {
-      id: 8,
-    },
-  }
-);
+// movies.update(
+//   {
+//     backgroundImg: JSON.stringify([
+//       'vPToLA075RgDEKllFYAq5BaMxKU.jpg',
+//       '3IQCqXRhxjTjpHSpbOD0jfU0MS2.jpg',
+//     ]),
+//   },
+//   {
+//     where: {
+//       id: 196,
+//     },
+//   }
+// );
 // 	&times;
 // movies
 //   .findAll({

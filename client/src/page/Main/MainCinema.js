@@ -26,7 +26,7 @@ const { Search } = Input;
 const { Meta } = Card;
 
 const serverUrl = axios.create({
-   baseURL: 'http://localhost:5000/main',
+   baseURL: `http://54.180.32.31:5000/main`,
 });
 
 class MainCinema extends Component {
@@ -62,6 +62,7 @@ class MainCinema extends Component {
 
       /*  백그라운드 이미지 */
       serverUrl.get('/backgroundImg').then(({ data }) => {
+         console.log('mainCinema.js 백그라운드 이미지', data);
          this.setState({
             backgroundImg: data[1],
          });
@@ -133,7 +134,7 @@ class MainCinema extends Component {
          series: resultMovieList,
       });
       //////////////////////////////////////////////////////////////////
-      const movieTitleEng = 'arrival';
+      const movieTitleEng = '헝거게임: 더 파이널';
       axios
          .get('https://api.themoviedb.org/3/search/movie', {
             params: {
@@ -263,10 +264,17 @@ class MainCinema extends Component {
                   slidesToShow={1}
                   slidesToScroll={1}
                   autoplay={true}
-                  speed={6000}
-                  autoplaySpeed={4000}
+                  speed={4000}
+                  autoplaySpeed={3000}
                   pauseOnHover={false}
                >
+                  <div className="background-container">
+                     <div className="background-left-shadow" />
+                     <img
+                        className="background-images"
+                        src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/yBG2J4dMnUViwfF1crq0b7xystj.jpg`}
+                     />
+                  </div>
                   {backgroundImg.map((img, i) => (
                      <div className="background-container" key={i}>
                         <div className="background-left-shadow" />
