@@ -87,19 +87,28 @@ class SignUp extends Component {
    render() {
       return (
          <div>
+            {this.state.backgroundImg === '' ? null : (
+               <div className="background-image">
+                  <div className="background-shadow"> </div>
+                  <img
+                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.backgroundImg}`}
+                  />
+               </div>
+            )}
             <div
                style={{
-                  zIndex: 1,
-                  position: 'absolute',
-                  margin: '7.5vw 0 0 130pt',
-                  padding: '60px',
-                  background: 'rgba(0,0,0,.75)',
-                  borderRadius: '10px',
+                  position: 'relative',
+                  margin: '3.3vw 0 0 5vw',
+                  maxWidth: '30vw',
                }}
             >
                <div
                   style={{
-                     width: '450px',
+                     position: 'relative',
+                     background: 'rgba(0,0,0,.75)',
+                     borderRadius: '10px',
+                     top: '3vw',
+                     padding: '3vw 2vw 4vw 2vw',
                   }}
                >
                   <div
@@ -240,14 +249,6 @@ class SignUp extends Component {
                   </Form>
                </div>
             </div>
-            {this.state.backgroundImg === '' ? null : (
-               <div className="background-image">
-                  <div className="background-shadow"> </div>
-                  <img
-                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.backgroundImg}`}
-                  />
-               </div>
-            )}
          </div>
       );
    }

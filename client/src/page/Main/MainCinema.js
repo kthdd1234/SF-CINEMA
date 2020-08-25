@@ -10,16 +10,24 @@ import {
    Row,
    Col,
    Empty,
+   Button,
+   Carousel,
 } from 'antd';
+import {
+   ZoomInOutlined,
+   PlayCircleOutlined,
+   CloseOutlined,
+} from '@ant-design/icons';
 import axios from 'axios';
 import ModalPage from './ModalPage';
 import TopSlideShow from './TopSlideShow';
 import DownSlideShow from './DownSlideShow';
 import SFCINEMA from '../../SFCINEMA.png';
 import './MainCinema.css';
-import Slider from 'react-slick';
 import { seriesList } from './seriesList';
+import Trailer from './Trailer';
 import dotenv from 'dotenv';
+import $ from 'jquery';
 dotenv.config();
 
 const { Search } = Input;
@@ -47,6 +55,8 @@ class MainCinema extends Component {
          searchResult: [],
          keyword: '',
          drawerVisible: false,
+         tralierShow: false,
+         videoId: '',
       };
    }
 
@@ -61,10 +71,9 @@ class MainCinema extends Component {
       } = this.props;
 
       /*  백그라운드 이미지 */
-      serverUrl.get('/backgroundImg').then(({ data }) => {
-         console.log('mainCinema.js 백그라운드 이미지', data);
+      axios.get('http://localhost:5000/main/backgroundImg').then(({ data }) => {
          this.setState({
-            backgroundImg: data[1],
+            backgroundImg: data,
          });
       });
 
@@ -134,34 +143,34 @@ class MainCinema extends Component {
          series: resultMovieList,
       });
       //////////////////////////////////////////////////////////////////
-      const movieTitleEng = '헝거게임: 더 파이널';
-      axios
-         .get('https://api.themoviedb.org/3/search/movie', {
-            params: {
-               api_key: '',
-               query: movieTitleEng,
-               page: 1,
-            },
-         })
-         .then(async ({ data }) => {
-            const imgId = data.results[0].id;
-            console.log(imgId);
+      // const movieTitleEng = '블랙 위도우';
+      // axios
+      //    .get('https://api.themoviedb.org/3/search/movie', {
+      //       params: {
+      //          api_key: '',
+      //          query: movieTitleEng,
+      //          page: 1,
+      //       },
+      //    })
+      //    .then(async ({ data }) => {
+      //       const imgId = data.results[0].id;
+      //       console.log(imgId);
 
-            axios
-               .get(`https://api.themoviedb.org/3/movie/${imgId}/images`, {
-                  params: { api_key: '' },
-               })
-               .then(({ data }) => {
-                  const imgList = data.backdrops.map((obj, i) => {
-                     console.log(`${i} 번 사진`, obj.file_path);
-                     return `https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${obj.file_path}`;
-                  });
+      //       axios
+      //          .get(`https://api.themoviedb.org/3/movie/${imgId}/images`, {
+      //             params: { api_key: '' },
+      //          })
+      //          .then(({ data }) => {
+      //             const imgList = data.backdrops.map((obj, i) => {
+      //                console.log(`${i} 번 사진`, obj.file_path);
+      //                return `https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${obj.file_path}`;
+      //             });
 
-                  this.setState({
-                     imgList: imgList,
-                  });
-               });
-         });
+      //             this.setState({
+      //                imgList: imgList,
+      //             });
+      //          });
+      //    });
    }
 
    handleUpdateSearchKeyword = (e) => {
@@ -210,6 +219,11 @@ class MainCinema extends Component {
    };
 
    setModalVisible = (modalVisible) => {
+      if (!modalVisible) {
+         this.setState({
+            pause: false,
+         });
+      }
       this.setState({
          modalVisible,
       });
@@ -227,6 +241,19 @@ class MainCinema extends Component {
       });
    };
 
+   setModalTrailerVisible(tralierShow) {
+      if (tralierShow === false) {
+         $(`.${this.state.videoId}`)[0].contentWindow.postMessage(
+            '{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
+            '*',
+         );
+         this.setState({
+            pause: false,
+         });
+      }
+      this.setState({ tralierShow });
+   }
+
    render() {
       const {
          backgroundImg,
@@ -241,25 +268,16 @@ class MainCinema extends Component {
          imgList,
          aliensMovies,
          superHeroMovies,
+         videoId,
       } = this.state;
 
       return (
          <div>
             <div className="top-layout">
-               <div className="content-wrap">
-                  <div className="content-title">
-                     <img className="content-logo" src={SFCINEMA} />
-
-                     <h2 className="content-title-welcome">Welcome.</h2>
-                     <h3 className="content-description">
-                        lot of SF movies to discover. <div>Explore now.</div>
-                     </h3>
-                  </div>
-               </div>
-
-               <Slider
-                  fade={true}
+               <Carousel
+                  effect="fade"
                   infinite={true}
+                  dots={false}
                   arrows={false}
                   slidesToShow={1}
                   slidesToScroll={1}
@@ -270,21 +288,99 @@ class MainCinema extends Component {
                >
                   <div className="background-container">
                      <div className="background-left-shadow" />
+                     <div className="introduce">
+                        <div className="introduce-wrap">
+                           <img className="introduce-logo" src={SFCINEMA} />
+
+                           <h2 className="introduce-title">Welcome.</h2>
+                           <h3 className="introduce-description">
+                              lot of SF movies to discover.{' '}
+                              <div>Explore now.</div>
+                           </h3>
+                        </div>
+                     </div>
                      <img
                         className="background-images"
                         src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/yBG2J4dMnUViwfF1crq0b7xystj.jpg`}
                      />
                   </div>
-                  {backgroundImg.map((img, i) => (
+                  {backgroundImg.map((movieData, i) => (
                      <div className="background-container" key={i}>
                         <div className="background-left-shadow" />
+                        <div className="movie-content">
+                           <div className="content-wrap">
+                              <h2 className="content-title">
+                                 {movieData.movie.title}
+                              </h2>
+                              <h4 className="content-titleEng">
+                                 {movieData.movie.titleEng}
+                              </h4>
+                           </div>
+                           <div className="content-list">
+                              <div>
+                                 <span className="content-rating">
+                                    ⭐ {movieData.movie.userRating}
+                                 </span>
+                                 <span className="content-genre">
+                                    SF/{movieData.movie.genre}
+                                 </span>{' '}
+                                 <span className="content-genre">
+                                    {String(movieData.movie.releaseDate).slice(
+                                       0,
+                                       4,
+                                    )}
+                                 </span>
+                              </div>
+                              <div className="content-btn">
+                                 <Button
+                                    type="ghost"
+                                    icon={<ZoomInOutlined />}
+                                    className="detail-info-btn"
+                                    onClick={() => {
+                                       this.setModalVisible(true);
+                                       this.handleCurrentMovie(movieData.movie);
+                                    }}
+                                 >
+                                    상세정보
+                                 </Button>
+                                 <Button
+                                    type="ghost"
+                                    icon={<PlayCircleOutlined />}
+                                    className="show-trailer-btn"
+                                    onClick={() => {
+                                       this.setModalTrailerVisible(true);
+                                       this.setState({
+                                          videoId: movieData.movie.videoId,
+                                       });
+                                    }}
+                                 >
+                                    예고편
+                                 </Button>
+                              </div>
+                           </div>
+                        </div>
                         <img
                            className="background-images"
-                           src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${img}`}
+                           src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${movieData.backgroundImg}`}
                         />
                      </div>
                   ))}
-               </Slider>
+               </Carousel>
+               <Modal
+                  visible={this.state.tralierShow}
+                  onOk={() => this.setModalTrailerVisible(false)}
+                  onCancel={() => this.setModalTrailerVisible(false)}
+                  footer={null}
+                  width={1300}
+               >
+                  <Button
+                     ghost
+                     icon={<CloseOutlined />}
+                     className="trailer-close"
+                     onClick={() => this.setModalTrailerVisible(false)}
+                  />
+                  <Trailer videoId={videoId} />
+               </Modal>
             </div>
 
             <div className="movie-search-bar">

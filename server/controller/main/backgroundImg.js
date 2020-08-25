@@ -13,12 +13,19 @@ module.exports = {
         raw: true,
         order: Sequelize.literal('rand()'),
       })
+
       .then((data) => {
         const backgroundImgList = data.reduce((acc, cur) => {
           const backgroundImg = JSON.parse(cur.backgroundImg);
-          return acc.concat(backgroundImg);
+          backgroundImg.forEach((img) => {
+            const newObj = {};
+            newObj.movie = cur;
+            newObj.backgroundImg = img;
+            acc.push(newObj);
+          });
+          return acc;
         }, []);
-        res.status(200).send([data, backgroundImgList]);
+        res.status(200).send(backgroundImgList);
       });
   },
 };

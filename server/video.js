@@ -64,13 +64,14 @@ const Sequelize = require('sequelize');
 // movies.update(
 //   {
 //     backgroundImg: JSON.stringify([
-//       'vPToLA075RgDEKllFYAq5BaMxKU.jpg',
-//       '3IQCqXRhxjTjpHSpbOD0jfU0MS2.jpg',
+//       'pbrkL804c8yAv3zBZR4QPEafpAR.jpg',
+//       'rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg',
+//       'pZvZjxPFfWWIwtPQodsNygQ6u5Z.jpg',
 //     ]),
 //   },
 //   {
 //     where: {
-//       id: 196,
+//       id: 2,
 //     },
 //   }
 // );

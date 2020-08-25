@@ -313,7 +313,7 @@ class ModalPage extends Component {
          .replace(/(.{4})/, '$1.')
          .replace(/(.{7})/, '$1.');
 
-      const summay_subs = [
+      const summary_subs = [
          genre,
          nation,
          convertStrDate + ' 개봉',
@@ -442,7 +442,7 @@ class ModalPage extends Component {
 
                <div>
                   <ul className="modal-summary">
-                     {summay_subs.map((sub, i) => (
+                     {summary_subs.map((sub, i) => (
                         <ModalSummary key={i} sub={sub} i={i} />
                      ))}
                   </ul>

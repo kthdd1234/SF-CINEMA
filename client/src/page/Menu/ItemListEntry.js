@@ -268,7 +268,6 @@ class ItemListEntry extends React.Component {
 
    setModalTrailerVisible(tralierShow) {
       if (tralierShow === false) {
-         console.log(tralierShow);
          $(`.${this.props.videoId}`)[0].contentWindow.postMessage(
             '{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
             '*',

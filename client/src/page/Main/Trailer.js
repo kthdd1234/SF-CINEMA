@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
 import './Trailer.css';
 
 class Trailer extends Component {
