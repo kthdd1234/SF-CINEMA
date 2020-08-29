@@ -19,6 +19,11 @@ module.exports = {
                 [Sequelize.Op.like]: '%' + keyword + '%',
               },
             },
+            {
+              keywords: {
+                [Sequelize.Op.like]: '%' + keyword + '%',
+              },
+            },
           ],
         },
         order: [['releaseDate', 'DESC']],

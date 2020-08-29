@@ -4,8 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 import 'antd/dist/antd.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 
 // eslint-disable-next-line
 ReactDOM.render(

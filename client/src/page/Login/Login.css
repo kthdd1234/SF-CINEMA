@@ -1,3 +1,49 @@
+.login-container {
+   overflow: hidden;
+}
+
+.box-background-image {
+   background-size: cover;
+   display: block;
+   height: 100%;
+   position: absolute;
+   width: 100%;
+   overflow: hidden;
+   min-height: 100vh;
+}
+
+.background-image {
+   position: absolute;
+
+   filter: brightness(70%);
+   min-width: 100%;
+   min-height: 100%;
+}
+
+.login-content {
+   position: relative;
+   margin: 3.3vw auto;
+   max-width: 32vw;
+}
+
+.login-wrap {
+   position: relative;
+   background: rgba(0, 0, 0, 0.75);
+   border-radius: 10px;
+   top: 3vw;
+   padding: 2vw 7.5vw 2vw 0;
+}
+
+.login-box-text {
+   padding: 0 0 1vw 0;
+   margin: 10px 0 0 33%;
+}
+
+.login-text {
+   font-size: 50px;
+   color: whitesmoke;
+}
+
 .dividerLogin {
    color: darkgray;
    font-size: 14px;
@@ -6,26 +52,4 @@
 .ant-checkbox-wrapper {
    font-weight: bold;
    color: whitesmoke;
-}
-
-.background-image {
-   position: absolute;
-}
-
-.background-shadow {
-   position: absolute;
-
-   top: 0;
-   left: 0;
-   bottom: 0;
-   right: 0;
-
-   background-image: linear-gradient(
-      to top,
-      rgb(20, 21, 23) 0%,
-      rgba(20, 21, 23, 0.7) 0%,
-      rgba(20, 21, 23, 0.45) 0%,
-      rgba(20, 21, 23, 0.2) 100%,
-      rgba(20, 21, 23, 0) 100%
-   );
 }

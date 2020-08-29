@@ -134,19 +134,12 @@ class App extends Component {
    };
 
    handleMovieDataUpdate = async (movies) => {
-      movies = await movies;
-
       for (let i = 0; i < movies.length; i++) {
-         let poster = JSON.parse(movies[i].posters);
          let actors = JSON.parse(movies[i].actors);
          let convertStrDate = String(movies[i].releaseDate);
 
-         movies[i].posters = Array.isArray(poster) ? poster[0] : poster;
          movies[i].actors = actors.slice(0, 4).join(', ');
          movies[i].releaseYear = convertStrDate.slice(0, 4);
-         movies[i].releaseDate = convertStrDate
-            .replace(/(.{4})/, '$1.')
-            .replace(/(.{7})/, '$1.');
       }
       return movies;
    };
@@ -157,6 +150,11 @@ class App extends Component {
       return (
          <div>
             <Layout style={{ minHeight: '100vh' }}>
+               <div
+                  style={{
+                     height: '4rem',
+                  }}
+               ></div>
                <MenuBar
                   profile={profile}
                   isLogin={isLogin}

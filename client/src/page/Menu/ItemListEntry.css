@@ -180,3 +180,9 @@
 .pushpin-btn:focus {
    background: none;
 }
+
+.itemList-select {
+   position: absolute;
+   width: 10vw;
+   margin: 5vw 0 0 25vw;
+}

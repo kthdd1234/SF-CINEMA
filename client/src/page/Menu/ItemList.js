@@ -106,11 +106,7 @@ class ItemList extends Component {
             >
                {movePage ? (
                   <Select
-                     style={{
-                        position: 'absolute',
-                        width: '10vw',
-                        margin: '5vw 0 0 25vw',
-                     }}
+                     className="itemList-select"
                      defaultValue="선택해주세요"
                      size="large"
                      onChange={this.onChangeSelect}

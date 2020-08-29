@@ -7,7 +7,7 @@ const { Meta } = Card;
 function SlideImgEntry({ movie, alt, setModalVisible, handleCurrentMovie }) {
    if (movie !== null) {
       let { title, posters, releaseDate, userRating } = movie;
-      let poster = JSON.parse(posters)[0];
+
       let convertStrDate = String(releaseDate);
 
       convertStrDate = convertStrDate
@@ -23,11 +23,21 @@ function SlideImgEntry({ movie, alt, setModalVisible, handleCurrentMovie }) {
                   setModalVisible(true);
                   handleCurrentMovie(arguments[0].movie);
                }}
-               cover={<img src={poster} alt={`img${alt}`} />}
+               cover={
+                  <img
+                     src={`https://image.tmdb.org/t/p/w500${posters}`}
+                     alt={`img${alt}`}
+                  />
+               }
             >
                <Meta
                   title={title}
-                  description={`${convertStrDate} ꒐ ⭐ ${userRating}`}
+                  description={
+                     <div>
+                        <div>{movie.genre}</div>
+                        <div> ⭐ {userRating}</div>
+                     </div>
+                  }
                />
             </Card>
          </div>

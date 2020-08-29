@@ -6,13 +6,11 @@ function TopSlideDetailImg({
    setModalVisible,
    handleCurrentMovie,
 }) {
-   const posters = JSON.parse(movie.posters);
-
    return (
       <div>
          <div className="movie-poster-list">
             <img
-               src={posters[0]}
+               src={`https://image.tmdb.org/t/p/w500${movie.posters}`}
                alt={`img${movie.id}`}
                onClick={() => {
                   setModalVisible(true);

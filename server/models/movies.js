@@ -46,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       videoId: DataTypes.STRING,
       backgroundImg: DataTypes.STRING,
       backDrop: DataTypes.STRING,
+      keywords: DataTypes.STRING,
     },
     {
       sequelize,

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { withRouter } from 'react-router-dom';
-import { Button, Popconfirm, Modal, notification } from 'antd';
+import { Button, Popconfirm, Modal, notification, Tag } from 'antd';
 import {
    LikeOutlined,
    DislikeOutlined,
@@ -12,6 +12,7 @@ import {
    PushpinFilled,
    PlayCircleOutlined,
    CloseOutlined,
+   ClockCircleOutlined,
 } from '@ant-design/icons';
 import ItemSub from './Item-sub';
 import Trailer from '../Main/Trailer';
@@ -295,14 +296,11 @@ class ItemListEntry extends React.Component {
       } = this.props;
 
       const { pushpin, like, dislike } = this.state;
-
-      const sub_list = [
-         genre,
-         nation,
-         `${releaseDate} 개봉`,
-         ratingGrade,
-         `${runtime}분`,
-      ];
+      let tagColor = '';
+      if (ratingGrade === '전체 관람가') tagColor = 'success';
+      if (ratingGrade === '12세 관람가') tagColor = 'processing';
+      if (ratingGrade === '15세 관람가') tagColor = 'warning';
+      if (ratingGrade === '청소년 관람불가') tagColor = 'error';
 
       return (
          <div>
@@ -347,6 +345,18 @@ class ItemListEntry extends React.Component {
                               onClick={this.handlePushpinButton}
                            />
                         </Popconfirm>
+                        <span className="tag-wrap">
+                           <Tag color={tagColor} className="ratingGrade-tag">
+                              {ratingGrade}
+                           </Tag>
+                           <Tag
+                              icon={<ClockCircleOutlined />}
+                              color="default"
+                              className="runtime-tag"
+                           >
+                              {runtime}
+                           </Tag>
+                        </span>
                      </div>
                      <div className="movie-title-list">
                         <strong className="movie-title">{title}</strong>
@@ -462,14 +472,18 @@ class ItemListEntry extends React.Component {
                   </div>
 
                   <div className="movie-body">
-                     <ul className="movie-summary">
+                     {/* <ul className="movie-summary">
                         {sub_list.map((sub, i) => (
                            <ItemSub key={i} sub={sub} i={i} />
                         ))}
-                     </ul>
+                     </ul> */}
                      <div className="movie-plot">{plot}</div>
 
                      <div className="movie-director_actors">
+                        <div className="movie-director">
+                           <strong className="movie-sub">장르</strong>
+                           {genre}
+                        </div>
                         <div className="movie-director">
                            <strong className="movie-sub">감독</strong>
                            {director}

@@ -1,0 +1,27 @@
+.signup-container {
+   overflow: hidden;
+}
+
+.signup-content {
+   position: relative;
+   margin: 3.3vw 0 0 5vw;
+   max-width: 30vw;
+}
+
+.signup-wrap {
+   position: relative;
+   background: rgba(0, 0, 0, 0.75);
+   border-radius: 10px;
+   top: 3vw;
+   padding: 3vw 2vw 7vw 2vw;
+}
+
+.signup-box-text {
+   padding: 0 0 1vw 0;
+   margin: 10px 0 0 33%;
+}
+
+.signup-text {
+   font-size: 50px;
+   color: whitesmoke;
+}

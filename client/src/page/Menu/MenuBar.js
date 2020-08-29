@@ -177,7 +177,7 @@ class MenuBar extends Component {
                   top: 0,
                   left: 0,
                   right: 0,
-                  zIndex: 2,
+                  zIndex: 3,
                }}
             >
                <Header>
@@ -202,7 +202,7 @@ class MenuBar extends Component {
                            marginLeft: '30px',
                         }}
                      >
-                        <a>홈</a>
+                        홈
                      </Menu.Item>
 
                      <SubMenu
@@ -260,42 +260,16 @@ class MenuBar extends Component {
                      >
                         별점이 높은 영화
                      </Menu.Item>
-
-                     <Menu.Item
-                        icon={<GiftFilled />}
-                        key="/operatorMovies"
-                        onClick={({ key }) =>
-                           this.NavigateToOperatorAndMasterpiece(
-                              '/operatorMovies',
-                              key,
-                              41,
-                           )
-                        }
-                     >
-                        <a>운영자 추천</a>
-                     </Menu.Item>
-
-                     <Menu.Item
-                        icon={<CrownFilled />}
-                        key="/masterpiece"
-                        onClick={({ key }) =>
-                           this.NavigateToOperatorAndMasterpiece(
-                              '/masterpiece',
-                              key,
-                              100,
-                           )
-                        }
-                     >
-                        <a>SF 명작</a>
-                     </Menu.Item>
-
                      <SubMenu
                         icon={<SketchCircleFilled />}
                         title="SF 시리즈"
                         mode="horizontal"
                         key="/series"
                      >
-                        <SubMenu key="seriesMenuItem-1" title="마블 시리즈">
+                        <SubMenu
+                           key="seriesMenuItem-1"
+                           title="슈퍼 히어로/마블 시리즈"
+                        >
                            {marvelSeriesList.map((name, i) => (
                               <Menu.Item
                                  key={i + ''}
@@ -358,6 +332,34 @@ class MenuBar extends Component {
                         </SubMenu>
                      </SubMenu>
 
+                     <Menu.Item
+                        icon={<GiftFilled />}
+                        key="/operatorMovies"
+                        onClick={({ key }) =>
+                           this.NavigateToOperatorAndMasterpiece(
+                              '/operatorMovies',
+                              key,
+                              41,
+                           )
+                        }
+                     >
+                        운영자 추천
+                     </Menu.Item>
+
+                     <Menu.Item
+                        icon={<CrownFilled />}
+                        key="/masterpiece"
+                        onClick={({ key }) =>
+                           this.NavigateToOperatorAndMasterpiece(
+                              '/masterpiece',
+                              key,
+                              100,
+                           )
+                        }
+                     >
+                        SF 명작
+                     </Menu.Item>
+
                      {!isLogin ? (
                         <Menu.Item
                            icon={<FormOutlined />}
@@ -368,7 +370,7 @@ class MenuBar extends Component {
                               marginRight: '50px',
                            }}
                         >
-                           <a>회원가입</a>
+                           회원가입
                         </Menu.Item>
                      ) : null}
 
@@ -381,7 +383,7 @@ class MenuBar extends Component {
                               float: 'right',
                            }}
                         >
-                           <a>로그인</a>
+                           로그인
                         </Menu.Item>
                      ) : null}
 
@@ -394,7 +396,7 @@ class MenuBar extends Component {
                               float: 'right',
                            }}
                         >
-                           <a>프로필 관리</a>
+                           프로필 관리
                         </Menu.Item>
                      ) : null}
                   </Menu>

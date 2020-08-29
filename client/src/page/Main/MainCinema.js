@@ -12,6 +12,7 @@ import {
    Empty,
    Button,
    Carousel,
+   Tag,
 } from 'antd';
 import {
    ZoomInOutlined,
@@ -32,6 +33,15 @@ dotenv.config();
 
 const { Search } = Input;
 const { Meta } = Card;
+const tagKeywords = [
+   { color: 'green', keyword: '스파이더맨' },
+   { color: 'geekblue', keyword: '외계인 또는 행성 탐사' },
+   { color: 'purple', keyword: '인류 멸망 시나리오' },
+   { color: 'orange', keyword: '엑스맨 시리즈' },
+   { color: 'blue', keyword: '생존 서바이벌' },
+   { color: 'magenta', keyword: '애니메이션' },
+   { color: 'geekblue', keyword: '크리스토퍼 놀란' },
+];
 
 const serverUrl = axios.create({
    baseURL: `http://54.180.32.31:5000/main`,
@@ -71,7 +81,7 @@ class MainCinema extends Component {
       } = this.props;
 
       /*  백그라운드 이미지 */
-      axios.get('http://localhost:5000/main/backgroundImg').then(({ data }) => {
+      serverUrl.get('/backgroundImg').then(({ data }) => {
          this.setState({
             backgroundImg: data,
          });
@@ -142,35 +152,6 @@ class MainCinema extends Component {
       this.setState({
          series: resultMovieList,
       });
-      //////////////////////////////////////////////////////////////////
-      // const movieTitleEng = '블랙 위도우';
-      // axios
-      //    .get('https://api.themoviedb.org/3/search/movie', {
-      //       params: {
-      //          api_key: '',
-      //          query: movieTitleEng,
-      //          page: 1,
-      //       },
-      //    })
-      //    .then(async ({ data }) => {
-      //       const imgId = data.results[0].id;
-      //       console.log(imgId);
-
-      //       axios
-      //          .get(`https://api.themoviedb.org/3/movie/${imgId}/images`, {
-      //             params: { api_key: '' },
-      //          })
-      //          .then(({ data }) => {
-      //             const imgList = data.backdrops.map((obj, i) => {
-      //                console.log(`${i} 번 사진`, obj.file_path);
-      //                return `https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${obj.file_path}`;
-      //             });
-
-      //             this.setState({
-      //                imgList: imgList,
-      //             });
-      //          });
-      //    });
    }
 
    handleUpdateSearchKeyword = (e) => {
@@ -269,11 +250,26 @@ class MainCinema extends Component {
          aliensMovies,
          superHeroMovies,
          videoId,
+         tagKeyword,
       } = this.state;
 
       return (
          <div>
             <div className="top-layout">
+               <Modal
+                  title={<img src={SFCINEMA} className="small-logo" />}
+                  centered
+                  width={1150}
+                  visible={modalVisible}
+                  onOk={() => this.setModalVisible(false)}
+                  onCancel={() => this.setModalVisible(false)}
+                  maskClosable={false}
+               >
+                  <ModalPage
+                     currentMovie={currentMovie}
+                     isLogin={this.props.isLogin}
+                  />
+               </Modal>
                <Carousel
                   effect="fade"
                   infinite={true}
@@ -287,26 +283,34 @@ class MainCinema extends Component {
                   pauseOnHover={false}
                >
                   <div className="background-container">
-                     <div className="background-left-shadow" />
+                     <div className="main-box-background-images">
+                        <div className="background-left-shadow" />
+                        <img
+                           className="main-background-images"
+                           src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/yBG2J4dMnUViwfF1crq0b7xystj.jpg`}
+                        />
+                     </div>
                      <div className="introduce">
                         <div className="introduce-wrap">
                            <img className="introduce-logo" src={SFCINEMA} />
 
                            <h2 className="introduce-title">Welcome.</h2>
                            <h3 className="introduce-description">
-                              lot of SF movies to discover.{' '}
+                              lot of SF movies to discover.
                               <div>Explore now.</div>
                            </h3>
                         </div>
                      </div>
-                     <img
-                        className="background-images"
-                        src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/yBG2J4dMnUViwfF1crq0b7xystj.jpg`}
-                     />
                   </div>
                   {backgroundImg.map((movieData, i) => (
                      <div className="background-container" key={i}>
-                        <div className="background-left-shadow" />
+                        <div className="main-box-background-images">
+                           <div className="background-left-shadow" />
+                           <img
+                              className="main-background-images"
+                              src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${movieData.backgroundImg}`}
+                           />
+                        </div>
                         <div className="movie-content">
                            <div className="content-wrap">
                               <h2 className="content-title">
@@ -322,8 +326,8 @@ class MainCinema extends Component {
                                     ⭐ {movieData.movie.userRating}
                                  </span>
                                  <span className="content-genre">
-                                    SF/{movieData.movie.genre}
-                                 </span>{' '}
+                                    {movieData.movie.genre}
+                                 </span>
                                  <span className="content-genre">
                                     {String(movieData.movie.releaseDate).slice(
                                        0,
@@ -359,13 +363,10 @@ class MainCinema extends Component {
                               </div>
                            </div>
                         </div>
-                        <img
-                           className="background-images"
-                           src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${movieData.backgroundImg}`}
-                        />
                      </div>
                   ))}
                </Carousel>
+
                <Modal
                   visible={this.state.tralierShow}
                   onOk={() => this.setModalTrailerVisible(false)}
@@ -384,8 +385,26 @@ class MainCinema extends Component {
             </div>
 
             <div className="movie-search-bar">
+               <div className="tag-keyword-wrap">
+                  {tagKeywords.map((tag, i) => (
+                     <Tag
+                        key={i}
+                        color={tag.color}
+                        className="tag-keyword"
+                        onMouseOver={(e) =>
+                           this.setState({
+                              keyword: e.currentTarget.innerHTML,
+                           })
+                        }
+                        onClick={this.handleSearchMovieData}
+                     >
+                        {tag.keyword}
+                     </Tag>
+                  ))}
+               </div>
+
                <Search
-                  placeholder="SF 영화, 시리즈물, 명작 검색..."
+                  placeholder="영화 제목을 입력해주세요."
                   size="large"
                   enterButton
                   onChange={this.handleUpdateSearchKeyword}
@@ -422,7 +441,7 @@ class MainCinema extends Component {
                                  }}
                                  cover={
                                     <img
-                                       src={JSON.parse(movie.posters)[0]}
+                                       src={`https://image.tmdb.org/t/p/w500${movie.posters}`}
                                        style={{
                                           height: '300px',
                                        }}
@@ -435,7 +454,7 @@ class MainCinema extends Component {
                               >
                                  <Meta
                                     title={movie.title}
-                                    description={`${movie.releaseDate} ꒐ ⭐ ${movie.userRating}`}
+                                    description={`⭐ ${movie.userRating}`}
                                  />
                               </Card>
                            </Col>

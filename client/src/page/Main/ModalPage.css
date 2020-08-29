@@ -6,37 +6,36 @@
    background: whitesmoke;
 }
 
-.ant-modal-body {
-   padding: 30px;
+.modal-content-wrapper {
+   padding: 2.5rem 0 0 4rem;
 }
 
-.image-box img {
-   margin: 30px 0 30px 69%;
-   border-radius: 10px;
-   width: 320px;
-   height: 450px;
-}
-
-.modal-container {
+.modal-image-box {
+   margin: 2rem 0 0 0;
    position: absolute;
-   top: 80px;
-   bottom: 140px;
-   left: 70px;
+   height: 446px;
+
+   left: 49.37rem;
+}
+
+.modal-image {
+   height: 100%;
+   border-radius: 0.3rem;
 }
 
 .modal-header-title {
-   font-size: 45px;
+   font-size: 2.7rem;
 }
 
 .modal-header-titleEng_year {
    margin-left: 5px;
-   font-size: 15px;
+   font-size: 1rem;
 }
 
 .modal-rating-list {
    list-style: 'none';
    display: block;
-   padding: 5px 0 0 5px;
+   padding: 0.5rem 0 0 0.5rem;
 }
 
 .modal-user-rating {
@@ -51,62 +50,25 @@
    font-size: 20px;
 }
 
-.border-bottom-line {
-   color: 'darkgray';
-   border: 1px solid #f0f0f0;
-   border-radius: 2px 2px 0 0;
-}
-
-.modal-summary {
-   list-style: 'none';
-   display: block;
-   padding: 6px 0 10px 20px;
-}
-
 .modal-plot {
-   width: 610px;
-   margin-bottom: 30px;
+   overflow: hidden;
+   margin: 1rem 0 0 0;
+   width: 40rem;
+   height: 11rem;
+}
+
+.modal-genre {
+   padding: 0 0.7rem 0 0.1rem;
 }
 
 .modal-director {
-   padding: 0 10px 0 10px;
+   padding: 0 0.7rem 0 0.1rem;
 }
 
 .modal-actors {
-   padding: 0 10px 0 10px;
+   padding: 0 0.7rem 0 0.1rem;
 }
 
-.like-out {
-   border: none;
-}
-
-.dislike-out {
-   border: none;
-}
-
-.like-out:hover {
-   color: rgb(106, 106, 230);
-}
-
-.dislike-out:hover {
-   color: rgb(106, 106, 230);
-}
-
-.like-fill {
-   border: none;
-   color: blue;
-}
-
-.dislike-fill {
-   border: none;
-   color: blue;
-}
-
-/* .trailer-btn {
-   background: blue;
-} */
-
-.trailer-close {
-   position: absolute;
-   left: 1300px;
+.tag-wrap {
+   margin: 0 0 0 0.5rem;
 }
