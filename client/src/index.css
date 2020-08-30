@@ -31,20 +31,9 @@ code {
    border-bottom: 0px;
    border-bottom-width: 0px;
 }
-.ant-modal-content {
-   position: relative;
-   top: 0;
-   bottom: 0;
-   right: 0;
-   border: 0;
-}
 
 .ant-modal-body {
-   padding: 0px;
-}
-
-.ant-modal-content {
-   height: 600px;
+   padding: 0;
 }
 
 .random-movies-spin {
@@ -56,12 +45,37 @@ code {
    color: whitesmoke;
 }
 
+.trailer-like-wrap {
+   position: absolute;
+   margin: 1rem 0 0 0rem;
+}
+
+.trailer-btn {
+   margin: 0 0 0 0.5rem;
+   height: 3.2rem;
+   font-size: 1.5rem;
+   font-weight: 900;
+   border-radius: 0.3rem;
+   color: whitesmoke;
+}
+
+.like-fill {
+   height: 3.2rem;
+   font-size: 1.5rem;
+   font-weight: 900;
+
+   border-radius: 0.3rem;
+}
+
 .like-out {
-   border: none;
+   height: 3.2rem;
+   font-size: 1.5rem;
+   font-weight: 900;
+   border-radius: 0.3rem;
 }
 
 .dislike-out {
-   border: none;
+   border-radius: 0.3rem;
 }
 
 .like-out:hover {
@@ -72,13 +86,8 @@ code {
    color: rgb(106, 106, 230);
 }
 
-.like-fill {
-   border: none;
-   color: blue;
-}
-
 .dislike-fill {
-   border: none;
+   border-radius: 0.3rem;
    color: blue;
 }
 

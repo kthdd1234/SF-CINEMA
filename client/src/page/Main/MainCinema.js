@@ -421,30 +421,18 @@ class MainCinema extends Component {
                placement="bottom"
             >
                {searchResult ? (
-                  <div
-                     className="site-card-wrapper"
-                     style={{
-                        margin: '0 50px 0 50px',
-                     }}
-                  >
+                  <div className="search-bar-wrap">
                      <Row gutter={6}>
                         {searchResult.map((movie, i) => (
                            <Col span={3} key={i}>
                               <Card
+                                 className="search-result-card"
                                  size="small"
                                  hoverable
-                                 style={{
-                                    width: 200,
-                                    marginBottom: 10,
-                                    borderRadius: '7px',
-                                    overflow: 'hidden',
-                                 }}
                                  cover={
                                     <img
+                                       className="search-result-card-img"
                                        src={`https://image.tmdb.org/t/p/w500${movie.posters}`}
-                                       style={{
-                                          height: '300px',
-                                       }}
                                     />
                                  }
                                  onClick={() => {

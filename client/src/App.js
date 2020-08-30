@@ -134,6 +134,8 @@ class App extends Component {
    };
 
    handleMovieDataUpdate = async (movies) => {
+      movies = await movies;
+
       for (let i = 0; i < movies.length; i++) {
          let actors = JSON.parse(movies[i].actors);
          let convertStrDate = String(movies[i].releaseDate);

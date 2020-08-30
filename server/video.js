@@ -182,12 +182,12 @@ const movieTitleEng = '어벤져스: 에이지 오브 울트론';
 
 movies.update(
   {
-    posters: '/sACyPxUbc9FVR2LTTjjU6wA3Hdd.jpg',
-    titleEng: 'El hoyo',
+    plot:
+      '첫 우주 침공으로부터 3년이 지난 지구. 인류는 상처를 이겨내고 조금씩 평범한 일상으로 돌아가고 있다. 그러나 평화도 잠시, 다시 그들이 모습을 드러냈다. 물이 존재하는 그 어느 곳도 안전하지 않은 상황. 하지만 인류는 반드시 이겨낼 것이다!',
   },
   {
     where: {
-      id: 43,
+      id: 224,
     },
   }
 );

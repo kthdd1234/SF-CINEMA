@@ -13,8 +13,8 @@ import {
    PlayCircleOutlined,
    CloseOutlined,
    ClockCircleOutlined,
+   CheckCircleOutlined,
 } from '@ant-design/icons';
-import ItemSub from './Item-sub';
 import Trailer from '../Main/Trailer';
 import './ItemListEntry.css';
 import $ from 'jquery';
@@ -345,145 +345,30 @@ class ItemListEntry extends React.Component {
                               onClick={this.handlePushpinButton}
                            />
                         </Popconfirm>
-                        <span className="tag-wrap">
-                           <Tag color={tagColor} className="ratingGrade-tag">
-                              {ratingGrade}
-                           </Tag>
-                           <Tag
-                              icon={<ClockCircleOutlined />}
-                              color="default"
-                              className="runtime-tag"
-                           >
-                              {runtime}
-                           </Tag>
-                        </span>
                      </div>
                      <div className="movie-title-list">
                         <strong className="movie-title">{title}</strong>
                         <div>
                            <strong className="movie-titleEng_year">
-                              {`(${titleEng}, ${releaseYear})`}
+                              {`${titleEng} (${releaseYear})`}
                            </strong>
                         </div>
                      </div>
-                     <ul className="movie-rating-list">
-                        <li className="movie-user-rating">⭐ {userRating}</li>
-                        <li className="movie-my-rating">
-                           <strong className="movie-rating">
-                              <Popconfirm
-                                 title={
-                                    <div>
-                                       혹시 이 영화를 보셨나요?
-                                       <div>
-                                          로그인을 하여 영화에 대한 의견을
-                                          알려주세요.
-                                       </div>
-                                    </div>
-                                 }
-                                 onVisibleChange={this.onVisibleChange(
-                                    'likeVisible',
-                                 )}
-                                 onConfirm={this.navigateToLoginPage}
-                                 visible={this.state.likeVisible}
-                                 okText="로그인 하러 가기"
-                                 cancelText="닫기"
-                              >
-                                 <Button
-                                    icon={
-                                       like ? <LikeFilled /> : <LikeOutlined />
-                                    }
-                                    className={
-                                       like
-                                          ? 'like-fill btn-color'
-                                          : 'like-out btn-color'
-                                    }
-                                    onClick={this.handleLikeButton}
-                                    type="ghost"
-                                 >
-                                    좋아요
-                                 </Button>
-                              </Popconfirm>
-                              <Popconfirm
-                                 title={
-                                    <div>
-                                       혹시 이 영화를 보셨나요?
-                                       <div>
-                                          로그인을 하여 영화에 대한 의견을
-                                          알려주세요.
-                                       </div>
-                                    </div>
-                                 }
-                                 onVisibleChange={this.onVisibleChange(
-                                    'dislikeVisible',
-                                 )}
-                                 onConfirm={this.navigateToLoginPage}
-                                 visible={this.state.dislikeVisible}
-                                 okText="로그인 하러 가기"
-                                 cancelText="닫기"
-                              >
-                                 <Button
-                                    icon={
-                                       dislike ? (
-                                          <DislikeFilled />
-                                       ) : (
-                                          <DislikeOutlined />
-                                       )
-                                    }
-                                    className={
-                                       dislike
-                                          ? 'dislike-fill btn-color'
-                                          : 'dislike-out btn-color'
-                                    }
-                                    onClick={this.handleDisLikeButton}
-                                    type="ghost"
-                                 >
-                                    노잼
-                                 </Button>
-                              </Popconfirm>
-                           </strong>
-                           <Button
-                              icon={<PlayCircleOutlined />}
-                              type="primary"
-                              onClick={() => this.setModalTrailerVisible(true)}
-                           >
-                              예고편 보기
-                           </Button>
-                           <Modal
-                              visible={this.state.tralierShow}
-                              onOk={() => this.setModalTrailerVisible(false)}
-                              onCancel={() =>
-                                 this.setModalTrailerVisible(false)
-                              }
-                              footer={null}
-                              width={1300}
-                           >
-                              <Button
-                                 ghost
-                                 icon={<CloseOutlined />}
-                                 className="trailer-close"
-                                 onClick={() =>
-                                    this.setModalTrailerVisible(false)
-                                 }
-                              />
-                              <Trailer videoId={videoId} />
-                           </Modal>
-                        </li>
-                     </ul>
+                     <span className="tag-wrap">
+                        <Tag
+                           color={'success'}
+                           icon={<CheckCircleOutlined />}
+                        >{`영화 평점: ${userRating}`}</Tag>
+                        <Tag color={'magenta'}>{`장르: ${genre}`}</Tag>
+                        <Tag color={'blue'}>{`등급:  ${ratingGrade}`}</Tag>
+                        <Tag color="default">{`상영시간: ${runtime}`}</Tag>
+                     </span>
                   </div>
 
                   <div className="movie-body">
-                     {/* <ul className="movie-summary">
-                        {sub_list.map((sub, i) => (
-                           <ItemSub key={i} sub={sub} i={i} />
-                        ))}
-                     </ul> */}
                      <div className="movie-plot">{plot}</div>
 
                      <div className="movie-director_actors">
-                        <div className="movie-director">
-                           <strong className="movie-sub">장르</strong>
-                           {genre}
-                        </div>
                         <div className="movie-director">
                            <strong className="movie-sub">감독</strong>
                            {director}
@@ -494,7 +379,60 @@ class ItemListEntry extends React.Component {
                         </div>
                      </div>
                   </div>
+                  <div className="trailer-like-wrap">
+                     <Popconfirm
+                        title={
+                           <div>
+                              혹시 이 영화를 보셨나요?
+                              <div>
+                                 로그인을 하여 영화에 대한 평가를 내려주세요.
+                              </div>
+                           </div>
+                        }
+                        onVisibleChange={this.onVisibleChange('likeVisible')}
+                        onConfirm={this.navigateToLoginPage}
+                        visible={this.state.likeVisible}
+                        okText="로그인 하러 가기"
+                        cancelText="닫기"
+                     >
+                        <Button
+                           icon={like ? <LikeFilled /> : <LikeOutlined />}
+                           className={
+                              like
+                                 ? 'like-fill btn-color'
+                                 : 'like-out btn-color'
+                           }
+                           onClick={this.handleLikeButton}
+                           type="ghost"
+                        >
+                           재밌어요
+                        </Button>
+                     </Popconfirm>
+                     <Button
+                        className="trailer-btn"
+                        icon={<PlayCircleOutlined />}
+                        type="ghost"
+                        onClick={() => this.setModalTrailerVisible(true)}
+                     >
+                        예고편 보기
+                     </Button>
+                  </div>
                </div>
+               <Modal
+                  visible={this.state.tralierShow}
+                  onOk={() => this.setModalTrailerVisible(false)}
+                  onCancel={() => this.setModalTrailerVisible(false)}
+                  footer={null}
+                  width={1300}
+               >
+                  <Button
+                     ghost
+                     icon={<CloseOutlined />}
+                     className="trailer-close"
+                     onClick={() => this.setModalTrailerVisible(false)}
+                  />
+                  <Trailer videoId={videoId} />
+               </Modal>
             </div>
          </div>
       );

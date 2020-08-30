@@ -3,6 +3,7 @@ import { List, Avatar, Divider, Modal, Button } from 'antd';
 import { UserOutlined, PushpinFilled, LikeFilled } from '@ant-design/icons';
 import './MyInfo.css';
 import ModalPage from '../Main/ModalPage';
+import SFCINEMA from '../../SFCINEMA.png';
 
 class MyInfo extends Component {
    constructor(props) {
@@ -103,7 +104,7 @@ class MyInfo extends Component {
                      <List.Item.Meta
                         avatar={
                            <Avatar
-                              src={JSON.parse(item.posters)[0]}
+                              src={`https://image.tmdb.org/t/p/w500${item.posters}`}
                               size="large"
                               className="myInfo-savedMovie-img"
                               onClick={() =>
@@ -135,7 +136,7 @@ class MyInfo extends Component {
             />
             <Divider orientation="left" plain>
                <strong className="divider-text">
-                  {<LikeFilled />} 좋아요를 누른 영화 리스트
+                  {<LikeFilled />} 재밌어요를 누른 영화 리스트
                </strong>
             </Divider>
             <List
@@ -146,7 +147,7 @@ class MyInfo extends Component {
                      <List.Item.Meta
                         avatar={
                            <Avatar
-                              src={JSON.parse(item.posters)[0]}
+                              src={`https://image.tmdb.org/t/p/w500${item.posters}`}
                               size="large"
                               className="myInfo-likedMovie-img"
                               onClick={() =>
@@ -178,13 +179,14 @@ class MyInfo extends Component {
             />
 
             <Modal
-               title="SF CINEMA"
+               title={<img src={SFCINEMA} className="small-logo" />}
                centered
                width={1150}
                visible={modalVisible}
                onOk={() => this.setModalVisible(false)}
                onCancel={() => this.setModalVisible(false)}
                footer={null}
+               maskClosable={false}
             >
                <ModalPage
                   currentMovie={currentMovie}

@@ -35,7 +35,7 @@ function DownSlideShow({
    let id = 0;
    return (
       <div>
-         <h2 className="recommend-title">별점이 9점 이상인 영화</h2>
+         <h2 className="recommend-title">평점이 9점 이상인 영화</h2>
          <div className="recommend-items">
             <Slider {...settings}>
                {highlyRated.map((movie) => (

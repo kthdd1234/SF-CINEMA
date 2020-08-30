@@ -246,7 +246,7 @@ class MenuBar extends Component {
 
                      <Menu.Item
                         icon={<StarFilled />}
-                        title="별점이 높은 영화"
+                        title="평점이 높은 영화"
                         key="/highlyRated"
                         onClick={({ key }) =>
                            this.NavigateToHighlyRataedAndReleaseOrder(
@@ -258,7 +258,7 @@ class MenuBar extends Component {
                            )
                         }
                      >
-                        별점이 높은 영화
+                        평점이 높은 영화
                      </Menu.Item>
                      <SubMenu
                         icon={<SketchCircleFilled />}

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import 'antd/dist/antd.css';
 import { withRouter } from 'react-router-dom';
 import ModalImage from './Modal-image';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { Button, Popconfirm, Modal, notification, Tag } from 'antd';
+
 import './ModalPage.css';
-import 'antd/dist/antd.css';
+
 import {
    LikeOutlined,
    DislikeOutlined,
@@ -15,10 +17,14 @@ import {
    PlayCircleOutlined,
    CloseOutlined,
    ClockCircleOutlined,
+   CheckCircleOutlined,
+   BarsOutlined,
+   ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import $ from 'jquery';
 import axios from 'axios';
 import Trailer from './Trailer';
+import './Trailer.css';
 
 const serverUrl = axios.create({
    baseURL: 'http://54.180.32.31:5000/user',
@@ -135,8 +141,8 @@ class ModalPage extends Component {
 
    successLikeNotification = (placement) => {
       notification.success({
-         message: `좋아요 완료!`,
-         description: '좋아요 목록에 해당 영화 정보가 추가되었습니다.',
+         message: `재밌어요 완료!`,
+         description: '재밌어요 목록에 해당 영화 정보가 추가되었습니다.',
          placement,
          icon: (
             <LikeFilled
@@ -150,8 +156,8 @@ class ModalPage extends Component {
 
    cancelLikeNotification = (placement) => {
       notification.warn({
-         message: `좋아요 취소!`,
-         description: '좋아요 목록에 해당 영화 정보를 삭제하였습니다.',
+         message: `재밌어요 취소!`,
+         description: '재밌어요 목록에 해당 영화 정보를 삭제하였습니다.',
          placement,
       });
    };
@@ -287,7 +293,7 @@ class ModalPage extends Component {
          director,
          plot,
          posters,
-         nation,
+         backDrop,
          actors,
          releaseDate,
          runtime,
@@ -297,13 +303,8 @@ class ModalPage extends Component {
          videoId,
       } = this.props.currentMovie;
 
-      let tagColor = '';
       let releaseYear = String(releaseDate).slice(0, 4);
       actors = JSON.parse(actors).slice(0, 4).join(', ');
-      if (ratingGrade === '전체 관람가') tagColor = 'success';
-      if (ratingGrade === '12세 관람가') tagColor = 'processing';
-      if (ratingGrade === '15세 관람가') tagColor = 'warning';
-      if (ratingGrade === '청소년 관람불가') tagColor = 'error';
 
       const { pushpin, like, dislike } = this.state;
 
@@ -315,6 +316,7 @@ class ModalPage extends Component {
                   img={`https://image.tmdb.org/t/p/w500${posters}`}
                   alt={id}
                />
+
                <div className="modal-content-wrapper">
                   <div>
                      <Popconfirm
@@ -339,121 +341,38 @@ class ModalPage extends Component {
                            danger={true}
                         />
                      </Popconfirm>
-                     <span className="tag-wrap">
-                        <Tag color={tagColor} className="ratingGrade-tag">
-                           {ratingGrade}
-                        </Tag>
-                        <Tag
-                           icon={<ClockCircleOutlined />}
-                           color="default"
-                           className="runtime-tag"
-                        >
-                           {runtime}
-                        </Tag>
-                     </span>
                   </div>
 
-                  <strong className="modal-header-title">{title}</strong>
-                  <strong className="modal-header-titleEng_year">
-                     {title.length < 11
-                        ? `(${titleEng}, ${releaseYear})`
-                        : null}
-                  </strong>
-                  <div>
-                     {title.length >= 11 ? (
-                        <strong className="modal-header-titleEng_year">
-                           {`(${titleEng}, ${releaseYear})`}
-                        </strong>
-                     ) : null}
+                  <div className="modal-title-wrap">
+                     <strong className="modal-header-title">{title}</strong>
+                     <strong className="modal-header-titleEng_year">
+                        {title.length < 11
+                           ? `${titleEng} (${releaseYear})`
+                           : null}
+                     </strong>
+                     <div>
+                        {title.length >= 11 ? (
+                           <strong className="modal-header-titleEng_year">
+                              {`${titleEng} (${releaseYear})`}
+                           </strong>
+                        ) : null}
+                     </div>
                   </div>
-                  {/* <hr className="border-bottom-line" /> */}
 
-                  <div>
-                     <ul className="modal-rating-list">
-                        <li className="modal-user-rating">⭐ {userRating}</li>
-
-                        <li className="modal-my-rating">
-                           <Popconfirm
-                              title={
-                                 <div>
-                                    혹시 이 영화를 보셨나요?
-                                    <div>
-                                       로그인을 하여 영화에 대한 의견을
-                                       알려주세요.
-                                    </div>
-                                 </div>
-                              }
-                              onVisibleChange={this.onVisibleChange(
-                                 'likeVisible',
-                              )}
-                              onConfirm={this.navigateToLoginPage}
-                              visible={this.state.likeVisible}
-                              okText="로그인 하러 가기"
-                              cancelText="닫기"
-                           >
-                              <Button
-                                 icon={like ? <LikeFilled /> : <LikeOutlined />}
-                                 className={like ? 'like-fill' : 'like-out'}
-                                 onClick={this.handleLikeButton}
-                                 type="ghost"
-                              >
-                                 좋아요
-                              </Button>
-                           </Popconfirm>
-                           <Popconfirm
-                              title={
-                                 <div>
-                                    혹시 이 영화를 보셨나요?
-                                    <div>
-                                       로그인을 하여 영화에 대한 의견을
-                                       알려주세요.
-                                    </div>
-                                 </div>
-                              }
-                              onVisibleChange={this.onVisibleChange(
-                                 'dislikeVisible',
-                              )}
-                              onConfirm={this.navigateToLoginPage}
-                              visible={this.state.dislikeVisible}
-                              okText="로그인 하러 가기"
-                              cancelText="닫기"
-                           >
-                              <Button
-                                 icon={
-                                    dislike ? (
-                                       <DislikeFilled />
-                                    ) : (
-                                       <DislikeOutlined />
-                                    )
-                                 }
-                                 className={
-                                    dislike ? 'dislike-fill' : 'dislike-out'
-                                 }
-                                 onClick={this.handleDisLikeButton}
-                                 type="ghost"
-                              >
-                                 노잼
-                              </Button>
-                           </Popconfirm>
-                        </li>
-                        <Button
-                           icon={<PlayCircleOutlined />}
-                           className="trailer-btn"
-                           type="primary"
-                           onClick={() => this.setModalTrailerVisible(true)}
-                        >
-                           예고편 보기
-                        </Button>
-                     </ul>
-                  </div>
+                  <span className="tag-wrap">
+                     <Tag
+                        color="success"
+                        icon={<CheckCircleOutlined />}
+                     >{`영화 평점: ${userRating}`}</Tag>
+                     <Tag color="magenta">{`장르: ${genre}`}</Tag>
+                     <Tag color="blue">{`등급:  ${ratingGrade}`}</Tag>
+                     <Tag color="default">{`재생시간: ${runtime}`}</Tag>
+                  </span>
+                  <li className="modal-my-rating"></li>
 
                   <div className="modal-plot">{plot}</div>
 
                   <div>
-                     <div>
-                        <strong className="modal-genre">장르</strong>
-                        {genre}
-                     </div>
                      <div>
                         <strong className="modal-director">감독</strong>
                         {director}
@@ -462,6 +381,42 @@ class ModalPage extends Component {
                         <strong className="modal-actors">출연</strong>
                         {actors}
                      </div>
+                  </div>
+                  <div className="trailer-like-wrap">
+                     <Popconfirm
+                        title={
+                           <div>
+                              혹시 이 영화를 보셨나요?
+                              <div>
+                                 로그인을 하여 영화에 대한 평가를 내려주세요.
+                              </div>
+                           </div>
+                        }
+                        onVisibleChange={this.onVisibleChange('likeVisible')}
+                        onConfirm={this.navigateToLoginPage}
+                        visible={this.state.likeVisible}
+                        okText="로그인 하러 가기"
+                        cancelText="닫기"
+                     >
+                        <Button
+                           icon={like ? <LikeFilled /> : <LikeOutlined />}
+                           className={like ? 'like-fill' : 'like-out'}
+                           onClick={this.handleLikeButton}
+                           type="primary"
+                           size="large"
+                        >
+                           재밌어요
+                        </Button>
+                     </Popconfirm>
+                     <Button
+                        icon={<PlayCircleOutlined />}
+                        className="trailer-btn"
+                        type="primary"
+                        size="large"
+                        onClick={() => this.setModalTrailerVisible(true)}
+                     >
+                        예고편 보기
+                     </Button>
                   </div>
                </div>
                <Modal

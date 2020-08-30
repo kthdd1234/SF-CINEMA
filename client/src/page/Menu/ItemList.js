@@ -64,7 +64,8 @@ class ItemList extends Component {
 
    onChangeSelect = (value) => {
       const { movies } = this.state;
-      if (value === '별점이 높은 순') {
+      console.log(movies);
+      if (value === '평점이 높은 순') {
          const HighestRating = movies.sort(
             (a, b) => b.userRating - a.userRating,
          );
@@ -74,13 +75,10 @@ class ItemList extends Component {
          });
       } else if (value === '최신 작품 순') {
          const releaseOrder = movies.sort((a, b) => {
-            var first = Number(b.releaseDate.replace(/[.]/gi, ''));
-            var sencond = Number(a.releaseDate.replace(/[.]/gi, ''));
-
-            if (first < sencond) {
+            if (b.releaseDate < a.releaseDate) {
                return -1;
             }
-            if (first > sencond) {
+            if (b.releaseDate > a.releaseDate) {
                return 1;
             }
             return 0;
@@ -118,7 +116,7 @@ class ItemList extends Component {
                         />
                      }
                   >
-                     <Option value="별점이 높은 순">⭐ 별점이 높은 순</Option>
+                     <Option value="평점이 높은 순">⭐ 평점이 높은 순</Option>
                      <Option value="최신 작품 순">🎞 최신 작품순</Option>
                   </Select>
                ) : null}
