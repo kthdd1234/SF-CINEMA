@@ -22,7 +22,7 @@ import {
 import axios from 'axios';
 import ModalPage from './ModalPage';
 import TopSlideShow from './TopSlideShow';
-import DownSlideShow from './DownSlideShow';
+import MovieCardList from './MovieCardList';
 import SFCINEMA from '../../SFCINEMA.png';
 import './MainCinema.css';
 import { seriesList } from './seriesList';
@@ -61,6 +61,7 @@ class MainCinema extends Component {
          series: [],
          modalVisible: false,
          currentMovie: null,
+         currentNumberOfLikes: 0,
          imgList: [],
          searchResult: [],
          keyword: '',
@@ -213,10 +214,11 @@ class MainCinema extends Component {
    handleCurrentMovie = (movie) => {
       this.setState({
          currentMovie: movie,
+         currentNumberOfLikes: movie.numberOfLikes,
       });
    };
 
-   onClose = (key) => {
+   onClose = () => {
       this.setState({
          drawerVisible: false,
       });
@@ -235,6 +237,8 @@ class MainCinema extends Component {
       this.setState({ tralierShow });
    }
 
+   componentDidUpdate = () => {};
+
    render() {
       const {
          backgroundImg,
@@ -250,7 +254,7 @@ class MainCinema extends Component {
          aliensMovies,
          superHeroMovies,
          videoId,
-         tagKeyword,
+         currentNumberOfLikes,
       } = this.state;
 
       return (
@@ -266,8 +270,10 @@ class MainCinema extends Component {
                   maskClosable={false}
                >
                   <ModalPage
-                     currentMovie={currentMovie}
                      isLogin={this.props.isLogin}
+                     profile={this.props.profile}
+                     currentMovie={currentMovie}
+                     currentNumberOfLikes={currentNumberOfLikes}
                   />
                </Modal>
                <Carousel
@@ -459,8 +465,10 @@ class MainCinema extends Component {
                         footer={null}
                      >
                         <ModalPage
-                           currentMovie={currentMovie}
                            isLogin={this.props.isLogin}
+                           profile={this.props.profile}
+                           currentMovie={currentMovie}
+                           currentNumberOfLikes={currentNumberOfLikes}
                         />
                      </Modal>
                   </div>
@@ -482,7 +490,7 @@ class MainCinema extends Component {
             )}
 
             {masterpiece.length ? (
-               <DownSlideShow
+               <MovieCardList
                   highlyRated={highlyRated}
                   operatorMovies={operatorMovies}
                   masterpiece={masterpiece}
@@ -491,10 +499,12 @@ class MainCinema extends Component {
                   superHeroMovies={superHeroMovies}
                   setModalVisible={this.setModalVisible}
                   handleCurrentMovie={this.handleCurrentMovie}
+                  isLogin={this.props.isLogin}
+                  profile={this.props.profile}
                />
             ) : null}
 
-            <Modal
+            {/* <Modal
                title={<img src={SFCINEMA} className="small-logo" />}
                centered
                width={1150}
@@ -505,10 +515,12 @@ class MainCinema extends Component {
                maskClosable={false}
             >
                <ModalPage
-                  currentMovie={currentMovie}
                   isLogin={this.props.isLogin}
+                  profile={this.props.profile}
+                  currentMovie={currentMovie}
+                  currentNumberOfLikes={currentNumberOfLikes}
                />
-            </Modal>
+            </Modal> */}
 
             {imgList.length
                ? imgList.map((data, i) => (

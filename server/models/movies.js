@@ -47,6 +47,10 @@ module.exports = (sequelize, DataTypes) => {
       backgroundImg: DataTypes.STRING,
       backDrop: DataTypes.STRING,
       keywords: DataTypes.STRING,
+      numberOfLikes: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
     },
     {
       sequelize,

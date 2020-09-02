@@ -18,9 +18,9 @@ class App extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         collapsed: true,
          isLogin: false,
          profile: {},
+         NumberOfLikes: 0,
       };
    }
 
@@ -30,6 +30,19 @@ class App extends Component {
          this.setState({
             isLogin: true,
          });
+
+         axios
+            .get('http://54.180.32.31:5000/user/profile', {
+               headers: {
+                  Authorization: 'Bearer ' + accessToken,
+               },
+            })
+            .then(({ data }) => {
+               this.setState({
+                  isLogin: true,
+                  profile: data,
+               });
+            });
       }
    };
 
@@ -146,6 +159,9 @@ class App extends Component {
       return movies;
    };
 
+   handleNumberOfLikesIncrease = () => {};
+   handleNumberOfLikesDecrease = () => {};
+
    render() {
       const { isLogin, profile, backgroundImg } = this.state;
 
@@ -162,7 +178,6 @@ class App extends Component {
                   isLogin={isLogin}
                   handleMovieDataUpdate={this.handleMovieDataUpdate}
                   handleLoginChange={this.handleLoginChange}
-                  handleLeftMenuCollapsed={this.handleLeftMenuCollapsed}
                />
 
                <Content className="site-layout-background">

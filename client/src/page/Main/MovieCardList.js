@@ -1,11 +1,11 @@
 import React from 'react';
 import Slider from 'react-slick';
 import './DownSlideShow.css';
-import SlideImgEntry from './SlideImgEntry';
+import MovieCardListEntry from './MovieCardListEntry';
 import NextArrow from './NextArrow';
 import PrevArrow from './PreArrow';
 
-function DownSlideShow({
+function MovieCardList({
    highlyRated,
    operatorMovies,
    masterpiece,
@@ -14,6 +14,9 @@ function DownSlideShow({
    superHeroMovies,
    setModalVisible,
    handleCurrentMovie,
+   isLogin,
+   profile,
+   currentNumberOfLikes,
 }) {
    const settings = {
       infinite: true,
@@ -39,12 +42,14 @@ function DownSlideShow({
          <div className="recommend-items">
             <Slider {...settings}>
                {highlyRated.map((movie) => (
-                  <SlideImgEntry
+                  <MovieCardListEntry
                      key={id++}
                      movie={movie}
                      alt={id}
                      setModalVisible={setModalVisible}
                      handleCurrentMovie={handleCurrentMovie}
+                     isLogin={isLogin}
+                     profile={profile}
                   />
                ))}
             </Slider>
@@ -54,12 +59,14 @@ function DownSlideShow({
          <div className="recommend-items">
             <Slider {...settings}>
                {aliensMovies.map((movie) => (
-                  <SlideImgEntry
+                  <MovieCardListEntry
                      key={id++}
                      movie={movie}
                      alt={id}
                      setModalVisible={setModalVisible}
                      handleCurrentMovie={handleCurrentMovie}
+                     isLogin={isLogin}
+                     profile={profile}
                   />
                ))}
             </Slider>
@@ -69,12 +76,14 @@ function DownSlideShow({
          <div className="recommend-items">
             <Slider {...settings}>
                {superHeroMovies.map((movie) => (
-                  <SlideImgEntry
+                  <MovieCardListEntry
                      key={id++}
                      movie={movie}
                      alt={id}
                      setModalVisible={setModalVisible}
                      handleCurrentMovie={handleCurrentMovie}
+                     isLogin={isLogin}
+                     profile={profile}
                   />
                ))}
             </Slider>
@@ -84,12 +93,14 @@ function DownSlideShow({
          <div className="recommend-items">
             <Slider {...settings}>
                {operatorMovies.map((movie) => (
-                  <SlideImgEntry
+                  <MovieCardListEntry
                      key={id++}
                      movie={movie}
                      alt={id}
                      setModalVisible={setModalVisible}
                      handleCurrentMovie={handleCurrentMovie}
+                     isLogin={isLogin}
+                     profile={profile}
                   />
                ))}
             </Slider>
@@ -99,12 +110,14 @@ function DownSlideShow({
          <div className="recommend-items">
             <Slider {...settings}>
                {masterpiece.map((movie) => (
-                  <SlideImgEntry
+                  <MovieCardListEntry
                      key={id++}
                      movie={movie}
                      alt={id}
                      setModalVisible={setModalVisible}
                      handleCurrentMovie={handleCurrentMovie}
+                     isLogin={isLogin}
+                     profile={profile}
                   />
                ))}
             </Slider>
@@ -114,12 +127,14 @@ function DownSlideShow({
          <div className="recommend-items">
             <Slider {...seriesSettings}>
                {series.map((movie) => (
-                  <SlideImgEntry
+                  <MovieCardListEntry
                      key={id++}
                      movie={movie}
                      alt={id}
                      setModalVisible={setModalVisible}
                      handleCurrentMovie={handleCurrentMovie}
+                     isLogin={isLogin}
+                     profile={profile}
                   />
                ))}
             </Slider>
@@ -128,4 +143,4 @@ function DownSlideShow({
    );
 }
 
-export default DownSlideShow;
+export default MovieCardList;

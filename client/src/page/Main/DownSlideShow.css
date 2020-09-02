@@ -12,7 +12,42 @@
    border-bottom: 1px solid #f0f0f0;
 }
 
-.movie-card {
+.card-container {
+   position: relative;
+}
+
+.card-like-wrap {
+   z-index: 1;
+   position: absolute;
+   right: 5.8%;
+   top: 2%;
+   background: rgba(0, 0, 0, 0.3);
+   border-radius: 0.3rem;
+}
+
+.like-count {
+   color: #fff;
+}
+
+.like-outlied {
+   color: hsla(0, 0%, 100%, 0.55);
+}
+.like-outlied:hover {
+   color: hsla(0, 0%, 100%, 0.55);
+}
+
+.like-filled {
+   color: blue;
+}
+.like-filled:hover {
+   color: blue;
+}
+
+.like-filled:checked {
+   color: #fff;
+}
+
+.card-movie-info {
    width: 10.5vw;
    border-radius: 7px;
 

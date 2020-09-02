@@ -1,8 +1,10 @@
 const { User, movies } = require('../../models/index');
+const Sequelize = require('sequelize');
 
 module.exports = {
   post: (req, res) => {
     const { loginID, movieId } = req.body;
+    console.log(loginID);
 
     User.findOne({
       where: {
@@ -19,11 +21,22 @@ module.exports = {
             id: movieId,
           },
         })
-        .then((movieData) => {
+        .then(async (movieData) => {
           if (movieData === null) {
             return res.status(404).send('Not found Movie');
           }
-          userData.addLikedMovie(movieData);
+
+          await userData.addLikedMovie(movieData);
+          movies.update(
+            {
+              numberOfLikes: Sequelize.literal('numberOfLikes + 1'),
+            },
+            {
+              where: {
+                id: movieId,
+              },
+            }
+          );
           res.status(200).send('likedMovie Completed!');
         });
     });

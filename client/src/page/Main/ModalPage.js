@@ -37,39 +37,32 @@ class ModalPage extends Component {
          loginID: null,
          pushpinVisible: false,
          likeVisible: false,
-         dislikeVisible: false,
          pushpin: false,
          like: false,
-         dislike: false,
          tralierShow: false,
+         numberOfLikes: 0,
       };
    }
 
    componentDidMount = () => {
+      this.setState({
+         numberOfLikes: this.props.numberOfLikes,
+      });
       if (this.props.isLogin) {
          const accessToken = reactLocalStorage.get('SFCinemaUserToken');
+         this.setState({
+            loginID: this.props.profile.loginID,
+         });
          if (accessToken) {
-            axios
-               .get('http://54.180.32.31:5000/user/profile', {
+            serverUrl
+               .get('/profile', {
                   headers: {
                      Authorization: 'Bearer ' + accessToken,
                   },
                })
                .then(({ data }) => {
-                  const {
-                     loginID,
-                     savedMovie,
-                     likedMovie,
-                     disLikedMovie,
-                  } = data;
-                  this.setState({
-                     loginID: loginID,
-                  });
-                  this.handleUserFavoritedData(
-                     savedMovie,
-                     likedMovie,
-                     disLikedMovie,
-                  );
+                  const { savedMovie, likedMovie } = data;
+                  this.handleUserFavoritedData(savedMovie, likedMovie);
                });
          }
       }
@@ -81,23 +74,19 @@ class ModalPage extends Component {
             this.setState({
                pushpin: false,
                like: false,
-               dislike: false,
+               numberOfLikes: this.props.numberOfLikes,
             });
             const accessToken = reactLocalStorage.get('SFCinemaUserToken');
             if (accessToken) {
-               axios
-                  .get('http://54.180.32.31:5000/user/profile', {
+               serverUrl
+                  .get('/profile', {
                      headers: {
                         Authorization: 'Bearer ' + accessToken,
                      },
                   })
                   .then(({ data }) => {
-                     const { savedMovie, likedMovie, disLikedMovie } = data;
-                     this.handleUserFavoritedData(
-                        savedMovie,
-                        likedMovie,
-                        disLikedMovie,
-                     );
+                     const { savedMovie, likedMovie } = data;
+                     this.handleUserFavoritedData(savedMovie, likedMovie);
                   });
             }
          }
@@ -105,7 +94,7 @@ class ModalPage extends Component {
    };
 
    handleUserFavoritedData = (...favaritedData) => {
-      let favarite = ['pushpin', 'like', 'dislike'];
+      let favarite = ['pushpin', 'like'];
       for (let i = 0; i < favaritedData.length; i++) {
          for (let j = 0; j < favaritedData[i].length; j++) {
             if (favaritedData[i][j].id === this.props.currentMovie.id) {
@@ -162,36 +151,15 @@ class ModalPage extends Component {
       });
    };
 
-   successDisLikeNotification = (placement) => {
-      notification.success({
-         message: `영화 정보에 노잼 표시를 하였습니다.`,
-         placement,
-         icon: (
-            <DislikeFilled
-               style={{
-                  color: 'blue',
-               }}
-            />
-         ),
-      });
-   };
-
-   cancelDisLikeNotification = (placement) => {
-      notification.warn({
-         message: `영화 정보에 노잼 표시를 취소하였습니다.`,
-         placement,
-      });
-   };
-
-   onVisibleChange = (target) => (visible) => {
+   onVisibleChange = (onVisible) => (popVisible) => {
       if (!this.props.isLogin) {
-         if (visible) {
+         if (popVisible) {
             this.setState({
-               [target]: true,
+               [onVisible]: true,
             });
          } else {
             this.setState({
-               [target]: false,
+               [onVisible]: false,
             });
          }
       }
@@ -222,50 +190,32 @@ class ModalPage extends Component {
    };
 
    handleLikeButton = () => {
-      const { like, loginID } = this.state;
-      const { isLogin } = this.props;
+      const { like, loginID, numberOfLikes } = this.state;
+      const { isLogin, currentMovie } = this.props;
       if (isLogin) {
          if (!like) {
             serverUrl.post('/likedMovie', {
                loginID: loginID,
-               movieId: this.props.currentMovie.id,
+               movieId: currentMovie.id,
             });
             this.successLikeNotification('topLeft');
+            this.setState({
+               numberOfLikes: numberOfLikes + 1,
+            });
+            this.props.handleNumberOfLikesIncrease();
          } else {
             serverUrl.post('/cancelLikedMovie', {
                loginID: loginID,
                movieId: this.props.currentMovie.id,
             });
             this.cancelLikeNotification('topLeft');
+            this.setState({
+               numberOfLikes: numberOfLikes - 1,
+            });
+            this.props.handleNumberOfLikesDecrease();
          }
          this.setState({
             like: !like,
-            dislike: false,
-         });
-      }
-   };
-
-   handleDisLikeButton = () => {
-      const { dislike, loginID } = this.state;
-      const { isLogin } = this.props;
-
-      if (isLogin) {
-         if (!dislike) {
-            serverUrl.post('/disLikedMovie', {
-               loginID: loginID,
-               movieId: this.props.currentMovie.id,
-            });
-            this.successDisLikeNotification('topLeft');
-         } else {
-            serverUrl.post('/cancelDisLikedMovie', {
-               loginID: loginID,
-               movieId: this.props.currentMovie.id,
-            });
-            this.cancelDisLikeNotification('topLeft');
-         }
-         this.setState({
-            dislike: !dislike,
-            like: false,
          });
       }
    };
@@ -276,6 +226,7 @@ class ModalPage extends Component {
    };
 
    setModalTrailerVisible = (tralierShow) => {
+      console.log(tralierShow);
       if (!tralierShow) {
          $('.movie-trailer')[0].contentWindow.postMessage(
             '{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
@@ -286,6 +237,7 @@ class ModalPage extends Component {
    };
 
    render() {
+      const { currentMovie } = this.props;
       let {
          id,
          title,
@@ -301,12 +253,12 @@ class ModalPage extends Component {
          genre,
          userRating,
          videoId,
-      } = this.props.currentMovie;
+      } = currentMovie;
 
       let releaseYear = String(releaseDate).slice(0, 4);
       actors = JSON.parse(actors).slice(0, 4).join(', ');
 
-      const { pushpin, like, dislike } = this.state;
+      const { pushpin, like, numberOfLikes } = this.state;
 
       return (
          <div>
@@ -334,13 +286,21 @@ class ModalPage extends Component {
                      >
                         <Button
                            icon={
-                              pushpin ? <PushpinFilled /> : <PushpinOutlined />
+                              pushpin ? (
+                                 <PushpinFilled className="pushpin-icon" />
+                              ) : (
+                                 <PushpinOutlined className="pushpin-icon" />
+                              )
                            }
-                           shape="circle"
+                           style={{
+                              border: 'none',
+                           }}
                            onClick={this.handlePushpinButton}
                            danger={true}
+                           shape="circle-outline"
                         />
                      </Popconfirm>
+                     <span>{numberOfLikes}</span>
                   </div>
 
                   <div className="modal-title-wrap">
@@ -368,7 +328,6 @@ class ModalPage extends Component {
                      <Tag color="blue">{`등급:  ${ratingGrade}`}</Tag>
                      <Tag color="default">{`재생시간: ${runtime}`}</Tag>
                   </span>
-                  <li className="modal-my-rating"></li>
 
                   <div className="modal-plot">{plot}</div>
 

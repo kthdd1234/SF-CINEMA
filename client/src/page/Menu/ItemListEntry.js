@@ -48,8 +48,8 @@ class ItemListEntry extends React.Component {
             });
             const accessToken = reactLocalStorage.get('SFCinemaUserToken');
             if (accessToken) {
-               axios
-                  .get('http://54.180.32.31:5000/user/profile', {
+               serverUrl
+                  .get('/profile', {
                      headers: {
                         Authorization: 'Bearer ' + accessToken,
                      },
@@ -84,8 +84,8 @@ class ItemListEntry extends React.Component {
       if (this.props.isLogin) {
          const accessToken = reactLocalStorage.get('SFCinemaUserToken');
          if (accessToken) {
-            axios
-               .get('http://54.180.32.31:5000/user/profile', {
+            serverUrl
+               .get('/profile', {
                   headers: {
                      Authorization: 'Bearer ' + accessToken,
                   },
@@ -217,52 +217,6 @@ class ItemListEntry extends React.Component {
       });
    };
 
-   handleDisLikeButton = () => {
-      const { dislike, loginID } = this.state;
-      const { isLogin } = this.props;
-
-      if (isLogin) {
-         if (!dislike) {
-            serverUrl.post('/disLikedMovie', {
-               loginID: loginID,
-               movieId: this.props.id,
-            });
-            this.successDisLikeNotification('bottomLeft');
-         } else {
-            serverUrl.post('/cancelDisLikedMovie', {
-               loginID: loginID,
-               movieId: this.props.id,
-            });
-            this.cancelDisLikeNotification('bottomLeft');
-         }
-         this.setState({
-            dislike: !dislike,
-            like: false,
-         });
-      }
-   };
-
-   successDisLikeNotification = (placement) => {
-      notification.success({
-         message: `영화 정보에 노잼 표시를 하였습니다.`,
-         placement,
-         icon: (
-            <DislikeFilled
-               style={{
-                  color: 'blue',
-               }}
-            />
-         ),
-      });
-   };
-
-   cancelDisLikeNotification = (placement) => {
-      notification.warn({
-         message: `영화 정보에 노잼 표시를 취소하였습니다.`,
-         placement,
-      });
-   };
-
    navigateToLoginPage = () => {
       this.props.history.push('/login');
    };
@@ -295,12 +249,7 @@ class ItemListEntry extends React.Component {
          videoId,
       } = this.props;
 
-      const { pushpin, like, dislike } = this.state;
-      let tagColor = '';
-      if (ratingGrade === '전체 관람가') tagColor = 'success';
-      if (ratingGrade === '12세 관람가') tagColor = 'processing';
-      if (ratingGrade === '15세 관람가') tagColor = 'warning';
-      if (ratingGrade === '청소년 관람불가') tagColor = 'error';
+      const { pushpin, like } = this.state;
 
       return (
          <div>

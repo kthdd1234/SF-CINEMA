@@ -191,6 +191,7 @@ class MyInfo extends Component {
                <ModalPage
                   currentMovie={currentMovie}
                   isLogin={this.props.isLogin}
+                  profile={this.props.profile}
                />
             </Modal>
          </div>
