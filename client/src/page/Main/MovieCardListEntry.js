@@ -5,8 +5,7 @@ import { Card, Button, Popconfirm, notification, Modal } from 'antd';
 import { LikeOutlined, LikeFilled } from '@ant-design/icons';
 import SFCINEMA from '../../SFCINEMA.png';
 import ModalPage from './ModalPage';
-import Trailer from './Trailer';
-import $ from 'jquery';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import axios from 'axios';
 
 const { Meta } = Card;
@@ -21,15 +20,14 @@ class MovieCardListEntry extends Component {
       this.state = {
          likeFilled: false,
          likeVisible: false,
-
          modalVisible: false,
          pause: false,
          numberOfLikes: 0,
       };
    }
 
-   componentDidMount = async () => {
-      const { isLogin, profile, movie } = this.props;
+   componentDidMount = () => {
+      const { movie, isLogin, profile } = this.props;
       const movieId = movie ? movie.id : null;
       const likeMovies = profile.likedMovie;
       const numberOfLikes = movie ? movie.numberOfLikes : null;
@@ -41,14 +39,20 @@ class MovieCardListEntry extends Component {
          this.setState({
             loginID: profile.loginID,
          });
-
-         await likeMovies.forEach((movie) => {
-            if (movie.id === movieId) {
-               return this.setState({
-                  likeFilled: true,
-               });
+         if (likeMovies === undefined) {
+            if (isLogin) {
+               location.reload(true);
+               window.scrollTo(0, 0);
             }
-         });
+         } else {
+            likeMovies.forEach((movie) => {
+               if (movie.id === movieId) {
+                  return this.setState({
+                     likeFilled: true,
+                  });
+               }
+            });
+         }
       }
    };
 
@@ -160,7 +164,7 @@ class MovieCardListEntry extends Component {
    };
 
    render() {
-      const { movie, alt } = this.props;
+      const { movie, alt, isLogin, profile } = this.props;
       const { likeFilled, numberOfLikes, modalVisible } = this.state;
 
       if (movie !== null) {
@@ -217,8 +221,12 @@ class MovieCardListEntry extends Component {
                      title={title}
                      description={
                         <div>
-                           <div> ⭐ {userRating}</div>
-                           <div>{genre}</div>
+                           <div>
+                              <strong>장르</strong> {genre}
+                           </div>
+                           <div>
+                              <strong>평점</strong> ⭐ {userRating}
+                           </div>
                         </div>
                      }
                   />
@@ -234,8 +242,8 @@ class MovieCardListEntry extends Component {
                   maskClosable={false}
                >
                   <ModalPage
-                     isLogin={this.props.isLogin}
-                     profile={this.props.profile}
+                     isLogin={isLogin}
+                     profile={profile}
                      currentMovie={movie}
                      numberOfLikes={numberOfLikes}
                      handleNumberOfLikesIncrease={

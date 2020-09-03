@@ -13,6 +13,7 @@ import {
    Button,
    Carousel,
    Tag,
+   Popconfirm,
 } from 'antd';
 import {
    ZoomInOutlined,
@@ -20,9 +21,11 @@ import {
    CloseOutlined,
 } from '@ant-design/icons';
 import axios from 'axios';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import ModalPage from './ModalPage';
 import TopSlideShow from './TopSlideShow';
 import MovieCardList from './MovieCardList';
+import SearchBar from './SearchBar';
 import SFCINEMA from '../../SFCINEMA.png';
 import './MainCinema.css';
 import { seriesList } from './seriesList';
@@ -31,18 +34,6 @@ import dotenv from 'dotenv';
 import $ from 'jquery';
 dotenv.config();
 
-const { Search } = Input;
-const { Meta } = Card;
-const tagKeywords = [
-   { color: 'green', keyword: '스파이더맨' },
-   { color: 'geekblue', keyword: '외계인 또는 행성 탐사' },
-   { color: 'purple', keyword: '인류 멸망 시나리오' },
-   { color: 'orange', keyword: '엑스맨 시리즈' },
-   { color: 'blue', keyword: '생존 서바이벌' },
-   { color: 'magenta', keyword: '애니메이션' },
-   { color: 'geekblue', keyword: '크리스토퍼 놀란' },
-];
-
 const serverUrl = axios.create({
    baseURL: `http://54.180.32.31:5000/main`,
 });
@@ -50,7 +41,10 @@ const serverUrl = axios.create({
 class MainCinema extends Component {
    constructor(props) {
       super(props);
+
       this.state = {
+         profile: {},
+         isLogin: false,
          backgroundImg: [],
          randomMovies: [],
          highlyRated: [],
@@ -61,7 +55,7 @@ class MainCinema extends Component {
          series: [],
          modalVisible: false,
          currentMovie: null,
-         currentNumberOfLikes: 0,
+         numberOfLikes: 0,
          imgList: [],
          searchResult: [],
          keyword: '',
@@ -80,6 +74,26 @@ class MainCinema extends Component {
          axiosRequestMasterpiece,
          axiosGenres,
       } = this.props;
+
+      const accessToken = reactLocalStorage.get('SFCinemaUserToken');
+      if (accessToken) {
+         this.setState({
+            isLogin: true,
+         });
+         axios
+            .get('http://54.180.32.31:5000/user/profile', {
+               headers: {
+                  Authorization: 'Bearer ' + accessToken,
+               },
+            })
+            .then(async ({ data }) => {
+               const userInfo = await data;
+               console.log(userInfo);
+               this.setState({
+                  profile: userInfo,
+               });
+            });
+      }
 
       /*  백그라운드 이미지 */
       serverUrl.get('/backgroundImg').then(({ data }) => {
@@ -155,39 +169,6 @@ class MainCinema extends Component {
       });
    }
 
-   handleUpdateSearchKeyword = (e) => {
-      this.setState({
-         keyword: e.target.value,
-      });
-   };
-
-   handleSearchMovieData = () => {
-      const { keyword } = this.state;
-
-      if (keyword === '') {
-         return message.error('검색어를 입력해주세요.');
-      } else {
-         serverUrl
-            .get('/searchMovie', {
-               params: {
-                  keyword: keyword,
-               },
-            })
-            .then(({ data }) => {
-               if (data === 'Not Found') {
-                  return this.setState({
-                     searchResult: null,
-                     drawerVisible: true,
-                  });
-               }
-               this.setState({
-                  searchResult: data,
-                  drawerVisible: true,
-               });
-            });
-      }
-   };
-
    handleSeriesList = (seriesMovieList) => {
       for (let i = 0; i < seriesMovieList.length; i++) {
          for (let j = 0; j < 7; j++) {
@@ -214,13 +195,7 @@ class MainCinema extends Component {
    handleCurrentMovie = (movie) => {
       this.setState({
          currentMovie: movie,
-         currentNumberOfLikes: movie.numberOfLikes,
-      });
-   };
-
-   onClose = () => {
-      this.setState({
-         drawerVisible: false,
+         numberOfLikes: movie.numberOfLikes,
       });
    };
 
@@ -237,7 +212,21 @@ class MainCinema extends Component {
       this.setState({ tralierShow });
    }
 
-   componentDidUpdate = () => {};
+   handleNumberOfLikesIncrease = () => {
+      const { numberOfLikes } = this.state;
+      this.setState({
+         numberOfLikes: numberOfLikes + 1,
+         likeFilled: true,
+      });
+   };
+
+   handleNumberOfLikesDecrease = () => {
+      const { numberOfLikes } = this.state;
+      this.setState({
+         numberOfLikes: numberOfLikes - 1,
+         likeFilled: false,
+      });
+   };
 
    render() {
       const {
@@ -249,12 +238,13 @@ class MainCinema extends Component {
          series,
          modalVisible,
          currentMovie,
-         searchResult,
          imgList,
          aliensMovies,
          superHeroMovies,
          videoId,
-         currentNumberOfLikes,
+         numberOfLikes,
+         isLogin,
+         profile,
       } = this.state;
 
       return (
@@ -268,12 +258,19 @@ class MainCinema extends Component {
                   onOk={() => this.setModalVisible(false)}
                   onCancel={() => this.setModalVisible(false)}
                   maskClosable={false}
+                  footer={null}
                >
                   <ModalPage
-                     isLogin={this.props.isLogin}
-                     profile={this.props.profile}
+                     isLogin={isLogin}
+                     profile={profile}
                      currentMovie={currentMovie}
-                     currentNumberOfLikes={currentNumberOfLikes}
+                     numberOfLikes={numberOfLikes}
+                     handleNumberOfLikesIncrease={
+                        this.handleNumberOfLikesIncrease
+                     }
+                     handleNumberOfLikesDecrease={
+                        this.handleNumberOfLikesDecrease
+                     }
                   />
                </Modal>
                <Carousel
@@ -385,98 +382,17 @@ class MainCinema extends Component {
                      icon={<CloseOutlined />}
                      className="trailer-close"
                      onClick={() => this.setModalTrailerVisible(false)}
+                     handleNumberOfLikesIncrease={
+                        this.handleNumberOfLikesIncrease
+                     }
+                     handleNumberOfLikesDecrease={
+                        this.handleNumberOfLikesDecrease
+                     }
                   />
                   <Trailer videoId={videoId} />
                </Modal>
             </div>
-
-            <div className="movie-search-bar">
-               <div className="tag-keyword-wrap">
-                  {tagKeywords.map((tag, i) => (
-                     <Tag
-                        key={i}
-                        color={tag.color}
-                        className="tag-keyword"
-                        onMouseOver={(e) =>
-                           this.setState({
-                              keyword: e.currentTarget.innerHTML,
-                           })
-                        }
-                        onClick={this.handleSearchMovieData}
-                     >
-                        {tag.keyword}
-                     </Tag>
-                  ))}
-               </div>
-
-               <Search
-                  placeholder="영화 제목을 입력해주세요."
-                  size="large"
-                  enterButton
-                  onChange={this.handleUpdateSearchKeyword}
-                  onSearch={this.handleSearchMovieData}
-               />
-            </div>
-            <Drawer
-               title={`검색 결과 총 ${
-                  searchResult ? searchResult.length : 0
-               }건`}
-               height={800}
-               onClose={this.onClose}
-               visible={this.state.drawerVisible}
-               placement="bottom"
-            >
-               {searchResult ? (
-                  <div className="search-bar-wrap">
-                     <Row gutter={6}>
-                        {searchResult.map((movie, i) => (
-                           <Col span={3} key={i}>
-                              <Card
-                                 className="search-result-card"
-                                 size="small"
-                                 hoverable
-                                 cover={
-                                    <img
-                                       className="search-result-card-img"
-                                       src={`https://image.tmdb.org/t/p/w500${movie.posters}`}
-                                    />
-                                 }
-                                 onClick={() => {
-                                    this.setModalVisible(true);
-                                    this.handleCurrentMovie(movie);
-                                 }}
-                              >
-                                 <Meta
-                                    title={movie.title}
-                                    description={`⭐ ${movie.userRating}`}
-                                 />
-                              </Card>
-                           </Col>
-                        ))}
-                     </Row>
-
-                     <Modal
-                        title={<img src={SFCINEMA} className="small-logo" />}
-                        centered
-                        width={1150}
-                        visible={modalVisible}
-                        onOk={() => this.setModalVisible(false)}
-                        onCancel={() => this.setModalVisible(false)}
-                        footer={null}
-                     >
-                        <ModalPage
-                           isLogin={this.props.isLogin}
-                           profile={this.props.profile}
-                           currentMovie={currentMovie}
-                           currentNumberOfLikes={currentNumberOfLikes}
-                        />
-                     </Modal>
-                  </div>
-               ) : (
-                  <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
-               )}
-            </Drawer>
-
+            <SearchBar isLogin={isLogin} profile={profile} />
             {randomMovies.length ? (
                <TopSlideShow
                   randomMovies={randomMovies}
@@ -489,7 +405,7 @@ class MainCinema extends Component {
                </center>
             )}
 
-            {masterpiece.length ? (
+            {randomMovies.length ? (
                <MovieCardList
                   highlyRated={highlyRated}
                   operatorMovies={operatorMovies}
@@ -499,54 +415,13 @@ class MainCinema extends Component {
                   superHeroMovies={superHeroMovies}
                   setModalVisible={this.setModalVisible}
                   handleCurrentMovie={this.handleCurrentMovie}
-                  isLogin={this.props.isLogin}
-                  profile={this.props.profile}
+                  isLogin={isLogin}
+                  profile={profile}
                />
             ) : null}
-
-            {/* <Modal
-               title={<img src={SFCINEMA} className="small-logo" />}
-               centered
-               width={1150}
-               visible={modalVisible}
-               onOk={() => this.setModalVisible(false)}
-               onCancel={() => this.setModalVisible(false)}
-               footer={null}
-               maskClosable={false}
-            >
-               <ModalPage
-                  isLogin={this.props.isLogin}
-                  profile={this.props.profile}
-                  currentMovie={currentMovie}
-                  currentNumberOfLikes={currentNumberOfLikes}
-               />
-            </Modal> */}
-
-            {imgList.length
-               ? imgList.map((data, i) => (
-                    <div
-                       key={i}
-                       style={{
-                          width: '1920px',
-
-                          overflow: 'hidden',
-                       }}
-                    >
-                       <img
-                          style={{
-                             width: '100%',
-                          }}
-                          src={data}
-                       ></img>
-                    </div>
-                 ))
-               : null}
          </div>
       );
    }
-}
-{
-   /* <Trailer currentMovie={currentMovie} /> */
 }
 // eslint-disable-next-line
 export default withRouter(MainCinema);

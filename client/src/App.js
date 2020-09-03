@@ -39,7 +39,6 @@ class App extends Component {
             })
             .then(({ data }) => {
                this.setState({
-                  isLogin: true,
                   profile: data,
                });
             });
@@ -159,9 +158,6 @@ class App extends Component {
       return movies;
    };
 
-   handleNumberOfLikesIncrease = () => {};
-   handleNumberOfLikesDecrease = () => {};
-
    render() {
       const { isLogin, profile, backgroundImg } = this.state;
 
@@ -182,28 +178,6 @@ class App extends Component {
 
                <Content className="site-layout-background">
                   <Switch>
-                     <Route
-                        exact
-                        path="/mainCinema"
-                        render={() => (
-                           <MainCinema
-                              axiosRequestHighlyRated={
-                                 this.axiosRequestHighlyRated
-                              }
-                              axiosRequestReleaseOrder={
-                                 this.axiosRequestReleaseOrder
-                              }
-                              axiosRequestSeries={this.axiosRequestSeries}
-                              axiosRequestOperatorMovies={
-                                 this.axiosRequestOperatorMovies
-                              }
-                              axiosRequestMasterpiece={
-                                 this.axiosRequestMasterpiece
-                              }
-                              axiosGenres={this.axiosGenres}
-                           />
-                        )}
-                     />
                      <Route
                         exact
                         path="/login"
@@ -229,9 +203,10 @@ class App extends Component {
 
                            return (
                               <MenuItems
+                                 isLogin={isLogin}
+                                 profile={profile}
                                  MenuItem={MenuItem}
                                  secretKey={key}
-                                 isLogin={isLogin}
                               />
                            );
                         }}
@@ -254,9 +229,10 @@ class App extends Component {
 
                            return (
                               <MenuItems
+                                 isLogin={isLogin}
+                                 profile={profile}
                                  MenuItem={MenuItem}
                                  secretKey={key}
-                                 isLogin={isLogin}
                               />
                            );
                         }}
@@ -278,9 +254,10 @@ class App extends Component {
 
                            return (
                               <MenuItems
+                                 isLogin={isLogin}
+                                 profile={profile}
                                  MenuItem={MenuItem}
                                  secretKey={key}
-                                 isLogin={isLogin}
                               />
                            );
                         }}
@@ -298,9 +275,10 @@ class App extends Component {
 
                            return (
                               <MenuItems
+                                 isLogin={isLogin}
+                                 profile={profile}
                                  MenuItem={MenuItem}
                                  secretKey={key}
-                                 isLogin={isLogin}
                               />
                            );
                         }}
@@ -318,9 +296,10 @@ class App extends Component {
 
                            return (
                               <MenuItems
+                                 isLogin={isLogin}
+                                 profile={profile}
                                  MenuItem={MenuItem}
                                  secretKey={key}
-                                 isLogin={isLogin}
                               />
                            );
                         }}
@@ -338,9 +317,10 @@ class App extends Component {
 
                            return (
                               <MenuItems
+                                 isLogin={isLogin}
+                                 profile={profile}
                                  MenuItem={MenuItem}
                                  secretKey={key}
-                                 isLogin={isLogin}
                               />
                            );
                         }}
@@ -364,8 +344,6 @@ class App extends Component {
                                  this.axiosRequestMasterpiece
                               }
                               axiosGenres={this.axiosGenres}
-                              isLogin={isLogin}
-                              profile={profile}
                               backgroundImg={backgroundImg}
                            />
                         )}

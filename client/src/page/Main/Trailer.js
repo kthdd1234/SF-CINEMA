@@ -9,6 +9,7 @@ class Trailer extends Component {
 
    render() {
       const { videoId } = this.props;
+
       return (
          <div className="movie-trailer-container">
             <iframe

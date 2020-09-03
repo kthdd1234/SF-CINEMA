@@ -35,12 +35,49 @@ class ItemListEntry extends React.Component {
          dislike: false,
          loginID: null,
          tralierShow: false,
+         numberOfLikes: 0,
       };
    }
 
-   componentDidUpdate = (prevProps) => {
+   componentDidMount = () => {
+      this.setState({
+         numberOfLikes: this.props.numberOfLikes,
+      });
       if (this.props.isLogin) {
-         if (this.props.id !== prevProps.id) {
+         const accessToken = reactLocalStorage.get('SFCinemaUserToken');
+         if (accessToken) {
+            serverUrl
+               .get('/profile', {
+                  headers: {
+                     Authorization: 'Bearer ' + accessToken,
+                  },
+               })
+               .then(({ data }) => {
+                  const {
+                     loginID,
+                     savedMovie,
+                     likedMovie,
+                     disLikedMovie,
+                  } = data;
+                  this.setState({
+                     loginID: loginID,
+                  });
+                  this.handleUserFavoritedData(
+                     savedMovie,
+                     likedMovie,
+                     disLikedMovie,
+                  );
+               });
+         }
+      }
+   };
+
+   componentDidUpdate = (prevProps) => {
+      if (this.props.id !== prevProps.id) {
+         this.setState({
+            numberOfLikes: this.props.numberOfLikes,
+         });
+         if (this.props.isLogin) {
             this.setState({
                pushpin: false,
                like: false,
@@ -76,36 +113,6 @@ class ItemListEntry extends React.Component {
                   [favarite[i]]: true,
                });
             }
-         }
-      }
-   };
-
-   componentDidMount = () => {
-      if (this.props.isLogin) {
-         const accessToken = reactLocalStorage.get('SFCinemaUserToken');
-         if (accessToken) {
-            serverUrl
-               .get('/profile', {
-                  headers: {
-                     Authorization: 'Bearer ' + accessToken,
-                  },
-               })
-               .then(({ data }) => {
-                  const {
-                     loginID,
-                     savedMovie,
-                     likedMovie,
-                     disLikedMovie,
-                  } = data;
-                  this.setState({
-                     loginID: loginID,
-                  });
-                  this.handleUserFavoritedData(
-                     savedMovie,
-                     likedMovie,
-                     disLikedMovie,
-                  );
-               });
          }
       }
    };
@@ -171,7 +178,7 @@ class ItemListEntry extends React.Component {
    };
 
    handleLikeButton = () => {
-      const { like, loginID } = this.state;
+      const { like, loginID, numberOfLikes } = this.state;
       const { isLogin } = this.props;
       if (isLogin) {
          if (!like) {
@@ -180,12 +187,18 @@ class ItemListEntry extends React.Component {
                movieId: this.props.id,
             });
             this.successLikeNotification('bottomLeft');
+            this.setState({
+               numberOfLikes: numberOfLikes + 1,
+            });
          } else {
             serverUrl.post('/cancelLikedMovie', {
                loginID: loginID,
                movieId: this.props.id,
             });
             this.cancelLikeNotification('bottomLeft');
+            this.setState({
+               numberOfLikes: numberOfLikes - 1,
+            });
          }
          this.setState({
             like: !like,
@@ -249,7 +262,7 @@ class ItemListEntry extends React.Component {
          videoId,
       } = this.props;
 
-      const { pushpin, like } = this.state;
+      const { pushpin, like, numberOfLikes } = this.state;
 
       return (
          <div>
@@ -294,6 +307,7 @@ class ItemListEntry extends React.Component {
                               onClick={this.handlePushpinButton}
                            />
                         </Popconfirm>
+                        <span>{numberOfLikes}</span>
                      </div>
                      <div className="movie-title-list">
                         <strong className="movie-title">{title}</strong>

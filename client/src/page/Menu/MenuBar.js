@@ -153,6 +153,7 @@ class MenuBar extends Component {
 
    render() {
       const { handleLoginChange, isLogin } = this.props;
+
       let currentpath = window.location.pathname;
       let currentParams = window.location.search;
       currentpath =
@@ -165,8 +166,6 @@ class MenuBar extends Component {
       );
 
       paramsKey = isNaN(paramsKey) ? '' : paramsKey;
-
-      // history.replaceState({}, null, location.pathname);
 
       return (
          <div>

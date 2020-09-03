@@ -16,7 +16,6 @@ function MovieCardList({
    handleCurrentMovie,
    isLogin,
    profile,
-   currentNumberOfLikes,
 }) {
    const settings = {
       infinite: true,

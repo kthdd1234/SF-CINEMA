@@ -8,18 +8,17 @@ import { Button, Popconfirm, Modal, notification, Tag } from 'antd';
 import './ModalPage.css';
 
 import {
+   LikeTwoTone,
    LikeOutlined,
-   DislikeOutlined,
    LikeFilled,
-   DislikeFilled,
    PushpinOutlined,
    PushpinFilled,
    PlayCircleOutlined,
    CloseOutlined,
    ClockCircleOutlined,
    CheckCircleOutlined,
-   BarsOutlined,
    ExclamationCircleOutlined,
+   BellOutlined,
 } from '@ant-design/icons';
 import $ from 'jquery';
 import axios from 'axios';
@@ -69,8 +68,8 @@ class ModalPage extends Component {
    };
 
    componentDidUpdate = (prevProps) => {
-      if (this.props.isLogin) {
-         if (this.props.currentMovie !== prevProps.currentMovie) {
+      if (this.props.currentMovie !== prevProps.currentMovie) {
+         if (this.props.isLogin) {
             this.setState({
                pushpin: false,
                like: false,
@@ -226,9 +225,9 @@ class ModalPage extends Component {
    };
 
    setModalTrailerVisible = (tralierShow) => {
-      console.log(tralierShow);
+      const { videoId } = this.props.currentMovie;
       if (!tralierShow) {
-         $('.movie-trailer')[0].contentWindow.postMessage(
+         $(`.${videoId}`)[0].contentWindow.postMessage(
             '{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
             '*',
          );
@@ -245,7 +244,7 @@ class ModalPage extends Component {
          director,
          plot,
          posters,
-         backDrop,
+
          actors,
          releaseDate,
          runtime,
@@ -300,7 +299,6 @@ class ModalPage extends Component {
                            shape="circle-outline"
                         />
                      </Popconfirm>
-                     <span>{numberOfLikes}</span>
                   </div>
 
                   <div className="modal-title-wrap">
@@ -324,8 +322,12 @@ class ModalPage extends Component {
                         color="success"
                         icon={<CheckCircleOutlined />}
                      >{`영화 평점: ${userRating}`}</Tag>
+                     <Tag
+                        color="geekblue"
+                        icon={<LikeFilled />}
+                     >{`재밌어요: ${numberOfLikes}`}</Tag>
                      <Tag color="magenta">{`장르: ${genre}`}</Tag>
-                     <Tag color="blue">{`등급:  ${ratingGrade}`}</Tag>
+                     <Tag color="purple">{`등급:  ${ratingGrade}`}</Tag>
                      <Tag color="default">{`재생시간: ${runtime}`}</Tag>
                   </span>
 
@@ -365,6 +367,31 @@ class ModalPage extends Component {
                            size="large"
                         >
                            재밌어요
+                        </Button>
+                     </Popconfirm>
+                     <Popconfirm
+                        title={
+                           <div>
+                              로그인이 되어 있지 않습니다.
+                              <div>로그인을 하여 영화 정보를 저장해보세요.</div>
+                           </div>
+                        }
+                        onVisibleChange={this.onVisibleChange('pushpinVisible')}
+                        onConfirm={this.navigateToLoginPage}
+                        visible={this.state.pushpinVisible}
+                        okText="로그인 하러 가기"
+                        cancelText="닫기"
+                     >
+                        <Button
+                           icon={
+                              pushpin ? <PushpinFilled /> : <PushpinOutlined />
+                           }
+                           className={pushpin ? 'pushpin-fill' : 'pushpin-out'}
+                           onClick={this.handlePushpinButton}
+                           type="primary"
+                           size="large"
+                        >
+                           저장하기
                         </Button>
                      </Popconfirm>
                      <Button

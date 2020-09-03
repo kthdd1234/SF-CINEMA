@@ -16,6 +16,15 @@ class ItemList extends Component {
          movePage: false,
       };
    }
+   componentDidMount = async () => {
+      const movies = await this.props.MenuItem;
+      const currentPage = movies.slice(0, 10);
+      this.setState({
+         currentPage: currentPage,
+         movies: movies,
+         movePage: true,
+      });
+   };
 
    componentDidUpdate = async (prevProps, prevState) => {
       const movies = await this.props.MenuItem;
@@ -37,16 +46,6 @@ class ItemList extends Component {
          });
          window.scrollTo(0, 0);
       }
-   };
-
-   componentDidMount = async () => {
-      const movies = await this.props.MenuItem;
-      const currentPage = movies.slice(0, 10);
-      this.setState({
-         currentPage: currentPage,
-         movies: movies,
-         movePage: true,
-      });
    };
 
    onChangePage = (page, pageSize) => {
@@ -141,6 +140,7 @@ class ItemList extends Component {
                         userRating={movie.userRating}
                         videoId={movie.videoId}
                         backDrop={movie.backDrop}
+                        numberOfLikes={movie.numberOfLikes}
                         isLogin={isLogin}
                         total={movies.length}
                         onChange={this.onChangePage}

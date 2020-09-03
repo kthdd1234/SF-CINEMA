@@ -11,6 +11,7 @@ class MyInfo extends Component {
       this.state = {
          modalVisible: false,
          currentMovie: {},
+         numberOfLikes: 0,
       };
    }
 
@@ -28,6 +29,7 @@ class MyInfo extends Component {
       this.setState({
          modalVisible: true,
          currentMovie: currentMovie[0],
+         numberOfLikes: currentMovie[0].numberOfLikes,
       });
    };
 
@@ -41,6 +43,23 @@ class MyInfo extends Component {
       this.setState({
          modalVisible: true,
          currentMovie: currentMovie[0],
+         numberOfLikes: currentMovie[0].numberOfLikes,
+      });
+   };
+
+   handleNumberOfLikesIncrease = () => {
+      const { numberOfLikes } = this.state;
+      this.setState({
+         numberOfLikes: numberOfLikes + 1,
+         likeFilled: true,
+      });
+   };
+
+   handleNumberOfLikesDecrease = () => {
+      const { numberOfLikes } = this.state;
+      this.setState({
+         numberOfLikes: numberOfLikes - 1,
+         likeFilled: false,
       });
    };
 
@@ -189,9 +208,12 @@ class MyInfo extends Component {
                maskClosable={false}
             >
                <ModalPage
-                  currentMovie={currentMovie}
                   isLogin={this.props.isLogin}
                   profile={this.props.profile}
+                  currentMovie={currentMovie}
+                  numberOfLikes={currentMovie.numberOfLikes}
+                  handleNumberOfLikesIncrease={this.handleNumberOfLikesIncrease}
+                  handleNumberOfLikesDecrease={this.handleNumberOfLikesDecrease}
                />
             </Modal>
          </div>
