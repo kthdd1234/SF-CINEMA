@@ -40,7 +40,7 @@
 }
 
 .movie-headers {
-   margin-top: 5vw;
+   margin-top: 2vw;
    text-align: left;
 }
 
@@ -191,5 +191,5 @@
 .itemList-select {
    position: absolute;
    width: 10vw;
-   margin: 5vw 0 0 25vw;
+   margin: 3.5vw 0 0 25vw;
 }

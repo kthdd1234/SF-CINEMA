@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import Slider from 'react-slick';
-import TopSlideDetailImg from './TopSlide-detail-Img';
-import './TopSlideShow.css';
-function TopSlideShow({ randomMovies, setModalVisible, handleCurrentMovie }) {
+import RandomMoviesImg from './RandomMoviesImg';
+import './RandomMovies.css';
+function RandomMovies({ isLogin, profile, randomMovies }) {
    const settings = {
       centerMode: true,
       infinite: true,
@@ -16,12 +16,11 @@ function TopSlideShow({ randomMovies, setModalVisible, handleCurrentMovie }) {
       <div>
          <Slider {...settings}>
             {randomMovies.map((movie, i) => (
-               <TopSlideDetailImg
+               <RandomMoviesImg
                   key={i}
                   movie={movie}
-                  alt={i}
-                  setModalVisible={setModalVisible}
-                  handleCurrentMovie={handleCurrentMovie}
+                  isLogin={isLogin}
+                  profile={profile}
                />
             ))}
          </Slider>
@@ -29,4 +28,4 @@ function TopSlideShow({ randomMovies, setModalVisible, handleCurrentMovie }) {
    );
 }
 
-export default TopSlideShow;
+export default RandomMovies;

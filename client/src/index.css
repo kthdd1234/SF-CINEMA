@@ -37,8 +37,9 @@ code {
    padding: 0;
 }
 
-.random-movies-spin {
-   margin-top: 400px;
+.movies-spin {
+   margin-top: 200px;
+   margin-bottom: 200px;
 }
 
 .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {

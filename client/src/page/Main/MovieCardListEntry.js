@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import './DownSlideShow.css';
+import './MovieCardList.css';
 import { Card, Button, Popconfirm, notification, Modal } from 'antd';
 import { LikeOutlined, LikeFilled } from '@ant-design/icons';
 import SFCINEMA from '../../SFCINEMA.png';
@@ -21,7 +21,6 @@ class MovieCardListEntry extends Component {
          likeFilled: false,
          likeVisible: false,
          modalVisible: false,
-         pause: false,
          numberOfLikes: 0,
       };
    }
@@ -57,11 +56,6 @@ class MovieCardListEntry extends Component {
    };
 
    setModalVisible = (modalVisible) => {
-      if (!modalVisible) {
-         this.setState({
-            pause: false,
-         });
-      }
       this.setState({
          modalVisible,
       });
@@ -240,11 +234,22 @@ class MovieCardListEntry extends Component {
                   onCancel={() => this.setModalVisible(false)}
                   footer={null}
                   maskClosable={false}
+               />
+               <Modal
+                  title={<img src={SFCINEMA} className="small-logo" />}
+                  centered
+                  width={1150}
+                  visible={modalVisible}
+                  onOk={() => this.setModalVisible(false)}
+                  onCancel={() => this.setModalVisible(false)}
+                  footer={null}
+                  maskClosable={false}
                >
                   <ModalPage
                      isLogin={isLogin}
                      profile={profile}
                      currentMovie={movie}
+                     likeFilled={likeFilled}
                      numberOfLikes={numberOfLikes}
                      handleNumberOfLikesIncrease={
                         this.handleNumberOfLikesIncrease

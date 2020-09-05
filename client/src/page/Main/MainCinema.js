@@ -1,20 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import {
-   Spin,
-   Input,
-   Modal,
-   message,
-   Drawer,
-   Card,
-   Row,
-   Col,
-   Empty,
-   Button,
-   Carousel,
-   Tag,
-   Popconfirm,
-} from 'antd';
+import { Spin, Modal, Button, Carousel } from 'antd';
 import {
    ZoomInOutlined,
    PlayCircleOutlined,
@@ -23,15 +9,16 @@ import {
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import ModalPage from './ModalPage';
-import TopSlideShow from './TopSlideShow';
+import RandomMovies from './RandomMovies';
 import MovieCardList from './MovieCardList';
 import SearchBar from './SearchBar';
 import SFCINEMA from '../../SFCINEMA.png';
+import MainBackground from './MainBackground';
 import './MainCinema.css';
 import { seriesList } from './seriesList';
 import Trailer from './Trailer';
-import dotenv from 'dotenv';
 import $ from 'jquery';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const serverUrl = axios.create({
@@ -249,30 +236,12 @@ class MainCinema extends Component {
 
       return (
          <div>
-            <div className="top-layout">
-               <Modal
-                  title={<img src={SFCINEMA} className="small-logo" />}
-                  centered
-                  width={1150}
-                  visible={modalVisible}
-                  onOk={() => this.setModalVisible(false)}
-                  onCancel={() => this.setModalVisible(false)}
-                  maskClosable={false}
-                  footer={null}
-               >
-                  <ModalPage
-                     isLogin={isLogin}
-                     profile={profile}
-                     currentMovie={currentMovie}
-                     numberOfLikes={numberOfLikes}
-                     handleNumberOfLikesIncrease={
-                        this.handleNumberOfLikesIncrease
-                     }
-                     handleNumberOfLikesDecrease={
-                        this.handleNumberOfLikesDecrease
-                     }
-                  />
-               </Modal>
+            <MainBackground
+               isLogin={isLogin}
+               profile={profile}
+               backgroundImg={backgroundImg}
+            />
+            {/* <div className="top-layout">
                <Carousel
                   effect="fade"
                   infinite={true}
@@ -369,6 +338,29 @@ class MainCinema extends Component {
                      </div>
                   ))}
                </Carousel>
+               <Modal
+                  title={<img src={SFCINEMA} className="small-logo" />}
+                  centered
+                  width={1150}
+                  visible={modalVisible}
+                  onOk={() => this.setModalVisible(false)}
+                  onCancel={() => this.setModalVisible(false)}
+                  maskClosable={false}
+                  footer={null}
+               >
+                  <ModalPage
+                     isLogin={isLogin}
+                     profile={profile}
+                     currentMovie={currentMovie}
+                     numberOfLikes={numberOfLikes}
+                     handleNumberOfLikesIncrease={
+                        this.handleNumberOfLikesIncrease
+                     }
+                     handleNumberOfLikesDecrease={
+                        this.handleNumberOfLikesDecrease
+                     }
+                  />
+               </Modal>
 
                <Modal
                   visible={this.state.tralierShow}
@@ -391,21 +383,21 @@ class MainCinema extends Component {
                   />
                   <Trailer videoId={videoId} />
                </Modal>
-            </div>
+            </div> */}
             <SearchBar isLogin={isLogin} profile={profile} />
             {randomMovies.length ? (
-               <TopSlideShow
+               <RandomMovies
+                  isLogin={isLogin}
+                  profile={profile}
                   randomMovies={randomMovies}
-                  setModalVisible={this.setModalVisible}
-                  handleCurrentMovie={this.handleCurrentMovie}
                />
             ) : (
-               <center className="random-movies-spin">
+               <center className="movies-spin">
                   <Spin size="large" />
                </center>
             )}
 
-            {randomMovies.length ? (
+            {series.length ? (
                <MovieCardList
                   highlyRated={highlyRated}
                   operatorMovies={operatorMovies}
@@ -418,7 +410,11 @@ class MainCinema extends Component {
                   isLogin={isLogin}
                   profile={profile}
                />
-            ) : null}
+            ) : (
+               <center className="movies-spin">
+                  <Spin size="large" />
+               </center>
+            )}
          </div>
       );
    }

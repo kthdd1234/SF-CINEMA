@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { withRouter } from 'react-router-dom';
-import ModalImage from './Modal-image';
+import ModalImage from './ModalImg';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { Button, Popconfirm, Modal, notification, Tag } from 'antd';
 
@@ -39,16 +39,19 @@ class ModalPage extends Component {
          pushpin: false,
          like: false,
          tralierShow: false,
+         currentMovie: {},
          numberOfLikes: 0,
       };
    }
 
    componentDidMount = () => {
+      const accessToken = reactLocalStorage.get('SFCinemaUserToken');
       this.setState({
          numberOfLikes: this.props.numberOfLikes,
+         pushpin: false,
+         likeFilled: false,
       });
       if (this.props.isLogin) {
-         const accessToken = reactLocalStorage.get('SFCinemaUserToken');
          this.setState({
             loginID: this.props.profile.loginID,
          });
@@ -68,27 +71,29 @@ class ModalPage extends Component {
    };
 
    componentDidUpdate = (prevProps) => {
-      if (this.props.currentMovie !== prevProps.currentMovie) {
-         if (this.props.isLogin) {
+      const accessToken = reactLocalStorage.get('SFCinemaUserToken');
+      if (this.props.isLogin) {
+         if (this.props.numberOfLikes !== prevProps.numberOfLikes) {
             this.setState({
-               pushpin: false,
-               like: false,
                numberOfLikes: this.props.numberOfLikes,
             });
-            const accessToken = reactLocalStorage.get('SFCinemaUserToken');
-            if (accessToken) {
-               serverUrl
-                  .get('/profile', {
-                     headers: {
-                        Authorization: 'Bearer ' + accessToken,
-                     },
-                  })
-                  .then(({ data }) => {
-                     const { savedMovie, likedMovie } = data;
-                     this.handleUserFavoritedData(savedMovie, likedMovie);
-                  });
-            }
          }
+      }
+      if (this.props.currentMovie !== prevProps.currentMovie) {
+         this.setState({
+            pushpin: false,
+            likeFilled: false,
+         });
+         serverUrl
+            .get('/profile', {
+               headers: {
+                  Authorization: 'Bearer ' + accessToken,
+               },
+            })
+            .then(({ data }) => {
+               const { savedMovie, likedMovie } = data;
+               this.handleUserFavoritedData(savedMovie, likedMovie);
+            });
       }
    };
 
@@ -360,8 +365,16 @@ class ModalPage extends Component {
                         cancelText="닫기"
                      >
                         <Button
-                           icon={like ? <LikeFilled /> : <LikeOutlined />}
-                           className={like ? 'like-fill' : 'like-out'}
+                           icon={
+                              this.props.likeFilled ? (
+                                 <LikeFilled />
+                              ) : (
+                                 <LikeOutlined />
+                              )
+                           }
+                           className={
+                              this.props.likeFilled ? 'like-fill' : 'like-out'
+                           }
                            onClick={this.handleLikeButton}
                            type="primary"
                            size="large"

@@ -12,6 +12,7 @@ class MyInfo extends Component {
          modalVisible: false,
          currentMovie: {},
          numberOfLikes: 0,
+         likeFilled: false,
       };
    }
 
@@ -19,31 +20,43 @@ class MyInfo extends Component {
       this.setState({ modalVisible: modalVisible });
    };
 
-   handleCurrentSavedMovie = (currentMovieId) => {
-      const { savedMovie } = this.props.profile;
+   handleCurrentSavedMovie = (currentMovie) => {
+      const { likedMovie } = this.props.profile;
+      this.setState({
+         likeFilled: false,
+      });
 
-      const currentMovie = savedMovie.filter((movie) => {
-         return movie.id === currentMovieId;
+      likedMovie.forEach((movie) => {
+         if (movie.id === currentMovie.id) {
+            return this.setState({
+               likeFilled: true,
+            });
+         }
       });
 
       this.setState({
          modalVisible: true,
-         currentMovie: currentMovie[0],
-         numberOfLikes: currentMovie[0].numberOfLikes,
+         currentMovie: currentMovie,
+         numberOfLikes: currentMovie.numberOfLikes,
       });
    };
 
-   handleCurrentLikedMovie = (currentMovieId) => {
+   handleCurrentLikedMovie = (currentMovie) => {
       const { likedMovie } = this.props.profile;
-
-      const currentMovie = likedMovie.filter((movie) => {
-         return movie.id === currentMovieId;
+      this.setState({
+         likeFilled: false,
       });
-
+      likedMovie.forEach((movie) => {
+         if (movie.id === currentMovie.id) {
+            return this.setState({
+               likeFilled: true,
+            });
+         }
+      });
       this.setState({
          modalVisible: true,
-         currentMovie: currentMovie[0],
-         numberOfLikes: currentMovie[0].numberOfLikes,
+         currentMovie: currentMovie,
+         numberOfLikes: currentMovie.numberOfLikes,
       });
    };
 
@@ -126,17 +139,13 @@ class MyInfo extends Component {
                               src={`https://image.tmdb.org/t/p/w500${item.posters}`}
                               size="large"
                               className="myInfo-savedMovie-img"
-                              onClick={() =>
-                                 this.handleCurrentSavedMovie(item.id)
-                              }
+                              onClick={() => this.handleCurrentSavedMovie(item)}
                            />
                         }
                         title={
                            <strong
                               className="myInfo-savedMovie-title"
-                              onClick={() =>
-                                 this.handleCurrentSavedMovie(item.id)
-                              }
+                              onClick={() => this.handleCurrentSavedMovie(item)}
                            >
                               {(item.title + item.titleEng).length > 20
                                  ? (
@@ -177,9 +186,7 @@ class MyInfo extends Component {
                         title={
                            <strong
                               className="myInfo-likedMovie-title"
-                              onClick={() =>
-                                 this.handleCurrentLikedMovie(item.id)
-                              }
+                              onClick={() => this.handleCurrentLikedMovie(item)}
                            >
                               {(item.title + item.titleEng).length > 20
                                  ? (
@@ -211,6 +218,7 @@ class MyInfo extends Component {
                   isLogin={this.props.isLogin}
                   profile={this.props.profile}
                   currentMovie={currentMovie}
+                  likeFilled={this.state.likeFilled}
                   numberOfLikes={currentMovie.numberOfLikes}
                   handleNumberOfLikesIncrease={this.handleNumberOfLikesIncrease}
                   handleNumberOfLikesDecrease={this.handleNumberOfLikesDecrease}

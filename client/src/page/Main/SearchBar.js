@@ -1,21 +1,7 @@
 import React, { Component } from 'react';
-import {
-   Spin,
-   Input,
-   Modal,
-   message,
-   Drawer,
-   Card,
-   Row,
-   Col,
-   Empty,
-   Button,
-   Carousel,
-   Tag,
-   Popconfirm,
-} from 'antd';
-import ModalPage from './ModalPage';
-import SFCINEMA from '../../SFCINEMA.png';
+import { withRouter } from 'react-router-dom';
+import { Input, message, Drawer, Row, Empty, Tag } from 'antd';
+import SearchListEntry from './SearchListEntry';
 import axios from 'axios';
 import './MainCinema.css';
 
@@ -34,7 +20,6 @@ const serverUrl = axios.create({
 });
 
 const { Search } = Input;
-const { Meta } = Card;
 
 class SearchBar extends Component {
    constructor(props) {
@@ -49,24 +34,13 @@ class SearchBar extends Component {
          isLogin: false,
          profile: {},
          likeFilled: false,
+         likeVisible: false,
       };
    }
-
-   setModalVisible = (modalVisible) => {
-      if (!modalVisible) {
-         this.setState({
-            pause: false,
-         });
-      }
-      this.setState({
-         modalVisible,
-      });
-   };
 
    handleCurrentMovie = (movie) => {
       this.setState({
          currentMovie: movie,
-         numberOfLikes: movie.numberOfLikes,
       });
    };
 
@@ -76,6 +50,9 @@ class SearchBar extends Component {
       if (keyword === '') {
          return message.error('검색어를 입력해주세요.');
       } else {
+         this.setState({
+            searchResult: null,
+         });
          serverUrl
             .get('/searchMovie', {
                params: {
@@ -103,27 +80,12 @@ class SearchBar extends Component {
       });
    };
 
-   handleNumberOfLikesIncrease = () => {
-      const { numberOfLikes } = this.state;
-      this.setState({
-         numberOfLikes: numberOfLikes + 1,
-         likeFilled: true,
-      });
-   };
-
-   handleNumberOfLikesDecrease = () => {
-      const { numberOfLikes } = this.state;
-      this.setState({
-         numberOfLikes: numberOfLikes - 1,
-         likeFilled: false,
-      });
-   };
-
    onClose = () => {
       this.setState({
          drawerVisible: false,
       });
    };
+
    render() {
       const {
          modalVisible,
@@ -173,64 +135,22 @@ class SearchBar extends Component {
                      <div className="search-bar-wrap">
                         <Row gutter={6}>
                            {searchResult.map((movie, i) => (
-                              <Col span={3} key={i}>
-                                 <Card
-                                    className="search-result-card"
-                                    size="small"
-                                    hoverable
-                                    cover={
-                                       <img
-                                          className="search-result-card-img"
-                                          src={`https://image.tmdb.org/t/p/w500${movie.posters}`}
-                                       />
-                                    }
-                                    onClick={() => {
-                                       this.setModalVisible(true);
-                                       this.handleCurrentMovie(movie);
-                                    }}
-                                 >
-                                    <Meta
-                                       title={movie.title}
-                                       description={
-                                          <div>
-                                             <div>
-                                                <strong>장르</strong>{' '}
-                                                {movie.genre}
-                                             </div>
-                                             <div>
-                                                <strong>평점</strong> ⭐{' '}
-                                                {movie.userRating}
-                                             </div>
-                                          </div>
-                                       }
-                                    />
-                                 </Card>
-                              </Col>
+                              <SearchListEntry
+                                 key={i}
+                                 isLogin={isLogin}
+                                 profile={profile}
+                                 movie={movie}
+                                 setModalVisible={this.setModalVisible}
+                                 handleCurrentMovie={this.handleCurrentMovie}
+                                 handleNumberOfLikesIncrease={
+                                    this.handleNumberOfLikesIncrease
+                                 }
+                                 handleNumberOfLikesDecrease={
+                                    this.handleNumberOfLikesDecrease
+                                 }
+                              />
                            ))}
                         </Row>
-
-                        <Modal
-                           title={<img src={SFCINEMA} className="small-logo" />}
-                           centered
-                           width={1150}
-                           visible={modalVisible}
-                           onOk={() => this.setModalVisible(false)}
-                           onCancel={() => this.setModalVisible(false)}
-                           footer={null}
-                        >
-                           <ModalPage
-                              isLogin={isLogin}
-                              profile={profile}
-                              currentMovie={currentMovie}
-                              numberOfLikes={numberOfLikes}
-                              handleNumberOfLikesIncrease={
-                                 this.handleNumberOfLikesIncrease
-                              }
-                              handleNumberOfLikesDecrease={
-                                 this.handleNumberOfLikesDecrease
-                              }
-                           />
-                        </Modal>
                      </div>
                   ) : (
                      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
@@ -242,4 +162,4 @@ class SearchBar extends Component {
    }
 }
 
-export default SearchBar;
+export default withRouter(SearchBar);

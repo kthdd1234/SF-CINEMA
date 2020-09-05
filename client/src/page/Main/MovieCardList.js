@@ -1,6 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
-import './DownSlideShow.css';
+import './MovieCardList.css';
 import MovieCardListEntry from './MovieCardListEntry';
 import NextArrow from './NextArrow';
 import PrevArrow from './PreArrow';

@@ -307,7 +307,6 @@ class ItemListEntry extends React.Component {
                               onClick={this.handlePushpinButton}
                            />
                         </Popconfirm>
-                        <span>{numberOfLikes}</span>
                      </div>
                      <div className="movie-title-list">
                         <strong className="movie-title">{title}</strong>
@@ -322,6 +321,10 @@ class ItemListEntry extends React.Component {
                            color={'success'}
                            icon={<CheckCircleOutlined />}
                         >{`영화 평점: ${userRating}`}</Tag>
+                        <Tag
+                           color="geekblue"
+                           icon={<LikeFilled />}
+                        >{`재밌어요: ${numberOfLikes}`}</Tag>
                         <Tag color={'magenta'}>{`장르: ${genre}`}</Tag>
                         <Tag color={'blue'}>{`등급:  ${ratingGrade}`}</Tag>
                         <Tag color="default">{`상영시간: ${runtime}`}</Tag>
@@ -371,6 +374,34 @@ class ItemListEntry extends React.Component {
                            재밌어요
                         </Button>
                      </Popconfirm>
+                     <Popconfirm
+                        title={
+                           <div>
+                              로그인이 되어 있지 않습니다.
+                              <div>로그인을 하여 영화 정보를 저장해보세요.</div>
+                           </div>
+                        }
+                        onVisibleChange={this.onVisibleChange('pushpinVisible')}
+                        onConfirm={this.navigateToLoginPage}
+                        visible={this.state.pushpinVisible}
+                        okText="로그인 하러 가기"
+                        cancelText="닫기"
+                     >
+                        <Button
+                           icon={
+                              pushpin ? <PushpinFilled /> : <PushpinOutlined />
+                           }
+                           className={
+                              pushpin
+                                 ? 'pushpin-fill btn-color'
+                                 : 'pushpin-out btn-color'
+                           }
+                           onClick={this.handlePushpinButton}
+                           type="ghost"
+                        >
+                           저장하기
+                        </Button>
+                     </Popconfirm>
                      <Button
                         className="trailer-btn"
                         icon={<PlayCircleOutlined />}
@@ -403,85 +434,3 @@ class ItemListEntry extends React.Component {
 }
 
 export default withRouter(ItemListEntry);
-
-// function SubjectListEntry({
-//    title,
-//    titleEng,
-//    director,
-//    plot,
-//    posters,
-//    nation,
-//    actors,
-//    releaseDate,
-//    releaseYear,
-//    runtime,
-//    ratingGrade,
-//    userRating,
-// }) {
-//    const sub_list = [
-//       'SF/모험',
-//       nation,
-//       `${releaseDate} 개봉`,
-//       ratingGrade,
-//       `${runtime}분`,
-//    ];
-//    return (
-//       <div>
-//          <div className="moive-content">
-//             <div className="movie-img-box">
-//                <img className="movie-img" src={posters}></img>
-//             </div>
-//             <div className="movie-info">
-//                <div className="movie-headers">
-//                   <div className="movie-title-list">
-//                      <strong className="movie-title">{title}</strong>
-//                      <div>
-//                         <strong className="movie-titleEng_year">
-//                            {`(${titleEng}, ${releaseYear})`}
-//                         </strong>
-//                      </div>
-//                   </div>
-//                   <ul className="movie-rating-list">
-//                      <li className="movie-user-rating">
-//                         <strong className="movie-rating">평점</strong>⭐ ⭐ ⭐
-//                         ⭐ ⭐ {userRating}
-//                      </li>
-//                      <li className="movie-my-rating">
-//                         <strong className="movie-rating"></strong>
-//                      </li>
-//                   </ul>
-//                </div>
-
-//                <hr className="Divider" />
-
-//                <div className="movie-body">
-//                   <ul className="movie-summary">
-//                      {sub_list.map((sub, i) => (
-//                         <SubjectSummary key={i} sub={sub} i={i} />
-//                      ))}
-//                   </ul>
-//                   <div className="movie-plot">{plot}</div>
-
-//                   <hr className="Divider" />
-
-//                   <div className="movie-director_actors_awards">
-//                      <div className="movie-director">
-//                         <strong className="movie-sub">감독</strong>
-//                         {director}
-//                      </div>
-//                      <div className="movie-actors">
-//                         <strong className="movie-sub">출연</strong>
-//                         {actors}
-//                      </div>
-//                      <div className="movie-awards">
-//                         <strong className="movie-sub">수상</strong>
-//                         아카데미 시각효과상, 엠파이어 영화상, 엠파이어 감독상
-//                      </div>
-//                   </div>
-//                </div>
-//             </div>
-//          </div>
-//       </div>
-//    );
-// }
-// // eslint - disable - next - line;
