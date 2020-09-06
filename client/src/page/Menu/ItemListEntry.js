@@ -277,36 +277,18 @@ class ItemListEntry extends React.Component {
                <div className="movie-info">
                   <div className="movie-headers">
                      <div>
-                        <Popconfirm
-                           title={
-                              <div>
-                                 로그인이 되어 있지 않습니다.
-                                 <div>
-                                    로그인을 하여 영화 정보를 저장해보세요.
-                                 </div>
-                              </div>
+                        <Button
+                           className="pushpin-btn"
+                           icon={
+                              pushpin ? (
+                                 <PushpinFilled className="pushpin-icon" />
+                              ) : (
+                                 <PushpinOutlined className="pushpin-icon" />
+                              )
                            }
-                           onVisibleChange={this.onVisibleChange(
-                              'pushpinVisible',
-                           )}
-                           onConfirm={this.navigateToLoginPage}
-                           visible={this.state.pushpinVisible}
-                           okText="로그인 하러 가기"
-                           cancelText="닫기"
-                        >
-                           <Button
-                              className="pushpin-btn"
-                              icon={
-                                 pushpin ? (
-                                    <PushpinFilled className="pushpin-icon" />
-                                 ) : (
-                                    <PushpinOutlined className="pushpin-icon" />
-                                 )
-                              }
-                              shape="circle"
-                              onClick={this.handlePushpinButton}
-                           />
-                        </Popconfirm>
+                           shape="circle"
+                           onClick={this.handlePushpinButton}
+                        />
                      </div>
                      <div className="movie-title-list">
                         <strong className="movie-title">{title}</strong>

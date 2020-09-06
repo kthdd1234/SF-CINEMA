@@ -1,23 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Spin, Modal, Button, Carousel } from 'antd';
-import {
-   ZoomInOutlined,
-   PlayCircleOutlined,
-   CloseOutlined,
-} from '@ant-design/icons';
+import { Spin } from 'antd';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import ModalPage from './ModalPage';
 import RandomMovies from './RandomMovies';
 import MovieCardList from './MovieCardList';
 import SearchBar from './SearchBar';
-import SFCINEMA from '../../SFCINEMA.png';
 import MainBackground from './MainBackground';
 import './MainCinema.css';
 import { seriesList } from './seriesList';
-import Trailer from './Trailer';
-import $ from 'jquery';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -75,7 +66,7 @@ class MainCinema extends Component {
             })
             .then(async ({ data }) => {
                const userInfo = await data;
-               console.log(userInfo);
+
                this.setState({
                   profile: userInfo,
                });
@@ -168,53 +159,6 @@ class MainCinema extends Component {
       return seriesMovieList;
    };
 
-   setModalVisible = (modalVisible) => {
-      if (!modalVisible) {
-         this.setState({
-            pause: false,
-         });
-      }
-      this.setState({
-         modalVisible,
-      });
-   };
-
-   handleCurrentMovie = (movie) => {
-      this.setState({
-         currentMovie: movie,
-         numberOfLikes: movie.numberOfLikes,
-      });
-   };
-
-   setModalTrailerVisible(tralierShow) {
-      if (tralierShow === false) {
-         $(`.${this.state.videoId}`)[0].contentWindow.postMessage(
-            '{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
-            '*',
-         );
-         this.setState({
-            pause: false,
-         });
-      }
-      this.setState({ tralierShow });
-   }
-
-   handleNumberOfLikesIncrease = () => {
-      const { numberOfLikes } = this.state;
-      this.setState({
-         numberOfLikes: numberOfLikes + 1,
-         likeFilled: true,
-      });
-   };
-
-   handleNumberOfLikesDecrease = () => {
-      const { numberOfLikes } = this.state;
-      this.setState({
-         numberOfLikes: numberOfLikes - 1,
-         likeFilled: false,
-      });
-   };
-
    render() {
       const {
          backgroundImg,
@@ -223,13 +167,9 @@ class MainCinema extends Component {
          operatorMovies,
          masterpiece,
          series,
-         modalVisible,
-         currentMovie,
          imgList,
          aliensMovies,
          superHeroMovies,
-         videoId,
-         numberOfLikes,
          isLogin,
          profile,
       } = this.state;
@@ -241,149 +181,6 @@ class MainCinema extends Component {
                profile={profile}
                backgroundImg={backgroundImg}
             />
-            {/* <div className="top-layout">
-               <Carousel
-                  effect="fade"
-                  infinite={true}
-                  dots={false}
-                  arrows={false}
-                  slidesToShow={1}
-                  slidesToScroll={1}
-                  autoplay={true}
-                  speed={4000}
-                  autoplaySpeed={3000}
-                  pauseOnHover={false}
-               >
-                  <div className="background-container">
-                     <div className="main-box-background-images">
-                        <div className="background-left-shadow" />
-                        <img
-                           className="main-background-images"
-                           src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/yBG2J4dMnUViwfF1crq0b7xystj.jpg`}
-                        />
-                     </div>
-                     <div className="introduce">
-                        <div className="introduce-wrap">
-                           <img className="introduce-logo" src={SFCINEMA} />
-
-                           <h2 className="introduce-title">Welcome.</h2>
-                           <h3 className="introduce-description">
-                              lot of SF movies to discover.
-                              <div>Explore now.</div>
-                           </h3>
-                        </div>
-                     </div>
-                  </div>
-                  {backgroundImg.map((movieData, i) => (
-                     <div className="background-container" key={i}>
-                        <div className="main-box-background-images">
-                           <div className="background-left-shadow" />
-                           <img
-                              className="main-background-images"
-                              src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${movieData.backgroundImg}`}
-                           />
-                        </div>
-                        <div className="movie-content">
-                           <div className="content-wrap">
-                              <h2 className="content-title">
-                                 {movieData.movie.title}
-                              </h2>
-                              <h4 className="content-titleEng">
-                                 {movieData.movie.titleEng}
-                              </h4>
-                           </div>
-                           <div className="content-list">
-                              <div>
-                                 <span className="content-rating">
-                                    ⭐ {movieData.movie.userRating}
-                                 </span>
-                                 <span className="content-genre">
-                                    {movieData.movie.genre}
-                                 </span>
-                                 <span className="content-genre">
-                                    {String(movieData.movie.releaseDate).slice(
-                                       0,
-                                       4,
-                                    )}
-                                 </span>
-                              </div>
-                              <div className="content-btn">
-                                 <Button
-                                    type="ghost"
-                                    icon={<ZoomInOutlined />}
-                                    className="detail-info-btn"
-                                    onClick={() => {
-                                       this.setModalVisible(true);
-                                       this.handleCurrentMovie(movieData.movie);
-                                    }}
-                                 >
-                                    상세정보
-                                 </Button>
-                                 <Button
-                                    type="ghost"
-                                    icon={<PlayCircleOutlined />}
-                                    className="show-trailer-btn"
-                                    onClick={() => {
-                                       this.setModalTrailerVisible(true);
-                                       this.setState({
-                                          videoId: movieData.movie.videoId,
-                                       });
-                                    }}
-                                 >
-                                    예고편
-                                 </Button>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  ))}
-               </Carousel>
-               <Modal
-                  title={<img src={SFCINEMA} className="small-logo" />}
-                  centered
-                  width={1150}
-                  visible={modalVisible}
-                  onOk={() => this.setModalVisible(false)}
-                  onCancel={() => this.setModalVisible(false)}
-                  maskClosable={false}
-                  footer={null}
-               >
-                  <ModalPage
-                     isLogin={isLogin}
-                     profile={profile}
-                     currentMovie={currentMovie}
-                     numberOfLikes={numberOfLikes}
-                     handleNumberOfLikesIncrease={
-                        this.handleNumberOfLikesIncrease
-                     }
-                     handleNumberOfLikesDecrease={
-                        this.handleNumberOfLikesDecrease
-                     }
-                  />
-               </Modal>
-
-               <Modal
-                  visible={this.state.tralierShow}
-                  onOk={() => this.setModalTrailerVisible(false)}
-                  onCancel={() => this.setModalTrailerVisible(false)}
-                  footer={null}
-                  width={1300}
-               >
-                  <Button
-                     ghost
-                     icon={<CloseOutlined />}
-                     className="trailer-close"
-                     onClick={() => this.setModalTrailerVisible(false)}
-                     handleNumberOfLikesIncrease={
-                        this.handleNumberOfLikesIncrease
-                     }
-                     handleNumberOfLikesDecrease={
-                        this.handleNumberOfLikesDecrease
-                     }
-                  />
-                  <Trailer videoId={videoId} />
-               </Modal>
-            </div> */}
             <SearchBar isLogin={isLogin} profile={profile} />
             {randomMovies.length ? (
                <RandomMovies

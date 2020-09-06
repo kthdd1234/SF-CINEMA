@@ -5,21 +5,15 @@ import {
    PlayCircleOutlined,
    CloseOutlined,
 } from '@ant-design/icons';
-import axios from 'axios';
 import ModalPage from './ModalPage';
 import Trailer from './Trailer';
-
+import $ from 'jquery';
 import SFCINEMA from '../../SFCINEMA.png';
 import './MainBackground.css';
-
-const serverUrl = axios.create({
-   baseURL: `http://54.180.32.31:5000/main`,
-});
 
 class MainBackground extends Component {
    constructor(props) {
       super(props);
-
       this.state = {
          backgroundImg: [],
          modalVisible: false,
@@ -114,7 +108,7 @@ class MainBackground extends Component {
 
    render() {
       return (
-         <div className="top-layout">
+         <div>
             <Carousel
                effect="fade"
                infinite={true}
@@ -127,86 +121,87 @@ class MainBackground extends Component {
                autoplaySpeed={3000}
                pauseOnHover={false}
             >
-               <div className="background-container">
+               <div>
                   <div className="main-box-background-images">
                      <div className="background-left-shadow" />
+                     <div className="introduce">
+                        <div className="introduce-wrap">
+                           <img className="introduce-logo" src={SFCINEMA} />
+
+                           <h2 className="introduce-title">Welcome.</h2>
+                           <h3 className="introduce-description">
+                              lot of SF movies to discover.
+                              <div>Explore now.</div>
+                           </h3>
+                        </div>
+                     </div>
                      <img
                         className="main-background-images"
                         src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/yBG2J4dMnUViwfF1crq0b7xystj.jpg`}
                      />
                   </div>
-                  <div className="introduce">
-                     <div className="introduce-wrap">
-                        <img className="introduce-logo" src={SFCINEMA} />
-
-                        <h2 className="introduce-title">Welcome.</h2>
-                        <h3 className="introduce-description">
-                           lot of SF movies to discover.
-                           <div>Explore now.</div>
-                        </h3>
-                     </div>
-                  </div>
                </div>
                {this.props.backgroundImg.map((movieData, i) => (
-                  <div className="background-container" key={i}>
+                  <div key={i}>
                      <div className="main-box-background-images">
                         <div className="background-left-shadow" />
+                        <div className="movie-content">
+                           <div className="content-wrap">
+                              <h2 className="content-title">
+                                 {movieData.movie.title}
+                              </h2>
+                              <h4 className="content-titleEng">
+                                 {movieData.movie.titleEng}
+                              </h4>
+                           </div>
+                           <div className="content-list">
+                              <div>
+                                 <span className="content-rating">
+                                    ⭐ {movieData.movie.userRating}
+                                 </span>
+                                 <span className="content-genre">
+                                    {movieData.movie.genre}
+                                 </span>
+                                 <span className="content-genre">
+                                    {String(movieData.movie.releaseDate).slice(
+                                       0,
+                                       4,
+                                    )}
+                                 </span>
+                              </div>
+                              <div className="content-btn">
+                                 <Button
+                                    type="ghost"
+                                    icon={<ZoomInOutlined />}
+                                    className="detail-info-btn"
+                                    onClick={() => {
+                                       this.setModalVisible(true);
+                                       this.handleCurrentMovie(movieData.movie);
+                                    }}
+                                 >
+                                    상세정보
+                                 </Button>
+                                 <Button
+                                    type="ghost"
+                                    icon={<PlayCircleOutlined />}
+                                    className="show-trailer-btn"
+                                    onClick={() => {
+                                       this.setModalTrailerVisible(true);
+                                       this.setState({
+                                          videoId: movieData.movie.videoId,
+                                       });
+                                    }}
+                                 >
+                                    예고편
+                                 </Button>
+                              </div>
+                           </div>
+                        </div>
+
                         <img
                            className="main-background-images"
                            src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${movieData.backgroundImg}`}
                         />
-                     </div>
-                     <div className="movie-content">
-                        <div className="content-wrap">
-                           <h2 className="content-title">
-                              {movieData.movie.title}
-                           </h2>
-                           <h4 className="content-titleEng">
-                              {movieData.movie.titleEng}
-                           </h4>
-                        </div>
-                        <div className="content-list">
-                           <div>
-                              <span className="content-rating">
-                                 ⭐ {movieData.movie.userRating}
-                              </span>
-                              <span className="content-genre">
-                                 {movieData.movie.genre}
-                              </span>
-                              <span className="content-genre">
-                                 {String(movieData.movie.releaseDate).slice(
-                                    0,
-                                    4,
-                                 )}
-                              </span>
-                           </div>
-                           <div className="content-btn">
-                              <Button
-                                 type="ghost"
-                                 icon={<ZoomInOutlined />}
-                                 className="detail-info-btn"
-                                 onClick={() => {
-                                    this.setModalVisible(true);
-                                    this.handleCurrentMovie(movieData.movie);
-                                 }}
-                              >
-                                 상세정보
-                              </Button>
-                              <Button
-                                 type="ghost"
-                                 icon={<PlayCircleOutlined />}
-                                 className="show-trailer-btn"
-                                 onClick={() => {
-                                    this.setModalTrailerVisible(true);
-                                    this.setState({
-                                       videoId: movieData.movie.videoId,
-                                    });
-                                 }}
-                              >
-                                 예고편
-                              </Button>
-                           </div>
-                        </div>
                      </div>
                   </div>
                ))}

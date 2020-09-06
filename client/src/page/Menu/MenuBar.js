@@ -24,6 +24,7 @@ import {
    HourglassFilled,
    ReadFilled,
    FireFilled,
+   MenuUnfoldOutlined,
 } from '@ant-design/icons';
 import MyInfo from '../MyInfo/MyInfo';
 import './MenuBar.css';
@@ -180,40 +181,48 @@ class MenuBar extends Component {
                }}
             >
                <Header>
-                  <img
-                     className="header-logo"
-                     src={SFCINEMA}
-                     onClick={() => this.props.history.push('/')}
-                  />
-
                   <Menu
                      selectedKeys={[currentpath + paramsKey]}
                      onClick={this.handleClick}
                      mode="horizontal"
                      theme="dark"
+                     overflowedIndicator={<BarsOutlined />}
                   >
+                     <Menu.Item
+                        icon={
+                           <img
+                              className="header-logo"
+                              src={SFCINEMA}
+                              onClick={() => this.props.history.push('/')}
+                           />
+                        }
+                        style={{
+                           paddingRight: '30px',
+                        }}
+                        onClick={() => this.props.history.push('/')}
+                     />
                      <Menu.Item
                         icon={<HomeOutlined />}
                         key="/"
                         onClick={() => this.props.history.push('/')}
-                        style={{
-                           float: 'left',
-                           marginLeft: '30px',
-                        }}
                      >
                         홈
                      </Menu.Item>
 
                      <SubMenu
-                        icon={<BarsOutlined />}
+                        icon={<MenuUnfoldOutlined />}
                         title="SF 장르"
                         mode="horizontal"
                         key="/genres"
+                        style={{
+                           paddingRight: '200px',
+                        }}
                      >
                         {geners.map((gener, i) => (
                            <Menu.Item
                               key={i + 40 + ''}
                               icon={gener[1]}
+                              style={{}}
                               onClick={({ key }) =>
                                  this.NavigateToGenres('/genres', key, gener[0])
                               }
@@ -227,9 +236,7 @@ class MenuBar extends Component {
                         icon={<VideoCameraFilled />}
                         title="최신 영화"
                         key="/releaseOrder"
-                        style={{
-                           marginLeft: '10vw',
-                        }}
+                        style={{}}
                         onClick={({ key }) =>
                            this.NavigateToHighlyRataedAndReleaseOrder(
                               '/releaseOrder',
@@ -258,6 +265,34 @@ class MenuBar extends Component {
                         }
                      >
                         평점이 높은 영화
+                     </Menu.Item>
+
+                     <Menu.Item
+                        icon={<GiftFilled />}
+                        key="/operatorMovies"
+                        onClick={({ key }) =>
+                           this.NavigateToOperatorAndMasterpiece(
+                              '/operatorMovies',
+                              key,
+                              41,
+                           )
+                        }
+                     >
+                        운영자 추천
+                     </Menu.Item>
+
+                     <Menu.Item
+                        icon={<CrownFilled />}
+                        key="/masterpiece"
+                        onClick={({ key }) =>
+                           this.NavigateToOperatorAndMasterpiece(
+                              '/masterpiece',
+                              key,
+                              100,
+                           )
+                        }
+                     >
+                        SF 명작
                      </Menu.Item>
                      <SubMenu
                         icon={<SketchCircleFilled />}
@@ -331,43 +366,12 @@ class MenuBar extends Component {
                         </SubMenu>
                      </SubMenu>
 
-                     <Menu.Item
-                        icon={<GiftFilled />}
-                        key="/operatorMovies"
-                        onClick={({ key }) =>
-                           this.NavigateToOperatorAndMasterpiece(
-                              '/operatorMovies',
-                              key,
-                              41,
-                           )
-                        }
-                     >
-                        운영자 추천
-                     </Menu.Item>
-
-                     <Menu.Item
-                        icon={<CrownFilled />}
-                        key="/masterpiece"
-                        onClick={({ key }) =>
-                           this.NavigateToOperatorAndMasterpiece(
-                              '/masterpiece',
-                              key,
-                              100,
-                           )
-                        }
-                     >
-                        SF 명작
-                     </Menu.Item>
-
                      {!isLogin ? (
                         <Menu.Item
                            icon={<FormOutlined />}
                            key="/signUp"
                            onClick={() => this.props.history.push('/signUp')}
-                           style={{
-                              float: 'right',
-                              marginRight: '50px',
-                           }}
+                           style={{ float: 'right' }}
                         >
                            회원가입
                         </Menu.Item>
@@ -378,9 +382,7 @@ class MenuBar extends Component {
                            icon={<LoginOutlined />}
                            key="/login"
                            onClick={() => this.props.history.push('/login')}
-                           style={{
-                              float: 'right',
-                           }}
+                           style={{ float: 'right' }}
                         >
                            로그인
                         </Menu.Item>

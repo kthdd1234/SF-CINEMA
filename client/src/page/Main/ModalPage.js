@@ -275,35 +275,21 @@ class ModalPage extends Component {
 
                <div className="modal-content-wrapper">
                   <div>
-                     <Popconfirm
-                        title={
-                           <div>
-                              로그인이 되어 있지 않습니다.
-                              <div>로그인을 하여 영화 정보를 저장해보세요.</div>
-                           </div>
+                     <Button
+                        icon={
+                           pushpin ? (
+                              <PushpinFilled className="pushpin-icon" />
+                           ) : (
+                              <PushpinOutlined className="pushpin-icon" />
+                           )
                         }
-                        onVisibleChange={this.onVisibleChange('pushpinVisible')}
-                        onConfirm={this.navigateToLoginPage}
-                        visible={this.state.pushpinVisible}
-                        okText="로그인 하러 가기"
-                        cancelText="닫기"
-                     >
-                        <Button
-                           icon={
-                              pushpin ? (
-                                 <PushpinFilled className="pushpin-icon" />
-                              ) : (
-                                 <PushpinOutlined className="pushpin-icon" />
-                              )
-                           }
-                           style={{
-                              border: 'none',
-                           }}
-                           onClick={this.handlePushpinButton}
-                           danger={true}
-                           shape="circle-outline"
-                        />
-                     </Popconfirm>
+                        style={{
+                           border: 'none',
+                        }}
+                        onClick={this.handlePushpinButton}
+                        danger={true}
+                        shape="circle-outline"
+                     />
                   </div>
 
                   <div className="modal-title-wrap">
