@@ -180,16 +180,16 @@ const movieTitleEng = '어벤져스: 에이지 오브 울트론';
 // const 생존서바이벌 = '생존 서바이벌,';
 // const 스칼렛요한슨 = '스칼렛 요한슨,';
 
-movies.update(
-  {
-    posters: '/8MBJhl1qTTAhAsoyxS7mnP70Pn7.jpg',
-  },
-  {
-    where: {
-      id: 153,
-    },
-  }
-);
+// movies.update(
+//   {
+//     numberOfLikes: 3,
+//   },
+//   {
+//     where: {
+//       id: [33, 151, 243],
+//     },
+//   }
+// );
 
 // movies.update(
 //   {
