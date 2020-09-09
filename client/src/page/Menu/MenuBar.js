@@ -42,6 +42,7 @@ const marvelSeriesList = [
    '데드풀',
    '엑스맨',
    '가디언즈 오브 갤럭시',
+   '토르',
 ];
 
 const zombieAndMonsterSeriesList = [
@@ -69,6 +70,7 @@ const actionAndAdventureSeriesList = [
    '헝거게임',
    '다이버전트',
    '블레이드 러너',
+   '배트맨',
 ];
 
 const geners = [

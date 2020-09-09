@@ -191,19 +191,19 @@ const movieTitleEng = '어벤져스: 에이지 오브 울트론';
 //   }
 // );
 
-// movies.update(
-//   {
-//     backgroundImg: JSON.stringify([
-//       'w4ZYFLJbiqZyvCcGHgvaHD6lTqQ.jpg',
-//       'qdd5lrgBYL4fMSwYAhfLUwdJRu1.jpg',
-//     ]),
-//   },
-//   {
-//     where: {
-//       id: 175,
-//     },
-//   }
-// );
+movies.update(
+  {
+    backgroundImg: JSON.stringify([
+      'nNmJRkg8wWnRmzQDe2FwKbPIsJV.jpg',
+      'v3A0T4fAz8xRugAkfUVkxGLd377.jpg',
+    ]),
+  },
+  {
+    where: {
+      id: 24,
+    },
+  }
+);
 // 	&times;
 // movies
 //   .findAll({

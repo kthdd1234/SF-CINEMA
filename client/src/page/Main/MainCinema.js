@@ -145,6 +145,34 @@ class MainCinema extends Component {
       this.setState({
          series: resultMovieList,
       });
+      const movieTitleEng = '아이언맨 2';
+      axios
+         .get('https://api.themoviedb.org/3/search/movie', {
+            params: {
+               api_key: 'a3f2dd845f961cc6ea8d04c944383159',
+               query: movieTitleEng,
+               page: 1,
+            },
+         })
+         .then(async ({ data }) => {
+            const imgId = data.results[0].id;
+            console.log(imgId);
+
+            axios
+               .get(`https://api.themoviedb.org/3/movie/${imgId}/images`, {
+                  params: { api_key: 'a3f2dd845f961cc6ea8d04c944383159' },
+               })
+               .then(({ data }) => {
+                  const imgList = data.backdrops.map((obj, i) => {
+                     console.log(`${i} 번 사진`, obj.file_path);
+                     return `https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${obj.file_path}`;
+                  });
+
+                  this.setState({
+                     imgList: imgList,
+                  });
+               });
+         });
    }
 
    handleSeriesList = (seriesMovieList) => {
@@ -212,6 +240,25 @@ class MainCinema extends Component {
                   <Spin size="large" />
                </center>
             )}
+            {imgList.length
+               ? imgList.map((data, i) => (
+                    <div
+                       key={i}
+                       style={{
+                          width: '1920px',
+
+                          overflow: 'hidden',
+                       }}
+                    >
+                       <img
+                          style={{
+                             width: '100%',
+                          }}
+                          src={data}
+                       ></img>
+                    </div>
+                 ))
+               : null}
          </div>
       );
    }
