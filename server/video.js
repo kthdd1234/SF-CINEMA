@@ -15,7 +15,7 @@ const movieTitleEng = '어벤져스: 에이지 오브 울트론';
 //       axios
 //         .get('https://api.themoviedb.org/3/search/movie', {
 //           params: {
-//             api_key: 'a3f2dd845f961cc6ea8d04c944383159',
+//             api_key: '',
 //             query: movieData[i].titleEng,
 //             page: 1,
 //             language: 'ko',
@@ -51,34 +51,6 @@ const movieTitleEng = '어벤져스: 에이지 오브 울트론';
 //     },
 //   }
 // );
-
-// movies.create({
-//   title: '토르: 라그나로크',
-//   titleEng: 'Thor: Ragnarok',
-//   genre: '슈퍼 히어로',
-//   director: '타이카 와이티티',
-//   plot:
-//     '은하계를 탐험하던 토르는 오딘의 오랜 숙적 수르트와의 대결에서 승리하는데, 수르트는 라그나로크가 이미 시작됐고, 막을 수 없을 것이라는 의미심장한 말을 남긴다. 한편 오딘의 힘이 약해지며 그가 봉인했던 죽음의 여신 헬라가 나타난다. 오딘의 첫째딸인 그녀는 두 동생, 토르와 로키를 가볍게 제압하고 아스가르드를 정복한다. 헬라와의 전쟁에서 묠니르를 잃고 사카아르라는 미지의 행성에 불시착한 토르는 아스가르드 행성으로 돌아가기 위해 고군분투한다. 행성의 통치자 그랜드 마스터는 행성 최고의 투사 챔피언과 싸워 이기면 행성을 떠나게 해주겠다고 토르에게 제안한다.',
-//   posters: '/jwswXltzpGaKZCtz1CiDjXHQYAs.jpg',
-//   nation: '미국',
-//   actors: JSON.stringify([
-//     '크리스 햄스워스',
-//     '마크 러팔로',
-//     '톰 히들스턴',
-//     '케이트 블란쳇',
-//   ]),
-//   releaseDate: 20171025,
-//   runtime: '2시간 10분',
-//   ratingGrade: '12세 관람가',
-//   userRating: 9.03,
-//   videoId: 'pxR6cKkPzNo',
-//   seriesName: '토르',
-//   backDrop: '/6G2fLCVm9fiLyHvBrccq6GSe2ih.jpg',
-//   backgroundImg: JSON.stringify([
-//     '6G2fLCVm9fiLyHvBrccq6GSe2ih.jpg',
-//     'wBzMnQ01R9w58W6ucltdYfOyP4j.jpg',
-//   ]),
-// });
 
 // const 블록버스터 = [];
 // movies
