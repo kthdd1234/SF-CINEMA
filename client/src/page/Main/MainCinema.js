@@ -145,7 +145,7 @@ class MainCinema extends Component {
       this.setState({
          series: resultMovieList,
       });
-      const movieTitleEng = '아이언맨 2';
+      const movieTitleEng = '토르: 라그나로크';
       axios
          .get('https://api.themoviedb.org/3/search/movie', {
             params: {

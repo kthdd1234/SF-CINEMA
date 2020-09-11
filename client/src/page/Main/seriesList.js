@@ -25,6 +25,8 @@ module.exports = {
          '캡틴 아메리카',
          '클로버필드',
          '스파이더맨',
+         '토르',
+         '배트맨',
       ];
       const seriesList = [];
       for (let i = 0; i < 3; i++) {

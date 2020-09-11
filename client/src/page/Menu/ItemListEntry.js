@@ -309,7 +309,7 @@ class ItemListEntry extends React.Component {
                         >{`재밌어요: ${numberOfLikes}`}</Tag>
                         <Tag color={'magenta'}>{`장르: ${genre}`}</Tag>
                         <Tag color={'blue'}>{`등급:  ${ratingGrade}`}</Tag>
-                        <Tag color="default">{`상영시간: ${runtime}`}</Tag>
+                        <Tag color="default">{`재생시간: ${runtime}`}</Tag>
                      </span>
                   </div>
 

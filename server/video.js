@@ -38,30 +38,46 @@ const movieTitleEng = '어벤져스: 에이지 오브 울트론';
 //     }
 //   });
 
+// movies.update(
+//   {
+//     backgroundImg: JSON.stringify([
+//       'uhYoytlNaq46dG81wLmHqaSuzWu.jpg',
+//       '5o88bbqcV5STn56jqOeovaaWbAE.jpg',
+//     ]),
+//   },
+//   {
+//     where: {
+//       id: 260,
+//     },
+//   }
+// );
+
 // movies.create({
-//   title: '인크레더블 2',
-//   titleEng: 'Incredibles 2',
-//   genre: '슈퍼히어로',
-//   director: '브래드 버드',
+//   title: '토르: 라그나로크',
+//   titleEng: 'Thor: Ragnarok',
+//   genre: '슈퍼 히어로',
+//   director: '타이카 와이티티',
 //   plot:
-//     '슈퍼맘 헬렌이 국민 히어로 일라스티걸로 활약하며 세상의 주목을 받자 바쁜 아내의 몫까지 집안일을 하기 위해 육아휴직을 낸 아빠 밥은 질풍노도 시기의 딸 바이올렛, 자기애가 넘치는 아들 대쉬, 어마무시한 능력을 시도때도 없이 방출하는 막내 잭잭까지 전담하며 전쟁같은 하루하루를 보낸다. 그러던 어느 날, 각자의 위치에서 바쁜 일상을 보내던 슈퍼파워 가족 앞에 새로운 악당이 나타났다! 다시 한번 세상을 구하기 위해 나선 가족은 인크레더블한 능력을 발휘할 수 있을까?',
-//   posters: JSON.stringify([
-//     'https://image.tmdb.org/t/p/w500/eLayVsrnIScNuZRjEiMeJo5Z0Ly.jpg',
-//   ]),
+//     '은하계를 탐험하던 토르는 오딘의 오랜 숙적 수르트와의 대결에서 승리하는데, 수르트는 라그나로크가 이미 시작됐고, 막을 수 없을 것이라는 의미심장한 말을 남긴다. 한편 오딘의 힘이 약해지며 그가 봉인했던 죽음의 여신 헬라가 나타난다. 오딘의 첫째딸인 그녀는 두 동생, 토르와 로키를 가볍게 제압하고 아스가르드를 정복한다. 헬라와의 전쟁에서 묠니르를 잃고 사카아르라는 미지의 행성에 불시착한 토르는 아스가르드 행성으로 돌아가기 위해 고군분투한다. 행성의 통치자 그랜드 마스터는 행성 최고의 투사 챔피언과 싸워 이기면 행성을 떠나게 해주겠다고 토르에게 제안한다.',
+//   posters: '/jwswXltzpGaKZCtz1CiDjXHQYAs.jpg',
 //   nation: '미국',
 //   actors: JSON.stringify([
-//     '크레이그 T.넬슨',
-//     '홀리 헌터',
-//     '사무엘 L.잭슨',
-//     '사라 보웰',
+//     '크리스 햄스워스',
+//     '마크 러팔로',
+//     '톰 히들스턴',
+//     '케이트 블란쳇',
 //   ]),
-//   releaseDate: 20180718,
-//   runtime: '2시간 5분',
-//   ratingGrade: '전체 관람가',
-//   userRating: 9.23,
-//   videoId: 'zON6Mu9_PC0',
-//   backDrop: '/mabuNsGJgRuCTuGqjFkWe1xdu19.jpg',
-//   keywords: '애니메이션',
+//   releaseDate: 20171025,
+//   runtime: '2시간 10분',
+//   ratingGrade: '12세 관람가',
+//   userRating: 9.03,
+//   videoId: 'pxR6cKkPzNo',
+//   seriesName: '토르',
+//   backDrop: '/6G2fLCVm9fiLyHvBrccq6GSe2ih.jpg',
+//   backgroundImg: JSON.stringify([
+//     '6G2fLCVm9fiLyHvBrccq6GSe2ih.jpg',
+//     'wBzMnQ01R9w58W6ucltdYfOyP4j.jpg',
+//   ]),
 // });
 
 // const 블록버스터 = [];
@@ -160,17 +176,6 @@ const movieTitleEng = '어벤져스: 에이지 오브 울트론';
 //   }
 // }
 
-// movies.update(
-//   {
-//     keywords: '외계인 또는 행성 탐사',
-//   },
-//   {
-//     where: {
-//       id: [2, 5, 13, 14, 8, 21, 22, 23, 24, 26, 28, 29, 31, ],
-//     },
-//   }
-// );
-
 // const 스파이더맨이나오는영화 = '스파이더맨이 나오는 영화,';
 // const 외계인또는행성탐사 = '외계인 또는 행성 탐사,';
 // const 인류멸망시나리오 = '인류 멸망 시나리오,';
@@ -191,19 +196,19 @@ const movieTitleEng = '어벤져스: 에이지 오브 울트론';
 //   }
 // );
 
-movies.update(
-  {
-    backgroundImg: JSON.stringify([
-      'nNmJRkg8wWnRmzQDe2FwKbPIsJV.jpg',
-      'v3A0T4fAz8xRugAkfUVkxGLd377.jpg',
-    ]),
-  },
-  {
-    where: {
-      id: 24,
-    },
-  }
-);
+// movies.update(
+//   {
+//     backgroundImg: JSON.stringify([
+//       'nNmJRkg8wWnRmzQDe2FwKbPIsJV.jpg',
+//       'v3A0T4fAz8xRugAkfUVkxGLd377.jpg',
+//     ]),
+//   },
+//   {
+//     where: {
+//       id: 24,
+//     },
+//   }
+// );
 // 	&times;
 // movies
 //   .findAll({

@@ -43,6 +43,7 @@ const marvelSeriesList = [
    '엑스맨',
    '가디언즈 오브 갤럭시',
    '토르',
+   '배트맨',
 ];
 
 const zombieAndMonsterSeriesList = [
@@ -70,7 +71,6 @@ const actionAndAdventureSeriesList = [
    '헝거게임',
    '다이버전트',
    '블레이드 러너',
-   '배트맨',
 ];
 
 const geners = [
@@ -244,7 +244,7 @@ class MenuBar extends Component {
                               '/releaseOrder',
                               key,
                               100,
-                              20210000,
+                              20220000,
                               20200000,
                            )
                         }
@@ -303,7 +303,7 @@ class MenuBar extends Component {
                         key="/series"
                      >
                         <SubMenu
-                           key="seriesMenuItem-1"
+                           key="/seriesMenuItem-1"
                            title="슈퍼 히어로/마블 시리즈"
                         >
                            {marvelSeriesList.map((name, i) => (
@@ -325,7 +325,7 @@ class MenuBar extends Component {
                         >
                            {zombieAndMonsterSeriesList.map((name, i) => (
                               <Menu.Item
-                                 key={i + 8 + ''}
+                                 key={i + 10 + ''}
                                  onClick={({ key }) =>
                                     this.NavigateToSeries('/series', key, name)
                                  }
@@ -341,7 +341,7 @@ class MenuBar extends Component {
                         >
                            {alienAndSpaceSeriesList.map((name, i) => (
                               <Menu.Item
-                                 key={i + 14 + ''}
+                                 key={i + 16 + ''}
                                  onClick={({ key }) =>
                                     this.NavigateToSeries('/series', key, name)
                                  }
@@ -357,7 +357,7 @@ class MenuBar extends Component {
                         >
                            {actionAndAdventureSeriesList.map((name, i) => (
                               <Menu.Item
-                                 key={i + 30 + ''}
+                                 key={i + 32 + ''}
                                  onClick={({ key }) =>
                                     this.NavigateToSeries('/series', key, name)
                                  }
