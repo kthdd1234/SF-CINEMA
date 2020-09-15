@@ -4,9 +4,7 @@ import { withRouter } from 'react-router-dom';
 import ModalImage from './ModalImg';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { Button, Popconfirm, Modal, notification, Tag } from 'antd';
-
 import './ModalPage.css';
-
 import {
    LikeTwoTone,
    LikeOutlined,
@@ -24,9 +22,11 @@ import $ from 'jquery';
 import axios from 'axios';
 import Trailer from './Trailer';
 import './Trailer.css';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const serverUrl = axios.create({
-   baseURL: 'http://54.180.32.31:5000/user',
+   baseURL: `http://${process.env.REACT_APP_HOST}:5000/user`,
 });
 
 class ModalPage extends Component {
@@ -181,7 +181,7 @@ class ModalPage extends Component {
             });
             this.successPushpinNotification('topLeft');
          } else {
-            serverUrl.post('/cancelSavedMovie', {
+            serverUrl.delete('/cancelSavedMovie', {
                loginID: loginID,
                movieId: this.props.currentMovie.id,
             });
@@ -208,9 +208,11 @@ class ModalPage extends Component {
             });
             this.props.handleNumberOfLikesIncrease();
          } else {
-            serverUrl.post('/cancelLikedMovie', {
-               loginID: loginID,
-               movieId: this.props.currentMovie.id,
+            serverUrl.delete('/cancelLikedMovie', {
+               data: {
+                  loginID: loginID,
+                  movieId: this.props.currentMovie.id,
+               },
             });
             this.cancelLikeNotification('topLeft');
             this.setState({

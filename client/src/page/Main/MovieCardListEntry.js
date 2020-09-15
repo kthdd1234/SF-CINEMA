@@ -7,11 +7,13 @@ import SFCINEMA from '../../SFCINEMA.png';
 import ModalPage from './ModalPage';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const { Meta } = Card;
 
 const serverUrl = axios.create({
-   baseURL: 'http://54.180.32.31:5000/user',
+   baseURL: `http://${process.env.REACT_APP_HOST}:5000/user`,
 });
 
 class MovieCardListEntry extends Component {
@@ -40,8 +42,7 @@ class MovieCardListEntry extends Component {
          });
          if (likeMovies === undefined) {
             if (isLogin) {
-               location.reload(true);
-               window.scrollTo(0, 0);
+               return;
             }
          } else {
             likeMovies.forEach((movie) => {
@@ -129,9 +130,8 @@ class MovieCardListEntry extends Component {
             this.setState({
                numberOfLikes: numberOfLikes - 1,
             });
-            serverUrl.post('/cancelLikedMovie', {
-               loginID: loginID,
-               movieId: movie.id,
+            serverUrl.delete('/cancelLikedMovie', {
+               data: { loginID: loginID, movieId: movie.id },
             });
             this.cancelLikeNotification('bottomLeft');
          }

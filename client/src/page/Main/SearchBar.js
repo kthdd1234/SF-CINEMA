@@ -4,6 +4,8 @@ import { Input, message, Drawer, Row, Empty, Tag } from 'antd';
 import SearchListEntry from './SearchListEntry';
 import axios from 'axios';
 import './MainCinema.css';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const tagKeywords = [
    { color: 'green', keyword: '스파이더맨' },
@@ -16,7 +18,7 @@ const tagKeywords = [
 ];
 
 const serverUrl = axios.create({
-   baseURL: `http://54.180.32.31:5000/main`,
+   baseURL: `http://${process.env.REACT_APP_HOST}:5000/main`,
 });
 
 const { Search } = Input;

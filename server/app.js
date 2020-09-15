@@ -5,16 +5,12 @@ const bodyParser = require('body-parser');
 const mainRouter = require('./routes/main');
 const userRouter = require('./routes/user');
 const models = require('./models/index');
-const { movie_title } = require('./controller/movie_title');
-const { get_kmdb_naver_APIData } = require('./controller/getAPIData');
-const { move } = require('./routes/main');
-const { Op } = require('sequelize');
 
 app.use(bodyParser.json());
 app.use(
   cors({
     origin: '*',
-    methods: ['GET', 'POST'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
   })
 );
 

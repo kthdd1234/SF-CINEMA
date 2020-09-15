@@ -13,7 +13,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const serverUrl = axios.create({
-   baseURL: `http://54.180.32.31:5000/main`,
+   baseURL: `http://${process.env.REACT_APP_HOST}:5000/main`,
 });
 
 class MainCinema extends Component {
@@ -59,7 +59,7 @@ class MainCinema extends Component {
             isLogin: true,
          });
          axios
-            .get('http://54.180.32.31:5000/user/profile', {
+            .get(`http://${process.env.REACT_APP_HOST}:5000/user/profile`, {
                headers: {
                   Authorization: 'Bearer ' + accessToken,
                },

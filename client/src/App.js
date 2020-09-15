@@ -8,10 +8,12 @@ import SignUp from './page/SignUp/SignUp';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { Layout } from 'antd';
+import dotenv from 'dotenv';
+dotenv.config();
 const { Header, Content, Footer } = Layout;
 
 const serverUrl = axios.create({
-   baseURL: 'http://54.180.32.31:5000/main',
+   baseURL: `http://${process.env.REACT_APP_HOST}:5000/main`,
 });
 
 class App extends Component {
@@ -25,6 +27,7 @@ class App extends Component {
    }
 
    componentDidMount = () => {
+      console.log(process.env.REACT_APP_HOST);
       const accessToken = reactLocalStorage.get('SFCinemaUserToken');
       if (accessToken) {
          this.setState({
@@ -32,7 +35,7 @@ class App extends Component {
          });
 
          axios
-            .get('http://54.180.32.31:5000/user/profile', {
+            .get(`http://${process.env.REACT_APP_HOST}:5000/user/profile`, {
                headers: {
                   Authorization: 'Bearer ' + accessToken,
                },
@@ -163,7 +166,7 @@ class App extends Component {
 
       return (
          <div>
-            <Layout style={{ minHeight: '100vh' }}>
+            <Layout style={{}}>
                <div
                   style={{
                      height: '4rem',

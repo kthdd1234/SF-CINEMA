@@ -29,6 +29,8 @@ import {
 import MyInfo from '../MyInfo/MyInfo';
 import './MenuBar.css';
 import SFCINEMA from '../../SFCINEMA.png';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
@@ -130,7 +132,7 @@ class MenuBar extends Component {
       if (this.props.isLogin) {
          if (accessToken) {
             axios
-               .get('http://54.180.32.31:5000/user/profile', {
+               .get(`http://${process.env.REACT_APP_HOST}:5000/user/profile`, {
                   headers: {
                      Authorization: 'Bearer ' + accessToken,
                   },

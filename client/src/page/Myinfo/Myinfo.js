@@ -178,9 +178,7 @@ class MyInfo extends Component {
                               src={`https://image.tmdb.org/t/p/w500${item.posters}`}
                               size="large"
                               className="myInfo-likedMovie-img"
-                              onClick={() =>
-                                 this.handleCurrentLikedMovie(item.id)
-                              }
+                              onClick={() => this.handleCurrentLikedMovie(item)}
                            />
                         }
                         title={

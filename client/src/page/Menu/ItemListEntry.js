@@ -18,9 +18,11 @@ import {
 import Trailer from '../Main/Trailer';
 import './ItemListEntry.css';
 import $ from 'jquery';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const serverUrl = axios.create({
-   baseURL: 'http://54.180.32.31:5000/user',
+   baseURL: `http://${process.env.REACT_APP_HOST}:5000/user`,
 });
 
 class ItemListEntry extends React.Component {
@@ -143,9 +145,11 @@ class ItemListEntry extends React.Component {
             });
             this.successPushpinNotification('bottomLeft');
          } else {
-            serverUrl.post('/cancelSavedMovie', {
-               loginID: loginID,
-               movieId: this.props.id,
+            serverUrl.delete('/cancelSavedMovie', {
+               data: {
+                  loginID: loginID,
+                  movieId: this.props.id,
+               },
             });
             this.cancelPushpinNotification('bottomLeft');
          }
@@ -191,10 +195,13 @@ class ItemListEntry extends React.Component {
                numberOfLikes: numberOfLikes + 1,
             });
          } else {
-            serverUrl.post('/cancelLikedMovie', {
-               loginID: loginID,
-               movieId: this.props.id,
+            serverUrl.delete('/cancelLikedMovie', {
+               data: {
+                  loginID: loginID,
+                  movieId: this.props.id,
+               },
             });
+
             this.cancelLikeNotification('bottomLeft');
             this.setState({
                numberOfLikes: numberOfLikes - 1,

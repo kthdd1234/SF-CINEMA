@@ -1,27 +1,44 @@
 .signup-container {
+   position: relative;
    overflow: hidden;
 }
 
 .signup-content {
-   position: relative;
-   margin: 3.3vw 0 0 5vw;
-   max-width: 30vw;
+   position: absolute;
+   z-index: 1;
+   top: 70px;
+   width: 650px;
+   margin-left: 100px;
 }
 
 .signup-wrap {
-   position: relative;
    background: rgba(0, 0, 0, 0.75);
+   padding: 70px 140px 70px 140px;
    border-radius: 10px;
-   top: 3vw;
-   padding: 3vw 2vw 7vw 2vw;
 }
 
 .signup-box-text {
-   padding: 0 0 1vw 0;
-   margin: 10px 0 0 33%;
+   margin: 0 auto;
+   max-width: 200px;
+   padding-bottom: 10px;
 }
 
 .signup-text {
    font-size: 50px;
    color: whitesmoke;
+}
+
+@media screen and (max-width: 870px) {
+   .signup-content {
+      top: 0;
+      width: 100vw;
+      height: 100%;
+      margin-left: 0;
+   }
+   .signup-wrap {
+      height: 100%;
+      border-radius: 0;
+      background: black;
+      padding: 30px 80px 30px 80px;
+   }
 }

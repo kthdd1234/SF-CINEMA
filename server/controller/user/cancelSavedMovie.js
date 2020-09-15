@@ -1,7 +1,7 @@
 const { User, savedMovies } = require('../../models/index');
 
 module.exports = {
-  post: (req, res) => {
+  delete: (req, res) => {
     const { movieId, loginID } = req.body;
 
     User.findOne({

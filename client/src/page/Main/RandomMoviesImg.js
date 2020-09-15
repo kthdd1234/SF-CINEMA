@@ -25,8 +25,7 @@ class RandomMoviesImg extends Component {
       });
       if (isLogin) {
          if (likeMovies === undefined) {
-            location.reload(true);
-            window.scrollTo(0, 0);
+            return;
          } else {
             likeMovies.forEach((movie) => {
                if (movie.id === movieId) {

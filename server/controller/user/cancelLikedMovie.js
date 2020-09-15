@@ -2,8 +2,9 @@ const { User, likedMovies, movies } = require('../../models/index');
 const Sequelize = require('sequelize');
 
 module.exports = {
-  post: (req, res) => {
+  delete: (req, res) => {
     const { movieId, loginID } = req.body;
+    console.log(req.body);
 
     User.findOne({
       where: {

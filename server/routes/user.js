@@ -16,19 +16,13 @@ router.get('/profile', authenticateToken, userController.profile.get);
 // * POST /user/savedMovie
 router.post('/savedMovie', userController.savedMovie.post);
 
+// * DELETE /user/cancelSavedMovie
+router.delete('/cancelSavedMovie', userController.cancelSavedMovie.delete);
+
 // * POST /user/likedMovie
 router.post('/likedMovie', userController.likedMovie.post);
 
-// * POST /user/disLikedMovie
-router.post('/disLikedMovie', userController.disLikedMovie.post);
-
-// * POST /user/cancelSavedMovie
-router.post('/cancelSavedMovie', userController.cancelSavedMovie.post);
-
-// * POST /user/cancelLikedMovie
-router.post('/cancelLikedMovie', userController.cancelLikedMovie.post);
-
-// * POST /user/cancelDisLikedMovie
-router.post('/cancelDisLikedMovie', userController.cancelDisLikedMovie.post);
+// * DELETE /user/cancelLikedMovie
+router.delete('/cancelLikedMovie', userController.cancelLikedMovie.delete);
 
 module.exports = router;

@@ -5,11 +5,13 @@ import ModalPage from './ModalPage';
 import SFCINEMA from '../../SFCINEMA.png';
 import axios from 'axios';
 import './MainCinema.css';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const { Meta } = Card;
 
 const serverUrl = axios.create({
-   baseURL: `http://54.180.32.31:5000/user`,
+   baseURL: `http://${process.env.REACT_APP_HOST}:5000/user`,
 });
 
 class SearchListEnrty extends Component {
@@ -85,9 +87,11 @@ class SearchListEnrty extends Component {
             this.handleNumberOfLikesIncrease();
             this.successLikeNotification('bottomLeft');
          } else {
-            serverUrl.post('/cancelLikedMovie', {
-               loginID: loginID,
-               movieId: movie.id,
+            serverUrl.delete('/cancelLikedMovie', {
+               data: {
+                  loginID: loginID,
+                  movieId: movie.id,
+               },
             });
             this.handleNumberOfLikesDecrease();
             this.cancelLikeNotification('bottomLeft');
