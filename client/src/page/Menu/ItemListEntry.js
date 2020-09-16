@@ -305,19 +305,30 @@ class ItemListEntry extends React.Component {
                            </strong>
                         </div>
                      </div>
-                     <span className="tag-wrap">
+                     <div className="item-tag-wrap">
                         <Tag
+                           className="tag-text"
                            color={'success'}
-                           icon={<CheckCircleOutlined />}
+                           icon={<CheckCircleOutlined className="tag-like" />}
                         >{`영화 평점: ${userRating}`}</Tag>
                         <Tag
+                           className="tag-text"
                            color="geekblue"
-                           icon={<LikeFilled />}
+                           icon={<LikeFilled className="tag-like" />}
                         >{`재밌어요: ${numberOfLikes}`}</Tag>
-                        <Tag color={'magenta'}>{`장르: ${genre}`}</Tag>
-                        <Tag color={'blue'}>{`등급:  ${ratingGrade}`}</Tag>
-                        <Tag color="default">{`재생시간: ${runtime}`}</Tag>
-                     </span>
+                        <Tag
+                           className="tag-text"
+                           color={'magenta'}
+                        >{`장르: ${genre}`}</Tag>
+                        <Tag
+                           className="tag-text"
+                           color={'blue'}
+                        >{`등급:  ${ratingGrade}`}</Tag>
+                        <Tag
+                           className="tag-text"
+                           color="default"
+                        >{`재생시간: ${runtime}`}</Tag>
+                     </div>
                   </div>
 
                   <div className="movie-body">

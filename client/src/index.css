@@ -48,16 +48,33 @@ code {
    color: whitesmoke;
 }
 
+.pushpin-fill {
+   margin: 0 0 0 0.5rem;
+   height: 2.67vw;
+   font-size: 1.25vw;
+   font-weight: 900;
+   border-radius: 0.3rem;
+}
+
+.pushpin-out {
+   margin: 0 0 0 0.5rem;
+   padding: 0.4vw 0.8vw 2.3vw 0.8vw;
+   font-size: 1.25vw;
+   font-weight: 900;
+
+   border-radius: 0.3rem;
+}
+
 .like-fill {
-   height: 3.2rem;
-   font-size: 1.5rem;
+   padding: 0.4vw 0.8vw 2.3vw 0.8vw;
+   font-size: 1.25vw;
    font-weight: 900;
    border-radius: 0.3rem;
 }
 
 .like-out {
-   height: 3.2rem;
-   font-size: 1.5rem;
+   padding: 0.4vw 0.8vw 2.3vw 0.8vw;
+   font-size: 1.25vw;
    font-weight: 900;
    border-radius: 0.3rem;
 }
@@ -66,31 +83,15 @@ code {
    color: rgb(106, 106, 230);
 }
 
-.pushpin-fill {
-   margin: 0 0 0 0.5rem;
-   height: 3.2rem;
-   font-size: 1.5rem;
-   font-weight: 900;
-   border-radius: 0.3rem;
-}
-
-.pushpin-out {
-   margin: 0 0 0 0.5rem;
-   height: 3.2rem;
-   font-size: 1.5rem;
-   font-weight: 900;
-   border-radius: 0.3rem;
-}
-
 .trailer-like-wrap {
    position: absolute;
-   margin: 1rem 0 0 0rem;
+   margin: 1rem 0 0 0;
 }
 
 .trailer-btn {
    margin: 0 0 0 0.5rem;
-   height: 3.2rem;
-   font-size: 1.5rem;
+   padding: 0.4vw 0.8vw 2.3vw 0.8vw;
+   font-size: 1.25vw;
    font-weight: 900;
    border-radius: 0.3rem;
    color: whitesmoke;
@@ -99,4 +100,30 @@ code {
 .trailer-close {
    position: absolute;
    left: 1300px;
+}
+
+@media screen and (max-width: 1280px) {
+   .pushpin-fill {
+      padding: 0.32rem 0.7rem 1.78rem 0.6rem;
+      font-size: 1rem;
+   }
+
+   .pushpin-out {
+      padding: 0.32rem 0.7rem 1.78rem 0.6rem;
+      font-size: 1rem;
+   }
+
+   .like-fill {
+      padding: 0.32rem 0.7rem 1.78rem 0.6rem;
+      font-size: 1rem;
+   }
+
+   .like-out {
+      padding: 0.32rem 0.7rem 1.78rem 0.6rem;
+      font-size: 1rem;
+   }
+   .trailer-btn {
+      padding: 0.32rem 0.7rem 1.78rem 0.6rem;
+      font-size: 1rem;
+   }
 }
