@@ -1,19 +1,33 @@
 .recommend-title {
-   margin: auto;
-   max-width: 76vw;
-   padding: 10px;
+   margin-top: 30px;
+   padding-left: 110px;
    font-weight: bold;
+   font-size: 1.2vw;
+   color: whitesmoke;
+}
+
+.btn-showall-link {
+   font-size: 0.9vw;
+   color: rgb(213, 211, 211);
+   border: none;
+   background: rgb(20, 21, 23);
+   float: right;
+   margin-right: 8.5rem;
 }
 
 .recommend-items {
-   margin: auto;
-   max-width: 75vw;
-   padding-bottom: 30px;
-   border-bottom: 1px solid #f0f0f0;
+   max-width: 92.5vw;
+   padding-bottom: 50px;
+   padding-left: 110px;
 }
 
-.card-container {
-   position: relative;
+.recommend-items img {
+   height: 15vw;
+   cursor: pointer;
+}
+
+.ant-card-cover img {
+   border-radius: 5px;
 }
 
 .card-like-wrap {
@@ -23,6 +37,19 @@
    top: 2%;
    background: rgba(0, 0, 0, 0.3);
    border-radius: 0.3rem;
+}
+
+.ant-card-body {
+   background: rgb(20, 21, 23);
+}
+
+.ant-card-meta-title {
+   color: whitesmoke;
+   font-weight: 700;
+}
+
+.ant-card-meta-description {
+   color: whitesmoke;
 }
 
 .like-count {
@@ -47,33 +74,6 @@
    color: #fff;
 }
 
-.card-movie-info {
-   width: 10.5vw;
-   border-radius: 7px;
-
-   overflow: hidden;
-}
-
-.recommend-items img {
-   height: 15vw;
-   cursor: pointer;
-}
-
 .noting {
    visibility: hidden;
-}
-
-.title {
-   color: black;
-   font-size: 17px;
-}
-
-.box-shadow-right {
-   background: white;
-   position: absolute;
-   width: 3.5vw;
-   height: 19vw;
-   left: 71vw;
-   bottom: 45px;
-   box-shadow: 0 0 20px 20px white;
 }

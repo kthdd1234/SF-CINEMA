@@ -299,7 +299,7 @@ class MenuBar extends Component {
                         SF 명작
                      </Menu.Item>
                      <SubMenu
-                        icon={<SketchCircleFilled />}
+                        icon={<ThunderboltFilled />}
                         title="SF 시리즈"
                         mode="horizontal"
                         key="/series"

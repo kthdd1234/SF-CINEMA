@@ -159,11 +159,11 @@ const movieTitleEng = '어벤져스: 에이지 오브 울트론';
 
 // movies.update(
 //   {
-//     numberOfLikes: 3,
+//     userRating: 8.29,
 //   },
 //   {
 //     where: {
-//       id: [33, 151, 243],
+//       id: 197,
 //     },
 //   }
 // );

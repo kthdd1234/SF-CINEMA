@@ -5,15 +5,13 @@ import RandomMoviesImg from './RandomMoviesImg';
 import './RandomMovies.css';
 function RandomMovies({ isLogin, profile, randomMovies }) {
    const settings = {
-      centerMode: true,
       infinite: true,
-      slidesToShow: 7,
-      speed: 500,
-      autoplay: true,
+      slidesToShow: 10,
    };
 
    return (
-      <div>
+      <div className="rand-recommend-wrap">
+         <h2 className="rand-recommend-title"># 추천 영화</h2>
          <Slider {...settings}>
             {randomMovies.map((movie, i) => (
                <RandomMoviesImg

@@ -1,25 +1,25 @@
-.movie-poster-list {
-   margin-top: 1vw;
+.rand-recommend-wrap {
+   margin: 3rem 0 3rem 0;
+}
+
+.rand-recommend-title {
+   margin-top: 30px;
+   padding-left: 110px;
+   font-weight: bold;
+   font-size: 1.2vw;
+   color: whitesmoke;
+   margin-bottom: 0;
 }
 
 .movie-poster-list img {
-   width: 13vw;
-   height: 20vw;
-
-   border-radius: 2vw;
+   width: 11vw;
+   height: 16vw;
+   border-radius: 1.15vw;
    padding: 15px;
    cursor: pointer;
 }
 
 .movie-poster-list img:hover {
-   padding-top: 1.1vw;
    transform: scale(1.1);
    transition: 250ms all;
-}
-
-.slick-slide.slick-center img {
-   border-radius: 1.5vw;
-   height: 21vw;
-   padding: 0px;
-   transform: scale(1);
 }

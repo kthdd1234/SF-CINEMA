@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import './MovieCardList.css';
+import './MovieCardListEntry.css';
 import { Card, Button, Popconfirm, notification, Modal } from 'antd';
 import { LikeOutlined, LikeFilled } from '@ant-design/icons';
 import SFCINEMA from '../../SFCINEMA.png';
@@ -200,12 +201,13 @@ class MovieCardListEntry extends Component {
                </div>
 
                <Card
-                  size="small"
                   hoverable
                   className="card-movie-info"
+                  size="small"
                   onClick={() => this.setModalVisible(true)}
                   cover={
                      <img
+                        className="card-image"
                         src={`https://image.tmdb.org/t/p/w500${posters}`}
                         alt={`img${alt}`}
                      />
@@ -215,16 +217,22 @@ class MovieCardListEntry extends Component {
                      title={title}
                      description={
                         <div>
-                           <div>
-                              <strong>장르</strong> {genre}
-                           </div>
-                           <div>
-                              <strong>평점</strong> ⭐ {userRating}
-                           </div>
+                           <div>{genre}/액션</div>
+                           <div>⭐{' ' + userRating}</div>
                         </div>
                      }
                   />
                </Card>
+               <div className="overlay fade">
+                  <div className="text">
+                     <Button type="ghost" onClick={() => {}}>
+                        영화상세정보
+                     </Button>
+                     <Button type="ghost" onClick={() => {}}>
+                        예고편 보기
+                     </Button>
+                  </div>
+               </div>
                <Modal
                   title={<img src={SFCINEMA} className="small-logo" />}
                   centered

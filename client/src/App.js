@@ -166,12 +166,16 @@ class App extends Component {
 
       return (
          <div>
-            <Layout style={{}}>
+            <Layout
+               style={{
+                  background: 'rgb(20, 21, 23)',
+               }}
+            >
                <div
                   style={{
                      height: '4rem',
                   }}
-               ></div>
+               />
                <MenuBar
                   profile={profile}
                   isLogin={isLogin}

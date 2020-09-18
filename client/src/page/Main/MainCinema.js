@@ -149,7 +149,7 @@ class MainCinema extends Component {
 
    handleSeriesList = (seriesMovieList) => {
       for (let i = 0; i < seriesMovieList.length; i++) {
-         for (let j = 0; j < 7; j++) {
+         for (let j = 0; j < 8; j++) {
             if (!seriesMovieList[i][j]) {
                seriesMovieList[i].push(null);
             }
@@ -181,7 +181,7 @@ class MainCinema extends Component {
                profile={profile}
                backgroundImg={backgroundImg}
             />
-            <SearchBar isLogin={isLogin} profile={profile} />
+            {/* <SearchBar isLogin={isLogin} profile={profile} /> */}
             {randomMovies.length ? (
                <RandomMovies
                   isLogin={isLogin}
