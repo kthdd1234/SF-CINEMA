@@ -6,37 +6,106 @@
 .card-movie-info {
    background: rgba(0, 0, 0, 0.3);
    width: 10.3vw;
-   border: 0 solid rgba(0, 0, 0, 0.3);
+   overflow: hidden;
+}
+.card-box-image {
+   position: relative;
+   width: 100%;
+   border-radius: 0.15rem;
+   overflow: hidden;
 }
 
-.overlay {
+.card-image {
+   width: 100%;
+}
+
+.card-detail {
+   background: rgb(20, 21, 23);
+   font-size: 0.8vw;
+   font-weight: 700;
+   color: rgba(233, 220, 220, 0.95);
+   padding-top: 0.2rem;
+}
+
+.fade-box {
    position: absolute;
    transition: all 0.3s ease;
    opacity: 0;
    background-color: #eee;
 }
 
-.card-container:hover .overlay {
-   z-index: 1;
+.card-box-image:hover .fade-box {
    width: 100%;
    opacity: 1;
+   cursor: pointer;
 }
 
-.text {
-   color: white;
-   font-family: sans-serif;
+.btn-wrap {
    position: absolute;
    top: 50%;
    left: 50%;
    transform: translate(-50%, -50%);
-   font-size: 20px;
 }
 
 .fade {
    width: 100%;
    height: 100%;
-
    top: 0;
    left: 0;
-   background-color: #00b1ba;
+   color: whitesmoke;
+   background: rgba(0, 0, 0, 0.75);
+}
+
+.card-like-wrap {
+   z-index: 1;
+   position: absolute;
+   right: 4.2%;
+   top: 2%;
+   background: rgba(0, 0, 0, 0.3);
+   border-radius: 0.3rem;
+}
+
+.like-count {
+   color: #fff;
+}
+
+.like-outlied {
+   color: hsla(0, 0%, 100%, 0.55);
+}
+.like-outlied:hover {
+   color: hsla(0, 0%, 100%, 0.55);
+}
+
+.like-filled {
+   color: blue;
+}
+.like-filled:hover {
+   color: blue;
+}
+
+.like-filled:checked {
+   color: #fff;
+}
+
+.noting {
+   visibility: hidden;
+}
+
+.btn-detail-movie {
+   width: 130px;
+   font-size: 14px;
+   font-weight: 700;
+   color: whitesmoke;
+   margin-bottom: 8px;
+   border: 2px solid whitesmoke;
+   border-radius: 5px;
+}
+
+.btn-trailer-movie {
+   width: 130px;
+   font-size: 14px;
+   font-weight: 700;
+   color: whitesmoke;
+   border: 2px solid whitesmoke;
+   border-radius: 5px;
 }

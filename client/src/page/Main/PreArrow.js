@@ -8,7 +8,7 @@ function PrevArrow(props) {
    return (
       <div className={className}>
          <Button
-            type="link"
+            type="ghost"
             className="pre-arrow-btn"
             icon={<LeftOutlined className="direction-icon-left" />}
             onClick={onClick}

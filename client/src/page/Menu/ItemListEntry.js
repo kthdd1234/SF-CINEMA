@@ -283,20 +283,6 @@ class ItemListEntry extends React.Component {
                </div>
                <div className="movie-info">
                   <div className="movie-headers">
-                     <div>
-                        <Button
-                           className="pushpin-btn"
-                           icon={
-                              pushpin ? (
-                                 <PushpinFilled className="pushpin-icon" />
-                              ) : (
-                                 <PushpinOutlined className="pushpin-icon" />
-                              )
-                           }
-                           shape="circle"
-                           onClick={this.handlePushpinButton}
-                        />
-                     </div>
                      <div className="movie-title-list">
                         <strong className="movie-title">{title}</strong>
                         <div>
@@ -345,7 +331,7 @@ class ItemListEntry extends React.Component {
                         </div>
                      </div>
                   </div>
-                  <div className="trailer-like-wrap">
+                  <div className="movie-footer">
                      <Popconfirm
                         title={
                            <div>

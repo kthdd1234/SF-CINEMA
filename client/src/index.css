@@ -34,10 +34,6 @@ code {
    border-bottom-width: 0px;
 }
 
-.ant-modal-body {
-   padding: 0;
-}
-
 .movies-spin {
    margin-top: 200px;
    margin-bottom: 200px;
@@ -81,11 +77,6 @@ code {
 
 .like-out:hover {
    color: rgb(106, 106, 230);
-}
-
-.trailer-like-wrap {
-   position: absolute;
-   margin: 1rem 0 0 0;
 }
 
 .trailer-btn {

@@ -3,10 +3,11 @@ import { withRouter } from 'react-router-dom';
 import './MovieCardList.css';
 import './MovieCardListEntry.css';
 import { Card, Button, Popconfirm, notification, Modal } from 'antd';
-import { LikeOutlined, LikeFilled } from '@ant-design/icons';
-import SFCINEMA from '../../SFCINEMA.png';
+import { LikeOutlined, LikeFilled, CloseOutlined } from '@ant-design/icons';
 import ModalPage from './ModalPage';
 import { reactLocalStorage } from 'reactjs-localstorage';
+import Trailer from './Trailer';
+import $ from 'jquery';
 import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -24,6 +25,7 @@ class MovieCardListEntry extends Component {
          likeFilled: false,
          likeVisible: false,
          modalVisible: false,
+         tralierShow: false,
          numberOfLikes: 0,
       };
    }
@@ -62,6 +64,19 @@ class MovieCardListEntry extends Component {
          modalVisible,
       });
    };
+
+   setModalTrailerVisible(tralierShow) {
+      if (tralierShow === false) {
+         $(`.${this.state.videoId}`)[0].contentWindow.postMessage(
+            '{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
+            '*',
+         );
+         this.setState({
+            pause: false,
+         });
+      }
+      this.setState({ tralierShow });
+   }
 
    onVisibleChange = (onVisible) => (popVisible) => {
       if (!this.props.isLogin) {
@@ -163,7 +178,7 @@ class MovieCardListEntry extends Component {
       const { likeFilled, numberOfLikes, modalVisible } = this.state;
 
       if (movie !== null) {
-         const { title, posters, userRating, genre } = movie;
+         const { title, posters, videoId } = movie;
          return (
             <div className="card-container">
                <div className="card-like-wrap" onClick={this.handleLikeFilld}>
@@ -199,8 +214,45 @@ class MovieCardListEntry extends Component {
                      </Button>
                   </Popconfirm>
                </div>
+               <div className="card-movie-info">
+                  <div className="card-box-image">
+                     <img
+                        className="card-image"
+                        src={`https://image.tmdb.org/t/p/w500${posters}`}
+                        alt={`img${alt}`}
+                     />
+                     <div className="fade-box fade">
+                        <div className="btn-wrap">
+                           <Button
+                              className="btn-detail-movie"
+                              type="ghost"
+                              onClick={() => this.setModalVisible(true)}
+                           >
+                              영화상세정보
+                           </Button>
+                           <Button
+                              className="btn-trailer-movie"
+                              type="ghost"
+                              onClick={() => {
+                                 this.setModalTrailerVisible(true);
+                                 this.setState({
+                                    videoId: videoId,
+                                 });
+                              }}
+                           >
+                              예고편 보기
+                           </Button>
+                        </div>
+                     </div>
+                  </div>
+                  <div className="card-detail">
+                     <div className="card-detail-title">{title}</div>
+                     <div></div>
+                     <div></div>
+                  </div>
+               </div>
 
-               <Card
+               {/* <Card
                   hoverable
                   className="card-movie-info"
                   size="small"
@@ -222,19 +274,9 @@ class MovieCardListEntry extends Component {
                         </div>
                      }
                   />
-               </Card>
-               <div className="overlay fade">
-                  <div className="text">
-                     <Button type="ghost" onClick={() => {}}>
-                        영화상세정보
-                     </Button>
-                     <Button type="ghost" onClick={() => {}}>
-                        예고편 보기
-                     </Button>
-                  </div>
-               </div>
+               </Card> */}
+
                <Modal
-                  title={<img src={SFCINEMA} className="small-logo" />}
                   centered
                   width={1150}
                   visible={modalVisible}
@@ -244,7 +286,6 @@ class MovieCardListEntry extends Component {
                   maskClosable={false}
                />
                <Modal
-                  title={<img src={SFCINEMA} className="small-logo" />}
                   centered
                   width={1150}
                   visible={modalVisible}
@@ -266,6 +307,21 @@ class MovieCardListEntry extends Component {
                         this.handleNumberOfLikesDecrease
                      }
                   />
+               </Modal>
+               <Modal
+                  visible={this.state.tralierShow}
+                  onOk={() => this.setModalTrailerVisible(false)}
+                  onCancel={() => this.setModalTrailerVisible(false)}
+                  footer={null}
+                  width={1300}
+               >
+                  <Button
+                     ghost
+                     icon={<CloseOutlined />}
+                     className="trailer-close"
+                     onClick={() => this.setModalTrailerVisible(false)}
+                  />
+                  <Trailer videoId={this.state.videoId} />
                </Modal>
             </div>
          );

@@ -23,6 +23,7 @@ import axios from 'axios';
 import Trailer from './Trailer';
 import './Trailer.css';
 import dotenv from 'dotenv';
+import SFCINEMA from '../../SFCINEMA.png';
 dotenv.config();
 
 const serverUrl = axios.create({
@@ -274,26 +275,8 @@ class ModalPage extends Component {
                   img={`https://image.tmdb.org/t/p/w500${posters}`}
                   alt={id}
                />
-
+               <img src={SFCINEMA} className="modal-logo" />
                <div className="modal-content-wrapper">
-                  <div>
-                     <Button
-                        icon={
-                           pushpin ? (
-                              <PushpinFilled className="pushpin-icon" />
-                           ) : (
-                              <PushpinOutlined className="pushpin-icon" />
-                           )
-                        }
-                        style={{
-                           border: 'none',
-                        }}
-                        onClick={this.handlePushpinButton}
-                        danger={true}
-                        shape="circle-outline"
-                     />
-                  </div>
-
                   <div className="modal-title-wrap">
                      <strong className="modal-header-title">{title}</strong>
                      <strong className="modal-header-titleEng_year">
@@ -326,17 +309,17 @@ class ModalPage extends Component {
 
                   <div className="modal-plot">{plot}</div>
 
-                  <div>
-                     <div>
-                        <strong className="modal-director">감독</strong>
+                  <div className="modal-credit">
+                     <div className="modal-credit-info">
+                        <strong className="modal-credit-text">감독</strong>
                         {director}
                      </div>
-                     <div>
-                        <strong className="modal-actors">출연</strong>
+                     <div className="modal-credit-info">
+                        <strong className="modal-credit-text">출연</strong>
                         {actors}
                      </div>
                   </div>
-                  <div className="trailer-like-wrap">
+                  <div className="movie-footer">
                      <Popconfirm
                         title={
                            <div>
@@ -361,10 +344,12 @@ class ModalPage extends Component {
                               )
                            }
                            className={
-                              this.props.likeFilled ? 'like-fill' : 'like-out'
+                              this.props.likeFilled
+                                 ? 'like-fill btn-color'
+                                 : 'like-out btn-color'
                            }
                            onClick={this.handleLikeButton}
-                           type="primary"
+                           type="ghost"
                            size="large"
                         >
                            재밌어요
@@ -387,9 +372,13 @@ class ModalPage extends Component {
                            icon={
                               pushpin ? <PushpinFilled /> : <PushpinOutlined />
                            }
-                           className={pushpin ? 'pushpin-fill' : 'pushpin-out'}
+                           className={
+                              pushpin
+                                 ? 'pushpin-fill btn-color'
+                                 : 'pushpin-out btn-color'
+                           }
                            onClick={this.handlePushpinButton}
-                           type="primary"
+                           type="ghost"
                            size="large"
                         >
                            저장하기
@@ -398,7 +387,7 @@ class ModalPage extends Component {
                      <Button
                         icon={<PlayCircleOutlined />}
                         className="trailer-btn"
-                        type="primary"
+                        type="ghost"
                         size="large"
                         onClick={() => this.setModalTrailerVisible(true)}
                      >

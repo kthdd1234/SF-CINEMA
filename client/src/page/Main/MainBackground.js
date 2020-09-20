@@ -207,7 +207,6 @@ class MainBackground extends Component {
                ))}
             </Carousel>
             <Modal
-               title={<img src={SFCINEMA} className="small-logo" />}
                centered
                width={1150}
                visible={this.state.modalVisible}
@@ -215,9 +214,8 @@ class MainBackground extends Component {
                onCancel={() => this.setModalVisible(false)}
                maskClosable={false}
                footer={null}
-            ></Modal>
+            />
             <Modal
-               title={<img src={SFCINEMA} className="small-logo" />}
                centered
                width={1150}
                visible={this.state.modalVisible}
@@ -249,8 +247,6 @@ class MainBackground extends Component {
                   icon={<CloseOutlined />}
                   className="trailer-close"
                   onClick={() => this.setModalTrailerVisible(false)}
-                  handleNumberOfLikesIncrease={this.handleNumberOfLikesIncrease}
-                  handleNumberOfLikesDecrease={this.handleNumberOfLikesDecrease}
                />
                <Trailer videoId={this.state.videoId} />
             </Modal>

@@ -117,6 +117,11 @@
    text-align: left;
 }
 
+.movie-footer {
+   position: absolute;
+   margin: 1rem 0 0 0;
+}
+
 .movie-director_actors {
    font-size: 0.75vw;
    padding-left: 0.4vw;

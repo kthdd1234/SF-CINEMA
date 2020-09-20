@@ -83,7 +83,6 @@ class RandomMoviesImg extends Component {
                />
             </div>
             <Modal
-               title={<img src={SFCINEMA} className="small-logo" />}
                centered
                width={1150}
                visible={modalVisible}
@@ -93,7 +92,6 @@ class RandomMoviesImg extends Component {
                maskClosable={false}
             />
             <Modal
-               title={<img src={SFCINEMA} className="small-logo" />}
                centered
                width={1150}
                visible={modalVisible}

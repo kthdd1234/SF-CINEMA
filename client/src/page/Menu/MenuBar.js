@@ -76,16 +76,16 @@ const actionAndAdventureSeriesList = [
 ];
 
 const geners = [
-   ['우주 탐사', <RocketFilled />],
-   ['외계인', <RedditCircleFilled />],
-   ['슈퍼 히어로', <DingdingOutlined />],
-   ['액션', <ThunderboltFilled />],
-   ['몬스터', <GitlabFilled />],
-   ['가상 현실 또는 AI', <RobotFilled />],
-   ['시간 여행', <HourglassFilled />],
-   ['드라마', <ReadFilled />],
-   ['좀비', <EyeInvisibleFilled />],
-   ['재난', <FireFilled />],
+   { gener: '우주 탐사', icon: <RocketFilled /> },
+   { gener: '외계인', icon: <RedditCircleFilled /> },
+   { gener: '슈퍼 히어로', icon: <DingdingOutlined /> },
+   { gener: '액션', icon: <ThunderboltFilled /> },
+   { gener: '몬스터', icon: <GitlabFilled /> },
+   { gener: '가상 현실 또는 AI', icon: <RobotFilled /> },
+   { gener: '시간 여행', icon: <HourglassFilled /> },
+   { gener: '드라마', icon: <ReadFilled /> },
+   { gener: '좀비', icon: <EyeInvisibleFilled /> },
+   { gener: '재난', icon: <FireFilled /> },
 ];
 
 class MenuBar extends Component {
@@ -222,16 +222,20 @@ class MenuBar extends Component {
                            paddingRight: '200px',
                         }}
                      >
-                        {geners.map((gener, i) => (
+                        {geners.map((element, i) => (
                            <Menu.Item
                               key={i + 40 + ''}
-                              icon={gener[1]}
+                              icon={element.icon}
                               style={{}}
                               onClick={({ key }) =>
-                                 this.NavigateToGenres('/genres', key, gener[0])
+                                 this.NavigateToGenres(
+                                    '/genres',
+                                    key,
+                                    element.gener,
+                                 )
                               }
                            >
-                              {gener[0]}
+                              {element.gener}
                            </Menu.Item>
                         ))}
                      </SubMenu>

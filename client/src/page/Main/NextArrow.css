@@ -1,13 +1,10 @@
 .next-arrow-btn {
-   bottom: 20pt;
+   border-radius: 5rem;
+   bottom: 1rem;
 }
 
 .direction-icon-right {
-   font-size: 8vh;
-}
-
-.anticon .anticon-right .direction-icon-right {
-   background: #f0f2f5;
+   color: whitesmoke;
 }
 
 .slick-next:before {
