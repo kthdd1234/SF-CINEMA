@@ -252,30 +252,6 @@ class MovieCardListEntry extends Component {
                   </div>
                </div>
 
-               {/* <Card
-                  hoverable
-                  className="card-movie-info"
-                  size="small"
-                  onClick={() => this.setModalVisible(true)}
-                  cover={
-                     <img
-                        className="card-image"
-                        src={`https://image.tmdb.org/t/p/w500${posters}`}
-                        alt={`img${alt}`}
-                     />
-                  }
-               >
-                  <Meta
-                     title={title}
-                     description={
-                        <div>
-                           <div>{genre}/액션</div>
-                           <div>⭐{' ' + userRating}</div>
-                        </div>
-                     }
-                  />
-               </Card> */}
-
                <Modal
                   centered
                   width={1150}

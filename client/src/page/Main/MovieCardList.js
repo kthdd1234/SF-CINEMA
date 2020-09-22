@@ -18,21 +18,60 @@ import {
 
 const settings = {
    infinite: true,
-   slidesToShow: 8,
-   slidesToScroll: 8,
+
    nextArrow: <NextArrow />,
    prevArrow: <PrevArrow />,
-};
-const seriesSettings = {
-   infinite: true,
-   slidesToShow: 8,
-   slidesToScroll: 8,
-   nextArrow: <NextArrow />,
-   prevArrow: <PrevArrow />,
-   adaptiveHeight: true,
 };
 
 class MovieCardList extends Component {
+   constructor(props) {
+      super(props);
+      this.state = {
+         slideCount: 8,
+      };
+   }
+
+   handleResize = () => {
+      const broswerWidth = window.innerWidth;
+      if (broswerWidth > 1330) {
+         this.setState({
+            slideCount: 8,
+         });
+      } else if (broswerWidth <= 1330 && broswerWidth > 1130) {
+         this.setState({
+            slideCount: 7,
+         });
+      } else if (broswerWidth <= 1130 && broswerWidth > 950) {
+         this.setState({
+            slideCount: 6,
+         });
+      } else if (broswerWidth <= 950 && broswerWidth > 810) {
+         this.setState({
+            slideCount: 5,
+         });
+      } else if (broswerWidth <= 810 && broswerWidth > 680) {
+         this.setState({
+            slideCount: 4,
+         });
+      } else if (broswerWidth <= 680 && broswerWidth > 550) {
+         this.setState({
+            slideCount: 3,
+         });
+      } else if (broswerWidth <= 550) {
+         this.setState({
+            slideCount: 2,
+         });
+      }
+   };
+
+   componentDidMount = () => {
+      const broswerWidth = window.innerWidth;
+      if (broswerWidth !== 1920) {
+         this.handleResize();
+      }
+      window.addEventListener('resize', this.handleResize);
+   };
+
    NavigateToHighlyRataedAndReleaseOrder = (
       path,
       key,
@@ -69,32 +108,34 @@ class MovieCardList extends Component {
 
       return (
          <div>
-            <h2 className="recommend-title">
-               <StarFilled
-                  style={{
-                     color: 'whitesmoke',
-                  }}
-               />{' '}
-               평점이 9점 이상인 영화
-               <Button
-                  className="btn-showall-link"
-                  type="ghost"
-                  onClick={() =>
-                     this.NavigateToHighlyRataedAndReleaseOrder(
-                        '/highlyRated',
-                        '/highlyRated',
-                        100,
-                        10,
-                        8.5,
-                     )
-                  }
-               >
-                  모두 보기
-                  <DoubleRightOutlined />
-               </Button>
-            </h2>
+            <div className="recommend-wrap">
+               <h2 className="recommend-title">
+                  <StarFilled className="recommend-icon" /> 평점이 9점 이상인
+                  영화
+                  <Button
+                     className="btn-showall-link"
+                     type="ghost"
+                     onClick={() =>
+                        this.NavigateToHighlyRataedAndReleaseOrder(
+                           '/highlyRated',
+                           '/highlyRated',
+                           100,
+                           10,
+                           8.5,
+                        )
+                     }
+                  >
+                     모두 보기
+                     <DoubleRightOutlined className="showall-icon" />
+                  </Button>
+               </h2>
+            </div>
             <div className="recommend-items">
-               <Slider {...settings}>
+               <Slider
+                  {...settings}
+                  slidesToShow={this.state.slideCount}
+                  slidesToScroll={this.state.slideCount}
+               >
                   {highlyRated.map((movie, i) => (
                      <MovieCardListEntry
                         key={i}
@@ -110,12 +151,8 @@ class MovieCardList extends Component {
             </div>
 
             <h2 className="recommend-title">
-               <RedditCircleFilled
-                  style={{
-                     color: 'whitesmoke',
-                  }}
-               />{' '}
-               외계인 영화 추천
+               <RedditCircleFilled className="recommend-icon" /> 외계인 영화
+               추천
                <Button
                   className="btn-showall-link"
                   type="ghost"
@@ -124,11 +161,15 @@ class MovieCardList extends Component {
                   }
                >
                   모두 보기
-                  <DoubleRightOutlined />
+                  <DoubleRightOutlined className="showall-icon" />
                </Button>
             </h2>
             <div className="recommend-items">
-               <Slider {...settings}>
+               <Slider
+                  {...settings}
+                  slidesToShow={this.state.slideCount}
+                  slidesToScroll={this.state.slideCount}
+               >
                   {aliensMovies.map((movie, i) => (
                      <MovieCardListEntry
                         key={i}
@@ -144,12 +185,8 @@ class MovieCardList extends Component {
             </div>
 
             <h2 className="recommend-title">
-               <DingdingOutlined
-                  style={{
-                     color: 'whitesmoke',
-                  }}
-               />{' '}
-               슈퍼히어로 영화 추천
+               <DingdingOutlined className="recommend-icon" /> 슈퍼히어로 영화
+               추천
                <Button
                   className="btn-showall-link"
                   type="ghost"
@@ -158,11 +195,15 @@ class MovieCardList extends Component {
                   }
                >
                   모두 보기
-                  <DoubleRightOutlined />
+                  <DoubleRightOutlined className="showall-icon" />
                </Button>
             </h2>
             <div className="recommend-items">
-               <Slider {...settings}>
+               <Slider
+                  {...settings}
+                  slidesToShow={this.state.slideCount}
+                  slidesToScroll={this.state.slideCount}
+               >
                   {superHeroMovies.map((movie, i) => (
                      <MovieCardListEntry
                         key={i}
@@ -178,12 +219,7 @@ class MovieCardList extends Component {
             </div>
 
             <h2 className="recommend-title">
-               <GiftFilled
-                  style={{
-                     color: 'whitesmoke',
-                  }}
-               />{' '}
-               운영자가 추천하는 영화
+               <GiftFilled className="recommend-icon" /> 운영자가 추천하는 영화
                <Button
                   className="btn-showall-link"
                   type="ghost"
@@ -196,11 +232,15 @@ class MovieCardList extends Component {
                   }
                >
                   모두 보기
-                  <DoubleRightOutlined />
+                  <DoubleRightOutlined className="showall-icon" />
                </Button>
             </h2>
             <div className="recommend-items">
-               <Slider {...settings}>
+               <Slider
+                  {...settings}
+                  slidesToShow={this.state.slideCount}
+                  slidesToScroll={this.state.slideCount}
+               >
                   {operatorMovies.map((movie, i) => (
                      <MovieCardListEntry
                         key={i}
@@ -216,12 +256,8 @@ class MovieCardList extends Component {
             </div>
 
             <h2 className="recommend-title">
-               <CrownFilled
-                  style={{
-                     color: 'whitesmoke',
-                  }}
-               />{' '}
-               주말에 몰아보기 좋은 SF 명작 추천
+               <CrownFilled className="recommend-icon" /> 주말에 몰아보기 좋은
+               SF 명작 추천
                <Button
                   className="btn-showall-link"
                   type="ghost"
@@ -234,11 +270,15 @@ class MovieCardList extends Component {
                   }
                >
                   모두 보기
-                  <DoubleRightOutlined />
+                  <DoubleRightOutlined className="showall-icon" />
                </Button>
             </h2>
             <div className="recommend-items">
-               <Slider {...settings}>
+               <Slider
+                  {...settings}
+                  slidesToShow={this.state.slideCount}
+                  slidesToScroll={this.state.slideCount}
+               >
                   {masterpiece.map((movie, i) => (
                      <MovieCardListEntry
                         key={i}
@@ -254,15 +294,15 @@ class MovieCardList extends Component {
             </div>
 
             <h2 className="recommend-title">
-               <ThunderboltFilled
-                  style={{
-                     color: 'whitesmoke',
-                  }}
-               />{' '}
-               SF 시리즈물 강력 추천
+               <ThunderboltFilled className="recommend-icon" /> SF 시리즈물 강력
+               추천
             </h2>
             <div className="recommend-items">
-               <Slider {...seriesSettings}>
+               <Slider
+                  {...settings}
+                  slidesToShow={this.state.slideCount}
+                  slidesToScroll={this.state.slideCount}
+               >
                   {series.map((movie, i) => (
                      <MovieCardListEntry
                         key={i}

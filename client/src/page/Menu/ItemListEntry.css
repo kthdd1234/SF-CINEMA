@@ -138,8 +138,9 @@
 }
 
 .ant-pagination {
-   margin: 0 0 0 5vw;
-   padding: 0 0 8vw 0;
+   margin: 0 auto;
+   max-width: 22rem;
+   padding: 0 0 5vw 0;
    color: whitesmoke;
 }
 
@@ -180,6 +181,10 @@
    color: whitesmoke;
 }
 
+.ant-pagination-options {
+   display: none;
+}
+
 .pushpin-btn {
    padding: 0 0 15px 0;
    border: none;
@@ -198,12 +203,6 @@
 
 .pushpin-btn:focus {
    background: none;
-}
-
-.itemList-select {
-   position: absolute;
-   width: 10vw;
-   margin: 3.5vw 0 0 25vw;
 }
 
 @media screen and (max-width: 1280px) {

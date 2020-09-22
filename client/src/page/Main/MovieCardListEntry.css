@@ -1,22 +1,24 @@
 .card-container {
    position: relative;
+   /* border: 2px solid green; */
    display: inline-block;
 }
 
 .card-movie-info {
    background: rgba(0, 0, 0, 0.3);
-   width: 10.3vw;
+
    overflow: hidden;
 }
+
 .card-box-image {
    position: relative;
-   width: 100%;
+   /* border: 1px solid blue; */
+
    border-radius: 0.15rem;
    overflow: hidden;
 }
 
 .card-image {
-   width: 100%;
 }
 
 .card-detail {
@@ -108,4 +110,20 @@
    color: whitesmoke;
    border: 2px solid whitesmoke;
    border-radius: 5px;
+}
+
+@media screen and (max-width: 1330px) {
+   .card-image {
+      width: 8rem;
+   }
+
+   .btn-detail-movie {
+      width: 105px;
+      font-size: 14px;
+   }
+
+   .btn-trailer-movie {
+      width: 105px;
+      font-size: 14px;
+   }
 }

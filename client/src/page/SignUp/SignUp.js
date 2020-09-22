@@ -218,7 +218,7 @@ class SignUp extends Component {
                                        width: '100%',
                                     }}
                                  >
-                                    구글 계정이나 카카오 계정이 있나요?
+                                    소셜 로그인
                                  </Button>
                               </Form.Item>
                            </Form>

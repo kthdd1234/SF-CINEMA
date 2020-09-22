@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Select, Spin, Pagination } from 'antd';
 import ItemListEntry from './ItemListEntry';
-import './ItemListEntry.css';
+import './ItemList.css';
 import { CaretDownFilled, StarFilled } from '@ant-design/icons';
 
 const { Option } = Select;

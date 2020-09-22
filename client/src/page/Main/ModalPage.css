@@ -85,7 +85,7 @@
 }
 
 .modal-plot {
-   color: whitesmoke;
+   color: rgba(255, 255, 255, 0.8);
    overflow: hidden;
    margin: 1rem 0 0 0;
    width: 40rem;

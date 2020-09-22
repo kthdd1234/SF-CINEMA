@@ -1,6 +1,11 @@
+.recommend-wrap {
+   position: relative;
+}
+
 .recommend-title {
-   margin-top: 30px;
-   padding-left: 110px;
+   margin: 30px auto;
+   margin-bottom: 8px;
+   max-width: 87vw;
    font-weight: bold;
    font-size: 1.2vw;
    color: whitesmoke;
@@ -8,20 +13,119 @@
 
 .btn-showall-link {
    font-size: 0.9vw;
-   color: rgb(213, 211, 211);
+   font-weight: 500;
+   color: rgb(186, 183, 183);
    border: none;
    background: rgb(20, 21, 23);
-   float: right;
-   margin-right: 8.5rem;
 }
 
 .recommend-items {
-   max-width: 92.5vw;
-   padding-bottom: 50px;
-   padding-left: 110px;
+   margin: auto;
+   max-width: 87vw;
+   padding-bottom: 2vw;
 }
 
 .recommend-items img {
    height: 15vw;
    cursor: pointer;
+}
+
+@media screen and (min-width: 1331px) {
+   .btn-showall-link {
+      position: absolute;
+      right: 6.5vw;
+   }
+}
+
+@media screen and (max-width: 1330px) {
+   .recommend-title {
+      margin: auto;
+      max-width: 60rem;
+      padding-bottom: 0.15rem;
+   }
+
+   .recommend-items {
+      margin: auto;
+      max-width: 60rem;
+   }
+
+   .recommend-items img {
+      height: 11.5rem;
+   }
+}
+
+@media screen and (max-width: 1130px) {
+   .recommend-title {
+      margin: auto;
+      max-width: 50rem;
+   }
+
+   .recommend-items {
+      margin: auto;
+      max-width: 50rem;
+   }
+}
+
+@media screen and (max-width: 950px) {
+   .recommend-title {
+      margin: auto;
+      max-width: 42rem;
+   }
+
+   .recommend-items {
+      margin: auto;
+      max-width: 42rem;
+   }
+}
+
+@media screen and (max-width: 810px) {
+   .recommend-title {
+      margin: auto;
+      max-width: 33.5rem;
+   }
+
+   .recommend-icon {
+      font-size: 0.63rem;
+   }
+
+   .showall-icon {
+      font-size: 0.6rem;
+   }
+
+   .recommend-items {
+      margin: auto;
+      max-width: 33.5rem;
+   }
+}
+
+@media screen and (max-width: 680px) {
+   .recommend-title {
+      margin: auto;
+      max-width: 25rem;
+   }
+
+   .recommend-icon {
+      font-size: 0.6rem;
+   }
+
+   .showall-icon {
+      font-size: 0.57rem;
+   }
+
+   .recommend-items {
+      margin: auto;
+      max-width: 25rem;
+   }
+}
+
+@media screen and (max-width: 550px) {
+   .recommend-title {
+      margin: auto;
+      max-width: 17rem;
+   }
+
+   .recommend-items {
+      margin: auto;
+      max-width: 17rem;
+   }
 }
