@@ -138,3 +138,9 @@
       padding: 0.3rem 0.45rem 1.6rem 0.45rem;
    }
 }
+
+@media screen and (max-width: 1331px) {
+   .main-box-background-images {
+      margin-bottom: 1rem;
+   }
+}

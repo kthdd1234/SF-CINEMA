@@ -278,19 +278,12 @@ class ModalPage extends Component {
                <img src={SFCINEMA} className="modal-logo" />
                <div className="modal-content-wrapper">
                   <div className="modal-title-wrap">
-                     <strong className="modal-header-title">{title}</strong>
-                     <strong className="modal-header-titleEng_year">
-                        {title.length < 11
-                           ? `${titleEng} (${releaseYear})`
-                           : null}
+                     <strong className="modal-header-title">
+                        {title}
+                        <strong className="modal-header-titleEng_year">
+                           {`(${releaseYear})`}
+                        </strong>
                      </strong>
-                     <div>
-                        {title.length >= 11 ? (
-                           <strong className="modal-header-titleEng_year">
-                              {`${titleEng} (${releaseYear})`}
-                           </strong>
-                        ) : null}
-                     </div>
                   </div>
 
                   <span className="tag-wrap">

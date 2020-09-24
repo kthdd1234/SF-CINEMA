@@ -4,9 +4,12 @@
    display: inline-block;
 }
 
+.fake-modal {
+   opacity: 0;
+}
+
 .card-movie-info {
    background: rgba(0, 0, 0, 0.3);
-
    overflow: hidden;
 }
 
@@ -19,6 +22,7 @@
 }
 
 .card-image {
+   width: 10.5vw;
 }
 
 .card-detail {

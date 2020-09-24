@@ -11,6 +11,48 @@ class RandomMovies extends Component {
          slideCount: 10,
       };
    }
+
+   handleResize = () => {
+      const broswerWidth = window.innerWidth;
+      if (broswerWidth > 1550) {
+         this.setState({
+            slideCount: 10,
+         });
+      } else if (broswerWidth <= 1500 && broswerWidth > 1450) {
+         this.setState({
+            slideCount: 9,
+         });
+      } else if (broswerWidth <= 1450 && broswerWidth > 1400) {
+         this.setState({
+            slideCount: 8,
+         });
+      } else if (broswerWidth <= 1400 && broswerWidth > 1350) {
+         this.setState({
+            slideCount: 7,
+         });
+      } else if (broswerWidth <= 1350 && broswerWidth > 1300) {
+         this.setState({
+            slideCount: 6,
+         });
+      } else if (broswerWidth <= 500 && broswerWidth > 400) {
+         this.setState({
+            slideCount: 3,
+         });
+      } else if (broswerWidth <= 400) {
+         this.setState({
+            slideCount: 2,
+         });
+      }
+   };
+
+   componentDidMount = () => {
+      const broswerWidth = window.innerWidth;
+      if (broswerWidth !== 1920) {
+         this.handleResize();
+      }
+      window.addEventListener('resize', this.handleResize);
+   };
+
    render() {
       const { isLogin, profile, randomMovies } = this.props;
 

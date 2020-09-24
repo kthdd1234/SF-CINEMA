@@ -150,9 +150,6 @@ class MainBackground extends Component {
                               <h2 className="content-title">
                                  {movieData.movie.title}
                               </h2>
-                              <h4 className="content-titleEng">
-                                 {movieData.movie.titleEng}
-                              </h4>
                            </div>
                            <div className="content-list">
                               <div>
@@ -206,6 +203,7 @@ class MainBackground extends Component {
                   </div>
                ))}
             </Carousel>
+
             <Modal
                centered
                width={1150}

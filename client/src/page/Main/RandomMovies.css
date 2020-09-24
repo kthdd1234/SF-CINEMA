@@ -1,5 +1,5 @@
 .rand-recommend-wrap {
-   margin: 3rem 0 3rem 0;
+   margin: 3vw 0 3vw 0;
 }
 
 .rand-recommend-title {
@@ -15,11 +15,67 @@
    width: 11vw;
    height: 16vw;
    border-radius: 1.15vw;
-   padding: 15px;
+   padding: 0.95rem;
    cursor: pointer;
 }
 
 .movie-poster-list img:hover {
    transform: scale(1.1);
    transition: 250ms all;
+}
+
+@media screen and (max-width: 1550px) {
+   .movie-poster-list img {
+      width: 10.8rem;
+      height: 15.6rem;
+      border-radius: 1.1rem;
+   }
+}
+
+@media screen and (max-width: 1500px) {
+   .movie-poster-list img {
+      width: 11.5rem;
+      height: 16.4rem;
+      border-radius: 1.1rem;
+   }
+}
+
+@media screen and (max-width: 1450px) {
+   .movie-poster-list img {
+      width: 12.2rem;
+      height: 17.2rem;
+      border-radius: 1.1rem;
+   }
+}
+
+@media screen and (max-width: 1400px) {
+   .movie-poster-list img {
+      width: 12.9rem;
+      height: 17.8rem;
+      border-radius: 1.1rem;
+   }
+}
+
+@media screen and (max-width: 1350px) {
+   .movie-poster-list img {
+      width: 13.6rem;
+      height: 18.6rem;
+      border-radius: 1.1rem;
+   }
+}
+
+@media screen and (max-width: 500px) {
+   .movie-poster-list img {
+      width: 11.5rem;
+      height: 16.4rem;
+      border-radius: 1.1rem;
+   }
+}
+
+@media screen and (max-width: 400px) {
+   .movie-poster-list img {
+      width: 11.5rem;
+      height: 16.4rem;
+      border-radius: 1.1rem;
+   }
 }

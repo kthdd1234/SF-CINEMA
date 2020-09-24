@@ -31,6 +31,7 @@ class MainCinema extends Component {
          operatorMovies: [],
          masterpiece: [],
          series: [],
+         action: [],
          modalVisible: false,
          currentMovie: null,
          numberOfLikes: 0,
@@ -128,6 +129,12 @@ class MainCinema extends Component {
       const masterpiece = await axiosRequestMasterpiece('/masterpiece', 21);
       this.setState({ masterpiece: masterpiece });
 
+      /* 액션 영화 추천 */
+      const action = await axiosGenres('/genres', '액션', 15);
+      this.setState({
+         action: action,
+      });
+
       /* SF 시리즈물 강력 추천(Top3) */
       const seriesNames = seriesList();
       const seriesMovieList = await Promise.all(
@@ -196,6 +203,7 @@ class MainCinema extends Component {
          operatorMovies,
          masterpiece,
          series,
+         action,
          imgList,
          aliensMovies,
          superHeroMovies,
@@ -211,7 +219,7 @@ class MainCinema extends Component {
                backgroundImg={backgroundImg}
             />
             {/* <SearchBar isLogin={isLogin} profile={profile} /> */}
-            {randomMovies.length ? (
+            {/* {randomMovies.length ? (
                <RandomMovies
                   isLogin={isLogin}
                   profile={profile}
@@ -221,14 +229,16 @@ class MainCinema extends Component {
                <center className="movies-spin">
                   <Spin size="large" />
                </center>
-            )}
+            )} */}
 
-            {series.length ? (
+            {action.length ? (
                <MovieCardList
+                  randomMovies={randomMovies}
                   highlyRated={highlyRated}
                   operatorMovies={operatorMovies}
                   masterpiece={masterpiece}
                   series={series}
+                  action={action}
                   aliensMovies={aliensMovies}
                   superHeroMovies={superHeroMovies}
                   setModalVisible={this.setModalVisible}

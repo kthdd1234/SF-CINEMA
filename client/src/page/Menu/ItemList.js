@@ -94,12 +94,19 @@ class ItemList extends Component {
       const { isLogin } = this.props;
 
       return (
-         <div>
+         <div
+         // style={{
+         //    margin: '5vw auto',
+         //    maxWidth: '91vw',
+         // }}
+         >
             <div
                className="movie-container"
-               style={{
-                  background: 'rgb(20, 21, 23)',
-               }}
+               // style={{
+               //    background: 'rgb(20, 21, 23)',
+               //    display: 'flex',
+               //    flexWrap: 'wrap',
+               // }}
             >
                {movePage ? (
                   <Select

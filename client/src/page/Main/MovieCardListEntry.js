@@ -247,12 +247,11 @@ class MovieCardListEntry extends Component {
                   </div>
                   <div className="card-detail">
                      <div className="card-detail-title">{title}</div>
-                     <div></div>
-                     <div></div>
                   </div>
                </div>
 
                <Modal
+                  className="fake-modal"
                   centered
                   width={1150}
                   visible={modalVisible}
@@ -260,7 +259,21 @@ class MovieCardListEntry extends Component {
                   onCancel={() => this.setModalVisible(false)}
                   footer={null}
                   maskClosable={false}
-               />
+               >
+                  <ModalPage
+                     isLogin={isLogin}
+                     profile={profile}
+                     currentMovie={movie}
+                     likeFilled={likeFilled}
+                     numberOfLikes={numberOfLikes}
+                     handleNumberOfLikesIncrease={
+                        this.handleNumberOfLikesIncrease
+                     }
+                     handleNumberOfLikesDecrease={
+                        this.handleNumberOfLikesDecrease
+                     }
+                  />
+               </Modal>
                <Modal
                   centered
                   width={1150}

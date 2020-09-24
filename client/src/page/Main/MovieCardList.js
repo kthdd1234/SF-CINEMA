@@ -57,7 +57,7 @@ class MovieCardList extends Component {
          this.setState({
             slideCount: 3,
          });
-      } else if (broswerWidth <= 550) {
+      } else if (broswerWidth <= 550 && broswerWidth > 100) {
          this.setState({
             slideCount: 2,
          });
@@ -94,10 +94,12 @@ class MovieCardList extends Component {
 
    render() {
       const {
+         randomMovies,
          highlyRated,
          operatorMovies,
          masterpiece,
          series,
+         action,
          aliensMovies,
          superHeroMovies,
          setModalVisible,
@@ -108,28 +110,46 @@ class MovieCardList extends Component {
 
       return (
          <div>
-            <div className="recommend-wrap">
-               <h2 className="recommend-title">
-                  <StarFilled className="recommend-icon" /> 평점이 9점 이상인
-                  영화
-                  <Button
-                     className="btn-showall-link"
-                     type="ghost"
-                     onClick={() =>
-                        this.NavigateToHighlyRataedAndReleaseOrder(
-                           '/highlyRated',
-                           '/highlyRated',
-                           100,
-                           10,
-                           8.5,
-                        )
-                     }
-                  >
-                     모두 보기
-                     <DoubleRightOutlined className="showall-icon" />
-                  </Button>
-               </h2>
+            <h2 className="recommend-title"># 추천 영화</h2>
+            <div className="recommend-items">
+               <Slider
+                  {...settings}
+                  slidesToShow={this.state.slideCount}
+                  slidesToScroll={this.state.slideCount}
+               >
+                  {randomMovies.map((movie, i) => (
+                     <MovieCardListEntry
+                        key={i}
+                        movie={movie}
+                        alt={i}
+                        setModalVisible={setModalVisible}
+                        handleCurrentMovie={handleCurrentMovie}
+                        isLogin={isLogin}
+                        profile={profile}
+                     />
+                  ))}
+               </Slider>
             </div>
+            <h2 className="recommend-title">
+               <StarFilled className="recommend-icon" /> 평점이 9점 이상인 영화
+               <Button
+                  className="btn-showall-link"
+                  type="ghost"
+                  onClick={() =>
+                     this.NavigateToHighlyRataedAndReleaseOrder(
+                        '/highlyRated',
+                        '/highlyRated',
+                        100,
+                        10,
+                        8.5,
+                     )
+                  }
+               >
+                  모두 보기
+                  <DoubleRightOutlined className="showall-icon" />
+               </Button>
+            </h2>
+
             <div className="recommend-items">
                <Slider
                   {...settings}
@@ -292,10 +312,16 @@ class MovieCardList extends Component {
                   ))}
                </Slider>
             </div>
-
             <h2 className="recommend-title">
-               <ThunderboltFilled className="recommend-icon" /> SF 시리즈물 강력
-               추천
+               <ThunderboltFilled className="recommend-icon" /> 액션 영화 추천
+               <Button
+                  className="btn-showall-link"
+                  type="ghost"
+                  onClick={() => this.NavigateToGenres('/genres', '43', '액션')}
+               >
+                  모두 보기
+                  <DoubleRightOutlined className="showall-icon" />
+               </Button>
             </h2>
             <div className="recommend-items">
                <Slider
@@ -303,7 +329,7 @@ class MovieCardList extends Component {
                   slidesToShow={this.state.slideCount}
                   slidesToScroll={this.state.slideCount}
                >
-                  {series.map((movie, i) => (
+                  {action.map((movie, i) => (
                      <MovieCardListEntry
                         key={i}
                         movie={movie}
