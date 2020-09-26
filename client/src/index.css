@@ -45,6 +45,10 @@ code {
    color: whitesmoke;
 }
 
+.ant-select-arrow {
+   color: whitesmoke;
+}
+
 .pushpin-fill {
    margin: 0 0 0 0.5rem;
    height: 2.67vw;
@@ -58,7 +62,6 @@ code {
    padding: 0.4vw 0.8vw 2.3vw 0.8vw;
    font-size: 1.25vw;
    font-weight: 900;
-
    border-radius: 0.3rem;
 }
 

@@ -34,15 +34,15 @@
    left: 38vw;
 }
 
-.movie-img {
-   width: 100%;
-}
-
 .movie-info {
    color: whitesmoke;
    background: rgb(20, 21, 23);
 
    padding: 0 0 0 5vw;
+}
+
+.movie-img {
+   width: 100%;
 }
 
 .movie-headers {
@@ -118,7 +118,6 @@
 }
 
 .movie-footer {
-   position: absolute;
    margin: 1rem 0 0 0;
 }
 

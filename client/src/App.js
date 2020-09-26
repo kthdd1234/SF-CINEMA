@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import MenuBar from './page/Menu/MenuBar';
 import MainCinema from './page/Main/MainCinema';
 import MenuItems from './page/Menu/ItemList';
 import Login from './page/Login/Login';
 import SignUp from './page/SignUp/SignUp';
+import Contents from './page/Main/Contents';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { Layout } from 'antd';
 import dotenv from 'dotenv';
+import './App.css';
 dotenv.config();
+
 const { Header, Content, Footer } = Layout;
 
 const serverUrl = axios.create({
@@ -22,12 +25,11 @@ class App extends Component {
       this.state = {
          isLogin: false,
          profile: {},
-         NumberOfLikes: 0,
+         currentMovie: {},
       };
    }
 
    componentDidMount = () => {
-      console.log(process.env.REACT_APP_HOST);
       const accessToken = reactLocalStorage.get('SFCinemaUserToken');
       if (accessToken) {
          this.setState({
@@ -158,7 +160,24 @@ class App extends Component {
          movies[i].actors = actors.slice(0, 4).join(', ');
          movies[i].releaseYear = convertStrDate.slice(0, 4);
       }
+
       return movies;
+   };
+
+   handleCurrentMovie = () => {
+      const url = window.location.pathname;
+      const lastOfSlashIdx = url.lastIndexOf('/');
+      const movieId = url.substring(lastOfSlashIdx + 1);
+
+      return serverUrl
+         .get('/contents', {
+            params: {
+               movieId: movieId,
+            },
+         })
+         .then(({ data }) => {
+            return data;
+         });
    };
 
    render() {
@@ -166,11 +185,7 @@ class App extends Component {
 
       return (
          <div>
-            <Layout
-               style={{
-                  background: 'rgb(20, 21, 23)',
-               }}
-            >
+            <Layout className="layout-app">
                <div
                   style={{
                      height: '4rem',
@@ -199,6 +214,23 @@ class App extends Component {
                         exact
                         path="/signUp"
                         render={() => <SignUp selectKey="signUp" />}
+                     />
+                     <Route
+                        exact
+                        path={`/contents/:movie_id`}
+                        render={() => {
+                           const currentMovie = this.handleCurrentMovie();
+                           const updateMovie = this.handleMovieDataUpdate(
+                              currentMovie,
+                           );
+                           return (
+                              <Contents
+                                 isLogin={isLogin}
+                                 profile={profile}
+                                 currentMovie={updateMovie}
+                              />
+                           );
+                        }}
                      />
                      <Route
                         path="/genres"
@@ -351,6 +383,7 @@ class App extends Component {
                                  this.axiosRequestMasterpiece
                               }
                               axiosGenres={this.axiosGenres}
+                              handleCurrentMovie={this.handleCurrentMovie}
                               backgroundImg={backgroundImg}
                            />
                         )}

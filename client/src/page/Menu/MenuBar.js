@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { withRouter } from 'react-router-dom';
-import { Layout, Menu, Drawer, Button, Input } from 'antd';
+import { Layout, Menu, Drawer, Button, Select, message } from 'antd';
 import {
    StarFilled,
    VideoCameraOutlined,
@@ -31,17 +31,20 @@ import MyInfo from '../MyInfo/MyInfo';
 import './MenuBar.css';
 import SFCINEMA from '../../SFCINEMA.png';
 import dotenv from 'dotenv';
-import { request } from 'http';
 dotenv.config();
 
-const url = require('url');
+const serverUrl = axios.create({
+   baseURL: `http://${process.env.REACT_APP_HOST}:5000/main`,
+});
 
+const url = require('url');
 const { Header } = Layout;
 const { SubMenu } = Menu;
+const { Option, OptGroup } = Select;
 
 const seriesList = [
    {
-      title: '슈퍼 히어로/마블 시리즈',
+      title: '슈퍼히어로 시리즈',
       key: '/seriesMenuItem-1',
       list: [
          '어벤져스',
@@ -57,40 +60,32 @@ const seriesList = [
       ],
    },
    {
-      title: '좀비/몬스터 시리즈',
+      title: '몬스터 시리즈',
       key: '/seriesMenuItem-2',
-      list: [
-         '레지던트 이블',
-         '클로버필드',
-         '28일 후',
-         '쥬라기 월드',
-         '혹성탈출',
-      ],
+      list: ['클로버필드', '퍼시픽 림', '쥬라기 월드', '콰이어트 플레이스'],
    },
    {
-      title: '외계인/우주 탐사 시리즈',
+      title: '우주배경 시리즈',
       key: '/seriesMenuItem-3',
-      list: [
-         '에이리언',
-         '맨 인 블랙',
-         '스타워즈',
-         '스타트렉',
-         '트랜스포머',
-         '콰이어트 플레이스',
-         '퍼시픽 림',
-      ],
+      list: ['에이리언', '스타워즈', '스타트렉', '트랜스포머'],
    },
    {
-      title: '액션/모험 시리즈',
+      title: '액션 시리즈',
       key: '/seriesMenuItem-4',
       list: [
+         '레지던트 이블',
          '터미네이터',
          '메이즈 러너',
-         '백 투 더 퓨쳐',
          '헝거게임',
          '다이버전트',
          '블레이드 러너',
+         '맨 인 블랙',
       ],
+   },
+   {
+      title: '모험 시리즈',
+      key: '/seriesMenuItem-5',
+      list: ['백 투 더 퓨쳐', '28일 후', '혹성탈출'],
    },
 ];
 
@@ -114,6 +109,10 @@ const recommendedCategory = [
    { category: 'SF 명작', icon: <CrownFilled />, key: '/masterpiece' },
 ];
 
+function onChange(value) {
+   console.log(`selected ${value}`);
+}
+
 class MenuBar extends Component {
    constructor(props) {
       super(props);
@@ -121,6 +120,8 @@ class MenuBar extends Component {
          visible: false,
          profile: {},
          selectKey: '',
+         searchVisible: false,
+         searchResult: null,
       };
    }
 
@@ -169,6 +170,38 @@ class MenuBar extends Component {
          this.NavigateToOperatorAndMasterpiece(key, key, 100);
       }
    };
+
+   hadleSearchVisible = () => {
+      this.setState({
+         searchVisible: !this.state.searchVisible,
+      });
+   };
+
+   onBlur = () => {
+      this.setState({
+         searchVisible: !this.state.searchVisible,
+      });
+   };
+
+   handleRecommendedKeword = (keyword) => {
+      serverUrl
+         .get('/searchMovie', {
+            params: {
+               keyword: keyword,
+            },
+         })
+         .then(({ data }) => {
+            if (data === 'Not Found') {
+               return message.error('검색 결과를 찾을 수 없음');
+            }
+            console.log(data);
+            this.setState({
+               searchResult: data,
+            });
+         });
+   };
+
+   handleSearchKeword = (keyword) => {};
 
    showDrawer = () => {
       const accessToken = reactLocalStorage.get('SFCinemaUserToken');
@@ -265,6 +298,29 @@ class MenuBar extends Component {
                            </Menu.Item>
                         ))}
                      </SubMenu>
+
+                     <SubMenu
+                        icon={<TagOutlined />}
+                        title="장르"
+                        mode="horizontal"
+                        key="/genres"
+                     >
+                        {genres.map((element) => (
+                           <Menu.Item
+                              key={element.genre}
+                              icon={element.icon}
+                              onClick={({ key }) =>
+                                 this.NavigateToGenres(
+                                    '/genres',
+                                    key,
+                                    element.genre,
+                                 )
+                              }
+                           >
+                              {element.genre}
+                           </Menu.Item>
+                        ))}
+                     </SubMenu>
                      <SubMenu
                         icon={<ThunderboltFilled />}
                         title="시리즈물"
@@ -290,29 +346,6 @@ class MenuBar extends Component {
                            </SubMenu>
                         ))}
                      </SubMenu>
-                     <SubMenu
-                        icon={<TagOutlined />}
-                        title="장르"
-                        mode="horizontal"
-                        key="/genres"
-                     >
-                        {genres.map((element) => (
-                           <Menu.Item
-                              key={element.genre}
-                              icon={element.icon}
-                              onClick={({ key }) =>
-                                 this.NavigateToGenres(
-                                    '/genres',
-                                    key,
-                                    element.genre,
-                                 )
-                              }
-                           >
-                              {element.genre}
-                           </Menu.Item>
-                        ))}
-                     </SubMenu>
-
                      {!isLogin ? (
                         <Menu.Item
                            icon={<FormOutlined />}
@@ -345,14 +378,44 @@ class MenuBar extends Component {
                            프로필 관리
                         </Menu.Item>
                      ) : null}
-                     <Menu.Item
-                        icon={<SearchOutlined />}
-                        key="/search"
-                        onClick={() => this.props.history.push('/')}
-                        style={{ float: 'right' }}
-                     >
-                        검색
-                     </Menu.Item>
+
+                     {this.state.searchVisible ? (
+                        <Menu.Item style={{ float: 'right' }}>
+                           <Select
+                              showSearch={true}
+                              defaultOpen={true}
+                              autoFocus={true}
+                              onChange={this.handleRecommendedKeword}
+                              onSearch={this.handleSearchKeword}
+                              onBlur={this.onBlur}
+                              suffixIcon={<SearchOutlined />}
+                              style={{ width: 200 }}
+                              placeholder="제목, 감독, 인물 검색"
+                              optionFilterProp="children"
+                           >
+                              <OptGroup label="추천 검색어">
+                                 <Option value="스파이더맨">스파이더맨</Option>
+                                 <Option value="엑스맨">엑스맨</Option>
+                                 <Option value="에이리언">에이리언</Option>
+                                 <Option value="크리스토퍼 놀란">
+                                    크리스토퍼 놀란
+                                 </Option>
+                                 <Option value="스칼렛 요한슨">
+                                    스칼렛 요한슨
+                                 </Option>
+                              </OptGroup>
+                           </Select>
+                        </Menu.Item>
+                     ) : (
+                        <Menu.Item
+                           icon={<SearchOutlined />}
+                           key="/search"
+                           style={{ float: 'right' }}
+                           onClick={this.hadleSearchVisible}
+                        >
+                           검색
+                        </Menu.Item>
+                     )}
                   </Menu>
                </Header>
             </Layout>

@@ -1,13 +1,20 @@
+.recommend-contents {
+   padding-top: 4vw;
+   margin: auto;
+   max-width: 85vw;
+}
+
 .recommend-title {
-   margin: 30px auto;
+   margin-left: 0.5vw;
    margin-bottom: 8px;
-   max-width: 87vw;
    font-weight: bold;
-   font-size: 1.2vw;
+   font-size: 1.4vw;
    color: whitesmoke;
 }
 
 .btn-showall-link {
+   position: absolute;
+   right: 8vw;
    font-size: 0.9vw;
    font-weight: 500;
    color: rgb(186, 183, 183);
@@ -16,23 +23,34 @@
 }
 
 .recommend-items {
-   margin: auto;
-   max-width: 87vw;
-   padding-bottom: 2vw;
+   display: flex;
+   flex-wrap: wrap;
+   padding-bottom: 3vw;
 }
 
-.recommend-items img {
-   height: 15vw;
-   cursor: pointer;
-}
-
-@media screen and (min-width: 1331px) {
+@media screen and (max-width: 1200px) {
+   .recommend-title {
+      font-size: 2.3vw;
+   }
    .btn-showall-link {
-      position: absolute;
+      font-size: 1.7vw;
       right: 6.5vw;
    }
 }
 
+@media screen and (max-width: 800px) {
+   .recommend-title {
+      font-size: 3vw;
+   }
+   .btn-showall-link {
+      font-size: 2.6vw;
+      position: absolute;
+      right: 5vw;
+      padding-bottom: 4vw;
+   }
+}
+
+/* 
 @media screen and (max-width: 1330px) {
    .recommend-title {
       margin: auto;
@@ -124,4 +142,4 @@
       margin: auto;
       max-width: 17rem;
    }
-}
+} */

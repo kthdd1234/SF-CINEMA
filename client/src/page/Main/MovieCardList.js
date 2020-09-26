@@ -16,13 +16,6 @@ import {
    DoubleRightOutlined,
 } from '@ant-design/icons';
 
-const settings = {
-   infinite: true,
-
-   nextArrow: <NextArrow />,
-   prevArrow: <PrevArrow />,
-};
-
 class MovieCardList extends Component {
    constructor(props) {
       super(props);
@@ -30,47 +23,6 @@ class MovieCardList extends Component {
          slideCount: 8,
       };
    }
-
-   handleResize = () => {
-      const broswerWidth = window.innerWidth;
-      if (broswerWidth > 1330) {
-         this.setState({
-            slideCount: 8,
-         });
-      } else if (broswerWidth <= 1330 && broswerWidth > 1130) {
-         this.setState({
-            slideCount: 7,
-         });
-      } else if (broswerWidth <= 1130 && broswerWidth > 950) {
-         this.setState({
-            slideCount: 6,
-         });
-      } else if (broswerWidth <= 950 && broswerWidth > 810) {
-         this.setState({
-            slideCount: 5,
-         });
-      } else if (broswerWidth <= 810 && broswerWidth > 680) {
-         this.setState({
-            slideCount: 4,
-         });
-      } else if (broswerWidth <= 680 && broswerWidth > 550) {
-         this.setState({
-            slideCount: 3,
-         });
-      } else if (broswerWidth <= 550 && broswerWidth > 100) {
-         this.setState({
-            slideCount: 2,
-         });
-      }
-   };
-
-   componentDidMount = () => {
-      const broswerWidth = window.innerWidth;
-      if (broswerWidth !== 1920) {
-         this.handleResize();
-      }
-      window.addEventListener('resize', this.handleResize);
-   };
 
    NavigateToHighlyRataedAndReleaseOrder = (
       path,
@@ -103,32 +55,24 @@ class MovieCardList extends Component {
          aliensMovies,
          superHeroMovies,
          setModalVisible,
-         handleCurrentMovie,
          isLogin,
          profile,
       } = this.props;
 
       return (
-         <div>
+         <div className="recommend-contents">
             <h2 className="recommend-title"># 추천 영화</h2>
             <div className="recommend-items">
-               <Slider
-                  {...settings}
-                  slidesToShow={this.state.slideCount}
-                  slidesToScroll={this.state.slideCount}
-               >
-                  {randomMovies.map((movie, i) => (
-                     <MovieCardListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                        handleCurrentMovie={handleCurrentMovie}
-                        isLogin={isLogin}
-                        profile={profile}
-                     />
-                  ))}
-               </Slider>
+               {randomMovies.map((movie, i) => (
+                  <MovieCardListEntry
+                     key={i}
+                     movie={movie}
+                     alt={i}
+                     setModalVisible={setModalVisible}
+                     isLogin={isLogin}
+                     profile={profile}
+                  />
+               ))}
             </div>
             <h2 className="recommend-title">
                <StarFilled className="recommend-icon" /> 평점이 9점 이상인 영화
@@ -151,23 +95,16 @@ class MovieCardList extends Component {
             </h2>
 
             <div className="recommend-items">
-               <Slider
-                  {...settings}
-                  slidesToShow={this.state.slideCount}
-                  slidesToScroll={this.state.slideCount}
-               >
-                  {highlyRated.map((movie, i) => (
-                     <MovieCardListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                        handleCurrentMovie={handleCurrentMovie}
-                        isLogin={isLogin}
-                        profile={profile}
-                     />
-                  ))}
-               </Slider>
+               {highlyRated.map((movie, i) => (
+                  <MovieCardListEntry
+                     key={i}
+                     movie={movie}
+                     alt={i}
+                     setModalVisible={setModalVisible}
+                     isLogin={isLogin}
+                     profile={profile}
+                  />
+               ))}
             </div>
 
             <h2 className="recommend-title">
@@ -185,23 +122,16 @@ class MovieCardList extends Component {
                </Button>
             </h2>
             <div className="recommend-items">
-               <Slider
-                  {...settings}
-                  slidesToShow={this.state.slideCount}
-                  slidesToScroll={this.state.slideCount}
-               >
-                  {aliensMovies.map((movie, i) => (
-                     <MovieCardListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                        handleCurrentMovie={handleCurrentMovie}
-                        isLogin={isLogin}
-                        profile={profile}
-                     />
-                  ))}
-               </Slider>
+               {aliensMovies.map((movie, i) => (
+                  <MovieCardListEntry
+                     key={i}
+                     movie={movie}
+                     alt={i}
+                     setModalVisible={setModalVisible}
+                     isLogin={isLogin}
+                     profile={profile}
+                  />
+               ))}
             </div>
 
             <h2 className="recommend-title">
@@ -219,23 +149,16 @@ class MovieCardList extends Component {
                </Button>
             </h2>
             <div className="recommend-items">
-               <Slider
-                  {...settings}
-                  slidesToShow={this.state.slideCount}
-                  slidesToScroll={this.state.slideCount}
-               >
-                  {superHeroMovies.map((movie, i) => (
-                     <MovieCardListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                        handleCurrentMovie={handleCurrentMovie}
-                        isLogin={isLogin}
-                        profile={profile}
-                     />
-                  ))}
-               </Slider>
+               {superHeroMovies.map((movie, i) => (
+                  <MovieCardListEntry
+                     key={i}
+                     movie={movie}
+                     alt={i}
+                     setModalVisible={setModalVisible}
+                     isLogin={isLogin}
+                     profile={profile}
+                  />
+               ))}
             </div>
 
             <h2 className="recommend-title">
@@ -256,23 +179,16 @@ class MovieCardList extends Component {
                </Button>
             </h2>
             <div className="recommend-items">
-               <Slider
-                  {...settings}
-                  slidesToShow={this.state.slideCount}
-                  slidesToScroll={this.state.slideCount}
-               >
-                  {operatorMovies.map((movie, i) => (
-                     <MovieCardListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                        handleCurrentMovie={handleCurrentMovie}
-                        isLogin={isLogin}
-                        profile={profile}
-                     />
-                  ))}
-               </Slider>
+               {operatorMovies.map((movie, i) => (
+                  <MovieCardListEntry
+                     key={i}
+                     movie={movie}
+                     alt={i}
+                     setModalVisible={setModalVisible}
+                     isLogin={isLogin}
+                     profile={profile}
+                  />
+               ))}
             </div>
 
             <h2 className="recommend-title">
@@ -294,23 +210,16 @@ class MovieCardList extends Component {
                </Button>
             </h2>
             <div className="recommend-items">
-               <Slider
-                  {...settings}
-                  slidesToShow={this.state.slideCount}
-                  slidesToScroll={this.state.slideCount}
-               >
-                  {masterpiece.map((movie, i) => (
-                     <MovieCardListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                        handleCurrentMovie={handleCurrentMovie}
-                        isLogin={isLogin}
-                        profile={profile}
-                     />
-                  ))}
-               </Slider>
+               {masterpiece.map((movie, i) => (
+                  <MovieCardListEntry
+                     key={i}
+                     movie={movie}
+                     alt={i}
+                     setModalVisible={setModalVisible}
+                     isLogin={isLogin}
+                     profile={profile}
+                  />
+               ))}
             </div>
             <h2 className="recommend-title">
                <ThunderboltFilled className="recommend-icon" /> 액션 영화 추천
@@ -324,23 +233,16 @@ class MovieCardList extends Component {
                </Button>
             </h2>
             <div className="recommend-items">
-               <Slider
-                  {...settings}
-                  slidesToShow={this.state.slideCount}
-                  slidesToScroll={this.state.slideCount}
-               >
-                  {action.map((movie, i) => (
-                     <MovieCardListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                        handleCurrentMovie={handleCurrentMovie}
-                        isLogin={isLogin}
-                        profile={profile}
-                     />
-                  ))}
-               </Slider>
+               {action.map((movie, i) => (
+                  <MovieCardListEntry
+                     key={i}
+                     movie={movie}
+                     alt={i}
+                     setModalVisible={setModalVisible}
+                     isLogin={isLogin}
+                     profile={profile}
+                  />
+               ))}
             </div>
          </div>
       );

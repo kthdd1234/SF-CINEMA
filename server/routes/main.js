@@ -3,6 +3,9 @@ const router = express.Router();
 
 const { mainController } = require('../controller');
 
+// GET/main/contents
+router.get('/contents', mainController.contents.get);
+
 // * GET/main/backgroundImg
 router.get('/backgroundImg', mainController.backgroundImg.get);
 

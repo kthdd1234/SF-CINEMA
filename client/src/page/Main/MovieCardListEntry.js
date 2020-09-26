@@ -5,7 +5,7 @@ import './MovieCardListEntry.css';
 import { Card, Button, Popconfirm, notification, Modal } from 'antd';
 import { LikeOutlined, LikeFilled, CloseOutlined } from '@ant-design/icons';
 import ModalPage from './ModalPage';
-import { reactLocalStorage } from 'reactjs-localstorage';
+import Contents from './Contents';
 import Trailer from './Trailer';
 import $ from 'jquery';
 import axios from 'axios';
@@ -59,10 +59,17 @@ class MovieCardListEntry extends Component {
       }
    };
 
-   setModalVisible = (modalVisible) => {
-      this.setState({
-         modalVisible,
-      });
+   setModalVisible = (modalVisible, movie) => {
+      const broswerWidth = window.innerWidth;
+      if (broswerWidth > 1200) {
+         this.setState({
+            modalVisible,
+         });
+      } else {
+         if (modalVisible) {
+            this.props.history.push(`/contents/${movie.id}`);
+         }
+      }
    };
 
    setModalTrailerVisible(tralierShow) {
@@ -226,7 +233,7 @@ class MovieCardListEntry extends Component {
                            <Button
                               className="btn-detail-movie"
                               type="ghost"
-                              onClick={() => this.setModalVisible(true)}
+                              onClick={() => this.setModalVisible(true, movie)}
                            >
                               영화상세정보
                            </Button>

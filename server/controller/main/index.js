@@ -8,4 +8,5 @@ module.exports = {
   backgroundImg: require('./backgroundImg'),
   searchMovie: require('./searchMovie'),
   genres: require('./genres'),
+  contents: require('./contents'),
 };

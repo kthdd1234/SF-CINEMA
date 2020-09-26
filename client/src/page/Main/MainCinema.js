@@ -91,29 +91,20 @@ class MainCinema extends Component {
       /* 별점이 9점 이상인 영화 */
       const highlyRated = await axiosRequestHighlyRated(
          '/highlyRated',
-         100,
+         6,
          10,
          9,
       );
       this.setState({ highlyRated: highlyRated });
 
-      /* 개봉 영화순 */
-      const releaseOrder = await axiosRequestReleaseOrder(
-         '/releaseOrder',
-         100,
-         20210000,
-         20180000,
-      );
-      this.setState({ releaseOrder: releaseOrder });
-
       /* 외계인 영화 추천 */
-      const aliensMovies = await axiosGenres('/genres', '외계인', 15);
+      const aliensMovies = await axiosGenres('/genres', '외계인', 6);
       this.setState({
          aliensMovies: aliensMovies,
       });
 
       /* 슈퍼히어로 영화 추천 */
-      const superHeroMovies = await axiosGenres('/genres', '슈퍼 히어로', 15);
+      const superHeroMovies = await axiosGenres('/genres', '슈퍼 히어로', 6);
       this.setState({
          superHeroMovies: superHeroMovies,
       });
@@ -121,36 +112,18 @@ class MainCinema extends Component {
       /* 운영자가 추천하는 SF 영화*/
       const operatorMovies = await axiosRequestOperatorMovies(
          '/operatorMovies',
-         21,
+         6,
       );
       this.setState({ operatorMovies: operatorMovies });
 
       /* 주말에 몰아보기 좋은 SF 명작 추천 */
-      const masterpiece = await axiosRequestMasterpiece('/masterpiece', 21);
+      const masterpiece = await axiosRequestMasterpiece('/masterpiece', 6);
       this.setState({ masterpiece: masterpiece });
 
       /* 액션 영화 추천 */
-      const action = await axiosGenres('/genres', '액션', 15);
+      const action = await axiosGenres('/genres', '액션', 6);
       this.setState({
          action: action,
-      });
-
-      /* SF 시리즈물 강력 추천(Top3) */
-      const seriesNames = seriesList();
-      const seriesMovieList = await Promise.all(
-         seriesNames.map((seriesName) =>
-            axiosRequestSeries('/series', seriesName),
-         ),
-      );
-
-      const resultMovieList = this.handleSeriesList(seriesMovieList).reduce(
-         (acc, cur) => {
-            return acc.concat(cur);
-         },
-      );
-
-      this.setState({
-         series: resultMovieList,
       });
 
       // const movieTitleEng = '그린랜드';
@@ -182,18 +155,6 @@ class MainCinema extends Component {
       //          });
       //    });
    }
-
-   handleSeriesList = (seriesMovieList) => {
-      for (let i = 0; i < seriesMovieList.length; i++) {
-         for (let j = 0; j < 8; j++) {
-            if (!seriesMovieList[i][j]) {
-               seriesMovieList[i].push(null);
-            }
-         }
-      }
-
-      return seriesMovieList;
-   };
 
    render() {
       const {
@@ -233,6 +194,8 @@ class MainCinema extends Component {
 
             {action.length ? (
                <MovieCardList
+                  isLogin={isLogin}
+                  profile={profile}
                   randomMovies={randomMovies}
                   highlyRated={highlyRated}
                   operatorMovies={operatorMovies}
@@ -241,10 +204,6 @@ class MainCinema extends Component {
                   action={action}
                   aliensMovies={aliensMovies}
                   superHeroMovies={superHeroMovies}
-                  setModalVisible={this.setModalVisible}
-                  handleCurrentMovie={this.handleCurrentMovie}
-                  isLogin={isLogin}
-                  profile={profile}
                />
             ) : (
                <center className="movies-spin">

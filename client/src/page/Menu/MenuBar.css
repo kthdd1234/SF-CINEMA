@@ -12,3 +12,7 @@
 .ant-drawer-header {
    background: whitesmoke;
 }
+
+.ant-select-item-group {
+   color: blue;
+}

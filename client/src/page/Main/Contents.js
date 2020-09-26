@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { withRouter } from 'react-router-dom';
-import { Button, Popconfirm, Modal, notification, Tag } from 'antd';
+import { Button, Popconfirm, Modal, notification, Tag, Row } from 'antd';
 import {
    LikeOutlined,
    LikeFilled,
@@ -13,8 +13,8 @@ import {
    CheckCircleOutlined,
 } from '@ant-design/icons';
 import Trailer from '../Main/Trailer';
-import './ItemListEntry.css';
 import $ from 'jquery';
+import './Contents.css';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -22,7 +22,7 @@ const serverUrl = axios.create({
    baseURL: `http://${process.env.REACT_APP_HOST}:5000/user`,
 });
 
-class ItemListEntry extends React.Component {
+class Contents extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -33,16 +33,22 @@ class ItemListEntry extends React.Component {
          like: false,
          tralierShow: false,
          numberOfLikes: 0,
+         currentMovie: {},
       };
    }
 
-   componentDidMount = () => {
-      this.setState({
-         numberOfLikes: this.props.numberOfLikes,
-      });
-      if (this.props.isLogin) {
-         const accessToken = reactLocalStorage.get('SFCinemaUserToken');
+   componentDidMount = async () => {
+      const { currentMovie, isLogin } = this.props;
+      const movieData = await currentMovie;
 
+      this.setState({
+         currentMovie: movieData,
+         numberOfLikes: movieData.numberOfLikes,
+         pushpin: false,
+         like: false,
+      });
+      if (isLogin) {
+         const accessToken = reactLocalStorage.get('SFCinemaUserToken');
          serverUrl
             .get('/profile', {
                headers: {
@@ -59,38 +65,12 @@ class ItemListEntry extends React.Component {
       }
    };
 
-   componentDidUpdate = (prevProps) => {
-      if (this.props.id !== prevProps.id) {
-         this.setState({
-            numberOfLikes: this.props.numberOfLikes,
-         });
-         if (this.props.isLogin) {
-            this.setState({
-               pushpin: false,
-               like: false,
-            });
-            const accessToken = reactLocalStorage.get('SFCinemaUserToken');
-
-            serverUrl
-               .get('/profile', {
-                  headers: {
-                     Authorization: 'Bearer ' + accessToken,
-                  },
-               })
-               .then(({ data }) => {
-                  const { savedMovie, likedMovie } = data;
-                  this.handleUserFavoritedData(savedMovie, likedMovie);
-               });
-         }
-      }
-   };
-
    handleUserFavoritedData = (...favaritedData) => {
       const favarite = ['pushpin', 'like'];
 
       favaritedData.forEach((data, i) => {
          data.forEach((movie) => {
-            if (movie.id === this.props.id) {
+            if (movie.id === this.props.currentMovie.id) {
                this.setState({
                   [favarite[i]]: true,
                });
@@ -223,7 +203,7 @@ class ItemListEntry extends React.Component {
 
    setModalTrailerVisible(tralierShow) {
       if (tralierShow === false) {
-         $(`.${this.props.videoId}`)[0].contentWindow.postMessage(
+         $(`.${this.state.currentMovie.videoId}`)[0].contentWindow.postMessage(
             '{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
             '*',
          );
@@ -232,23 +212,21 @@ class ItemListEntry extends React.Component {
    }
 
    render() {
-      const {
+      let {
          title,
          titleEng,
          genre,
          director,
          plot,
-         nation,
          actors,
          posters,
          releaseDate,
-         releaseYear,
          runtime,
          ratingGrade,
          userRating,
          backDrop,
          videoId,
-      } = this.props;
+      } = this.state.currentMovie;
 
       const { pushpin, like, numberOfLikes } = this.state;
 
@@ -282,24 +260,12 @@ class ItemListEntry extends React.Component {
          },
       ];
 
+      let releaseYear = String(releaseDate).slice(0, 4);
+      actors = actors ? JSON.parse(actors).slice(0, 4).join(', ') : null;
+
       return (
          <div>
-            {/* <div
-               style={{
-                  width: '13vw',
-                  height: '19vw',
-                  padding: '1vw',
-               }}
-            >
-               <img
-                  style={{
-                     width: '100%',
-                     height: '100%',
-                  }}
-                  src={`https://image.tmdb.org/t/p/w500${posters}`}
-               />
-            </div> */}
-            <div className="moive-content">
+            <div className="contents">
                <div className="movie-img-box">
                   <div className="img-shadow" />
                   <img
@@ -307,8 +273,8 @@ class ItemListEntry extends React.Component {
                      src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces${backDrop}`}
                   />
                </div>
-               <div className="movie-info">
-                  <div className="movie-headers">
+               <div className="movie-wrap">
+                  <div className="contents-headers">
                      <div className="movie-title-list">
                         <strong className="movie-title">{title}</strong>
                         <div>
@@ -431,4 +397,4 @@ class ItemListEntry extends React.Component {
    }
 }
 
-export default withRouter(ItemListEntry);
+export default withRouter(Contents);

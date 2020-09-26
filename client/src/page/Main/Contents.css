@@ -1,0 +1,15 @@
+.contents {
+   margin-top: 5.5vw;
+   margin-bottom: 5.5vw;
+   background: rgb(20, 21, 23);
+}
+
+.movie-wrap {
+   color: whitesmoke;
+   background: rgb(20, 21, 23);
+   padding: 2.7vw 0 0 5vw;
+}
+
+.contents-headers {
+   text-align: left;
+}

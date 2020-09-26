@@ -110,9 +110,3 @@
    color: whitesmoke;
    padding: 0 0.7rem 0 0.1rem;
 }
-
-@media screen and (max-width: 1200px) {
-   .ant-modal-content {
-      display: none;
-   }
-}
