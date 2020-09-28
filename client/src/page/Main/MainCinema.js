@@ -74,6 +74,8 @@ class MainCinema extends Component {
             });
       }
 
+      const count = 8;
+
       /*  백그라운드 이미지 */
       serverUrl.get('/backgroundImg').then(({ data }) => {
          this.setState({
@@ -81,30 +83,40 @@ class MainCinema extends Component {
          });
       });
 
-      /* 랜덤 영화 데이터 50개 */
-      serverUrl.get('/randomMovies').then(({ data }) => {
-         this.setState({
-            randomMovies: data,
+      /* 추천 영화 */
+      serverUrl
+         .get('/randomMovies', {
+            params: {
+               count: count,
+            },
+         })
+         .then(({ data }) => {
+            this.setState({
+               randomMovies: data,
+            });
          });
-      });
 
       /* 별점이 9점 이상인 영화 */
       const highlyRated = await axiosRequestHighlyRated(
          '/highlyRated',
-         6,
+         count,
          10,
          9,
       );
       this.setState({ highlyRated: highlyRated });
 
       /* 외계인 영화 추천 */
-      const aliensMovies = await axiosGenres('/genres', '외계인', 6);
+      const aliensMovies = await axiosGenres('/genres', '외계인', count);
       this.setState({
          aliensMovies: aliensMovies,
       });
 
       /* 슈퍼히어로 영화 추천 */
-      const superHeroMovies = await axiosGenres('/genres', '슈퍼 히어로', 6);
+      const superHeroMovies = await axiosGenres(
+         '/genres',
+         '슈퍼 히어로',
+         count,
+      );
       this.setState({
          superHeroMovies: superHeroMovies,
       });
@@ -112,16 +124,16 @@ class MainCinema extends Component {
       /* 운영자가 추천하는 SF 영화*/
       const operatorMovies = await axiosRequestOperatorMovies(
          '/operatorMovies',
-         6,
+         count,
       );
       this.setState({ operatorMovies: operatorMovies });
 
       /* 주말에 몰아보기 좋은 SF 명작 추천 */
-      const masterpiece = await axiosRequestMasterpiece('/masterpiece', 6);
+      const masterpiece = await axiosRequestMasterpiece('/masterpiece', count);
       this.setState({ masterpiece: masterpiece });
 
       /* 액션 영화 추천 */
-      const action = await axiosGenres('/genres', '액션', 6);
+      const action = await axiosGenres('/genres', '액션', count);
       this.setState({
          action: action,
       });

@@ -16,10 +16,11 @@
 
 .card-box-image {
    position: relative;
-   width: 13vw;
-   height: 18.5vw;
+   width: 10.8vw;
+   height: 16.3vw;
    cursor: pointer;
    overflow: hidden;
+   border-radius: 0.2rem;
 }
 
 .card-image {
@@ -73,8 +74,8 @@
 .card-like-wrap {
    z-index: 1;
    position: absolute;
-   right: 6.3%;
-   top: 4%;
+   right: 3.5%;
+   top: 2%;
    background: rgba(0, 0, 0, 0.3);
    border-radius: 0.3rem;
 }
@@ -124,10 +125,13 @@
    border-radius: 5px;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
+   .card-container {
+      margin: 0 0.7vw 1vw 0.7vw;
+   }
    .card-box-image {
-      width: 27.3vw;
-      height: 41vw;
+      width: 21.1vw;
+      height: 31.5vw;
    }
    .card-detail-title {
       padding-bottom: 10px;
@@ -135,49 +139,36 @@
    }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
+   .card-container {
+      margin: 0 1vw 1vw 1vw;
+   }
+   .card-box-image {
+      width: 40.3vw;
+      height: 57vw;
+   }
    .card-detail-title {
+      padding-bottom: 20px;
       font-size: 2.4vw;
    }
-   .card-box-image {
-      width: 41.5vw;
-      height: 60vw;
-   }
 }
-/*
-@media screen and (max-width: 1300px) {
-   .card-box-image {
-      width: 20.8vw;
-      height: 29.8vw;
+
+@media screen and (max-width: 500px) {
+   .fade-box {
+      display: none;
    }
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 357px) {
+   .card-container {
+      margin: 0 1.2vw 1vw 1.2vw;
+   }
    .card-box-image {
-      width: 28.1vw;
-      height: 37.1vw;
+      width: 39vw;
+      height: 58vw;
+   }
+   .card-detail-title {
+      padding-bottom: 20px;
+      font-size: 2.6vw;
    }
 }
-
-@media screen and (max-width: 600px) {
-   .card-box-image {
-      width: 42.7vw;
-      height: 60vw;
-   }
-} */
-
-/* @media screen and (max-width: 1330px) {
-   .card-image {
-      width: 8rem;
-   }
-
-   .btn-detail-movie {
-      width: 105px;
-      font-size: 14px;
-   }
-
-   .btn-trailer-movie {
-      width: 105px;
-      font-size: 14px;
-   }
-} */

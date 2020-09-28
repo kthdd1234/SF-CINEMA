@@ -29,11 +29,6 @@ module.exports = {
                 [Sequelize.Op.like]: '%' + keyword + '%',
               },
             },
-            {
-              plot: {
-                [Sequelize.Op.like]: '%' + keyword + '%',
-              },
-            },
           ],
         },
         order: [['releaseDate', 'DESC']],

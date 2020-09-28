@@ -114,7 +114,7 @@ class MovieCardList extends Component {
                   className="btn-showall-link"
                   type="ghost"
                   onClick={() =>
-                     this.NavigateToGenres('/genres', '41', '외계인')
+                     this.NavigateToGenres('/genres', '외계인', '외계인')
                   }
                >
                   모두 보기
@@ -141,7 +141,11 @@ class MovieCardList extends Component {
                   className="btn-showall-link"
                   type="ghost"
                   onClick={() =>
-                     this.NavigateToGenres('/genres', '42', '슈퍼 히어로')
+                     this.NavigateToGenres(
+                        '/genres',
+                        '슈퍼 히어로',
+                        '슈퍼 히어로',
+                     )
                   }
                >
                   모두 보기
@@ -226,7 +230,9 @@ class MovieCardList extends Component {
                <Button
                   className="btn-showall-link"
                   type="ghost"
-                  onClick={() => this.NavigateToGenres('/genres', '43', '액션')}
+                  onClick={() =>
+                     this.NavigateToGenres('/genres', '액션', '액션')
+                  }
                >
                   모두 보기
                   <DoubleRightOutlined className="showall-icon" />

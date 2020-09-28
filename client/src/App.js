@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import MenuBar from './page/Menu/MenuBar';
 import MainCinema from './page/Main/MainCinema';
 import MenuItems from './page/Menu/ItemList';
 import Login from './page/Login/Login';
 import SignUp from './page/SignUp/SignUp';
 import Contents from './page/Main/Contents';
+import SearchResultList from './page/Menu/SearchResultList';
 import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { Layout } from 'antd';
@@ -26,6 +27,7 @@ class App extends Component {
          isLogin: false,
          profile: {},
          currentMovie: {},
+         searchResult: null,
       };
    }
 
@@ -180,8 +182,27 @@ class App extends Component {
          });
    };
 
+   handleSearchKeword = (keyword) => {
+      return serverUrl
+         .get('/searchMovie', {
+            params: {
+               keyword: keyword,
+            },
+         })
+         .then(({ data }) => {
+            if (data === 'Not Found') return;
+            return data;
+         });
+   };
+
+   handleSearchResult = (searchResult) => {
+      this.setState({
+         searchResult: searchResult,
+      });
+   };
+
    render() {
-      const { isLogin, profile, backgroundImg } = this.state;
+      const { isLogin, profile, backgroundImg, searchResult } = this.state;
 
       return (
          <div>
@@ -196,10 +217,16 @@ class App extends Component {
                   isLogin={isLogin}
                   handleMovieDataUpdate={this.handleMovieDataUpdate}
                   handleLoginChange={this.handleLoginChange}
+                  handleSearchResult={this.handleSearchResult}
                />
 
                <Content className="site-layout-background">
                   <Switch>
+                     <Route
+                        exact
+                        path="/signUp"
+                        render={() => <SignUp selectKey="signUp" />}
+                     />
                      <Route
                         exact
                         path="/login"
@@ -212,9 +239,24 @@ class App extends Component {
                      />
                      <Route
                         exact
-                        path="/signUp"
-                        render={() => <SignUp selectKey="signUp" />}
+                        path="/search"
+                        render={({ location }) => {
+                           const keyword = new URLSearchParams(
+                              location.search,
+                           ).get('query');
+                           const search = this.handleSearchKeword(keyword);
+
+                           return (
+                              <SearchResultList
+                                 keyword={keyword}
+                                 isLogin={isLogin}
+                                 profile={profile}
+                                 searchResult={search}
+                              />
+                           );
+                        }}
                      />
+
                      <Route
                         exact
                         path={`/contents/:movie_id`}

@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import './MovieCardList.css';
 import './MovieCardListEntry.css';
-import { Card, Button, Popconfirm, notification, Modal } from 'antd';
+import { Button, Popconfirm, notification, Modal } from 'antd';
 import { LikeOutlined, LikeFilled, CloseOutlined } from '@ant-design/icons';
 import ModalPage from './ModalPage';
-import Contents from './Contents';
 import Trailer from './Trailer';
 import $ from 'jquery';
 import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
-
-const { Meta } = Card;
 
 const serverUrl = axios.create({
    baseURL: `http://${process.env.REACT_APP_HOST}:5000/user`,
@@ -185,7 +182,7 @@ class MovieCardListEntry extends Component {
       const { likeFilled, numberOfLikes, modalVisible } = this.state;
 
       if (movie !== null) {
-         const { title, posters, videoId } = movie;
+         const { title, posters, videoId, genre, userRating } = movie;
          return (
             <div className="card-container">
                <div className="card-like-wrap" onClick={this.handleLikeFilld}>
@@ -227,6 +224,7 @@ class MovieCardListEntry extends Component {
                         className="card-image"
                         src={`https://image.tmdb.org/t/p/w500${posters}`}
                         alt={`img${alt}`}
+                        onClick={() => this.setModalVisible(true, movie)}
                      />
                      <div className="fade-box fade">
                         <div className="btn-wrap">

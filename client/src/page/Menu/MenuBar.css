@@ -4,6 +4,10 @@
    cursor: pointer;
 }
 
+.dropdown-off {
+   display: none;
+}
+
 .max-small-logo {
    width: 100px;
    border-radius: 10px;

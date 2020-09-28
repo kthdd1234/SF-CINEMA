@@ -1,12 +1,12 @@
 .recommend-contents {
-   padding-top: 4vw;
+   padding-top: 1.5vw;
    margin: auto;
-   max-width: 85vw;
+   max-width: 95vw;
 }
 
 .recommend-title {
    margin-left: 0.5vw;
-   margin-bottom: 8px;
+   margin-bottom: 0.5vw;
    font-weight: bold;
    font-size: 1.4vw;
    color: whitesmoke;
@@ -14,7 +14,7 @@
 
 .btn-showall-link {
    position: absolute;
-   right: 8vw;
+   right: 2.5vw;
    font-size: 0.9vw;
    font-weight: 500;
    color: rgb(186, 183, 183);
@@ -28,118 +28,35 @@
    padding-bottom: 3vw;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
+   .recommend-contents {
+      padding-top: 2.5vw;
+      max-width: 90vw;
+   }
    .recommend-title {
       font-size: 2.3vw;
    }
    .btn-showall-link {
-      font-size: 1.7vw;
-      right: 6.5vw;
+      font-size: 1.4vw;
+      right: 4vw;
    }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
+   .recommend-contents {
+      padding-top: 2.5vw;
+      max-width: 85vw;
+   }
    .recommend-title {
       font-size: 3vw;
    }
    .btn-showall-link {
       font-size: 2.6vw;
       position: absolute;
-      right: 5vw;
+      right: 6vw;
       padding-bottom: 4vw;
    }
-}
-
-/* 
-@media screen and (max-width: 1330px) {
    .recommend-title {
-      margin: auto;
-      max-width: 60rem;
-      padding-bottom: 0.15rem;
-   }
-
-   .recommend-items {
-      margin: auto;
-      max-width: 60rem;
-   }
-
-   .recommend-items img {
-      height: 11.5rem;
+      margin-bottom: 1.5vw;
    }
 }
-
-@media screen and (max-width: 1130px) {
-   .recommend-title {
-      margin: auto;
-      max-width: 50rem;
-   }
-
-   .recommend-items {
-      margin: auto;
-      max-width: 50rem;
-   }
-}
-
-@media screen and (max-width: 950px) {
-   .recommend-title {
-      margin: auto;
-      max-width: 42rem;
-   }
-
-   .recommend-items {
-      margin: auto;
-      max-width: 42rem;
-   }
-}
-
-@media screen and (max-width: 810px) {
-   .recommend-title {
-      margin: auto;
-      max-width: 33.5rem;
-   }
-
-   .recommend-icon {
-      font-size: 0.63rem;
-   }
-
-   .showall-icon {
-      font-size: 0.6rem;
-   }
-
-   .recommend-items {
-      margin: auto;
-      max-width: 33.5rem;
-   }
-}
-
-@media screen and (max-width: 680px) {
-   .recommend-title {
-      margin: auto;
-      max-width: 25rem;
-   }
-
-   .recommend-icon {
-      font-size: 0.6rem;
-   }
-
-   .showall-icon {
-      font-size: 0.57rem;
-   }
-
-   .recommend-items {
-      margin: auto;
-      max-width: 25rem;
-   }
-}
-
-@media screen and (max-width: 550px) {
-   .recommend-title {
-      margin: auto;
-      max-width: 17rem;
-   }
-
-   .recommend-items {
-      margin: auto;
-      max-width: 17rem;
-   }
-} */

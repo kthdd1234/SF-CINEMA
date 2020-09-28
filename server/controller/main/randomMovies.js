@@ -3,10 +3,12 @@ const Sequelize = require('sequelize');
 
 module.exports = {
   get: (req, res) => {
+    const { count } = req.query;
+
     movies
       .findAll({
         order: Sequelize.literal('rand()'),
-        limit: 6,
+        limit: Number(count),
         raw: true,
       })
       .then((movie_Data) => {

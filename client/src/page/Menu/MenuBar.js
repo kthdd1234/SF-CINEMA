@@ -109,10 +109,6 @@ const recommendedCategory = [
    { category: 'SF 명작', icon: <CrownFilled />, key: '/masterpiece' },
 ];
 
-function onChange(value) {
-   console.log(`selected ${value}`);
-}
-
 class MenuBar extends Component {
    constructor(props) {
       super(props);
@@ -121,7 +117,7 @@ class MenuBar extends Component {
          profile: {},
          selectKey: '',
          searchVisible: false,
-         searchResult: null,
+         dropdown: true,
       };
    }
 
@@ -183,25 +179,24 @@ class MenuBar extends Component {
       });
    };
 
-   handleRecommendedKeword = (keyword) => {
-      serverUrl
-         .get('/searchMovie', {
-            params: {
-               keyword: keyword,
-            },
-         })
-         .then(({ data }) => {
-            if (data === 'Not Found') {
-               return message.error('검색 결과를 찾을 수 없음');
-            }
-            console.log(data);
-            this.setState({
-               searchResult: data,
-            });
+   handleSearchKeword = (keyword) => {
+      if (keyword === '') {
+         return this.setState({
+            dropdown: true,
          });
+      }
+      this.setState({
+         dropdown: false,
+      });
+      this.props.history.push(`/search?query=${keyword}`);
    };
 
-   handleSearchKeword = (keyword) => {};
+   handleRecommendedKeyword = (keyword) => {
+      this.setState({
+         dropdown: true,
+      });
+      this.props.history.push(`/search?query=${keyword}`);
+   };
 
    showDrawer = () => {
       const accessToken = reactLocalStorage.get('SFCinemaUserToken');
@@ -385,18 +380,23 @@ class MenuBar extends Component {
                               showSearch={true}
                               defaultOpen={true}
                               autoFocus={true}
-                              onChange={this.handleRecommendedKeword}
+                              dropdownClassName={
+                                 this.state.dropdown
+                                    ? 'dropdown-on'
+                                    : 'dropdown-off'
+                              }
+                              onChange={this.handleRecommendedKeyword}
                               onSearch={this.handleSearchKeword}
                               onBlur={this.onBlur}
                               suffixIcon={<SearchOutlined />}
-                              style={{ width: 200 }}
+                              style={{ width: '12.5vw' }}
                               placeholder="제목, 감독, 인물 검색"
-                              optionFilterProp="children"
+                              filterOption={false}
                            >
                               <OptGroup label="추천 검색어">
                                  <Option value="스파이더맨">스파이더맨</Option>
                                  <Option value="엑스맨">엑스맨</Option>
-                                 <Option value="에이리언">에이리언</Option>
+                                 <Option value="터미네이터">터미네이터</Option>
                                  <Option value="크리스토퍼 놀란">
                                     크리스토퍼 놀란
                                  </Option>
