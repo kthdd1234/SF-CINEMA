@@ -1,10 +1,4 @@
-const {
-  User,
-  savedMovies,
-  likedMovies,
-  disLikedMovies,
-  movies,
-} = require('../../models/index');
+const { User, movies } = require('../../models/index');
 
 module.exports = {
   get: (req, res) => {
@@ -31,11 +25,11 @@ module.exports = {
         },
       ],
     })
-      .then((userInfo) => {
-        if (userInfo === null) {
+      .then((userData) => {
+        if (userData === null) {
           return res.status(404).send('유저의 정보가 존재하지 않습니다.');
         }
-        let profile = userInfo.get({ plain: true });
+        let profile = userData.get({ plain: true });
         res.status(200).send(profile);
       })
       .catch((err) => {

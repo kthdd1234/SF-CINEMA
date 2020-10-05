@@ -1,0 +1,105 @@
+.login-container {
+   position: relative;
+   overflow: hidden;
+}
+
+.box-background-image {
+   background-size: cover;
+   display: block;
+   width: 100%;
+   height: 100%;
+}
+
+.background-image {
+   min-width: 100%;
+   min-height: 100vh;
+   filter: brightness(70%);
+}
+
+.login-content {
+   position: absolute;
+   z-index: 1;
+   top: 70px;
+
+   left: 0;
+   right: 0;
+   margin-left: auto;
+   margin-right: auto;
+   width: 650px;
+}
+
+.login-wrap {
+   background: rgba(0, 0, 0, 0.75);
+   padding: 70px 140px 70px 140px;
+   border-radius: 10px;
+}
+
+.login-userid {
+   color: white;
+}
+
+.login-password {
+   color: white;
+}
+
+.login-text {
+   font-size: 50px;
+   color: whitesmoke;
+}
+
+.login-checkbox {
+   color: whitesmoke;
+}
+
+.btn-login {
+   width: 100%;
+}
+
+.btn-signup {
+   width: 100%;
+}
+
+.dividerLogin {
+   color: darkgray;
+   font-size: 14px;
+}
+
+.ant-checkbox-wrapper {
+   font-weight: bold;
+   color: whitesmoke;
+}
+
+.login-checkbox-text {
+   font-weight: bold;
+   color: whitesmoke;
+}
+
+/* .btn-google-login {
+   width: 100%;
+   background: red;
+   border-color: red;
+   color: rgb(255, 255, 255);
+   border-radius: 4px;
+}
+
+.btn-kakao-login {
+   width: 100%;
+   border-color: rgb(205, 195, 58);
+   color: rgb(176, 135, 135);
+   border-radius: 4px;
+   background: yellow;
+} */
+
+@media screen and (max-width: 750px) {
+   .login-content {
+      top: 0;
+      width: 100vw;
+      height: 100%;
+   }
+   .login-wrap {
+      height: 100%;
+      border-radius: 0;
+      background: black;
+      padding: 30px 80px 30px 80px;
+   }
+}
