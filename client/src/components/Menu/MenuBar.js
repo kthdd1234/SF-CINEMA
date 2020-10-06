@@ -414,20 +414,12 @@ class MenuBar extends Component {
                onClose={this.onClose}
                visible={this.state.visible}
                footer={
-                  <div
-                     style={{
-                        margin: '0 0 15pt 40pt',
-                     }}
-                  >
+                  <div className="drawer-profile">
                      <div>
                         <Button
                            type="primary"
                            htmlType="submit"
-                           style={{
-                              width: '180pt',
-                              margin: '10pt 0 0 0',
-                              borderRadius: '3px',
-                           }}
+                           className="btn-signout"
                            onClick={this.handleLogoutChange}
                         >
                            로그아웃
@@ -436,7 +428,7 @@ class MenuBar extends Component {
                   </div>
                }
             >
-               <Profile isLogin={isLogin} profile={this.state.profile} />
+               <Profile />
             </Drawer>
          </div>
       );

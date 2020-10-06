@@ -28,3 +28,13 @@
 .ant-select-item-group {
    color: blue;
 }
+
+.drawer-profile {
+   margin: 0 0 15pt 40pt;
+}
+
+.btn-signout {
+   width: 180pt;
+   margin-top: 10pt;
+   border-radius: 3px;
+}

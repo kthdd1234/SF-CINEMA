@@ -47,12 +47,7 @@ class SearchList extends Component {
                   {searchResult.length ? (
                      <div className="search-result-list">
                         {searchResult.map((movie, i) => (
-                           <SearchListEntry
-                              key={i}
-                              isLogin={isLogin}
-                              profile={profile}
-                              movie={movie}
-                           />
+                           <SearchListEntry key={i} movie={movie} />
                         ))}
                      </div>
                   ) : (

@@ -28,22 +28,20 @@ class SearchListEntry extends Component {
    }
 
    componentDidMount = () => {
-      const { movie, isLogin, profile } = this.props;
+      const { movie } = this.props;
       const movieId = movie ? movie.id : null;
-      const likeMovies = profile.likedMovie;
+      const likeMovies = this.props.profile.likedMovie;
       const numberOfLikes = movie ? movie.numberOfLikes : null;
 
       this.setState({
          numberOfLikes: numberOfLikes,
       });
-      if (isLogin) {
+      if (this.props.isLogin) {
          this.setState({
-            loginID: profile.loginID,
+            loginID: this.props.profile.loginID,
          });
          if (likeMovies === undefined) {
-            if (isLogin) {
-               return;
-            }
+            return;
          } else {
             likeMovies.forEach((movie) => {
                if (movie.id === movieId) {
@@ -102,8 +100,7 @@ class SearchListEntry extends Component {
    };
 
    handleLikeFilld = () => {
-      const { isLogin } = this.props;
-      if (isLogin) {
+      if (this.props.isLogin) {
          this.setState({
             likeFilled: !this.state.likeFilled,
          });
@@ -135,8 +132,8 @@ class SearchListEntry extends Component {
 
    handleLikeButton = () => {
       const { likeFilled, loginID, numberOfLikes } = this.state;
-      const { isLogin, movie } = this.props;
-      if (isLogin) {
+      const { movie } = this.props;
+      if (this.props.isLogin) {
          if (!likeFilled) {
             this.setState({
                numberOfLikes: numberOfLikes + 1,
