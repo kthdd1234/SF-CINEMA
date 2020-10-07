@@ -1,11 +1,11 @@
-import { SET_ISLOGIN, SET_PROFILE } from '../actions/setting';
+import { SET_ISLOGIN, SET_PROFILE } from '../actions/user';
 
 const initialState = {
    isLogin: false,
    profile: {},
 };
 
-const settingReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
    switch (action.type) {
       case SET_ISLOGIN:
          return Object.assign({}, state, {
@@ -21,4 +21,4 @@ const settingReducer = (state = initialState, action) => {
    }
 };
 
-export default settingReducer;
+export default userReducer;

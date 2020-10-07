@@ -1,5 +1,5 @@
 import Login from '../../components/Login/Login';
-import { setIsLogin, setProfile } from '../../actions/setting';
+import { setIsLogin, setProfile } from '../../actions/user';
 import { connect } from 'react-redux';
 
 const mapReduxDispatchToReactProps = (dispatch) => {

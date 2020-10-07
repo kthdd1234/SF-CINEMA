@@ -47,13 +47,11 @@ class MovieList extends Component {
          highlyRated,
          operatorMovies,
          masterpiece,
-         series,
+
          action,
          aliensMovies,
          superHeroMovies,
          setModalVisible,
-         isLogin,
-         profile,
       } = this.props;
 
       return (
@@ -66,8 +64,6 @@ class MovieList extends Component {
                      movie={movie}
                      alt={i}
                      setModalVisible={setModalVisible}
-                     isLogin={isLogin}
-                     profile={profile}
                   />
                ))}
             </div>
@@ -98,8 +94,6 @@ class MovieList extends Component {
                      movie={movie}
                      alt={i}
                      setModalVisible={setModalVisible}
-                     isLogin={isLogin}
-                     profile={profile}
                   />
                ))}
             </div>
@@ -125,8 +119,6 @@ class MovieList extends Component {
                      movie={movie}
                      alt={i}
                      setModalVisible={setModalVisible}
-                     isLogin={isLogin}
-                     profile={profile}
                   />
                ))}
             </div>
@@ -156,8 +148,6 @@ class MovieList extends Component {
                      movie={movie}
                      alt={i}
                      setModalVisible={setModalVisible}
-                     isLogin={isLogin}
-                     profile={profile}
                   />
                ))}
             </div>
@@ -186,8 +176,6 @@ class MovieList extends Component {
                      movie={movie}
                      alt={i}
                      setModalVisible={setModalVisible}
-                     isLogin={isLogin}
-                     profile={profile}
                   />
                ))}
             </div>
@@ -217,8 +205,6 @@ class MovieList extends Component {
                      movie={movie}
                      alt={i}
                      setModalVisible={setModalVisible}
-                     isLogin={isLogin}
-                     profile={profile}
                   />
                ))}
             </div>
@@ -242,8 +228,6 @@ class MovieList extends Component {
                      movie={movie}
                      alt={i}
                      setModalVisible={setModalVisible}
-                     isLogin={isLogin}
-                     profile={profile}
                   />
                ))}
             </div>

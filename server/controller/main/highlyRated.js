@@ -3,20 +3,19 @@ const Sequelize = require('sequelize');
 
 module.exports = {
   get: async (req, res) => {
-    // count 데이터 갯수
-    // moreThen 데이터 정보 구분
-    let { ratedCount, ratedmoreThen, ratedunder } = req.query;
+    let { under, moreThen, count } = req.query;
+    count = count !== undefined ? count : 100;
 
     movies
       .findAll({
         where: {
           userRating: {
-            [Sequelize.Op.lt]: Number(ratedunder),
-            [Sequelize.Op.gte]: Number(ratedmoreThen),
+            [Sequelize.Op.lt]: Number(under),
+            [Sequelize.Op.gte]: Number(moreThen),
           },
         },
         order: [['userRating', 'DESC']],
-        limit: Number(ratedCount),
+        limit: Number(count),
         raw: true,
       })
       .then((movieInfo) => {

@@ -1,15 +1,22 @@
 import MovieListEntry from '../../components/Main/MovieListEntry';
-import { setProfile } from '../../actions/setting';
+import { setProfile } from '../../actions/user';
+import { setCurrentMovie } from '../../actions/movie';
 import { connect } from 'react-redux';
 
-const mapReduxStateToReactProps = (state) => {
-   return {};
+const mapReduxStateToReactProps = ({ userReducer }) => {
+   return {
+      isLogin: userReducer.isLogin,
+      profile: userReducer.profile,
+   };
 };
 
-const mapReduxDispatchToReactProps = (dispatch) => {
+const mapReduxDispatchToReactProps = (dispatch, ownProps) => {
    return {
       handleProfileUpdate: (profile) => {
          dispatch(setProfile(profile));
+      },
+      handleCurrentMovie: () => {
+         dispatch(setCurrentMovie(ownProps.movie));
       },
    };
 };

@@ -6,26 +6,26 @@ const { mainController } = require('../controller');
 // GET/main/contents
 router.get('/contents', mainController.contents.get);
 
-// * GET/main/backgroundImg
-router.get('/backgroundImg', mainController.backgroundImg.get);
+// * GET/main/background
+router.get('/background', mainController.background.get);
 
-// * GET/main/genres
-router.get('/genres', mainController.genres.get);
+// * GET/main/genre
+router.get('/genre', mainController.genre.get);
 
-// * POST/main/searchMovie
-router.get('/searchMovie', mainController.searchMovie.get);
+// * POST/main/search
+router.get('/search', mainController.searchMovie.get);
 
-// * GET /main/randomMovies
-router.get('/randomMovies', mainController.randomMovies.get);
+// * GET /main/random
+router.get('/random', mainController.random.get);
 
-// * GET /main/highlyRated
-router.get('/highlyRated', mainController.highlyRated.get);
+// * GET /main/rating
+router.get('/rating', mainController.rating.get);
 
-// * GET /main/releaseOrder
-router.get('/releaseOrder', mainController.releaseOrder.get);
+// * GET /main/date
+router.get('/date', mainController.date.get);
 
-// * GET /main/operatorMovies
-router.get('/operatorMovies', mainController.operatorMovies.get);
+// * GET /main/operator
+router.get('/operator', mainController.operator.get);
 
 // * GET /main/masterpiece
 router.get('/masterpiece', mainController.masterpiece.get);

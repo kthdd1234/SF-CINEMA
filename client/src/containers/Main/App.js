@@ -5,6 +5,16 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import axios from 'axios';
 import { Layout } from 'antd';
 import dotenv from 'dotenv';
+import {
+   requestCurrentMovie,
+   requestSearchKeword,
+   requestHighlyRated,
+   requestGenres,
+   requestOperatorMovies,
+   requestMasterpiece,
+   requestSeries,
+   requestReleaseOrder,
+} from '../../requests';
 import SignUp from '../SignUp/Signup';
 import Login from '../Login/Login';
 import MenuBar from '../Menu/Menubar';
@@ -12,24 +22,14 @@ import MainCinema from './MainCinema';
 import MenuList from '../Menu/MenuList';
 import Contents from './Contents';
 import SearchList from '../../containers/Search/SearchList';
-import { setIsLogin, setProfile } from '../../actions/setting';
+import { setIsLogin, setProfile } from '../../actions/user';
 dotenv.config();
 
 const { Header, Content } = Layout;
 
-const serverUrl = axios.create({
-   baseURL: `http://${process.env.REACT_APP_HOST}:5000/main`,
-});
-
 class App extends Component {
    constructor(props) {
       super(props);
-      this.state = {
-         isLogin: false,
-         profile: {},
-         currentMovie: {},
-         searchResult: null,
-      };
    }
 
    componentDidMount = () => {
@@ -44,113 +44,17 @@ class App extends Component {
             .then(({ data }) => {
                this.props.handleLoginChange(true);
                this.props.handleProfileUpdate(data);
-               this.setState({
-                  profile: data,
-               });
             });
-         this.setState({
-            isLogin: true,
-         });
       }
    };
 
-   handleLoginChange = () => {
-      this.setState({ isLogin: !this.state.isLogin });
-   };
-
-   handleProfileUpdate = (data) => {
-      this.setState({ profile: data });
-   };
-
-   axiosGenres = async (path, genre, limit) => {
-      return await serverUrl
-         .get(`${path}`, {
-            params: {
-               genre: genre,
-               limit: limit,
-            },
-         })
-         .then(({ data }) => {
-            return data;
-         });
-   };
-
-   axiosRequestHighlyRated = async (path, count, under, moreThen) => {
-      return await serverUrl
-         .get(`${path}`, {
-            params: {
-               ratedCount: count,
-               ratedunder: under,
-               ratedmoreThen: moreThen,
-            },
-         })
-         .then(({ data }) => {
-            return data;
-         });
-   };
-
-   axiosRequestReleaseOrder = async (path, count, under, moreThen) => {
-      return await serverUrl
-         .get(`${path}`, {
-            params: {
-               yearCount: count,
-               yearunder: under,
-               yearmoreThen: moreThen,
-            },
-         })
-         .then(({ data }) => {
-            return data;
-         });
-   };
-
-   axiosRequestSeries = async (path, seriesName) => {
-      return await serverUrl
-         .get(`${path}`, {
-            params: {
-               seriesName: seriesName,
-            },
-         })
-         .then(({ data }) => {
-            return data;
-         });
-   };
-   axiosRequestOperatorMovies = async (path, count) => {
-      return await serverUrl
-         .get(`${path}`, {
-            params: {
-               count: count,
-            },
-         })
-         .then(({ data }) => {
-            return data;
-         });
-   };
-
-   axiosRequestMasterpiece = async (path, count) => {
-      return await serverUrl
-         .get(`${path}`, {
-            params: {
-               count: count,
-            },
-         })
-         .then(({ data }) => {
-            return data;
-         });
-   };
-
    handleParamsList = (location) => {
-      const queryList = [
-         'key',
-         'count',
-         'under',
-         'moreThen',
-         'seriesName',
-         'genre',
-      ];
+      const queryList = ['count', 'under', 'moreThen', 'title', 'genre'];
       const paramsList = queryList.reduce((acc, cur) => {
          acc[cur] = new URLSearchParams(location.search).get(cur);
          return acc;
       }, {});
+
       return paramsList;
    };
 
@@ -168,45 +72,7 @@ class App extends Component {
       return movies;
    };
 
-   handleCurrentMovie = () => {
-      const url = window.location.pathname;
-      const lastOfSlashIdx = url.lastIndexOf('/');
-      const movieId = url.substring(lastOfSlashIdx + 1);
-
-      return serverUrl
-         .get('/contents', {
-            params: {
-               movieId: movieId,
-            },
-         })
-         .then(({ data }) => {
-            return data;
-         });
-   };
-
-   handleSearchKeword = (keyword) => {
-      return serverUrl
-         .get('/searchMovie', {
-            params: {
-               keyword: keyword,
-            },
-         })
-         .then(({ data }) => {
-            if (data === 'Not Found') return;
-            return data;
-         });
-   };
-
-   handleSearchResult = (searchResult) => {
-      this.setState({
-         searchResult: searchResult,
-      });
-   };
-
    render() {
-      const { isLogin, profile, backgroundImg } = this.state;
-      // const { isLogin } = this.props;
-
       return (
          <div>
             <Header>
@@ -219,16 +85,7 @@ class App extends Component {
                      path="/signUp"
                      render={() => <SignUp selectKey="signUp" />}
                   />
-                  <Route
-                     exact
-                     path="/login"
-                     render={() => (
-                        <Login
-                           handleLoginChange={this.handleLoginChange}
-                           handleProfileUpdate={this.handleProfileUpdate}
-                        />
-                     )}
-                  />
+                  <Route exact path="/login" render={() => <Login />} />
                   <Route
                      exact
                      path="/search"
@@ -236,14 +93,12 @@ class App extends Component {
                         const keyword = new URLSearchParams(
                            location.search,
                         ).get('query');
-                        const search = this.handleSearchKeword(keyword);
+                        const searchResult = requestSearchKeword(keyword);
 
                         return (
                            <SearchList
                               keyword={keyword}
-                              isLogin={isLogin}
-                              profile={profile}
-                              searchResult={search}
+                              searchResult={searchResult}
                            />
                         );
                      }}
@@ -251,9 +106,9 @@ class App extends Component {
 
                   <Route
                      exact
-                     path={`/contents/:movie_id`}
+                     path="/contents/:movie_id"
                      render={() => {
-                        const currentMovie = this.handleCurrentMovie();
+                        const currentMovie = requestCurrentMovie();
                         const updateMovie = this.handleMovieDataUpdate(
                            currentMovie,
                         );
@@ -264,54 +119,35 @@ class App extends Component {
                      path="/genres"
                      render={({ location }) => {
                         const paramsList = this.handleParamsList(location);
-                        const { genre, key } = paramsList;
-                        const genres = this.axiosGenres('/genres', genre);
+                        const { genre } = paramsList;
+                        const genres = requestGenres(genre);
                         const MenuItem = this.handleMovieDataUpdate(genres);
 
-                        return (
-                           <MenuList
-                              isLogin={isLogin}
-                              profile={profile}
-                              MenuItem={MenuItem}
-                              secretKey={key}
-                           />
-                        );
+                        return <MenuList MenuItem={MenuItem} key={genre} />;
                      }}
                   />
 
                   <Route
-                     path="/highlyRated"
+                     path="/rating"
                      render={({ location }) => {
                         const paramsList = this.handleParamsList(location);
-                        const { count, under, moreThen, key } = paramsList;
-                        const HighlyRated = this.axiosRequestHighlyRated(
-                           '/highlyRated',
-                           count,
-                           under,
-                           moreThen,
-                        );
+                        const { under, moreThen } = paramsList;
+                        const HighlyRated = requestHighlyRated(under, moreThen);
                         const MenuItem = this.handleMovieDataUpdate(
                            HighlyRated,
                         );
 
                         return (
-                           <MenuList
-                              isLogin={isLogin}
-                              profile={profile}
-                              MenuItem={MenuItem}
-                              secretKey={key}
-                           />
+                           <MenuList MenuItem={MenuItem} key="highlyRated" />
                         );
                      }}
                   />
                   <Route
-                     path="/ReleaseOrder"
+                     path="/date"
                      render={({ location }) => {
                         const paramsList = this.handleParamsList(location);
-                        const { count, under, moreThen, key } = paramsList;
-                        const ReleaseOrder = this.axiosRequestReleaseOrder(
-                           '/ReleaseOrder',
-                           count,
+                        const { under, moreThen } = paramsList;
+                        const ReleaseOrder = requestReleaseOrder(
                            under,
                            moreThen,
                         );
@@ -320,12 +156,7 @@ class App extends Component {
                         );
 
                         return (
-                           <MenuList
-                              isLogin={isLogin}
-                              profile={profile}
-                              MenuItem={MenuItem}
-                              secretKey={key}
-                           />
+                           <MenuList MenuItem={MenuItem} key="ReleaseOrder" />
                         );
                      }}
                   />
@@ -333,89 +164,36 @@ class App extends Component {
                      path="/series"
                      render={({ location }) => {
                         const paramsList = this.handleParamsList(location);
-                        const { seriesName, key } = paramsList;
-                        const series = this.axiosRequestSeries(
-                           '/series',
-                           seriesName,
-                        );
-                        const MenuItem = this.handleMovieDataUpdate(series);
+                        const { title } = paramsList;
+                        const movieList = requestSeries(title);
+                        const MenuItem = this.handleMovieDataUpdate(movieList);
 
-                        return (
-                           <MenuList
-                              isLogin={isLogin}
-                              profile={profile}
-                              MenuItem={MenuItem}
-                              secretKey={key}
-                           />
-                        );
+                        return <MenuList MenuItem={MenuItem} key={title} />;
                      }}
                   />
                   <Route
-                     path="/operatorMovies"
+                     path="/operator"
                      render={({ location }) => {
-                        const paramsList = this.handleParamsList(location);
-                        const { count, key } = paramsList;
-                        const series = this.axiosRequestOperatorMovies(
-                           '/operatorMovies',
-                           count,
-                        );
-                        const MenuItem = this.handleMovieDataUpdate(series);
+                        const movieList = requestOperatorMovies();
+                        const MenuItem = this.handleMovieDataUpdate(movieList);
 
                         return (
-                           <MenuList
-                              isLogin={isLogin}
-                              profile={profile}
-                              MenuItem={MenuItem}
-                              secretKey={key}
-                           />
+                           <MenuList MenuItem={MenuItem} key="operatorMovies" />
                         );
                      }}
                   />
                   <Route
                      path="/masterpiece"
                      render={({ location }) => {
-                        const paramsList = this.handleParamsList(location);
-                        const { count, key } = paramsList;
-                        const series = this.axiosRequestMasterpiece(
-                           '/masterpiece',
-                           count,
-                        );
-                        const MenuItem = this.handleMovieDataUpdate(series);
+                        const movieList = requestMasterpiece();
+                        const MenuItem = this.handleMovieDataUpdate(movieList);
 
                         return (
-                           <MenuList
-                              isLogin={isLogin}
-                              profile={profile}
-                              MenuItem={MenuItem}
-                              secretKey={key}
-                           />
+                           <MenuList MenuItem={MenuItem} key="masterpiece" />
                         );
                      }}
                   />
-                  <Route
-                     exact
-                     path="/"
-                     render={() => (
-                        <MainCinema
-                           axiosRequestHighlyRated={
-                              this.axiosRequestHighlyRated
-                           }
-                           axiosRequestReleaseOrder={
-                              this.axiosRequestReleaseOrder
-                           }
-                           axiosRequestSeries={this.axiosRequestSeries}
-                           axiosRequestOperatorMovies={
-                              this.axiosRequestOperatorMovies
-                           }
-                           axiosRequestMasterpiece={
-                              this.axiosRequestMasterpiece
-                           }
-                           axiosGenres={this.axiosGenres}
-                           handleCurrentMovie={this.handleCurrentMovie}
-                           backgroundImg={backgroundImg}
-                        />
-                     )}
-                  />
+                  <Route exact path="/" render={() => <MainCinema />} />
                </Switch>
             </Content>
          </div>

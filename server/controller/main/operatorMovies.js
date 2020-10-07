@@ -3,7 +3,8 @@ const Sequelize = require('sequelize');
 
 module.exports = {
   get: (req, res) => {
-    const { count } = req.query;
+    let { count } = req.query;
+    count = count !== undefined ? count : 100;
     const operator_Recommend_Movies = [
       '인터스텔라',
       '컨택트',
@@ -46,6 +47,9 @@ module.exports = {
       '시간을 달리는 소녀',
       '너의 이름은',
       '업그레이드',
+      '닥터 스트레인지',
+      '캡틴 아메리카: 윈터 솔져',
+      '테넷',
     ];
     movies
       .findAll({

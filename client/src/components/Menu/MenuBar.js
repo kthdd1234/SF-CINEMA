@@ -99,10 +99,34 @@ const genres = [
 ];
 
 const recommendedCategory = [
-   { category: '최신 영화', icon: <VideoCameraFilled />, key: '/releaseOrder' },
-   { category: '평점이 높은 영화', icon: <StarFilled />, key: '/highlyRated' },
-   { category: '운영자 추천', icon: <GiftFilled />, key: '/operatorMovies' },
-   { category: 'SF 명작', icon: <CrownFilled />, key: '/masterpiece' },
+   {
+      category: '최신 영화',
+      icon: <VideoCameraFilled />,
+      path: '/date',
+      under: 20220000,
+      moreThen: 20200000,
+   },
+   {
+      category: '평점이 높은 영화',
+      icon: <StarFilled />,
+      path: '/rating',
+      under: 10,
+      moreThen: 8.5,
+   },
+   {
+      category: '운영자 추천',
+      icon: <GiftFilled />,
+      path: '/operator',
+      under: null,
+      moreThen: null,
+   },
+   {
+      category: 'SF 명작',
+      icon: <CrownFilled />,
+      path: '/masterpiece',
+      under: null,
+      moreThen: null,
+   },
 ];
 
 class MenuBar extends Component {
@@ -116,51 +140,30 @@ class MenuBar extends Component {
          dropdown: true,
       };
    }
+   handlePageSwitching = (path, under, moreThen) => {
+      const { history } = this.props;
+
+      switch (path) {
+         case '/rating':
+            return history.push(`${path}?under=${under}&moreThen=${moreThen}`);
+
+         case '/date':
+            return history.push(`${path}?under=${under}&moreThen=${moreThen}`);
+
+         case '/operator':
+            return history.push(`${path}`);
+
+         case '/masterpiece':
+            return history.push(`${path}`);
+
+         default:
+            return;
+      }
+   };
 
    handleLogoutChange = () => {
       reactLocalStorage.remove('SFCinemaUserToken');
       location.reload(true);
-   };
-
-   NavigateToGenres = (path, key, genre) => {
-      this.props.history.push(`${path}?key=${key}&genre=${genre}`);
-   };
-
-   NavigateToHighlyRataedAndReleaseOrder = (
-      path,
-      key,
-      count,
-      under,
-      moreThen,
-   ) => {
-      this.props.history.push(
-         `${path}?key=${key}&count=${count}&under=${under}&moreThen=${moreThen}`,
-      );
-   };
-
-   NavigateToSeries = (path, key, seriesName) => {
-      this.props.history.push(`${path}?key=${key}&seriesName=${seriesName}`);
-   };
-   NavigateToOperatorAndMasterpiece = (path, key, count) => {
-      this.props.history.push(`${path}?key=${key}&count=${count}`);
-   };
-
-   handleNavigatePage = (key) => {
-      if (key === '/releaseOrder') {
-         this.NavigateToHighlyRataedAndReleaseOrder(
-            key,
-            key,
-            100,
-            20220000,
-            20200000,
-         );
-      } else if (key === '/highlyRated') {
-         this.NavigateToHighlyRataedAndReleaseOrder(key, key, 100, 10, 8.5);
-      } else if (key === '/operatorMovies') {
-         this.NavigateToOperatorAndMasterpiece(key, key, 41);
-      } else if (key === '/masterpiece') {
-         this.NavigateToOperatorAndMasterpiece(key, key, 100);
-      }
    };
 
    hadleSearchVisible = () => {
@@ -225,7 +228,7 @@ class MenuBar extends Component {
    };
 
    render() {
-      const { isLogin } = this.props;
+      const { isLogin, history } = this.props;
       let path = window.location.pathname;
       let address = url.parse(window.location.search, true).query.key;
       if (path === '/' || path === '/login' || path === '/signUp') {
@@ -243,22 +246,16 @@ class MenuBar extends Component {
                      overflowedIndicator={<BarsOutlined />}
                   >
                      <Menu.Item
-                        icon={
-                           <img
-                              className="header-logo"
-                              src={SFCINEMA}
-                              onClick={() => this.props.history.push('/')}
-                           />
-                        }
+                        icon={<img className="header-logo" src={SFCINEMA} />}
                         style={{
                            paddingRight: '30px',
                         }}
-                        onClick={() => this.props.history.push('/')}
+                        onClick={() => history.push('/')}
                      />
                      <Menu.Item
                         icon={<HomeOutlined />}
                         key="/"
-                        onClick={() => this.props.history.push('/')}
+                        onClick={() => history.push('/')}
                      >
                         홈
                      </Menu.Item>
@@ -266,14 +263,17 @@ class MenuBar extends Component {
                         icon={<VideoCameraOutlined />}
                         title="추천 영화"
                         mode="horizontal"
-                        key="/recommendedCategory"
                      >
                         {recommendedCategory.map((element, i) => (
                            <Menu.Item
-                              key={element.key}
+                              key={element.path}
                               icon={element.icon}
                               onClick={() =>
-                                 this.handleNavigatePage(element.key)
+                                 this.handlePageSwitching(
+                                    element.path,
+                                    element.under,
+                                    element.moreThen,
+                                 )
                               }
                            >
                               {element.category}
@@ -291,12 +291,8 @@ class MenuBar extends Component {
                            <Menu.Item
                               key={element.genre}
                               icon={element.icon}
-                              onClick={({ key }) =>
-                                 this.NavigateToGenres(
-                                    '/genres',
-                                    key,
-                                    element.genre,
-                                 )
+                              onClick={() =>
+                                 history.push(`/genres?genre=${element.genre}`)
                               }
                            >
                               {element.genre}
@@ -311,18 +307,14 @@ class MenuBar extends Component {
                      >
                         {seriesList.map((series) => (
                            <SubMenu key={series.key} title={series.title}>
-                              {series.list.map((name) => (
+                              {series.list.map((title) => (
                                  <Menu.Item
-                                    key={name}
-                                    onClick={({ key }) =>
-                                       this.NavigateToSeries(
-                                          '/series',
-                                          key,
-                                          name,
-                                       )
+                                    key={title}
+                                    onClick={() =>
+                                       history.push(`/series?title=${title}`)
                                     }
                                  >
-                                    {name}
+                                    {title}
                                  </Menu.Item>
                               ))}
                            </SubMenu>
@@ -332,7 +324,7 @@ class MenuBar extends Component {
                         <Menu.Item
                            icon={<FormOutlined />}
                            key="/signUp"
-                           onClick={() => this.props.history.push('/signUp')}
+                           onClick={() => history.push('/signUp')}
                            style={{ float: 'right' }}
                         >
                            회원가입
@@ -342,7 +334,7 @@ class MenuBar extends Component {
                         <Menu.Item
                            icon={<LoginOutlined />}
                            key="/login"
-                           onClick={() => this.props.history.push('/login')}
+                           onClick={() => history.push('/login')}
                            style={{ float: 'right' }}
                         >
                            로그인

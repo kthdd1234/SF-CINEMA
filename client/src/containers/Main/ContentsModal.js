@@ -1,10 +1,10 @@
 import ContentsModal from '../../components/Main/ContentsModal';
 import { connect } from 'react-redux';
 
-const mapReduxStateToReactProps = ({ settingReducer }) => {
+const mapReduxStateToReactProps = ({ userReducer }) => {
    return {
-      isLogin: settingReducer.isLogin,
-      profile: settingReducer.profile,
+      isLogin: userReducer.isLogin,
+      profile: userReducer.profile,
    };
 };
 

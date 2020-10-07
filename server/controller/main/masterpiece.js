@@ -3,7 +3,8 @@ const Sequelize = require('sequelize');
 
 module.exports = {
   get: async (req, res) => {
-    const { count } = req.query;
+    let { count } = req.query;
+    count = count !== undefined ? count : 100;
     movies
       .findAll({
         where: {

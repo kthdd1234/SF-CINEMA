@@ -28,11 +28,8 @@ class MenuList extends Component {
 
    componentDidUpdate = async (prevProps, prevState) => {
       const movies = await this.props.MenuItem;
-      // console.log('prevProps', movies);
-      // console.log('지금 secretKey', this.props.secretKey);
-      // console.log('그전에 키', prevProps.secretKey);
 
-      if (prevProps.secretKey !== this.props.secretKey) {
+      if (prevProps.key !== this.props.key) {
          this.setState({
             movePage: false,
          });

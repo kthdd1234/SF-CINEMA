@@ -3,18 +3,18 @@ const Sequelize = require('sequelize');
 
 module.exports = {
   get: async (req, res) => {
-    let { yearCount, yearunder, yearmoreThen } = req.query;
+    let { under, moreThen } = req.query;
+    console.log(under, moreThen);
 
     movies
       .findAll({
         where: {
           releaseDate: {
-            [Sequelize.Op.lt]: Number(yearunder),
-            [Sequelize.Op.gte]: Number(yearmoreThen),
+            [Sequelize.Op.lt]: Number(under),
+            [Sequelize.Op.gte]: Number(moreThen),
           },
         },
         order: [['releaseDate', 'DESC']],
-        limit: Number(yearCount),
         raw: true,
       })
       .then((movie) => {

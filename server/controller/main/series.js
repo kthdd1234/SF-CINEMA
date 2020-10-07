@@ -2,12 +2,12 @@ const { movies } = require('../../models');
 
 module.exports = {
   get: (req, res) => {
-    const { seriesName } = req.query;
+    const { title } = req.query;
 
     movies
       .findAll({
         where: {
-          seriesName: seriesName,
+          seriesName: title,
         },
         order: [['releaseDate', 'ASC']],
         raw: true,

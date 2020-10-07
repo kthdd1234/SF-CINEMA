@@ -1,9 +1,9 @@
 import Profile from '../../components/Profile/Profile';
 import { connect } from 'react-redux';
 
-const mapReduxStateToReactProps = ({ settingReducer }) => {
+const mapReduxStateToReactProps = ({ userReducer }) => {
    return {
-      profile: settingReducer.profile,
+      profile: userReducer.profile,
    };
 };
 
