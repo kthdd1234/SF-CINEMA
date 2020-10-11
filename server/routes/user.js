@@ -13,16 +13,4 @@ router.post('/login', userController.login.post);
 // * GET /user/profile
 router.get('/profile', authenticateToken, userController.profile.get);
 
-// * POST /user/savedMovie
-router.post('/savedMovie', userController.savedMovie.post);
-
-// * DELETE /user/cancelSavedMovie
-router.delete('/cancelSavedMovie', userController.cancelSavedMovie.delete);
-
-// * POST /user/likedMovie
-router.post('/likedMovie', userController.likedMovie.post);
-
-// * DELETE /user/cancelLikedMovie
-router.delete('/cancelLikedMovie', userController.cancelLikedMovie.delete);
-
 module.exports = router;

@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Spin } from 'antd';
 import MainBackground from './MainBackground';
 import MovieList from './MovieList';
 import {
-   requestBackgroundImg,
-   requestRandomMovies,
-   requestHighlyRated,
-   requestGenres,
-   requestOperatorMovies,
-   requestMasterpiece,
+   requestBackground,
+   requestRecommendation,
+   requestHighlyRatedMovies,
+   requestGenre,
+   requestOperatorRecommendation,
+   requestSFMasterpiece,
 } from '../../requests';
+import {
+   setBackground,
+   setRecommendation,
+   setHighlyRatedMovies,
+   setAliens,
+   setSuperhero,
+   setOperatorRecommendation,
+   setSFMasterpiece,
+   setAction,
+} from '../../actions/movie';
 
 const count = 8;
 
@@ -18,84 +27,65 @@ class MainCinema extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         backgroundImg: [],
-         randomMovies: [],
-         highlyRated: [],
-         aliensMovies: [],
-         superHeroMovies: [],
-         operatorMovies: [],
-         masterpiece: [],
-         action: [],
          imgList: [],
       };
    }
 
    async componentDidMount() {
-      const backgroundImg = await requestBackgroundImg();
-      const randomMovies = await requestRandomMovies(count);
-      const highlyRated = await requestHighlyRated(10, 9, count);
-      const aliensMovies = await requestGenres('외계인', count);
-      const superHeroMovies = await requestGenres('슈퍼 히어로', count);
-      const operatorMovies = await requestOperatorMovies(count);
-      const masterpiece = await requestMasterpiece(count);
-      const action = await requestGenres('액션', count);
+      const movieList = {
+         background: await requestBackground(),
+         recommendation: await requestRecommendation(count),
+         highlyRatedMovies: await requestHighlyRatedMovies(count),
+         aliens: await requestGenre('외계인', count),
+         superHero: await requestGenre('슈퍼 히어로', count),
+         operatorRecommendation: await requestOperatorRecommendation(count),
+         sfMasterpiece: await requestSFMasterpiece(count),
+         action: await requestGenre('액션', count),
+      };
 
-      this.setState({
-         backgroundImg: backgroundImg,
-         randomMovies: randomMovies,
-         highlyRated: highlyRated,
-         aliensMovies: aliensMovies,
-         superHeroMovies: superHeroMovies,
-         operatorMovies: operatorMovies,
-         masterpiece: masterpiece,
-         action: action,
-      });
+      this.props.handleMainMovieList(movieList);
    }
 
    render() {
-      const {
-         backgroundImg,
-         randomMovies,
-         highlyRated,
-         operatorMovies,
-         masterpiece,
-         action,
-         imgList,
-         aliensMovies,
-         superHeroMovies,
-      } = this.state;
-
       return (
          <div>
-            <MainBackground backgroundImg={backgroundImg} />
-            {action.length ? (
-               <MovieList
-                  randomMovies={randomMovies}
-                  highlyRated={highlyRated}
-                  aliensMovies={aliensMovies}
-                  superHeroMovies={superHeroMovies}
-                  operatorMovies={operatorMovies}
-                  masterpiece={masterpiece}
-                  action={action}
-               />
-            ) : (
-               <Spin size="large" className="spin" />
-            )}
+            <MainBackground />
+            <MovieList />
          </div>
       );
    }
 }
 
-const mapReduxStateToReactProps = () => {
-   return {};
-};
-
-const mapReduxDispatchToReactProps = () => {
-   return {};
+const mapReduxDispatchToReactProps = (dispatch) => {
+   return {
+      handleMainMovieList: ({
+         background,
+         recommendation,
+         highlyRatedMovies,
+         aliens,
+         superHero,
+         operatorRecommendation,
+         sfMasterpiece,
+         action,
+      }) => {
+         const dispatchList = {
+            background: setBackground(background),
+            recommendation: setRecommendation(recommendation),
+            highlyRatedMovies: setHighlyRatedMovies(highlyRatedMovies),
+            aliens: setAliens(aliens),
+            superHero: setSuperhero(superHero),
+            operatorRecommendation: setOperatorRecommendation(
+               operatorRecommendation,
+            ),
+            sfMasterpiece: setSFMasterpiece(sfMasterpiece),
+            action: setAction(action),
+         };
+         for (const list in dispatchList) {
+            dispatch(dispatchList[list]);
+         }
+      },
+   };
 };
 
 // eslint-disable-next-line
-export default connect(
-   mapReduxStateToReactProps,
-   mapReduxDispatchToReactProps,
-)(MainCinema);
+export default connect(null, mapReduxDispatchToReactProps)(MainCinema);

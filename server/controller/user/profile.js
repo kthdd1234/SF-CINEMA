@@ -3,7 +3,6 @@ const { User, movies } = require('../../models/index');
 module.exports = {
   get: (req, res) => {
     const { loginID, password } = req;
-    console.log(loginID, password);
 
     User.findOne({
       where: {
@@ -18,10 +17,6 @@ module.exports = {
         {
           model: movies,
           as: 'likedMovie',
-        },
-        {
-          model: movies,
-          as: 'disLikedMovie',
         },
       ],
     })

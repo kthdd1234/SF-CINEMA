@@ -1,5 +1,16 @@
 import MovieList from '../../components/Main/MovieList';
-import { setProfile } from '../../actions/user';
 import { connect } from 'react-redux';
 
-export default connect()(MovieList);
+const mapReduxStateToReactProps = ({ movieReducer }) => {
+   return {
+      recommendation: movieReducer.recommendation,
+      highlyRatedMovies: movieReducer.highlyRatedMovies,
+      aliens: movieReducer.aliens,
+      superHero: movieReducer.superHero,
+      operatorRecommendation: movieReducer.operatorRecommendation,
+      sfMasterpiece: movieReducer.sfMasterpiece,
+      action: movieReducer.action,
+   };
+};
+
+export default connect(mapReduxStateToReactProps)(MovieList);

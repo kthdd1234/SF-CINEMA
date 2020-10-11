@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { withRouter } from 'react-router-dom';
 import { Layout, Menu, Drawer, Button, Select } from 'antd';
 import {
    StarFilled,
-   VideoCameraOutlined,
+   GiftOutlined,
    VideoCameraFilled,
    GiftFilled,
    CrownFilled,
@@ -30,6 +29,7 @@ import {
 import dotenv from 'dotenv';
 import Profile from '../../containers/Profile/profile';
 import SFCINEMA from '../../SFCINEMA.png';
+import { requestProfile } from '../../requests';
 import './MenuBar.css';
 dotenv.config();
 
@@ -85,7 +85,7 @@ const seriesList = [
    },
 ];
 
-const genres = [
+const genre = [
    { genre: '우주 탐사', icon: <RocketFilled /> },
    { genre: '외계인', icon: <RedditCircleFilled /> },
    { genre: '슈퍼 히어로', icon: <DingdingOutlined /> },
@@ -98,34 +98,26 @@ const genres = [
    { genre: '재난', icon: <FireFilled /> },
 ];
 
-const recommendedCategory = [
+const recommended = [
    {
       category: '최신 영화',
       icon: <VideoCameraFilled />,
-      path: '/date',
-      under: 20220000,
-      moreThen: 20200000,
+      path: 'latest-movies',
    },
    {
       category: '평점이 높은 영화',
       icon: <StarFilled />,
-      path: '/rating',
-      under: 10,
-      moreThen: 8.5,
+      path: 'highly-rated-movies',
    },
    {
       category: '운영자 추천',
       icon: <GiftFilled />,
-      path: '/operator',
-      under: null,
-      moreThen: null,
+      path: 'operator-recommendation',
    },
    {
       category: 'SF 명작',
       icon: <CrownFilled />,
-      path: '/masterpiece',
-      under: null,
-      moreThen: null,
+      path: 'sf-masterpiece',
    },
 ];
 
@@ -135,26 +127,35 @@ class MenuBar extends Component {
       this.state = {
          visible: false,
          profile: {},
-         selectKey: '',
          searchVisible: false,
          dropdown: true,
       };
    }
-   handlePageSwitching = (path, under, moreThen) => {
+
+   componentDidMount = async () => {
+      const accessToken = reactLocalStorage.get('SFCinemaUserToken');
+      if (accessToken) {
+         const profile = await requestProfile(accessToken);
+         this.props.handleProfileUpdate(profile);
+         this.props.handleLoginChange(true);
+      }
+   };
+
+   handlePageSwitching = (path) => {
       const { history } = this.props;
 
       switch (path) {
-         case '/rating':
-            return history.push(`${path}?under=${under}&moreThen=${moreThen}`);
+         case 'highly-rated-movies':
+            return history.push(`/recommendation/${path}`);
 
-         case '/date':
-            return history.push(`${path}?under=${under}&moreThen=${moreThen}`);
+         case 'latest-movies':
+            return history.push(`/recommendation/${path}`);
 
-         case '/operator':
-            return history.push(`${path}`);
+         case 'operator-recommendation':
+            return history.push(`/recommendation/${path}`);
 
-         case '/masterpiece':
-            return history.push(`${path}`);
+         case 'sf-masterpiece':
+            return history.push(`/recommendation/${path}`);
 
          default:
             return;
@@ -197,33 +198,9 @@ class MenuBar extends Component {
       this.props.history.push(`/search?query=${keyword}`);
    };
 
-   showDrawer = () => {
-      const accessToken = reactLocalStorage.get('SFCinemaUserToken');
-
-      if (this.props.isLogin) {
-         if (accessToken) {
-            axios
-               .get(`http://${process.env.REACT_APP_HOST}:5000/user/profile`, {
-                  headers: {
-                     Authorization: 'Bearer ' + accessToken,
-                  },
-               })
-               .then(({ data }) => {
-                  this.setState({
-                     profile: data,
-                  });
-               });
-         }
-      }
-
+   handleDrawer = () => {
       this.setState({
-         visible: true,
-      });
-   };
-
-   onClose = () => {
-      this.setState({
-         visible: false,
+         visible: !this.state.visible,
       });
    };
 
@@ -260,20 +237,16 @@ class MenuBar extends Component {
                         홈
                      </Menu.Item>
                      <SubMenu
-                        icon={<VideoCameraOutlined />}
-                        title="추천 영화"
+                        icon={<GiftOutlined />}
+                        title="추천"
                         mode="horizontal"
                      >
-                        {recommendedCategory.map((element, i) => (
+                        {recommended.map((element, i) => (
                            <Menu.Item
                               key={element.path}
                               icon={element.icon}
                               onClick={() =>
-                                 this.handlePageSwitching(
-                                    element.path,
-                                    element.under,
-                                    element.moreThen,
-                                 )
+                                 this.handlePageSwitching(element.path)
                               }
                            >
                               {element.category}
@@ -285,14 +258,14 @@ class MenuBar extends Component {
                         icon={<TagOutlined />}
                         title="장르"
                         mode="horizontal"
-                        key="/genres"
+                        key="/genre"
                      >
-                        {genres.map((element) => (
+                        {genre.map((element) => (
                            <Menu.Item
                               key={element.genre}
                               icon={element.icon}
                               onClick={() =>
-                                 history.push(`/genres?genre=${element.genre}`)
+                                 history.push(`/genre?genre=${element.genre}`)
                               }
                            >
                               {element.genre}
@@ -301,7 +274,7 @@ class MenuBar extends Component {
                      </SubMenu>
                      <SubMenu
                         icon={<ThunderboltFilled />}
-                        title="시리즈물"
+                        title="시리즈"
                         mode="horizontal"
                         key="/series"
                      >
@@ -323,8 +296,8 @@ class MenuBar extends Component {
                      {!isLogin ? (
                         <Menu.Item
                            icon={<FormOutlined />}
-                           key="/signUp"
-                           onClick={() => history.push('/signUp')}
+                           key="/signup"
+                           onClick={() => history.push('/signup')}
                            style={{ float: 'right' }}
                         >
                            회원가입
@@ -344,7 +317,7 @@ class MenuBar extends Component {
                         <Menu.Item
                            icon={<UserOutlined />}
                            key="/profile"
-                           onClick={this.showDrawer}
+                           onClick={this.handleDrawer}
                            style={{
                               float: 'right',
                            }}
@@ -403,7 +376,7 @@ class MenuBar extends Component {
                title={<img src={SFCINEMA} className="max-small-logo" />}
                width={350}
                closable={true}
-               onClose={this.onClose}
+               onClose={this.handleDrawer}
                visible={this.state.visible}
                footer={
                   <div className="drawer-profile">

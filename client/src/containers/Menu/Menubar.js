@@ -1,5 +1,6 @@
 import Menubar from '../../components/Menu/MenuBar';
 import { connect } from 'react-redux';
+import { setIsLogin, setProfile } from '../../actions/user';
 
 const mapReduxStateToReactProps = ({ userReducer }) => {
    return {
@@ -8,4 +9,18 @@ const mapReduxStateToReactProps = ({ userReducer }) => {
    };
 };
 
-export default connect(mapReduxStateToReactProps)(Menubar);
+const mapReduxDispatchToReactProps = (dispatch) => {
+   return {
+      handleLoginChange: (isLogin) => {
+         dispatch(setIsLogin(isLogin));
+      },
+      handleProfileUpdate: (profile) => {
+         dispatch(setProfile(profile));
+      },
+   };
+};
+
+export default connect(
+   mapReduxStateToReactProps,
+   mapReduxDispatchToReactProps,
+)(Menubar);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Popconfirm, notification, Modal } from 'antd';
+import { Button, Popconfirm, notification, Modal, Spin } from 'antd';
 import { LikeOutlined, LikeFilled, CloseOutlined } from '@ant-design/icons';
 import ContentsModal from '../../containers/Main/ContentsModal';
 import Trailer from './Trailer';

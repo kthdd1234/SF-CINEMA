@@ -136,7 +136,7 @@ class MainBackground extends Component {
                      />
                   </div>
                </div>
-               {this.props.backgroundImg.map((movieData, i) => (
+               {this.props.background.map((movieData, i) => (
                   <div key={i}>
                      <div className="main-box-background-images">
                         <div className="background-left-shadow" />

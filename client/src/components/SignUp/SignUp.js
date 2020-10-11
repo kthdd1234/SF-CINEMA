@@ -20,14 +20,14 @@ class SignUp extends Component {
          confirmPassword: '',
          username: '',
          profileImg: '',
-         backgroundImg: '',
+         background: '',
       };
    }
 
    componentDidMount = () => {
-      serverUrl.get('main/backgroundImg').then(({ data }) => {
+      serverUrl.get('main/background').then(({ data }) => {
          this.setState({
-            backgroundImg: data[1].backgroundImg,
+            background: data[1].backgroundImg,
          });
       });
    };
@@ -76,160 +76,156 @@ class SignUp extends Component {
       return (
          <div>
             <div className="signup-container">
-               {this.state.backgroundImg === '' ? null : (
-                  <div className="box-background-image">
-                     <div className="signup-content">
-                        <div className="signup-wrap">
-                           <div className="signup-box-text">
-                              <strong className="signup-text">Sign Up</strong>
-                           </div>
+               <div className="box-background-image">
+                  <div className="signup-content">
+                     <div className="signup-wrap">
+                        <div className="signup-box-text">
+                           <strong className="signup-text">Sign Up</strong>
+                        </div>
 
-                           <Form
-                              layout="vertical"
-                              name="basic"
-                              initialValues={{
-                                 remember: true,
-                              }}
-                              onFinish={this.handleCheckSignUp}
-                              size="large"
+                        <Form
+                           layout="vertical"
+                           name="basic"
+                           initialValues={{
+                              remember: true,
+                           }}
+                           onFinish={this.handleCheckSignUp}
+                           size="large"
+                        >
+                           <Form.Item
+                              label={
+                                 <strong
+                                    style={{
+                                       color: 'white',
+                                    }}
+                                 >
+                                    아이디
+                                 </strong>
+                              }
+                              name="아이디"
+                              rules={[
+                                 {
+                                    required: true,
+                                    message: '아이디를 입력해주세요',
+                                 },
+                              ]}
                            >
-                              <Form.Item
-                                 label={
-                                    <strong
-                                       style={{
-                                          color: 'white',
-                                       }}
-                                    >
-                                       아이디
-                                    </strong>
-                                 }
-                                 name="아이디"
-                                 rules={[
-                                    {
-                                       required: true,
-                                       message: '아이디를 입력해주세요',
-                                    },
-                                 ]}
-                              >
-                                 <Input
-                                    onChange={this.handleInputValue('loginID')}
-                                 />
-                              </Form.Item>
+                              <Input
+                                 onChange={this.handleInputValue('loginID')}
+                              />
+                           </Form.Item>
 
-                              <Form.Item
-                                 label={
-                                    <strong
-                                       style={{
-                                          color: 'white',
-                                       }}
-                                    >
-                                       비밀번호
-                                    </strong>
-                                 }
-                                 name="비밀번호"
-                                 rules={[
-                                    {
-                                       required: true,
-                                       message: '비밀번호를 입력해주세요',
-                                    },
-                                 ]}
-                              >
-                                 <Input.Password
-                                    onChange={this.handleInputValue('password')}
-                                 />
-                              </Form.Item>
+                           <Form.Item
+                              label={
+                                 <strong
+                                    style={{
+                                       color: 'white',
+                                    }}
+                                 >
+                                    비밀번호
+                                 </strong>
+                              }
+                              name="비밀번호"
+                              rules={[
+                                 {
+                                    required: true,
+                                    message: '비밀번호를 입력해주세요',
+                                 },
+                              ]}
+                           >
+                              <Input.Password
+                                 onChange={this.handleInputValue('password')}
+                              />
+                           </Form.Item>
 
-                              <Form.Item
-                                 label={
-                                    <strong
-                                       style={{
-                                          color: 'white',
-                                       }}
-                                    >
-                                       비밀번호 확인
-                                    </strong>
-                                 }
-                                 name="비밀번호 확인"
-                                 rules={[
-                                    {
-                                       required: true,
-                                       message: '비밀번호를 재확인해주세요',
-                                    },
-                                 ]}
-                              >
-                                 <Input.Password
-                                    onChange={this.handleInputValue(
-                                       'confirmPassword',
-                                    )}
-                                 />
-                              </Form.Item>
-                              <Form.Item
-                                 label={
-                                    <strong
-                                       style={{
-                                          color: 'white',
-                                       }}
-                                    >
-                                       이름
-                                    </strong>
-                                 }
-                                 name="이름"
-                                 rules={[
-                                    {
-                                       required: true,
-                                       message: '이름을 입력해주세요',
-                                    },
-                                 ]}
-                              >
-                                 <Input
-                                    onChange={this.handleInputValue('username')}
-                                 />
-                              </Form.Item>
+                           <Form.Item
+                              label={
+                                 <strong
+                                    style={{
+                                       color: 'white',
+                                    }}
+                                 >
+                                    비밀번호 확인
+                                 </strong>
+                              }
+                              name="비밀번호 확인"
+                              rules={[
+                                 {
+                                    required: true,
+                                    message: '비밀번호를 재확인해주세요',
+                                 },
+                              ]}
+                           >
+                              <Input.Password
+                                 onChange={this.handleInputValue(
+                                    'confirmPassword',
+                                 )}
+                              />
+                           </Form.Item>
+                           <Form.Item
+                              label={
+                                 <strong
+                                    style={{
+                                       color: 'white',
+                                    }}
+                                 >
+                                    이름
+                                 </strong>
+                              }
+                              name="이름"
+                              rules={[
+                                 {
+                                    required: true,
+                                    message: '이름을 입력해주세요',
+                                 },
+                              ]}
+                           >
+                              <Input
+                                 onChange={this.handleInputValue('username')}
+                              />
+                           </Form.Item>
 
-                              <Form.Item
+                           <Form.Item
+                              style={{
+                                 marginBottom: '10px',
+                              }}
+                           >
+                              <Button
+                                 type="primary"
+                                 htmlType="submit"
+                                 icon={<FormOutlined />}
                                  style={{
-                                    marginBottom: '10px',
+                                    width: '100%',
+                                    marginTop: '10px',
                                  }}
                               >
-                                 <Button
-                                    type="primary"
-                                    htmlType="submit"
-                                    icon={<FormOutlined />}
-                                    style={{}}
-                                    onClick={() => this.handleClickSignUp}
-                                    style={{
-                                       width: '100%',
-                                       marginTop: '10px',
-                                    }}
-                                 >
-                                    가입하기
-                                 </Button>
-                              </Form.Item>
+                                 가입하기
+                              </Button>
+                           </Form.Item>
 
-                              <Form.Item>
-                                 <Button
-                                    type="primary"
-                                    htmlType="submit"
-                                    icon={<FormOutlined />}
-                                    onClick={() =>
-                                       this.props.history.push('/login')
-                                    }
-                                    style={{
-                                       width: '100%',
-                                    }}
-                                 >
-                                    소셜 로그인
-                                 </Button>
-                              </Form.Item>
-                           </Form>
-                        </div>
+                           <Form.Item>
+                              <Button
+                                 type="primary"
+                                 htmlType="submit"
+                                 icon={<FormOutlined />}
+                                 onClick={() =>
+                                    this.props.history.push('/login')
+                                 }
+                                 style={{
+                                    width: '100%',
+                                 }}
+                              >
+                                 소셜 로그인
+                              </Button>
+                           </Form.Item>
+                        </Form>
                      </div>
-                     <img
-                        className="background-image"
-                        src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.backgroundImg}`}
-                     />
                   </div>
-               )}
+                  <img
+                     className="background-image"
+                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.background}`}
+                  />
+               </div>
             </div>
          </div>
       );

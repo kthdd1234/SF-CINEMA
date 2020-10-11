@@ -19,6 +19,7 @@ module.exports = {
         if (movieData.length === 0) {
           return res.status(404).send('Not Found');
         }
+
         res.status(200).send(movieData);
       })
       .catch((err) => {

@@ -25,16 +25,17 @@ class Login extends Component {
       this.state = {
          loginID: '',
          password: '',
-         backgroundImg: '',
+         background: '',
       };
    }
 
    componentDidMount = () => {
-      serverUrl.get('main/backgroundImg').then(({ data }) => {
+      serverUrl.get('main/background').then(({ data }) => {
          this.setState({
-            backgroundImg: data[0].backgroundImg,
+            background: data[0].backgroundImg,
          });
       });
+      console.log(this.props.background);
    };
 
    handleCheckLogin = () => {
@@ -61,7 +62,7 @@ class Login extends Component {
                .then(({ data }) => {
                   this.props.handleLoginChange(true);
                   this.props.handleProfileUpdate(data);
-                  this.handleMoveMainCinemaPage();
+                  this.props.history.push('/');
                   message.success('로그인 성공!');
                });
          });
@@ -119,14 +120,6 @@ class Login extends Component {
       return message.error('카카오 로그인에 실패하였습니다.');
    };
 
-   handleMoveMainCinemaPage = () => {
-      this.props.history.push('/');
-   };
-
-   handleMoveSignUpPage = () => {
-      this.props.history.push('/signUp');
-   };
-
    handleInputValue = (key) => (e) => {
       this.setState({ [key]: e.target.value });
    };
@@ -135,157 +128,154 @@ class Login extends Component {
       return (
          <div>
             <div className="login-container">
-               {this.state.backgroundImg === '' ? null : (
-                  <div className="box-background-image">
-                     <div className="login-content">
-                        <div className="login-wrap">
-                           <div className="login-box-text">
-                              <strong className="login-text">Login</strong>
-                           </div>
-
-                           <Form
-                              layout="vertical"
-                              name="basic"
-                              initialValues={{
-                                 remember: true,
-                              }}
-                              onFinish={this.handleCheckLogin}
-                              size="large"
-                           >
-                              <Form.Item
-                                 label={
-                                    <strong className="login-userid">
-                                       아이디
-                                    </strong>
-                                 }
-                                 name="아이디"
-                                 rules={[
-                                    {
-                                       required: true,
-                                       message: '아이디를 입력해주세요',
-                                    },
-                                 ]}
-                              >
-                                 <Input
-                                    onChange={this.handleInputValue('loginID')}
-                                 />
-                              </Form.Item>
-
-                              <Form.Item
-                                 label={
-                                    <strong className="login-password">
-                                       비밀번호
-                                    </strong>
-                                 }
-                                 name="비밀번호"
-                                 rules={[
-                                    {
-                                       required: true,
-                                       message: '비밀번호를 입력해주세요',
-                                    },
-                                 ]}
-                              >
-                                 <Input.Password
-                                    onChange={this.handleInputValue('password')}
-                                 />
-                              </Form.Item>
-
-                              <Form.Item
-                                 name="remember"
-                                 valuePropName="checked"
-                              >
-                                 <Checkbox className="login-checkbox">
-                                    <span className="login-checkbox-text">
-                                       로그인 상태 유지하기
-                                    </span>
-                                 </Checkbox>
-                              </Form.Item>
-
-                              <Form.Item>
-                                 <Button
-                                    type="primary"
-                                    htmlType="submit"
-                                    icon={<LoginOutlined />}
-                                    className="btn-login"
-                                 >
-                                    로그인
-                                 </Button>
-                              </Form.Item>
-                              <Form.Item>
-                                 <Button
-                                    type="primary"
-                                    icon={<FormOutlined />}
-                                    className="btn-signup"
-                                    onClick={this.handleMoveSignUpPage}
-                                 >
-                                    회원가입
-                                 </Button>
-                              </Form.Item>
-                              <Divider orientation="center">
-                                 <span className="dividerLogin">
-                                    소셜 계정으로 로그인
-                                 </span>
-                              </Divider>
-                              <Form.Item>
-                                 <GoogleLogin
-                                    clientId={process.env.REACT_APP_Google}
-                                    onSuccess={this.successResponseGoogle}
-                                    onFailure={this.failureResponseGoogle}
-                                    cookiePolicy={'single_host_origin'}
-                                    render={(renderProps) => (
-                                       <Button
-                                          type="link"
-                                          className="btn-google-login"
-                                          style={{
-                                             width: '100%',
-                                             background: 'red',
-                                             borderColor: 'red',
-                                             color: 'rgb(255, 255, 255)',
-                                             borderRadius: '4px',
-                                          }}
-                                          icon={<GoogleOutlined />}
-                                          onClick={renderProps.onClick}
-                                          disabled={renderProps.disabled}
-                                       >
-                                          구글 로그인
-                                       </Button>
-                                    )}
-                                 />
-                              </Form.Item>
-                              <Form.Item>
-                                 <KakaoLogin
-                                    jsKey={process.env.REACT_APP_KAKAO_API}
-                                    onSuccess={this.successResponseKakao}
-                                    onFailure={this.failureResponseGoogle}
-                                    getProfile={true}
-                                    render={(props) => (
-                                       <Button
-                                          type="link"
-                                          style={{
-                                             width: '100%',
-                                             borderColor: 'rgb(205, 195, 58)',
-                                             color: 'rgb(176, 135, 135)',
-                                             borderRadius: '4px',
-                                             background: 'yellow',
-                                          }}
-                                          icon={<MessageFilled />}
-                                          onClick={props.onClick}
-                                          disabled={props.disabled}
-                                       >
-                                          카카오 로그인
-                                       </Button>
-                                    )}
-                                 ></KakaoLogin>
-                              </Form.Item>
-                           </Form>
+               <div className="box-background-image">
+                  <div className="login-content">
+                     <div className="login-wrap">
+                        <div className="login-box-text">
+                           <strong className="login-text">Login</strong>
                         </div>
+
+                        <Form
+                           layout="vertical"
+                           name="basic"
+                           initialValues={{
+                              remember: true,
+                           }}
+                           onFinish={this.handleCheckLogin}
+                           size="large"
+                        >
+                           <Form.Item
+                              label={
+                                 <strong className="login-userid">
+                                    아이디
+                                 </strong>
+                              }
+                              name="아이디"
+                              rules={[
+                                 {
+                                    required: true,
+                                    message: '아이디를 입력해주세요',
+                                 },
+                              ]}
+                           >
+                              <Input
+                                 onChange={this.handleInputValue('loginID')}
+                              />
+                           </Form.Item>
+
+                           <Form.Item
+                              label={
+                                 <strong className="login-password">
+                                    비밀번호
+                                 </strong>
+                              }
+                              name="비밀번호"
+                              rules={[
+                                 {
+                                    required: true,
+                                    message: '비밀번호를 입력해주세요',
+                                 },
+                              ]}
+                           >
+                              <Input.Password
+                                 onChange={this.handleInputValue('password')}
+                              />
+                           </Form.Item>
+
+                           <Form.Item name="remember" valuePropName="checked">
+                              <Checkbox className="login-checkbox">
+                                 <span className="login-checkbox-text">
+                                    로그인 상태 유지하기
+                                 </span>
+                              </Checkbox>
+                           </Form.Item>
+
+                           <Form.Item>
+                              <Button
+                                 type="primary"
+                                 htmlType="submit"
+                                 icon={<LoginOutlined />}
+                                 className="btn-login"
+                              >
+                                 로그인
+                              </Button>
+                           </Form.Item>
+                           <Form.Item>
+                              <Button
+                                 type="primary"
+                                 icon={<FormOutlined />}
+                                 className="btn-signup"
+                                 onClick={() =>
+                                    this.props.history.push('/signUp')
+                                 }
+                              >
+                                 회원가입
+                              </Button>
+                           </Form.Item>
+                           <Divider orientation="center">
+                              <span className="dividerLogin">
+                                 소셜 계정으로 로그인
+                              </span>
+                           </Divider>
+                           <Form.Item>
+                              <GoogleLogin
+                                 clientId={process.env.REACT_APP_Google}
+                                 onSuccess={this.successResponseGoogle}
+                                 onFailure={this.failureResponseGoogle}
+                                 cookiePolicy={'single_host_origin'}
+                                 render={(renderProps) => (
+                                    <Button
+                                       type="link"
+                                       className="btn-google-login"
+                                       style={{
+                                          width: '100%',
+                                          background: 'red',
+                                          borderColor: 'red',
+                                          color: 'rgb(255, 255, 255)',
+                                          borderRadius: '4px',
+                                       }}
+                                       icon={<GoogleOutlined />}
+                                       onClick={renderProps.onClick}
+                                       disabled={renderProps.disabled}
+                                    >
+                                       구글 로그인
+                                    </Button>
+                                 )}
+                              />
+                           </Form.Item>
+                           <Form.Item>
+                              <KakaoLogin
+                                 jsKey={process.env.REACT_APP_KAKAO_API}
+                                 onSuccess={this.successResponseKakao}
+                                 onFailure={this.failureResponseGoogle}
+                                 getProfile={true}
+                                 render={(props) => (
+                                    <Button
+                                       type="link"
+                                       style={{
+                                          width: '100%',
+                                          borderColor: 'rgb(205, 195, 58)',
+                                          color: 'rgb(176, 135, 135)',
+                                          borderRadius: '4px',
+                                          background: 'yellow',
+                                       }}
+                                       icon={<MessageFilled />}
+                                       onClick={props.onClick}
+                                       disabled={props.disabled}
+                                    >
+                                       카카오 로그인
+                                    </Button>
+                                 )}
+                              ></KakaoLogin>
+                           </Form.Item>
+                        </Form>
                      </div>
-                     <img
-                        className="background-image"
-                        src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.backgroundImg}`}
-                     />
                   </div>
-               )}
+                  <img
+                     className="background-image"
+                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.background}`}
+                  />
+               </div>
             </div>
          </div>
       );
