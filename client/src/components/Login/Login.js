@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Form, Input, Button, Checkbox, message, Divider } from 'antd';
 import {
    LoginOutlined,
@@ -6,12 +7,16 @@ import {
    GoogleOutlined,
    MessageFilled,
 } from '@ant-design/icons';
-import { withRouter } from 'react-router-dom';
-import { reactLocalStorage } from 'reactjs-localstorage';
+import {
+   requestLogin,
+   requestProfile,
+   requestBackground,
+} from '../../requests';
 import axios from 'axios';
 import GoogleLogin from 'react-google-login';
 import KakaoLogin from 'react-kakao-login';
 import dotenv from 'dotenv';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import './Login.css';
 dotenv.config();
 
@@ -29,13 +34,9 @@ class Login extends Component {
       };
    }
 
-   componentDidMount = () => {
-      serverUrl.get('main/background').then(({ data }) => {
-         this.setState({
-            background: data[0].backgroundImg,
-         });
-      });
-      console.log(this.props.background);
+   componentDidMount = async () => {
+      const background = await requestBackground();
+      this.props.handleBackgroundUpdate(background);
    };
 
    handleCheckLogin = () => {
@@ -125,6 +126,8 @@ class Login extends Component {
    };
 
    render() {
+      const { background } = this.props;
+
       return (
          <div>
             <div className="login-container">
@@ -273,7 +276,7 @@ class Login extends Component {
                   </div>
                   <img
                      className="background-image"
-                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.background}`}
+                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${background[0].backgroundImg}`}
                   />
                </div>
             </div>

@@ -43,7 +43,7 @@ module.exports = {
                 if (result[0] === 1) {
                   User.findOne({
                     where: {
-                      loginID: loginID,
+                      id: userId,
                     },
                     include: [
                       {
@@ -117,7 +117,7 @@ module.exports = {
                 if (result[0] === 1) {
                   User.findOne({
                     where: {
-                      userId: userId,
+                      id: userId,
                     },
                     include: [
                       {

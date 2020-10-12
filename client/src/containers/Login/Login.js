@@ -1,5 +1,6 @@
 import Login from '../../components/Login/Login';
 import { setIsLogin, setProfile } from '../../actions/user';
+import { setBackground } from '../../actions/movie';
 import { connect } from 'react-redux';
 
 const mapReduxStateToReactProps = ({ movieReducer }) => {
@@ -15,6 +16,9 @@ const mapReduxDispatchToReactProps = (dispatch) => {
       },
       handleProfileUpdate: (profile) => {
          dispatch(setProfile(profile));
+      },
+      handleBackgroundUpdate: (background) => {
+         dispatch(setBackground(background));
       },
    };
 };

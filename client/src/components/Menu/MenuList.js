@@ -10,7 +10,6 @@ import {
    requestGenre,
    requestSeries,
 } from '../../requests';
-import { handleMovieDataListUpdate } from '../../utils';
 import './MenuList.css';
 
 const { Option } = Select;
@@ -92,12 +91,12 @@ class MenuList extends Component {
    };
 
    handleMenuListUpdate = async (movies) => {
-      const updateMovies = await handleMovieDataListUpdate(movies);
-      const firstPage = updateMovies.slice(0, 10);
+      const movieData = await movies;
+      const firstPage = movieData.slice(0, 10);
 
       this.setState({
          firstPage: firstPage,
-         movies: updateMovies,
+         movies: movieData,
          movePage: true,
       });
    };

@@ -1,37 +1,14 @@
 import React from 'react';
+import $ from 'jquery';
 import { notification } from 'antd';
 import { LikeFilled, PushpinFilled } from '@ant-design/icons';
-
-/* 영화 데이터 중에 배우, 년도 뷰에 맞게 변환 (list) */
-export const handleMovieDataListUpdate = async (movies) => {
-   const movieData = await movies;
-   for (let i = 0; i < movieData.length; i++) {
-      let actors = JSON.parse(movieData[i].actors);
-      let convertStrDate = String(movieData[i].releaseDate);
-
-      movieData[i].actors = actors.slice(0, 4).join(', ');
-      movieData[i].releaseYear = convertStrDate.slice(0, 4);
-   }
-
-   return movieData;
-};
-
-/* 영화 데이터 중에 배우, 년도 뷰에 맞게 변환 (contents) */
-export const handleContentesDataUpdate = async (contents) => {
-   let contentsData = await contents;
-
-   contentsData.actors = JSON.parse(contentsData.actors).slice(0, 4).join(', ');
-   contentsData.releaseYear = String(contentsData.releaseDate).slice(0, 4);
-
-   return contentsData;
-};
 
 /* 사용자의 좋아요, 저장하기 데이터 분석 */
 export const handleUserFavoritedData = async (
    { savedMovie, likedMovie },
    contensts,
 ) => {
-   const favorite = ['pushpin', 'like'];
+   const favorite = ['savedFilled', 'likedFilled'];
    const favaritedData = [savedMovie, likedMovie];
    let result = {};
    for (let i = 0; i < likedMovie.length; i++) {
@@ -47,7 +24,7 @@ export const handleUserFavoritedData = async (
          }
       });
    });
-
+   console.log(favaritedData);
    result = Object.keys(result).length !== 0 ? result : undefined;
    console.log(result);
    return result;
@@ -112,4 +89,14 @@ export const handleLikeCancelNotification = (placement) => {
       description: '좋아요 목록에 해당 영화 정보를 삭제하였습니다.',
       placement,
    });
+};
+
+/* 영화 예고편 실행 및 중지 */
+export const handleTrailerVisible = (trailer, videoId) => {
+   if (trailer === false) {
+      $(`.${videoId}`)[0].contentWindow.postMessage(
+         '{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
+         '*',
+      );
+   }
 };

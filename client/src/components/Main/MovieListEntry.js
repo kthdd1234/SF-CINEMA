@@ -183,8 +183,8 @@ class MovieListEntry extends Component {
    render() {
       const { movie, alt } = this.props;
       const { likeFilled, numberOfLikes, modalVisible } = this.state;
-
       const { title, posters, videoId } = movie;
+
       return (
          <div className="card-container">
             <div className="card-like-wrap" onClick={this.handleLikeFilld}>

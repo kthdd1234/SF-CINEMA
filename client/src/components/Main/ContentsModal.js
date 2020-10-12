@@ -240,9 +240,7 @@ class ContentsModal extends Component {
 
    render() {
       let {
-         id,
          title,
-         titleEng,
          director,
          plot,
          posters,
@@ -254,9 +252,6 @@ class ContentsModal extends Component {
          userRating,
          videoId,
       } = this.props.currentMovie;
-
-      let releaseYear = String(releaseDate).slice(0, 4);
-      actors = JSON.parse(actors).slice(0, 4).join(', ');
 
       const { pushpin, like, numberOfLikes } = this.state;
 
@@ -279,7 +274,7 @@ class ContentsModal extends Component {
                      <strong className="modal-header-title">
                         {title}
                         <strong className="modal-header-titleEng_year">
-                           {`(${releaseYear})`}
+                           {`(${String(releaseDate).slice(0, 4)})`}
                         </strong>
                      </strong>
                   </div>

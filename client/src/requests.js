@@ -159,9 +159,9 @@ export const requestSearch = async (keyword) => {
    return data;
 };
 
-/* 저장하기(checked) */
-export const requestSaveChecked = async (userId, movieId) => {
-   const { data } = await serverUrl.post(`/save/checked`, {
+/* 저장하기(completed) */
+export const requestSaveCompleted = async (userId, movieId) => {
+   const { data } = await serverUrl.post(`/save/completed`, {
       userId: userId,
       movieId: movieId,
    });
@@ -174,8 +174,10 @@ export const requestSaveChecked = async (userId, movieId) => {
 /* 저장하기(cancel) */
 export const requestSaveCancel = async (userId, movieId) => {
    const { data } = await serverUrl.delete(`/save/cancel`, {
-      userId: userId,
-      movieId: movieId,
+      data: {
+         userId: userId,
+         movieId: movieId,
+      },
    });
    if (data === 'Not Found User') return;
    else if (data === 'Not Found Movie') return;
@@ -183,9 +185,10 @@ export const requestSaveCancel = async (userId, movieId) => {
    return data;
 };
 
-/* 재밌어요(checked) */
-export const requestLikeChecked = async (userId, movieId) => {
-   const { data } = await serverUrl.post(`/like/checked`, {
+/* 재밌어요(completed) */
+export const requestLikeCompleted = async (userId, movieId) => {
+   console.log('userId, movieId', userId, movieId);
+   const { data } = await serverUrl.post(`/like/completed`, {
       userId: userId,
       movieId: movieId,
    });
@@ -197,9 +200,12 @@ export const requestLikeChecked = async (userId, movieId) => {
 
 /* 재밌어요(cancel) */
 export const requestLikeCancel = async (userId, movieId) => {
+   console.log('userId, movieId', userId, movieId);
    const { data } = await serverUrl.delete(`/like/cancel`, {
-      userId: userId,
-      movieId: movieId,
+      data: {
+         userId: userId,
+         movieId: movieId,
+      },
    });
    if (data === 'Not Found User') return;
    else if (data === 'Not Found Movie') return;

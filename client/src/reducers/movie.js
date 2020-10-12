@@ -10,7 +10,16 @@ import {
 } from '../actions/movie';
 
 const initialState = {
-   background: [],
+   background: [
+      {
+         backgroundImg: '',
+         movie: {},
+      },
+      {
+         backgroundImg: '',
+         movie: {},
+      },
+   ],
    recommendation: [],
    highlyRatedMovies: [],
    aliens: [],

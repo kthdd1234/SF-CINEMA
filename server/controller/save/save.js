@@ -7,7 +7,7 @@ module.exports = {
 
     User.findOne({
       where: {
-        userId: userId,
+        id: userId,
       },
     })
       .then((userData_1) => {
@@ -21,16 +21,16 @@ module.exports = {
               id: movieId,
             },
           })
-          .then((movieData) => {
+          .then(async (movieData) => {
             if (movieData === null) {
               return res.status(404).send('Not found Movie');
             }
 
-            userData.addSavedMovie(movieData);
+            await userData_1.addSavedMovie(movieData);
 
             User.findOne({
               where: {
-                userId: userId,
+                id: userId,
               },
               include: [
                 {
@@ -69,7 +69,7 @@ module.exports = {
 
     User.findOne({
       where: {
-        userId: userId,
+        id: userId,
       },
     })
       .then((userData_1) => {
@@ -99,7 +99,7 @@ module.exports = {
                 }
                 User.findOne({
                   where: {
-                    userId: userId,
+                    id: userId,
                   },
                   include: [
                     {

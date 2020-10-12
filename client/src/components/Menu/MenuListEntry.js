@@ -240,11 +240,8 @@ class MenuListEntry extends React.Component {
          genre,
          director,
          plot,
-         nation,
          actors,
-         posters,
          releaseDate,
-         releaseYear,
          runtime,
          ratingGrade,
          userRating,
@@ -315,7 +312,10 @@ class MenuListEntry extends React.Component {
                         <strong className="movie-title">{title}</strong>
                         <div>
                            <strong className="movie-titleEng_year">
-                              {`${titleEng} (${releaseYear})`}
+                              {`${titleEng} (${String(releaseDate).slice(
+                                 0,
+                                 4,
+                              )})`}
                            </strong>
                         </div>
                      </div>
