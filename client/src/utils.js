@@ -3,6 +3,14 @@ import $ from 'jquery';
 import { notification } from 'antd';
 import { LikeFilled, PushpinFilled } from '@ant-design/icons';
 
+/* URL 파라미터(query string) 가져오기 */
+export const handleURLSearchParams = (paramsKey) => {
+   const paramsValue = new URLSearchParams(window.location.search).get(
+      paramsKey,
+   );
+   return paramsValue;
+};
+
 /* 사용자의 좋아요, 저장하기 데이터 분석 */
 export const handleUserFavoritedData = async (
    { savedMovie, likedMovie },

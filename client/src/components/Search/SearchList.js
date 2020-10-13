@@ -1,36 +1,46 @@
 import React, { Component } from 'react';
 import { Spin } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
+import { requestSearch } from '../../requests';
+import { handleURLSearchParams } from '../../utils';
 import SearchListEntry from '../../containers/Search/SearchListEntry';
 import './SearchList.css';
 
 class SearchList extends Component {
    constructor(props) {
       super(props);
-      this.state = {
-         searchResult: [],
-      };
    }
 
    componentDidMount = async () => {
-      const searchResult = await this.props.searchResult;
-      this.setState({
-         searchResult: searchResult,
-      });
+      const {
+         handleSettingSearchKeyword,
+         handleSettingSearchResult,
+      } = this.props;
+
+      const keyword = handleURLSearchParams('query');
+      const searchResult = await requestSearch(keyword);
+
+      handleSettingSearchKeyword(keyword);
+      handleSettingSearchResult(searchResult);
    };
 
    componentDidUpdate = async (prevProps) => {
-      if (this.props.keyword !== prevProps.keyword) {
-         const searchResult = await this.props.searchResult;
-         this.setState({
-            searchResult: searchResult,
-         });
+      const {
+         handleSettingSearchKeyword,
+         handleSettingSearchResult,
+      } = this.props;
+
+      if (this.props.location !== prevProps.location) {
+         const keyword = handleURLSearchParams('query');
+         const searchResult = await requestSearch(keyword);
+
+         handleSettingSearchKeyword(keyword);
+         handleSettingSearchResult(searchResult);
       }
    };
 
    render() {
-      const { profile, isLogin, keyword } = this.props;
-      let { searchResult } = this.state;
+      let { keyword, searchResult } = this.props;
       searchResult ? searchResult : (searchResult = []);
 
       return (

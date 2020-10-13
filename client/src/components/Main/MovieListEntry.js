@@ -256,24 +256,6 @@ class MovieListEntry extends Component {
             </div>
 
             <Modal
-               className="fake-modal"
-               centered
-               width={1150}
-               visible={modalVisible}
-               onOk={() => this.setModalVisible(false)}
-               onCancel={() => this.setModalVisible(false)}
-               footer={null}
-               maskClosable={false}
-            >
-               <ContentsModal
-                  currentMovie={movie}
-                  likeFilled={likeFilled}
-                  numberOfLikes={numberOfLikes}
-                  handleNumberOfLikesIncrease={this.handleNumberOfLikesIncrease}
-                  handleNumberOfLikesDecrease={this.handleNumberOfLikesDecrease}
-               />
-            </Modal>
-            <Modal
                centered
                width={1150}
                visible={modalVisible}

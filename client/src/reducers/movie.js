@@ -15,10 +15,6 @@ const initialState = {
          backgroundImg: '',
          movie: {},
       },
-      {
-         backgroundImg: '',
-         movie: {},
-      },
    ],
    recommendation: [],
    highlyRatedMovies: [],

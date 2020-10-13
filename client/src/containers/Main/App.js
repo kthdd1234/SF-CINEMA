@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
-import dotenv from 'dotenv';
-import { requestSearch } from '../../requests';
 import SignUp from '../SignUp/Signup';
 import Login from '../Login/Login';
 import MenuBar from '../Menu/Menubar';
@@ -11,8 +9,6 @@ import MainCinema from './MainCinema';
 import MenuList from '../Menu/MenuList';
 import Contents from './Contents';
 import SearchList from '../../containers/Search/SearchList';
-import { setIsLogin, setProfile } from '../../actions/user';
-dotenv.config();
 
 const { Header, Content } = Layout;
 
@@ -34,19 +30,9 @@ class App extends Component {
                   <Route
                      exact
                      path="/search"
-                     render={({ location }) => {
-                        const keyword = new URLSearchParams(
-                           location.search,
-                        ).get('query');
-                        const searchResult = requestSearch(keyword);
-
-                        return (
-                           <SearchList
-                              keyword={keyword}
-                              searchResult={searchResult}
-                           />
-                        );
-                     }}
+                     render={({ location }) => (
+                        <SearchList location={location.search} />
+                     )}
                   />
                   <Route
                      exact
@@ -89,7 +75,7 @@ const mapReduxStateToReactProps = () => {
    return {};
 };
 
-const mapReduxDispatchToReactProps = (dispatch) => {
+const mapReduxDispatchToReactProps = () => {
    return {};
 };
 

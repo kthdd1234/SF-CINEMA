@@ -1,11 +1,18 @@
 import Login from '../../components/Login/Login';
-import { setIsLogin, setProfile } from '../../actions/user';
+import {
+   setIsLogin,
+   setProfile,
+   setLoginID,
+   setPassword,
+} from '../../actions/user';
 import { setBackground } from '../../actions/movie';
 import { connect } from 'react-redux';
 
-const mapReduxStateToReactProps = ({ movieReducer }) => {
+const mapReduxStateToReactProps = ({ movieReducer, userReducer }) => {
    return {
       background: movieReducer.background,
+      loginID: userReducer.loginID,
+      password: userReducer.password,
    };
 };
 
@@ -19,6 +26,12 @@ const mapReduxDispatchToReactProps = (dispatch) => {
       },
       handleBackgroundUpdate: (background) => {
          dispatch(setBackground(background));
+      },
+      handleInputLoginID: (e) => {
+         dispatch(setLoginID(e.target.value));
+      },
+      handleInputPassword: (e) => {
+         dispatch(setPassword(e.target.value));
       },
    };
 };

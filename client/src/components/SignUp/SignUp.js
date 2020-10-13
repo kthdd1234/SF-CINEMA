@@ -1,78 +1,56 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { Form, Input, Button, message } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
-import { withRouter } from 'react-router-dom';
-import axios from 'axios';
+import { requestSignUp, requestBackground } from '../../requests';
 import './SignUp.css';
-import dotenv from 'dotenv';
-dotenv.config();
-
-const serverUrl = axios.create({
-   baseURL: `http://${process.env.REACT_APP_HOST}:5000/`,
-});
 
 class SignUp extends Component {
    constructor(props) {
       super(props);
-      this.state = {
-         loginID: '',
-         password: '',
-         confirmPassword: '',
-         username: '',
-         profileImg: '',
-         background: '',
-      };
    }
 
-   componentDidMount = () => {
-      serverUrl.get('main/background').then(({ data }) => {
-         this.setState({
-            background: data[1].backgroundImg,
-         });
-      });
+   componentDidMount = async () => {
+      const background = await requestBackground();
+      this.props.handleBackgroundUpdate(background);
    };
 
-   onFinishedSignUp = () => {
-      this.props.history.push('/login');
-   };
-
-   handleCheckSignUp = () => {
+   handleSettingSignUp = async () => {
       const {
          loginID,
          password,
          confirmPassword,
          username,
-         profileImg,
-      } = this.state;
+         history,
+      } = this.props;
 
       if (password !== confirmPassword) {
          return message.error('입력하신 비밀번호가 일치하지 않습니다.');
       } else {
-         const url = `http://${process.env.REACT_APP_HOST}:5000/user/signup`;
-         axios
-            .post(url, {
-               loginID: loginID,
-               password: password,
-               username: username,
-               profileImg: profileImg,
-               provider: 'SFCinema',
-            })
-            .then(({ data }) => {
-               if (data === '이미 회원가입한 계정입니다.') {
-                  return message.warning(data);
-               }
-               message.success(data);
-               setTimeout(this.onFinishedSignUp, 1000);
-            })
-            .catch((err) => console.log(err));
+         const result = await requestSignUp(
+            loginID,
+            password,
+            username,
+            '',
+            'SFCinema',
+         );
+         if (result !== undefined) {
+            message.success(result);
+            history.push('/login');
+         }
       }
    };
 
-   handleInputValue = (key) => (e) => {
-      this.setState({ [key]: e.target.value });
-   };
-
    render() {
+      const {
+         background,
+         history,
+         handleInputLoginID,
+         handleInputPassword,
+         handleInputConfirmPassword,
+         handleInputUsername,
+      } = this.props;
+
       return (
          <div>
             <div className="signup-container">
@@ -89,7 +67,7 @@ class SignUp extends Component {
                            initialValues={{
                               remember: true,
                            }}
-                           onFinish={this.handleCheckSignUp}
+                           onFinish={this.handleSettingSignUp}
                            size="large"
                         >
                            <Form.Item
@@ -110,9 +88,7 @@ class SignUp extends Component {
                                  },
                               ]}
                            >
-                              <Input
-                                 onChange={this.handleInputValue('loginID')}
-                              />
+                              <Input onChange={handleInputLoginID} />
                            </Form.Item>
 
                            <Form.Item
@@ -133,9 +109,7 @@ class SignUp extends Component {
                                  },
                               ]}
                            >
-                              <Input.Password
-                                 onChange={this.handleInputValue('password')}
-                              />
+                              <Input.Password onChange={handleInputPassword} />
                            </Form.Item>
 
                            <Form.Item
@@ -157,9 +131,7 @@ class SignUp extends Component {
                               ]}
                            >
                               <Input.Password
-                                 onChange={this.handleInputValue(
-                                    'confirmPassword',
-                                 )}
+                                 onChange={handleInputConfirmPassword}
                               />
                            </Form.Item>
                            <Form.Item
@@ -180,9 +152,7 @@ class SignUp extends Component {
                                  },
                               ]}
                            >
-                              <Input
-                                 onChange={this.handleInputValue('username')}
-                              />
+                              <Input onChange={handleInputUsername} />
                            </Form.Item>
 
                            <Form.Item
@@ -208,9 +178,7 @@ class SignUp extends Component {
                                  type="primary"
                                  htmlType="submit"
                                  icon={<FormOutlined />}
-                                 onClick={() =>
-                                    this.props.history.push('/login')
-                                 }
+                                 onClick={() => history.push('/login')}
                                  style={{
                                     width: '100%',
                                  }}
@@ -223,7 +191,7 @@ class SignUp extends Component {
                   </div>
                   <img
                      className="background-image"
-                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${this.state.background}`}
+                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${background[0].backgroundImg}`}
                   />
                </div>
             </div>

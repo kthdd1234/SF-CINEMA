@@ -8,11 +8,11 @@ import {
    MessageFilled,
 } from '@ant-design/icons';
 import {
+   requestSignUp,
    requestLogin,
    requestProfile,
    requestBackground,
 } from '../../requests';
-import axios from 'axios';
 import GoogleLogin from 'react-google-login';
 import KakaoLogin from 'react-kakao-login';
 import dotenv from 'dotenv';
@@ -20,18 +20,9 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import './Login.css';
 dotenv.config();
 
-const serverUrl = axios.create({
-   baseURL: `http://${process.env.REACT_APP_HOST}:5000/`,
-});
-
 class Login extends Component {
    constructor(props) {
       super(props);
-      this.state = {
-         loginID: '',
-         password: '',
-         background: '',
-      };
    }
 
    componentDidMount = async () => {
@@ -39,94 +30,57 @@ class Login extends Component {
       this.props.handleBackgroundUpdate(background);
    };
 
-   handleCheckLogin = () => {
-      const { loginID, password } = this.state;
+   handleSettingLogin = async (loginID, password) => {
+      const { handleLoginChange, handleProfileUpdate, history } = this.props;
+      const result = await requestLogin(loginID, password);
 
-      serverUrl
-         .post('user/login', {
-            loginID: loginID,
-            password: password,
-         })
-         .then(({ data }) => {
-            if (data === '가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.') {
-               return message.error(data);
-            }
-            const { accessToken } = data;
-            reactLocalStorage.set('SFCinemaUserToken', accessToken);
+      if (result !== undefined) {
+         const { accessToken } = result;
+         reactLocalStorage.set('SFCinemaUserToken', accessToken);
+         const profile = await requestProfile(accessToken);
 
-            serverUrl
-               .get('user/profile', {
-                  headers: {
-                     Authorization: 'Bearer ' + accessToken,
-                  },
-               })
-               .then(({ data }) => {
-                  this.props.handleLoginChange(true);
-                  this.props.handleProfileUpdate(data);
-                  this.props.history.push('/');
-                  message.success('로그인 성공!');
-               });
-         });
+         handleLoginChange(true);
+         handleProfileUpdate(profile);
+
+         message.success('로그인 완료!');
+         history.push('/');
+      }
    };
+
    successResponseGoogle = (response) => {
       const { email, name, imageUrl } = response.profileObj;
 
-      this.setState({
-         loginID: email,
-         password: '',
-      });
-      serverUrl
-         .post('user/signup', {
-            loginID: email,
-            password: '',
-            username: name,
-            profileImg: imageUrl,
-            provider: 'GoogleLogin',
-         })
-         .then(({ data }) => {
-            this.handleCheckLogin();
-         });
+      requestSignUp(email, '', name, imageUrl, 'GoogleLogin');
+      this.handleSettingLogin(email, '');
    };
 
    failureResponseGoogle = (response) => {
-      console.log('구글 로그인 실패', response);
+      console.log('구글 로그인 실패: ', response);
       return message.error('구글 로그인에 실패하였습니다.');
    };
 
    successResponseKakao = (response) => {
-      console.log('카카오 로그인 성공', response.profile);
       const { kakao_account, properties } = response.profile;
-      const email = kakao_account.email;
-      const username = properties.nickname;
-      const profile_image = properties.profile_image;
-      this.setState({
-         loginID: email,
-         password: '',
-      });
-      serverUrl
-         .post('user/signup', {
-            loginID: email,
-            password: '',
-            username: username,
-            profileImg: profile_image,
-            provider: 'KakaoLogin',
-         })
-         .then(({ data }) => {
-            this.handleCheckLogin();
-         });
+      const { username, profile_image } = properties;
+      const { email } = kakao_account;
+
+      requestSignUp(email, '', username, profile_image, 'KakaoLogin');
+      this.handleSettingLogin(email, '');
    };
 
    failureResponseGoogle = (response) => {
-      console.log('카카오 로그인 실패', response);
+      console.log('카카오 로그인 실패: ', response);
       return message.error('카카오 로그인에 실패하였습니다.');
    };
 
-   handleInputValue = (key) => (e) => {
-      this.setState({ [key]: e.target.value });
-   };
-
    render() {
-      const { background } = this.props;
+      const {
+         handleInputLoginID,
+         handleInputPassword,
+         background,
+         loginID,
+         password,
+      } = this.props;
 
       return (
          <div>
@@ -144,7 +98,9 @@ class Login extends Component {
                            initialValues={{
                               remember: true,
                            }}
-                           onFinish={this.handleCheckLogin}
+                           onFinish={() =>
+                              this.handleSettingLogin(loginID, password)
+                           }
                            size="large"
                         >
                            <Form.Item
@@ -161,9 +117,7 @@ class Login extends Component {
                                  },
                               ]}
                            >
-                              <Input
-                                 onChange={this.handleInputValue('loginID')}
-                              />
+                              <Input onChange={handleInputLoginID} />
                            </Form.Item>
 
                            <Form.Item
@@ -180,9 +134,7 @@ class Login extends Component {
                                  },
                               ]}
                            >
-                              <Input.Password
-                                 onChange={this.handleInputValue('password')}
-                              />
+                              <Input.Password onChange={handleInputPassword} />
                            </Form.Item>
 
                            <Form.Item name="remember" valuePropName="checked">

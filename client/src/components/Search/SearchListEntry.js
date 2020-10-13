@@ -19,10 +19,10 @@ class SearchListEntry extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         likeFilled: false,
-         likeVisible: false,
+         likedFilled: false,
+         likePopComfirm: false,
          modalVisible: false,
-         tralierShow: false,
+         trailer: false,
          numberOfLikes: 0,
       };
    }
@@ -46,7 +46,7 @@ class SearchListEntry extends Component {
             likeMovies.forEach((movie) => {
                if (movie.id === movieId) {
                   return this.setState({
-                     likeFilled: true,
+                     likedFilled: true,
                   });
                }
             });
@@ -67,8 +67,8 @@ class SearchListEntry extends Component {
       }
    };
 
-   setModalTrailerVisible(tralierShow) {
-      if (tralierShow === false) {
+   setModalTrailerVisible(trailer) {
+      if (trailer === false) {
          $(`.${this.state.videoId}`)[0].contentWindow.postMessage(
             '{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
             '*',
@@ -77,7 +77,7 @@ class SearchListEntry extends Component {
             pause: false,
          });
       }
-      this.setState({ tralierShow });
+      this.setState({ trailer });
    }
 
    onVisibleChange = (onVisible) => (popVisible) => {
@@ -102,7 +102,7 @@ class SearchListEntry extends Component {
    handleLikeFilld = () => {
       if (this.props.isLogin) {
          this.setState({
-            likeFilled: !this.state.likeFilled,
+            likedFilled: !this.state.likedFilled,
          });
       }
    };
@@ -131,10 +131,10 @@ class SearchListEntry extends Component {
    };
 
    handleLikeButton = () => {
-      const { likeFilled, loginID, numberOfLikes } = this.state;
+      const { likedFilled, loginID, numberOfLikes } = this.state;
       const { movie } = this.props;
       if (this.props.isLogin) {
-         if (!likeFilled) {
+         if (!likedFilled) {
             this.setState({
                numberOfLikes: numberOfLikes + 1,
             });
@@ -153,7 +153,7 @@ class SearchListEntry extends Component {
             this.cancelLikeNotification('bottomLeft');
          }
          this.setState({
-            likeFilled: !likeFilled,
+            likedFilled: !likedFilled,
          });
       }
    };
@@ -176,7 +176,7 @@ class SearchListEntry extends Component {
 
    render() {
       const { movie } = this.props;
-      const { likeFilled, numberOfLikes, modalVisible } = this.state;
+      const { likedFilled, numberOfLikes, modalVisible } = this.state;
       return (
          <div className="search-result-item card-container">
             <div className="card-like-wrap" onClick={this.handleLikeFilld}>
@@ -187,9 +187,9 @@ class SearchListEntry extends Component {
                         <div>로그인을 하여 영화에 대한 평가를 내려주세요.</div>
                      </div>
                   }
-                  onVisibleChange={this.onVisibleChange('likeVisible')}
+                  onVisibleChange={this.onVisibleChange('likePopComfirm')}
                   onConfirm={this.navigateToLoginPage}
-                  visible={this.state.likeVisible}
+                  visible={this.state.likePopComfirm}
                   okText="로그인 하러 가기"
                   cancelText="닫기"
                >
@@ -198,7 +198,7 @@ class SearchListEntry extends Component {
                      type="text"
                      size="small"
                      icon={
-                        likeFilled ? (
+                        likedFilled ? (
                            <LikeFilled className="like-filled" />
                         ) : (
                            <LikeOutlined className="like-outlied" />
@@ -242,24 +242,7 @@ class SearchListEntry extends Component {
                </div>
             </div>
             <div className="search-result-title">{movie.title}</div>
-            <Modal
-               className="fake-modal"
-               centered
-               width={1150}
-               visible={modalVisible}
-               onOk={() => this.setModalVisible(false)}
-               onCancel={() => this.setModalVisible(false)}
-               footer={null}
-               maskClosable={false}
-            >
-               <ContentsModal
-                  currentMovie={movie}
-                  likeFilled={likeFilled}
-                  numberOfLikes={numberOfLikes}
-                  handleNumberOfLikesIncrease={this.handleNumberOfLikesIncrease}
-                  handleNumberOfLikesDecrease={this.handleNumberOfLikesDecrease}
-               />
-            </Modal>
+
             <Modal
                centered
                width={1150}
@@ -271,14 +254,14 @@ class SearchListEntry extends Component {
             >
                <ContentsModal
                   currentMovie={movie}
-                  likeFilled={likeFilled}
+                  likeFilled={likedFilled}
                   numberOfLikes={numberOfLikes}
                   handleNumberOfLikesIncrease={this.handleNumberOfLikesIncrease}
                   handleNumberOfLikesDecrease={this.handleNumberOfLikesDecrease}
                />
             </Modal>
             <Modal
-               visible={this.state.tralierShow}
+               visible={this.state.trailer}
                onOk={() => this.setModalTrailerVisible(false)}
                onCancel={() => this.setModalTrailerVisible(false)}
                footer={null}

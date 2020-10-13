@@ -13,26 +13,35 @@ export const requestSignUp = async (
    profileImg,
    provider,
 ) => {
-   const { data } = await serverUrl.post('/user/signup', {
-      loginID: loginID,
-      password: password,
-      username: username,
-      profileImg: profileImg,
-      provider: provider,
-   });
-   if (data === '이미 회원가입한 계정입니다.') return message.warning(data);
-
+   const { data } = await serverUrl
+      .post('/user/signup', {
+         loginID: loginID,
+         password: password,
+         username: username,
+         profileImg: profileImg,
+         provider: provider,
+      })
+      .catch((err) => {
+         console.log(err);
+         return message.warning('이미 회원가입한 계정입니다.');
+      });
+   console.log(data);
    return data;
 };
 
 /* 로그인 */
 export const requestLogin = async (loginID, password) => {
-   const { data } = await serverUrl.post('/user/login', {
-      loginID: loginID,
-      password: password,
-   });
-   if (data === '가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.')
-      return message.error(data);
+   const { data } = await serverUrl
+      .post('/user/login', {
+         loginID: loginID,
+         password: password,
+      })
+      .catch((err) => {
+         console.log(err);
+         return message.warning(
+            '가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.',
+         );
+      });
 
    return data;
 };

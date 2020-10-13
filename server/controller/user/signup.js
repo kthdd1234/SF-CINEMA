@@ -18,7 +18,7 @@ module.exports = {
     })
       .then((userInfo) => {
         if (!userInfo[1]) {
-          res.status(200).send('이미 회원가입한 계정입니다.');
+          return res.status(409).send('이미 회원가입한 계정입니다.');
         }
         res.status(200).send('회원가입 완료!');
       })

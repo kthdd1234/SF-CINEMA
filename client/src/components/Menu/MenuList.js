@@ -10,6 +10,7 @@ import {
    requestGenre,
    requestSeries,
 } from '../../requests';
+import { handleURLSearchParams } from '../../utils';
 import './MenuList.css';
 
 const { Option } = Select;
@@ -62,18 +63,11 @@ class MenuList extends Component {
       return pathname;
    };
 
-   handleURLSearchParams = (paramsKey) => {
-      const paramsValue = new URLSearchParams(window.location.search).get(
-         paramsKey,
-      );
-      return paramsValue;
-   };
-
    handleDividePathname = (pathname) => {
       let movies;
 
       if (pathname === 'series' || pathname === 'genre') {
-         const paramsValue = this.handleURLSearchParams(this.props.paramsKey);
+         const paramsValue = handleURLSearchParams(this.props.paramsKey);
          genre_series.forEach(async (element) => {
             if (element.pathname === pathname) {
                movies = element.request(paramsValue);
@@ -198,7 +192,9 @@ class MenuList extends Component {
                   <MenuListEntry key={i} movie={movie} />
                ))
             ) : (
-               <Spin size="large" />
+               <div className="loding-spin">
+                  <Spin size="large" />
+               </div>
             )}
             {movePage ? (
                <Pagination

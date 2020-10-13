@@ -21,7 +21,7 @@ module.exports = {
       .then((userInfo) => {
         if (userInfo === null) {
           return res
-            .status(200)
+            .status(404)
             .send('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
         }
         const setUserData = userInfo.get({ plain: true });
