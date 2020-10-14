@@ -283,21 +283,6 @@ class MenuListEntry extends React.Component {
 
       return (
          <div>
-            {/* <div
-               style={{
-                  width: '13vw',
-                  height: '19vw',
-                  padding: '1vw',
-               }}
-            >
-               <img
-                  style={{
-                     width: '100%',
-                     height: '100%',
-                  }}
-                  src={`https://image.tmdb.org/t/p/w500${posters}`}
-               />
-            </div> */}
             <div className="moive-content">
                <div className="movie-img-box">
                   <div className="img-shadow" />

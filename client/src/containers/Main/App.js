@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
+import { reactLocalStorage } from 'reactjs-localstorage';
+import { requestProfile } from '../../requests';
+import { setIsLogin, setProfile } from '../../actions/user';
 import SignUp from '../SignUp/Signup';
 import Login from '../Login/Login';
 import MenuBar from '../Menu/Menubar';
@@ -15,6 +18,12 @@ const { Header, Content } = Layout;
 class App extends Component {
    constructor(props) {
       super(props);
+
+      const accessToken = reactLocalStorage.get('SFCinemaUserToken');
+      requestProfile(accessToken).then((profile) => {
+         this.props.handleProfileUpdate(profile);
+         this.props.handleLoginChange(true);
+      });
    }
 
    render() {
@@ -75,8 +84,15 @@ const mapReduxStateToReactProps = () => {
    return {};
 };
 
-const mapReduxDispatchToReactProps = () => {
-   return {};
+const mapReduxDispatchToReactProps = (dispatch) => {
+   return {
+      handleLoginChange: (isLogin) => {
+         dispatch(setIsLogin(isLogin));
+      },
+      handleProfileUpdate: (profile) => {
+         dispatch(setProfile(profile));
+      },
+   };
 };
 
 // eslint-disable-next-line

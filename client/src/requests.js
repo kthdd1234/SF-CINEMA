@@ -196,7 +196,6 @@ export const requestSaveCancel = async (userId, movieId) => {
 
 /* 재밌어요(completed) */
 export const requestLikeCompleted = async (userId, movieId) => {
-   console.log('userId, movieId', userId, movieId);
    const { data } = await serverUrl.post(`/like/completed`, {
       userId: userId,
       movieId: movieId,
@@ -209,7 +208,6 @@ export const requestLikeCompleted = async (userId, movieId) => {
 
 /* 재밌어요(cancel) */
 export const requestLikeCancel = async (userId, movieId) => {
-   console.log('userId, movieId', userId, movieId);
    const { data } = await serverUrl.delete(`/like/cancel`, {
       data: {
          userId: userId,

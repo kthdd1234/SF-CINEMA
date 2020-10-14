@@ -132,15 +132,6 @@ class MenuBar extends Component {
       };
    }
 
-   componentDidMount = async () => {
-      const accessToken = reactLocalStorage.get('SFCinemaUserToken');
-      if (accessToken) {
-         const profile = await requestProfile(accessToken);
-         this.props.handleProfileUpdate(profile);
-         this.props.handleLoginChange(true);
-      }
-   };
-
    handlePageSwitching = (path) => {
       const { history } = this.props;
 
@@ -162,7 +153,7 @@ class MenuBar extends Component {
       }
    };
 
-   handleLogoutChange = () => {
+   handleSettingLogout = () => {
       reactLocalStorage.remove('SFCinemaUserToken');
       location.reload(true);
    };
@@ -385,7 +376,7 @@ class MenuBar extends Component {
                            type="primary"
                            htmlType="submit"
                            className="btn-signout"
-                           onClick={this.handleLogoutChange}
+                           onClick={this.handleSettingLogout}
                         >
                            로그아웃
                         </Button>

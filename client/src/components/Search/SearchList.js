@@ -31,6 +31,8 @@ class SearchList extends Component {
       } = this.props;
 
       if (this.props.location !== prevProps.location) {
+         // console.log(this.props.location);
+         // console.log(prevProps.location);
          const keyword = handleURLSearchParams('query');
          const searchResult = await requestSearch(keyword);
 
@@ -57,7 +59,11 @@ class SearchList extends Component {
                   {searchResult.length ? (
                      <div className="search-result-list">
                         {searchResult.map((movie, i) => (
-                           <SearchListEntry key={i} movie={movie} />
+                           <SearchListEntry
+                              key={i}
+                              movie={movie}
+                              keyword={keyword}
+                           />
                         ))}
                      </div>
                   ) : (

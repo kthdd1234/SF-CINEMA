@@ -32,9 +32,9 @@ export const handleUserFavoritedData = async (
          }
       });
    });
-   console.log(favaritedData);
+   // console.log(favaritedData);
    result = Object.keys(result).length !== 0 ? result : undefined;
-   console.log(result);
+   // console.log(contensts.title, result);
    return result;
 };
 
