@@ -1,5 +1,6 @@
 import ContentsModal from '../../components/Main/ContentsModal';
 import { connect } from 'react-redux';
+import { setProfile } from '../../actions/user';
 
 const mapReduxStateToReactProps = ({ userReducer }) => {
    return {
@@ -8,4 +9,15 @@ const mapReduxStateToReactProps = ({ userReducer }) => {
    };
 };
 
-export default connect(mapReduxStateToReactProps)(ContentsModal);
+const mapReduxDispatchToReactProps = (dispatch) => {
+   return {
+      handleProfileUpdate: (profile) => {
+         dispatch(setProfile(profile));
+      },
+   };
+};
+
+export default connect(
+   mapReduxStateToReactProps,
+   mapReduxDispatchToReactProps,
+)(ContentsModal);

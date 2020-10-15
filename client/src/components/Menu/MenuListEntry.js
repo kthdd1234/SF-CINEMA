@@ -1,8 +1,6 @@
 import React from 'react';
-import axios from 'axios';
-import { reactLocalStorage } from 'reactjs-localstorage';
 import { withRouter } from 'react-router-dom';
-import { Button, Popconfirm, Modal, notification, Tag } from 'antd';
+import { Button, Popconfirm, Modal, Tag } from 'antd';
 import {
    LikeOutlined,
    LikeFilled,
@@ -12,228 +10,130 @@ import {
    CloseOutlined,
    CheckCircleOutlined,
 } from '@ant-design/icons';
+import {
+   handleUserFavoritedData,
+   handlePopconfirmVisible,
+   handleSaveCompletedNotification,
+   handleSaveCancelNotification,
+   handleLikeCompletedNotification,
+   handleLikeCancelNotification,
+   handleTrailerVisible,
+} from '../../utils';
+import {
+   requestSaveCompleted,
+   requestSaveCancel,
+   requestLikeCompleted,
+   requestLikeCancel,
+} from '../../requests';
 import Trailer from '../Main/Trailer';
 import './MenuListEntry.css';
-import $ from 'jquery';
-import dotenv from 'dotenv';
-dotenv.config();
-
-const serverUrl = axios.create({
-   baseURL: `http://${process.env.REACT_APP_HOST}:5000/user`,
-});
 
 class MenuListEntry extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         loginID: null,
-         pushpinVisible: false,
-         likeVisible: false,
-         pushpin: false,
-         like: false,
-         tralierShow: false,
+         savedFilled: false,
+         savePopComfirm: false,
+         likedFilled: false,
+         likePopComfirm: false,
+         trailer: false,
          numberOfLikes: 0,
       };
    }
 
-   componentDidMount = () => {
-      const accessToken = reactLocalStorage.get('SFCinemaUserToken');
-
-      this.setState({
-         numberOfLikes: this.props.movie.numberOfLikes,
-      });
+   componentDidMount = async () => {
+      const { movie } = this.props;
+      const { numberOfLikes } = movie;
 
       if (this.props.isLogin) {
-         serverUrl
-            .get('/profile', {
-               headers: {
-                  Authorization: 'Bearer ' + accessToken,
-               },
-            })
-            .then(({ data }) => {
-               const { loginID, savedMovie, likedMovie } = data;
-               this.setState({
-                  loginID: loginID,
-               });
-               this.handleUserFavoritedData(savedMovie, likedMovie);
-            });
-      }
-   };
-
-   componentDidUpdate = (prevProps) => {
-      const accessToken = reactLocalStorage.get('SFCinemaUserToken');
-
-      if (this.props.movie.id !== prevProps.movie.id) {
-         this.setState({
-            numberOfLikes: this.props.movie.numberOfLikes,
-         });
-         if (this.props.isLogin) {
-            this.setState({
-               pushpin: false,
-               like: false,
-            });
-
-            serverUrl
-               .get('/profile', {
-                  headers: {
-                     Authorization: 'Bearer ' + accessToken,
-                  },
-               })
-               .then(({ data }) => {
-                  const { savedMovie, likedMovie } = data;
-                  this.handleUserFavoritedData(savedMovie, likedMovie);
-               });
-         }
-      }
-   };
-
-   handleUserFavoritedData = (...favaritedData) => {
-      const favarite = ['pushpin', 'like'];
-
-      favaritedData.forEach((data, i) => {
-         data.forEach((movie) => {
-            if (movie.id === this.props.movie.id) {
-               this.setState({
-                  [favarite[i]]: true,
-               });
-            }
-         });
-      });
-   };
-
-   onVisibleChange = (target) => (visible) => {
-      if (!this.props.isLogin) {
-         if (visible) {
-            this.setState({
-               [target]: true,
-            });
-         } else {
-            this.setState({
-               [target]: false,
-            });
-         }
-      }
-   };
-
-   successPushpinNotification = (placement) => {
-      notification.success({
-         message: `영화 정보 저장 완료!`,
-         description: '프로필 관리 목록에 해당 영화 정보를 저장하였습니다.',
-         placement,
-         icon: (
-            <PushpinFilled
-               style={{
-                  color: 'red',
-               }}
-            />
-         ),
-      });
-   };
-
-   cancelPushpinNotification = (placement) => {
-      notification.warn({
-         message: `영화 정보 저장 취소!`,
-         description: '프로필 관리 목록에 해당 영화 정보를 삭제하였습니다.',
-         placement,
-      });
-   };
-
-   successLikeNotification = (placement) => {
-      notification.success({
-         message: `좋아요 완료!`,
-         description: '좋아요 목록에 해당 영화 정보가 추가되었습니다.',
-         placement,
-         icon: (
-            <LikeFilled
-               style={{
-                  color: 'blue',
-               }}
-            />
-         ),
-      });
-   };
-
-   cancelLikeNotification = (placement) => {
-      notification.warn({
-         message: `좋아요 취소!`,
-         description: '좋아요 목록에 해당 영화 정보를 삭제하였습니다.',
-         placement,
-      });
-   };
-
-   handlePushpinButton = () => {
-      const { pushpin, loginID } = this.state;
-      const { isLogin } = this.props;
-
-      if (isLogin) {
-         if (!pushpin) {
-            serverUrl.post('/savedMovie', {
-               loginID: loginID,
-               movieId: this.props.id,
-            });
-            this.successPushpinNotification('bottomLeft');
-         } else {
-            serverUrl.delete('/cancelSavedMovie', {
-               data: {
-                  loginID: loginID,
-                  movieId: this.props.id,
-               },
-            });
-            this.cancelPushpinNotification('bottomLeft');
-         }
-         this.setState({
-            pushpin: !pushpin,
-         });
-      }
-   };
-
-   handleLikeButton = () => {
-      const { like, loginID, numberOfLikes } = this.state;
-      const { isLogin } = this.props;
-      if (isLogin) {
-         if (!like) {
-            serverUrl.post('/likedMovie', {
-               loginID: loginID,
-               movieId: this.props.id,
-            });
-            this.successLikeNotification('bottomLeft');
-            this.setState({
-               numberOfLikes: numberOfLikes + 1,
-            });
-         } else {
-            serverUrl.delete('/cancelLikedMovie', {
-               data: {
-                  loginID: loginID,
-                  movieId: this.props.id,
-               },
-            });
-
-            this.cancelLikeNotification('bottomLeft');
-            this.setState({
-               numberOfLikes: numberOfLikes - 1,
-            });
-         }
-         this.setState({
-            like: !like,
-         });
-      }
-   };
-
-   navigateToLoginPage = () => {
-      this.props.history.push('/login');
-   };
-
-   setModalTrailerVisible(tralierShow) {
-      if (tralierShow === false) {
-         $(`.${this.props.movie.videoId}`)[0].contentWindow.postMessage(
-            '{"event":"command","func":"' + 'pauseVideo' + '","args":""}',
-            '*',
+         const favoritedData = await handleUserFavoritedData(
+            this.props.profile,
+            movie,
          );
+
+         if (favoritedData) this.setState(favoritedData);
       }
-      this.setState({ tralierShow });
+      this.setState({ numberOfLikes: numberOfLikes });
+   };
+
+   componentDidUpdate = async (prevProps) => {
+      const { movie } = this.props;
+      const { numberOfLikes } = movie;
+
+      if (movie.id !== prevProps.movie.id) {
+         this.setState({
+            numberOfLikes: numberOfLikes,
+            savedFilled: false,
+            likedFilled: false,
+         });
+
+         if (this.props.isLogin) {
+            const favoritedData = await handleUserFavoritedData(
+               this.props.profile,
+               movie,
+            );
+
+            if (favoritedData) this.setState(favoritedData);
+         }
+      }
+   };
+
+   handlePopconfirmChange = (key) => (visible) => {
+      const { isLogin } = this.props;
+      const visibleResult = handlePopconfirmVisible(key, isLogin, visible);
+      this.setState(visibleResult);
+   };
+
+   handleSettingTrailer(trailer) {
+      handleTrailerVisible(trailer, this.props.movie.videoId);
+      this.setState({ trailer });
    }
 
+   handleSettingSave = async () => {
+      const { isLogin, profile, movie, handleProfileUpdate } = this.props;
+      const { savedFilled } = this.state;
+      const userId = profile.id;
+      const movieId = movie.id;
+
+      if (isLogin) {
+         if (!savedFilled) {
+            const profile = await requestSaveCompleted(userId, movieId);
+            handleProfileUpdate(profile);
+            handleSaveCompletedNotification('bottomLeft');
+         } else {
+            const profile = await requestSaveCancel(userId, movieId);
+            handleProfileUpdate(profile);
+            handleSaveCancelNotification('bottomLeft');
+         }
+         this.setState({ savedFilled: !savedFilled });
+      }
+   };
+
+   handleSettingLike = async () => {
+      const { likedFilled, numberOfLikes } = this.state;
+      const { isLogin, profile, movie, handleProfileUpdate } = this.props;
+      const userId = profile.id;
+      const movieId = movie.id;
+
+      if (isLogin) {
+         if (!likedFilled) {
+            const profile = await requestLikeCompleted(userId, movieId);
+            handleProfileUpdate(profile);
+            this.setState({ numberOfLikes: numberOfLikes + 1 });
+            handleLikeCompletedNotification('bottomLeft');
+         } else {
+            const profile = await requestLikeCancel(userId, movieId);
+            handleProfileUpdate(profile);
+            this.setState({ numberOfLikes: numberOfLikes - 1 });
+            handleLikeCancelNotification('bottomLeft');
+         }
+         this.setState({ likedFilled: !likedFilled });
+      }
+   };
+
    render() {
+      const { movie, history } = this.props;
+
       const {
          title,
          titleEng,
@@ -247,9 +147,16 @@ class MenuListEntry extends React.Component {
          userRating,
          backDrop,
          videoId,
-      } = this.props.movie;
+      } = movie;
 
-      const { pushpin, like, numberOfLikes } = this.state;
+      const {
+         savedFilled,
+         savePopComfirm,
+         likedFilled,
+         likePopComfirm,
+         numberOfLikes,
+         trailer,
+      } = this.state;
 
       const tags = [
          {
@@ -331,6 +238,14 @@ class MenuListEntry extends React.Component {
                      </div>
                   </div>
                   <div className="movie-footer">
+                     <Button
+                        className="trailer-btn"
+                        icon={<PlayCircleOutlined />}
+                        type="danger"
+                        onClick={() => this.handleSettingTrailer(true)}
+                     >
+                        예고편 보기
+                     </Button>
                      <Popconfirm
                         title={
                            <div>
@@ -340,20 +255,24 @@ class MenuListEntry extends React.Component {
                               </div>
                            </div>
                         }
-                        onVisibleChange={this.onVisibleChange('likeVisible')}
-                        onConfirm={this.navigateToLoginPage}
-                        visible={this.state.likeVisible}
+                        onVisibleChange={this.handlePopconfirmChange(
+                           'likePopComfirm',
+                        )}
+                        onConfirm={() => history.push('/login')}
+                        visible={likePopComfirm}
                         okText="로그인 하러 가기"
                         cancelText="닫기"
                      >
                         <Button
-                           icon={like ? <LikeFilled /> : <LikeOutlined />}
+                           icon={
+                              likedFilled ? <LikeFilled /> : <LikeOutlined />
+                           }
                            className={
-                              like
+                              likedFilled
                                  ? 'like-fill btn-color'
                                  : 'like-out btn-color'
                            }
-                           onClick={this.handleLikeButton}
+                           onClick={this.handleSettingLike}
                            type="ghost"
                         >
                            재밌어요
@@ -366,41 +285,39 @@ class MenuListEntry extends React.Component {
                               <div>로그인을 하여 영화 정보를 저장해보세요.</div>
                            </div>
                         }
-                        onVisibleChange={this.onVisibleChange('pushpinVisible')}
-                        onConfirm={this.navigateToLoginPage}
-                        visible={this.state.pushpinVisible}
+                        onVisibleChange={this.handlePopconfirmChange(
+                           'savePopComfirm',
+                        )}
+                        onConfirm={() => history.push('/login')}
+                        visible={savePopComfirm}
                         okText="로그인 하러 가기"
                         cancelText="닫기"
                      >
                         <Button
                            icon={
-                              pushpin ? <PushpinFilled /> : <PushpinOutlined />
+                              savedFilled ? (
+                                 <PushpinFilled />
+                              ) : (
+                                 <PushpinOutlined />
+                              )
                            }
                            className={
-                              pushpin
+                              savedFilled
                                  ? 'pushpin-fill btn-color'
                                  : 'pushpin-out btn-color'
                            }
-                           onClick={this.handlePushpinButton}
+                           onClick={this.handleSettingSave}
                            type="ghost"
                         >
                            저장하기
                         </Button>
                      </Popconfirm>
-                     <Button
-                        className="trailer-btn"
-                        icon={<PlayCircleOutlined />}
-                        type="ghost"
-                        onClick={() => this.setModalTrailerVisible(true)}
-                     >
-                        예고편 보기
-                     </Button>
                   </div>
                </div>
                <Modal
-                  visible={this.state.tralierShow}
-                  onOk={() => this.setModalTrailerVisible(false)}
-                  onCancel={() => this.setModalTrailerVisible(false)}
+                  visible={trailer}
+                  onOk={() => this.handleSettingTrailer(false)}
+                  onCancel={() => this.handleSettingTrailer(false)}
                   footer={null}
                   width={1300}
                >
@@ -408,7 +325,7 @@ class MenuListEntry extends React.Component {
                      ghost
                      icon={<CloseOutlined />}
                      className="trailer-close"
-                     onClick={() => this.setModalTrailerVisible(false)}
+                     onClick={() => this.handleSettingTrailer(false)}
                   />
                   <Trailer videoId={videoId} />
                </Modal>

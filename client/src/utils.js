@@ -19,11 +19,6 @@ export const handleUserFavoritedData = async (
    const favorite = ['savedFilled', 'likedFilled'];
    const favaritedData = [savedMovie, likedMovie];
    let result = {};
-   for (let i = 0; i < likedMovie.length; i++) {
-      if (likedMovie[i].title === contensts.title) {
-         console.log('일치함');
-      }
-   }
 
    favaritedData.forEach((data, i) => {
       data.forEach((movie) => {
@@ -32,9 +27,9 @@ export const handleUserFavoritedData = async (
          }
       });
    });
-   // console.log(favaritedData);
+
    result = Object.keys(result).length !== 0 ? result : undefined;
-   // console.log(contensts.title, result);
+
    return result;
 };
 

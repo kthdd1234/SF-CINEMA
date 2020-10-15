@@ -1,6 +1,5 @@
 import MovieListEntry from '../../components/Main/MovieListEntry';
 import { setProfile } from '../../actions/user';
-// import { setCurrentMovie } from '../../actions/movie';
 import { connect } from 'react-redux';
 
 const mapReduxStateToReactProps = ({ userReducer }) => {
@@ -15,9 +14,6 @@ const mapReduxDispatchToReactProps = (dispatch) => {
       handleProfileUpdate: (profile) => {
          dispatch(setProfile(profile));
       },
-      // handleCurrentMovie: () => {
-      //    dispatch(setCurrentMovie(ownProps.movie));
-      // },
    };
 };
 

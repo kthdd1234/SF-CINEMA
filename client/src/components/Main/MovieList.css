@@ -1,10 +1,10 @@
-.recommend-contents {
+.recommendation-wrap {
    padding-top: 1.5vw;
    margin: auto;
    max-width: 95vw;
 }
 
-.recommend-title {
+.recommendation-list-title {
    margin-left: 0.5vw;
    margin-bottom: 0.5vw;
    font-weight: bold;
@@ -22,7 +22,7 @@
    background: rgb(20, 21, 23);
 }
 
-.recommend-items {
+.recommendation-movie-list {
    display: flex;
    flex-wrap: wrap;
    padding-bottom: 3vw;

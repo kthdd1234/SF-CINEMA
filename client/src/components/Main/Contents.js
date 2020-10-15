@@ -228,6 +228,14 @@ class Contents extends Component {
                      </div>
                   </div>
                   <div className="movie-footer">
+                     <Button
+                        className="trailer-btn"
+                        icon={<PlayCircleOutlined />}
+                        type="danger"
+                        onClick={() => this.handleSettingTrailer(true)}
+                     >
+                        예고편 보기
+                     </Button>
                      <Popconfirm
                         title={
                            <div>
@@ -294,14 +302,6 @@ class Contents extends Component {
                            저장하기
                         </Button>
                      </Popconfirm>
-                     <Button
-                        className="trailer-btn"
-                        icon={<PlayCircleOutlined />}
-                        type="ghost"
-                        onClick={() => this.handleSettingTrailer(true)}
-                     >
-                        예고편 보기
-                     </Button>
                   </div>
                </div>
                <Modal

@@ -14,8 +14,6 @@ import ContentsModal from '../../containers/Main/ContentsModal';
 import Trailer from '../Main/Trailer';
 import './SearchListEntry.css';
 import '../Main/MovieListEntry.css';
-import dotenv from 'dotenv';
-dotenv.config();
 
 class SearchListEntry extends Component {
    constructor(props) {
@@ -30,14 +28,13 @@ class SearchListEntry extends Component {
    }
 
    componentDidMount = async () => {
-      const numberOfLikes = this.props.movie
-         ? this.props.movie.numberOfLikes
-         : null;
+      const { movie } = this.props;
+      const { numberOfLikes } = movie;
 
       if (this.props.isLogin) {
          const favoritedData = await handleUserFavoritedData(
             this.props.profile,
-            this.props.movie,
+            movie,
          );
 
          if (favoritedData) this.setState(favoritedData);
@@ -46,21 +43,20 @@ class SearchListEntry extends Component {
    };
 
    componentDidUpdate = async (prevProps) => {
-      if (
-         prevProps.movie.title !== this.props.movie.title &&
-         this.props.isLogin
-      ) {
-         const numberOfLikes = this.props.movie
-            ? this.props.movie.numberOfLikes
-            : null;
+      const { movie } = this.props;
+      const { numberOfLikes } = movie;
 
+      if (prevProps.movie.id !== movie.id) {
          this.setState({ numberOfLikes: numberOfLikes, likedFilled: false });
 
-         const favoritedData = await handleUserFavoritedData(
-            this.props.profile,
-            this.props.movie,
-         );
-         if (favoritedData) this.setState(favoritedData);
+         if (this.props.isLogin) {
+            const favoritedData = await handleUserFavoritedData(
+               this.props.profile,
+               movie,
+            );
+
+            if (favoritedData) this.setState(favoritedData);
+         }
       }
    };
 
@@ -114,7 +110,7 @@ class SearchListEntry extends Component {
       const { numberOfLikes } = this.state;
       this.setState({
          numberOfLikes: numberOfLikes + 1,
-         likeFilled: true,
+         likedFilled: true,
       });
    };
 
@@ -122,7 +118,7 @@ class SearchListEntry extends Component {
       const { numberOfLikes } = this.state;
       this.setState({
          numberOfLikes: numberOfLikes - 1,
-         likeFilled: false,
+         likedFilled: false,
       });
    };
 
@@ -212,8 +208,8 @@ class SearchListEntry extends Component {
                maskClosable={false}
             >
                <ContentsModal
-                  currentMovie={movie}
-                  likeFilled={likedFilled}
+                  movie={movie}
+                  likedFilled={likedFilled}
                   numberOfLikes={numberOfLikes}
                   handleNumberOfLikesIncrease={this.handleNumberOfLikesIncrease}
                   handleNumberOfLikesDecrease={this.handleNumberOfLikesDecrease}

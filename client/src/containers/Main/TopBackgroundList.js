@@ -1,4 +1,4 @@
-import MainBackground from '../../components/Main/MainBackground';
+import MainBackground from '../../components/Main/TopBackgroundList';
 import { connect } from 'react-redux';
 
 const mapReduxStateToReactProps = ({ userReducer, movieReducer }) => {

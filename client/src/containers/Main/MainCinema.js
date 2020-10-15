@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import MainBackground from './MainBackground';
+import TopBackgroundList from './TopBackgroundList';
 import MovieList from './MovieList';
 import {
    requestBackground,
@@ -49,7 +49,7 @@ class MainCinema extends Component {
    render() {
       return (
          <div>
-            <MainBackground />
+            <TopBackgroundList />
             <MovieList />
          </div>
       );

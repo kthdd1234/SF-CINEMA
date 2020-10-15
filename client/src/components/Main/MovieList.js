@@ -27,166 +27,78 @@ class MovieList extends Component {
          action,
          aliens,
          superHero,
-         setModalVisible,
          history,
       } = this.props;
 
+      const movieList = [
+         {
+            listTitle: '# 추천 영화',
+            icon: null,
+            showAll: '/',
+            list: recommendation,
+         },
+         {
+            listTitle: '평점이 높은 영화',
+            icon: <StarFilled className="recommend-icon" />,
+            showAll: 'recommendation/highly-rated-movies',
+            list: highlyRatedMovies,
+         },
+         {
+            listTitle: '외계인 영화 추천',
+            icon: <RedditCircleFilled className="recommend-icon" />,
+            showAll: '/genre?genre=외계인',
+            list: aliens,
+         },
+         {
+            listTitle: '운영자가 추천하는 영화',
+            icon: <GiftFilled className="recommend-icon" />,
+            showAll: '/recommendation/operator-recommendation',
+            list: operatorRecommendation,
+         },
+         {
+            listTitle: '슈퍼히어로 영화 추천',
+            icon: <DingdingOutlined className="recommend-icon" />,
+            showAll: '/genre?genre=슈퍼 히어로',
+            list: superHero,
+         },
+         {
+            listTitle: '주말에 몰아보기 좋은 SF 명작 추천',
+            icon: <CrownFilled className="recommend-icon" />,
+            showAll: '/recommendation/sf-masterpiece',
+            list: sfMasterpiece,
+         },
+         {
+            listTitle: '액션 영화 추천',
+            icon: <ThunderboltFilled className="recommend-icon" />,
+            showAll: '/genre?genre=액션',
+            list: action,
+         },
+      ];
+
       if (action.length) {
          return (
-            <div className="recommend-contents">
-               <h2 className="recommend-title"># 추천 영화</h2>
-               <div className="recommend-items">
-                  {recommendation.map((movie, i) => (
-                     <MovieListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                     />
-                  ))}
-               </div>
-               <h2 className="recommend-title">
-                  <StarFilled className="recommend-icon" /> 평점이 높은 영화
-                  <Button
-                     className="btn-showall-link"
-                     type="ghost"
-                     onClick={() =>
-                        history.push('/recommendation/highly-rated-movies')
-                     }
-                  >
-                     모두 보기
-                     <DoubleRightOutlined className="showall-icon" />
-                  </Button>
-               </h2>
+            <div className="recommendation-wrap">
+               {movieList.map((section) => (
+                  <div>
+                     <h2 className="recommendation-list-title">
+                        {section.icon} {section.listTitle}
+                        <Button
+                           className="btn-showall-link"
+                           type="ghost"
+                           onClick={() => history.push(section.showAll)}
+                        >
+                           모두 보기
+                           <DoubleRightOutlined className="showall-icon" />
+                        </Button>
+                     </h2>
 
-               <div className="recommend-items">
-                  {highlyRatedMovies.map((movie, i) => (
-                     <MovieListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                     />
-                  ))}
-               </div>
-
-               <h2 className="recommend-title">
-                  <RedditCircleFilled className="recommend-icon" /> 외계인 영화
-                  추천
-                  <Button
-                     className="btn-showall-link"
-                     type="ghost"
-                     onClick={() => history.push('/genre?genre=외계인')}
-                  >
-                     모두 보기
-                     <DoubleRightOutlined className="showall-icon" />
-                  </Button>
-               </h2>
-               <div className="recommend-items">
-                  {aliens.map((movie, i) => (
-                     <MovieListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                     />
-                  ))}
-               </div>
-
-               <h2 className="recommend-title">
-                  <DingdingOutlined className="recommend-icon" /> 슈퍼히어로
-                  영화 추천
-                  <Button
-                     className="btn-showall-link"
-                     type="ghost"
-                     onClick={() => history.push('/genre?genre=슈퍼 히어로')}
-                  >
-                     모두 보기
-                     <DoubleRightOutlined className="showall-icon" />
-                  </Button>
-               </h2>
-               <div className="recommend-items">
-                  {superHero.map((movie, i) => (
-                     <MovieListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                     />
-                  ))}
-               </div>
-
-               <h2 className="recommend-title">
-                  <GiftFilled className="recommend-icon" /> 운영자가 추천하는
-                  영화
-                  <Button
-                     className="btn-showall-link"
-                     type="ghost"
-                     onClick={() =>
-                        history.push('/recommendation/operator-recommendation')
-                     }
-                  >
-                     모두 보기
-                     <DoubleRightOutlined className="showall-icon" />
-                  </Button>
-               </h2>
-               <div className="recommend-items">
-                  {operatorRecommendation.map((movie, i) => (
-                     <MovieListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                     />
-                  ))}
-               </div>
-
-               <h2 className="recommend-title">
-                  <CrownFilled className="recommend-icon" /> 주말에 몰아보기
-                  좋은 SF 명작 추천
-                  <Button
-                     className="btn-showall-link"
-                     type="ghost"
-                     onClick={() =>
-                        history.push('/recommendation/sf-masterpiece')
-                     }
-                  >
-                     모두 보기
-                     <DoubleRightOutlined className="showall-icon" />
-                  </Button>
-               </h2>
-               <div className="recommend-items">
-                  {sfMasterpiece.map((movie, i) => (
-                     <MovieListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                     />
-                  ))}
-               </div>
-               <h2 className="recommend-title">
-                  <ThunderboltFilled className="recommend-icon" /> 액션 영화
-                  추천
-                  <Button
-                     className="btn-showall-link"
-                     type="ghost"
-                     onClick={() => history.push('/genre?genre=액션')}
-                  >
-                     모두 보기
-                     <DoubleRightOutlined className="showall-icon" />
-                  </Button>
-               </h2>
-               <div className="recommend-items">
-                  {action.map((movie, i) => (
-                     <MovieListEntry
-                        key={i}
-                        movie={movie}
-                        alt={i}
-                        setModalVisible={setModalVisible}
-                     />
-                  ))}
-               </div>
+                     <div className="recommendation-movie-list">
+                        {section.list.map((movie, i) => (
+                           <MovieListEntry key={i} movie={movie} alt={i} />
+                        ))}
+                     </div>
+                  </div>
+               ))}
             </div>
          );
       } else {
