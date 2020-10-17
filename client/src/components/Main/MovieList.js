@@ -78,8 +78,8 @@ class MovieList extends Component {
       if (action.length) {
          return (
             <div className="recommendation-wrap">
-               {movieList.map((section) => (
-                  <div>
+               {movieList.map((section, i) => (
+                  <div key={i}>
                      <h2 className="recommendation-list-title">
                         {section.icon} {section.listTitle}
                         <Button

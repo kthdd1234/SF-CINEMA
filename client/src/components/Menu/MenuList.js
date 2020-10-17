@@ -49,12 +49,24 @@ class MenuList extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         firstPage: [],
+         currentMovies: [],
          movies: [],
          togglePage: 1,
          movePage: false,
+         isLoding: false,
       };
    }
+
+   handleWatingTime = () => {
+      const { movies, currentMovies } = this.state;
+
+      setTimeout(() => {
+         this.setState({
+            currentMovies: movies.slice(0, currentMovies.length + 5),
+            isLoding: false,
+         });
+      }, 700);
+   };
 
    handleURLSearchPathname = () => {
       const url = window.location.pathname;
@@ -86,13 +98,24 @@ class MenuList extends Component {
 
    handleMenuListUpdate = async (movies) => {
       const movieData = await movies;
-      const firstPage = movieData.slice(0, 10);
+      const currentMovies = movieData.slice(0, 5);
 
       this.setState({
-         firstPage: firstPage,
+         currentMovies: currentMovies,
          movies: movieData,
          movePage: true,
       });
+   };
+
+   handleWatingTimeObserver = () => {
+      const { movies, currentMovies } = this.state;
+
+      setTimeout(() => {
+         this.setState({
+            currentMovies: movies.slice(0, currentMovies.length + 5),
+            isLoding: false,
+         });
+      }, 700);
    };
 
    componentDidMount = async () => {
@@ -100,25 +123,42 @@ class MenuList extends Component {
       this.handleDividePathname(pathname);
    };
 
-   componentDidUpdate = async (prevProps) => {
+   componentDidUpdate = async (prevProps, prevState) => {
       const movies = await this.state.movies;
 
       if (prevProps.location !== this.props.location) {
+         const currentMovies = movies.slice(0, 5);
          const pathname = this.handleURLSearchPathname();
          this.handleDividePathname(pathname);
          window.scrollTo(0, 0);
 
-         this.setState({
-            movePage: false,
-         });
-         const firstPage = movies.slice(0, 10);
+         this.setState({ movePage: false });
 
          this.setState({
-            firstPage: firstPage,
+            currentMovies: currentMovies,
             movies: movies,
             togglePage: 1,
             movePage: true,
          });
+      }
+
+      if (prevState.currentMovies.length !== this.state.currentMovies.length) {
+         const domElement = document.querySelectorAll('.moive-content');
+         const lastElement = domElement[domElement.length - 1];
+
+         const observer = new IntersectionObserver(
+            (entries, observer) => {
+               entries.forEach(async (entry) => {
+                  if (entry.isIntersecting) {
+                     this.setState({ isLoding: true });
+                     await this.handleWatingTimeObserver();
+                     observer.unobserve(entry.target);
+                  }
+               });
+            },
+            { threshold: 0.5 },
+         );
+         observer.observe(lastElement);
       }
    };
 
@@ -126,45 +166,53 @@ class MenuList extends Component {
       const { movies } = this.state;
       const startIdx = (page - 1) * pageSize;
       const endIdx = page * pageSize;
-      const firstPage = movies.slice(startIdx, endIdx);
+      const currentMovies = movies.slice(startIdx, endIdx);
 
       this.setState({
-         firstPage: firstPage,
+         currentMovies: currentMovies,
          togglePage: page,
       });
       window.scrollTo(0, 0);
+   };
+
+   handleSelectedHighestRating = (movies) => {
+      return movies.sort((a, b) => b.userRating - a.userRating);
+   };
+
+   handleSelectedReleaseOrder = (movies) => {
+      return movies.sort((a, b) => {
+         if (b.releaseDate < a.releaseDate) {
+            return -1;
+         }
+         if (b.releaseDate > a.releaseDate) {
+            return 1;
+         }
+         return 0;
+      });
    };
 
    onChangeSelect = async (value) => {
       const movies = await this.state.movies;
 
       if (value === '평점이 높은 순') {
-         const HighestRating = movies.sort(
-            (a, b) => b.userRating - a.userRating,
-         );
+         const highestRating = this.handleSelectedHighestRating(movies);
+
          this.setState({
-            movies: HighestRating,
-            firstPage: HighestRating.slice(0, 10),
+            movies: highestRating,
+            currentMovies: highestRating.slice(0, 10),
          });
       } else if (value === '최신 작품 순') {
-         const releaseOrder = movies.sort((a, b) => {
-            if (b.releaseDate < a.releaseDate) {
-               return -1;
-            }
-            if (b.releaseDate > a.releaseDate) {
-               return 1;
-            }
-            return 0;
-         });
+         const releaseOrder = this.handleSelectedReleaseOrder(movies);
+
          this.setState({
             movies: releaseOrder,
-            firstPage: releaseOrder.slice(0, 10),
+            currentMovies: releaseOrder.slice(0, 10),
          });
       }
    };
 
    render() {
-      const { firstPage, movies, movePage } = this.state;
+      const { currentMovies, movePage, isLoding } = this.state;
 
       return (
          <div className="movie-container">
@@ -187,8 +235,8 @@ class MenuList extends Component {
                </Select>
             ) : null}
 
-            {firstPage.length ? (
-               firstPage.map((movie, i) => (
+            {currentMovies.length ? (
+               currentMovies.map((movie, i) => (
                   <MenuListEntry key={i} movie={movie} />
                ))
             ) : (
@@ -196,12 +244,15 @@ class MenuList extends Component {
                   <Spin size="large" />
                </div>
             )}
-            {movePage ? (
-               <Pagination
-                  defaultCurrent={1}
-                  total={movies.length}
-                  onChange={this.onChangePage}
-               />
+            {isLoding ? (
+               <div
+                  className="loding-spin"
+                  style={{
+                     marginBottom: '100px',
+                  }}
+               >
+                  <Spin size="large" />
+               </div>
             ) : null}
          </div>
       );
@@ -210,3 +261,11 @@ class MenuList extends Component {
 
 // eslint-disable-next-line
 export default MenuList;
+/*   {/* {movePage ? (
+               <Pagination
+                  defaultCurrent={1}
+                  total={movies.length}
+                  onChange={this.onChangePage}
+               />
+            ) : null} } 
+            */

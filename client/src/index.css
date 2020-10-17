@@ -128,3 +128,13 @@ code {
       display: none;
    }
 }
+
+.img-list {
+   width: 1920px;
+   margin: 100px 0 100px 0;
+   overflow: hidden;
+}
+
+.img-back-drop {
+   width: 100%;
+}

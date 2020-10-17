@@ -24,8 +24,10 @@
 }
 
 .moive-content {
+   /* position: relative; */
    background: rgb(20, 21, 23);
-   padding: 3.3vw 0 20vw 0;
+   /* padding: 3.3vw 0 20vw 0; */
+   margin: 3.3vw 0 20vw 0;
 }
 
 .movie-img-box {
@@ -38,7 +40,7 @@
    color: whitesmoke;
    background: rgb(20, 21, 23);
 
-   padding: 0 0 0 5vw;
+   padding: 2vw 0 0 5vw;
 }
 
 .movie-img {
