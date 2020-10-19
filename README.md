@@ -10,14 +10,14 @@ SF CINEMA 는 SF 영화 추천 사이트입니다.
 
 ## 👍 구현 기능
 
-:white_check_mark:
-:white_check_mark:
-:white_check_mark:
-:white_check_mark:
-:white_check_mark:
-:white_check_mark:
-:white_check_mark:
-:white_check_mark:
+<div>:white_check_mark:</div>
+<div>:white_check_mark:</div>
+<div>:white_check_mark:</div>
+<div>:white_check_mark:</div>
+<div>:white_check_mark:</div>
+<div>:white_check_mark:</div>
+<div>:white_check_mark:</div>
+<div>:white_check_mark:</div>
 
 ## ⚙ 사용 기술
 
