@@ -162,19 +162,6 @@ class MenuList extends Component {
       }
    };
 
-   onChangePage = (page, pageSize) => {
-      const { movies } = this.state;
-      const startIdx = (page - 1) * pageSize;
-      const endIdx = page * pageSize;
-      const currentMovies = movies.slice(startIdx, endIdx);
-
-      this.setState({
-         currentMovies: currentMovies,
-         togglePage: page,
-      });
-      window.scrollTo(0, 0);
-   };
-
    handleSelectedHighestRating = (movies) => {
       return movies.sort((a, b) => b.userRating - a.userRating);
    };
@@ -196,17 +183,19 @@ class MenuList extends Component {
 
       if (value === '평점이 높은 순') {
          const highestRating = this.handleSelectedHighestRating(movies);
+         const currentMovies = document.querySelectorAll('.moive-content');
 
          this.setState({
             movies: highestRating,
-            currentMovies: highestRating.slice(0, 10),
+            currentMovies: highestRating.slice(0, currentMovies.length),
          });
       } else if (value === '최신 작품 순') {
          const releaseOrder = this.handleSelectedReleaseOrder(movies);
+         const currentMovies = document.querySelectorAll('.moive-content');
 
          this.setState({
             movies: releaseOrder,
-            currentMovies: releaseOrder.slice(0, 10),
+            currentMovies: releaseOrder.slice(0, currentMovies.length),
          });
       }
    };
@@ -261,11 +250,3 @@ class MenuList extends Component {
 
 // eslint-disable-next-line
 export default MenuList;
-/*   {/* {movePage ? (
-               <Pagination
-                  defaultCurrent={1}
-                  total={movies.length}
-                  onChange={this.onChangePage}
-               />
-            ) : null} } 
-            */

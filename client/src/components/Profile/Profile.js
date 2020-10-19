@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { List, Avatar, Divider, Modal } from 'antd';
-import { UserOutlined, PushpinFilled, LikeFilled } from '@ant-design/icons';
+import {
+   UserOutlined,
+   PushpinFilled,
+   LikeFilled,
+   ReloadOutlined,
+} from '@ant-design/icons';
+import { handleUserFavoritedData } from '../../utils';
 import ContentsModal from '../../containers/Main/ContentsModal';
 import './Profile.css';
 
@@ -11,51 +18,44 @@ class Profile extends Component {
          modalVisible: false,
          currentMovie: {},
          numberOfLikes: 0,
-         likeFilled: false,
+         likedFilled: false,
       };
    }
 
-   setModalVisible = (modalVisible) => {
-      this.setState({ modalVisible: modalVisible });
+   handleModalVisible = (modalVisible, movie) => {
+      if (window.innerWidth > 1200) {
+         return this.setState({ modalVisible });
+      } else {
+         this.props.history.push(`/contents/${movie.id}`);
+         location.reload(true);
+      }
    };
 
    handleCurrentSavedMovie = (currentMovie) => {
-      const { likedMovie } = this.props.profile;
-      this.setState({
-         likeFilled: false,
-      });
+      const { profile } = this.props;
+      this.setState({ likedFilled: false });
 
-      likedMovie.forEach((movie) => {
-         if (movie.id === currentMovie.id) {
-            return this.setState({
-               likeFilled: true,
-            });
-         }
-      });
+      const favoritedData = handleUserFavoritedData(profile, currentMovie);
+      this.handleModalVisible(true, currentMovie);
 
       this.setState({
-         modalVisible: true,
          currentMovie: currentMovie,
          numberOfLikes: currentMovie.numberOfLikes,
+         favoritedData,
       });
    };
 
    handleCurrentLikedMovie = (currentMovie) => {
-      const { likedMovie } = this.props.profile;
+      const { profile } = this.props;
+      this.setState({ likedFilled: false });
+
+      const favoritedData = handleUserFavoritedData(profile, currentMovie);
+      this.handleModalVisible(true, currentMovie);
+
       this.setState({
-         likeFilled: false,
-      });
-      likedMovie.forEach((movie) => {
-         if (movie.id === currentMovie.id) {
-            return this.setState({
-               likeFilled: true,
-            });
-         }
-      });
-      this.setState({
-         modalVisible: true,
          currentMovie: currentMovie,
          numberOfLikes: currentMovie.numberOfLikes,
+         favoritedData,
       });
    };
 
@@ -63,7 +63,7 @@ class Profile extends Component {
       const { numberOfLikes } = this.state;
       this.setState({
          numberOfLikes: numberOfLikes + 1,
-         likeFilled: true,
+         likedFilled: true,
       });
    };
 
@@ -71,7 +71,7 @@ class Profile extends Component {
       const { numberOfLikes } = this.state;
       this.setState({
          numberOfLikes: numberOfLikes - 1,
-         likeFilled: false,
+         likedFilled: false,
       });
    };
 
@@ -85,7 +85,7 @@ class Profile extends Component {
          likedMovie,
       } = this.props.profile;
 
-      const { modalVisible, currentMovie } = this.state;
+      const { modalVisible, currentMovie, likedFilled } = this.state;
 
       return (
          <div>
@@ -205,14 +205,14 @@ class Profile extends Component {
                centered
                width={1150}
                visible={modalVisible}
-               onOk={() => this.setModalVisible(false)}
-               onCancel={() => this.setModalVisible(false)}
+               onOk={() => this.handleModalVisible(false)}
+               onCancel={() => this.handleModalVisible(false)}
                footer={null}
                maskClosable={false}
             >
                <ContentsModal
-                  currentMovie={currentMovie}
-                  likeFilled={this.state.likeFilled}
+                  movie={currentMovie}
+                  likedFilled={likedFilled}
                   numberOfLikes={currentMovie.numberOfLikes}
                   handleNumberOfLikesIncrease={this.handleNumberOfLikesIncrease}
                   handleNumberOfLikesDecrease={this.handleNumberOfLikesDecrease}
@@ -224,5 +224,5 @@ class Profile extends Component {
 }
 
 // eslint-disable-next-line
-export default Profile;
+export default withRouter(Profile);
 // eslint-disable-next-line

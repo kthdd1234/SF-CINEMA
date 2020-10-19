@@ -29,11 +29,11 @@
 }
 
 @media screen and (max-width: 1400px) {
-   .recommend-contents {
+   .recommendation-wrap {
       padding-top: 2.5vw;
       max-width: 90vw;
    }
-   .recommend-title {
+   .recommendation-list-title {
       font-size: 2.3vw;
    }
    .btn-showall-link {
@@ -43,20 +43,18 @@
 }
 
 @media screen and (max-width: 900px) {
-   .recommend-contents {
+   .recommendation-wrap {
       padding-top: 2.5vw;
       max-width: 85vw;
    }
-   .recommend-title {
+   .recommendation-list-title {
       font-size: 3vw;
+      margin-bottom: 1.5vw;
    }
    .btn-showall-link {
       font-size: 2.6vw;
       position: absolute;
       right: 6vw;
       padding-bottom: 4vw;
-   }
-   .recommend-title {
-      margin-bottom: 1.5vw;
    }
 }
