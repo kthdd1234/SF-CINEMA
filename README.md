@@ -1,7 +1,7 @@
 # :clapper: SF 영화 추천 사이트 SF CINEMA
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/58875822/96440577-23f06d00-1243-11eb-9e11-96b5ff96b861.png" style="border: 1px solid black"/>
+  <img src="https://user-images.githubusercontent.com/58875822/96440577-23f06d00-1243-11eb-9e11-96b5ff96b861.png" style="border:1px solid black;"/>
 </p>
 
 ## 📌 프로젝트 소개
