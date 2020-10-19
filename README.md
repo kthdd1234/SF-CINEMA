@@ -12,11 +12,11 @@
 
 ## 👍 구현 기능
 
-<div>:white_check_mark: 회원가입/로그인</div>
-<div>:white_check_mark: 재밌어요/저장하기</div>
-<div>:white_check_mark: 영화 상세 정보</div>
-<div>:white_check_mark: 영화 예고편</div>
-<div>:white_check_mark: SF 영화 검색</div>
+- 회원가입/로그인
+- 재밌어요/저장하기
+- 영화 상세 정보
+- 영화 예고편
+- SF 영화 검색
 
 ## ⚙ 사용 기술
 
