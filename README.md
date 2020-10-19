@@ -1,6 +1,6 @@
 # :clapper: SF 영화 추천 사이트 SF CINEMA
 
-<p align="center" border="1px solid black;">
+<p align="center" >
   <img src="https://user-images.githubusercontent.com/58875822/96440577-23f06d00-1243-11eb-9e11-96b5ff96b861.png" />
 </p>
 
@@ -12,12 +12,11 @@
 
 ## 👍 구현 기능
 
-<div>:white_check_mark:</div>
-<div>:white_check_mark:</div>
-<div>:white_check_mark:</div>
-<div>:white_check_mark:</div>
-<div>:white_check_mark:</div>
-<div>:white_check_mark:</div>
+<div>:white_check_mark: 회원가입/로그인</div>
+<div>:white_check_mark: 좋아요/저장하기</div>
+<div>:white_check_mark: 영화 상세 정보</div>
+<div>:white_check_mark: 영화 예고편</div>
+<div>:white_check_mark: SF 영화 검색</div>
 
 ## ⚙ 사용 기술
 
