@@ -21,6 +21,6 @@
 
 ## ⚙ 사용 기술
 
-<img width="974" alt="스크린샷 2020-10-20 오전 1 06 06" src="https://user-images.githubusercontent.com/58875822/96476707-890e8780-1270-11eb-8a3b-9f0aa9b0b9e5.png">
+<img width="962" alt="스크린샷 2020-10-20 오전 1 09 20" src="https://user-images.githubusercontent.com/58875822/96477011-f7ebe080-1270-11eb-98a9-97e7424dc8e0.png">
 
 ## 📽 프로젝트 시연 및 소개 영상
