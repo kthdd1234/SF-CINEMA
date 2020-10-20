@@ -34,6 +34,9 @@
 ![메인화면 하단](https://user-images.githubusercontent.com/58875822/96598557-f29e9c80-1329-11eb-91a3-005bb98ba43b.gif)
 
 - 영화 상세정보 및 예고편
+
+![상세 정보및 예고편](https://user-images.githubusercontent.com/58875822/96604894-93905600-1330-11eb-89b9-78e5ac6c5850.gif)
+
 - 로그인
 - 회원가입
 - SF 영화 검색

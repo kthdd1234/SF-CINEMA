@@ -39,7 +39,7 @@ class ContentsModal extends Component {
          savePopComfirm: false,
          likedFilled: false,
          likePopComfirm: false,
-         tralier: false,
+         trailer: false,
          numberOfLikes: 0,
       };
    }
@@ -55,7 +55,6 @@ class ContentsModal extends Component {
       });
 
       if (this.props.isLogin) {
-         console.log('메이슨 마운트');
          const favoritedData = await handleUserFavoritedData(
             this.props.profile,
             movie,
@@ -145,7 +144,7 @@ class ContentsModal extends Component {
 
    handleSettingTrailer = (trailer) => {
       handleTrailerVisible(trailer, this.props.movie.videoId);
-      this.setState({ trailer });
+      this.setState({ trailer: trailer });
    };
 
    render() {
@@ -170,8 +169,9 @@ class ContentsModal extends Component {
          savePopComfirm,
          likePopComfirm,
          numberOfLikes,
-         tralier,
+         trailer,
       } = this.state;
+      console.log(trailer);
 
       const tags = [
          {
@@ -330,22 +330,22 @@ class ContentsModal extends Component {
                      </Popconfirm>
                   </div>
                </div>
-               <Modal
-                  visible={tralier}
-                  onOk={() => this.handleSettingTrailer(false)}
-                  onCancel={() => this.handleSettingTrailer(false)}
-                  footer={null}
-                  width={1300}
-               >
-                  <Button
-                     ghost
-                     icon={<CloseOutlined />}
-                     className="trailer-close"
-                     onClick={() => this.handleSettingTrailer(false)}
-                  />
-                  <Trailer videoId={videoId} />
-               </Modal>
             </div>
+            <Modal
+               visible={trailer}
+               onOk={() => this.handleSettingTrailer(false)}
+               onCancel={() => this.handleSettingTrailer(false)}
+               footer={null}
+               width={1300}
+            >
+               <Button
+                  ghost
+                  icon={<CloseOutlined />}
+                  className="trailer-close"
+                  onClick={() => this.handleSettingTrailer(false)}
+               />
+               <Trailer videoId={videoId} />
+            </Modal>
          </div>
       );
    }
