@@ -78,11 +78,12 @@ class TopBackgroundListEntry extends Component {
                      </div>
                   </div>
                </div>
-
-               <img
-                  className="main-background-images"
-                  src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${backgroundImg}`}
-               />
+               {backgroundImg ? (
+                  <img
+                     className="main-background-images"
+                     src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces/${backgroundImg}`}
+                  />
+               ) : null}
             </div>
             <Modal
                centered

@@ -20,10 +20,11 @@ class App extends Component {
       super(props);
 
       const accessToken = reactLocalStorage.get('SFCinemaUserToken');
-      requestProfile(accessToken).then((profile) => {
-         this.props.handleProfileUpdate(profile);
-         this.props.handleLoginChange(true);
-      });
+      if (accessToken)
+         requestProfile(accessToken).then((profile) => {
+            this.props.handleProfileUpdate(profile);
+            this.props.handleLoginChange(true);
+         });
    }
 
    render() {
