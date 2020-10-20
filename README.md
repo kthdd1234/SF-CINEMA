@@ -27,9 +27,10 @@
 
 - 메인화면 상단
 
-![_ 메인화면 상단](https://user-images.githubusercontent.com/58875822/96582230-ed375700-1315-11eb-9e40-32f579ac8ac1.gif)
+![HD 화질 메인화면 상단 (1)](https://user-images.githubusercontent.com/58875822/96583486-c11cd580-1317-11eb-8770-403a3ad18fe8.gif)
 
 - 메인화면 하단(주제별 영화 리스트)
+
 - 영화 상세정보 및 예고편
 - 로그인
 - 회원가입
