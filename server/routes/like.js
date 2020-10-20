@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { likeController } = require('../Controller');
+const { likeController } = require('../controller');
 
 // * POST /like/completed
 router.post('/completed', likeController.like.post);

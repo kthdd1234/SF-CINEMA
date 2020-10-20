@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { saveController } = require('../Controller');
+const { saveController } = require('../controller');
 
 // * POST /save/completed
 router.post('/completed', saveController.save.post);
