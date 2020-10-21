@@ -61,6 +61,10 @@
 
 ![좋아요 및 저장하기](https://user-images.githubusercontent.com/58875822/96698434-0f89ad00-13c8-11eb-9442-7b3139a4cc3e.gif)
 
+- 프로필 관리
+
+![프로필 관리](https://user-images.githubusercontent.com/58875822/96699848-b458ba00-13c9-11eb-853c-55e4b9246e5f.gif)
+
 - 반응형 웹(메인화면 페이지)
 - 반응형 웹(메뉴 페이지)
 - 반응형 웹(로그인/회원가입 페이지)
