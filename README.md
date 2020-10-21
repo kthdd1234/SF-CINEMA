@@ -65,6 +65,9 @@
 
 ![프로필 관리](https://user-images.githubusercontent.com/58875822/96699848-b458ba00-13c9-11eb-853c-55e4b9246e5f.gif)
 
-- 반응형 웹(메인화면 페이지)
+- 반응형 웹(메인 페이지)
+
+![반응형 웹(메인 페이지)](https://user-images.githubusercontent.com/58875822/96701363-778dc280-13cb-11eb-8c4c-e3d5914c4ed3.gif)
+
 - 반응형 웹(메뉴 페이지)
 - 반응형 웹(로그인/회원가입 페이지)
