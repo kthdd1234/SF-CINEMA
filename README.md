@@ -46,6 +46,9 @@
 ![로그인](https://user-images.githubusercontent.com/58875822/96683595-53bf8200-13b5-11eb-9644-cb48da208cc1.gif)
 
 - SF 영화 검색
+
+![검색 기능](https://user-images.githubusercontent.com/58875822/96687006-41941280-13ba-11eb-8708-b7fb6cf1d214.gif)
+
 - 각 메뉴별 영화 리스트
 - 좋아요 및 저장하기
 - 프로필 관리
