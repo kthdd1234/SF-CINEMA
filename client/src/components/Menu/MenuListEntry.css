@@ -32,8 +32,13 @@
 
 .movie-img-box {
    position: absolute;
+
    width: 61.5vw;
    left: 38vw;
+}
+
+.movie-img {
+   width: 100%;
 }
 
 .movie-info {
@@ -41,10 +46,6 @@
    background: rgb(20, 21, 23);
 
    padding: 2vw 0 0 5vw;
-}
-
-.movie-img {
-   width: 100%;
 }
 
 .movie-headers {
