@@ -74,3 +74,5 @@
 ![반응형 웹(메뉴 페이지)](https://user-images.githubusercontent.com/58875822/96706397-7f506580-13d1-11eb-9a12-7baae325593b.gif)
 
 - 반응형 웹(로그인/회원가입 페이지)
+
+![반응형 웹(로그인/회원가입 페이지)](https://user-images.githubusercontent.com/58875822/96708512-4bc30a80-13d4-11eb-9b7c-d87967d0e891.gif)
