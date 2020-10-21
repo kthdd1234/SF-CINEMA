@@ -39,7 +39,7 @@
 
 - 회원가입
 
-![회원가입 (1)](https://user-images.githubusercontent.com/58875822/96681836-db57c180-13b2-11eb-8e54-ed647de64b28.gif)
+![회원가입 다시 (1)](https://user-images.githubusercontent.com/58875822/96682817-4e156c80-13b4-11eb-8841-f104fd3d266b.gif)
 
 - 로그인
 - SF 영화 검색
