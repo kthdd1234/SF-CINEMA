@@ -199,7 +199,7 @@ class MenuBar extends Component {
       const { isLogin, history } = this.props;
       let path = window.location.pathname;
       let address = url.parse(window.location.search, true).query.key;
-      if (path === '/' || path === '/login' || path === '/signUp') {
+      if (path === '/' || path === '/login' || path === '/signup') {
          address = window.location.pathname;
       }
 

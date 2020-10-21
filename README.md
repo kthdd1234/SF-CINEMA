@@ -37,8 +37,11 @@
 
 ![상세 정보및 예고편](https://user-images.githubusercontent.com/58875822/96604894-93905600-1330-11eb-89b9-78e5ac6c5850.gif)
 
-- 로그인
 - 회원가입
+
+![회원가입 (1)](https://user-images.githubusercontent.com/58875822/96681836-db57c180-13b2-11eb-8e54-ed647de64b28.gif)
+
+- 로그인
 - SF 영화 검색
 - 각 메뉴별 영화 리스트
 - 좋아요 및 저장하기
