@@ -53,7 +53,7 @@
 
 ![메뉴](https://user-images.githubusercontent.com/58875822/96693613-69877400-13c2-11eb-8e60-0d67597f8de1.gif)
 
-- 무한 스크롤(infinity Scroll)
+- 무한 스크롤(Infinity Scroll)
 
 ![무한 스크롤](https://user-images.githubusercontent.com/58875822/96695503-b10eff80-13c4-11eb-94c3-e98e3f50ea2e.gif)
 
