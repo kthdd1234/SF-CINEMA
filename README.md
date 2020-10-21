@@ -39,9 +39,12 @@
 
 - 회원가입
 
-![회원가입 다시 (1)](https://user-images.githubusercontent.com/58875822/96682817-4e156c80-13b4-11eb-8841-f104fd3d266b.gif)
+![회원가입](https://user-images.githubusercontent.com/58875822/96682817-4e156c80-13b4-11eb-8841-f104fd3d266b.gif)
 
 - 로그인
+
+![로그인](https://user-images.githubusercontent.com/58875822/96683595-53bf8200-13b5-11eb-9644-cb48da208cc1.gif)
+
 - SF 영화 검색
 - 각 메뉴별 영화 리스트
 - 좋아요 및 저장하기
