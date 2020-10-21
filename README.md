@@ -70,4 +70,7 @@
 ![반응형 웹(메인 페이지)](https://user-images.githubusercontent.com/58875822/96701363-778dc280-13cb-11eb-8c4c-e3d5914c4ed3.gif)
 
 - 반응형 웹(메뉴 페이지)
+
+![반응형 웹(메뉴 페이지)](https://user-images.githubusercontent.com/58875822/96706397-7f506580-13d1-11eb-9a12-7baae325593b.gif)
+
 - 반응형 웹(로그인/회원가입 페이지)
