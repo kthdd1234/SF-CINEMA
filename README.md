@@ -26,12 +26,12 @@
 ## 📂 사용 API 출처
 
 #### 영화 포스터 및 상세 정보
-- https://www.themoviedb.org/documentation/api?language=ko
-- https://www.kmdb.or.kr/info/api/apiDetail/6
-- https://developers.naver.com/docs/search/movie/
+- The Movie Datebase: https://www.themoviedb.org/documentation/api?language=ko
+- 한국영화 데이터베이스: https://www.kmdb.or.kr/info/api/apiDetail/6
+- 네이버 오픈 API: https://developers.naver.com/docs/search/movie/
 
 #### 영화 예고편
-- https://developers.google.com/youtube/v3/getting-started?hl=ko
+- YouTube Data API: https://developers.google.com/youtube/v3/getting-started?hl=ko
 
 ## 📽 프로젝트 시연 및 소개 영상
 
