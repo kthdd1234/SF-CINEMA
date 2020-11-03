@@ -83,7 +83,7 @@
 - 영화 포스터 및 상세 정보
 <div>https://www.themoviedb.org/documentation/api?language=ko</div>
 <div>https://www.kmdb.or.kr/info/api/apiDetail/6</div>
-<div>ttps://developers.naver.com/docs/search/movie/</div>
+<div>https://developers.naver.com/docs/search/movie/</div>
 
-- 영화 예고편
+<div>- 영화 예고편</div>
 https://developers.google.com/youtube/v3/getting-started?hl=ko
