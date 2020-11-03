@@ -23,6 +23,16 @@
 
 <img width="962" alt="스크린샷 2020-10-20 오전 1 09 20" src="https://user-images.githubusercontent.com/58875822/96477011-f7ebe080-1270-11eb-98a9-97e7424dc8e0.png">
 
+## 📂 사용 API 출처
+
+#### 영화 포스터 및 상세 정보
+- https://www.themoviedb.org/documentation/api?language=ko
+- https://www.kmdb.or.kr/info/api/apiDetail/6
+- https://developers.naver.com/docs/search/movie/
+
+#### 영화 예고편
+- https://developers.google.com/youtube/v3/getting-started?hl=ko
+
 ## 📽 프로젝트 시연 및 소개 영상
 
 - 메인화면 상단
@@ -77,13 +87,3 @@
 
 ![반응형 웹(로그인/회원가입 페이지)](https://user-images.githubusercontent.com/58875822/96708512-4bc30a80-13d4-11eb-9b7c-d87967d0e891.gif)
 
-
-## 📂 사용 API 출처
-
-#### 영화 포스터 및 상세 정보
-- https://www.themoviedb.org/documentation/api?language=ko
-- https://www.kmdb.or.kr/info/api/apiDetail/6
-- https://developers.naver.com/docs/search/movie/
-
-#### 영화 예고편
-- https://developers.google.com/youtube/v3/getting-started?hl=ko
