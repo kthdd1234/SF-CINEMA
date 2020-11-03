@@ -80,11 +80,11 @@
 
 ## 사용 API 출처
 
-<div>- 영화 포스터 및 상세 정보</div>
+• 영화 포스터 및 상세 정보
 <div>https://www.themoviedb.org/documentation/api?language=ko</div>
 <div>https://www.kmdb.or.kr/info/api/apiDetail/6</div>
 <div>https://developers.naver.com/docs/search/movie/</div>
 
 
-<div>- 영화 예고편</div>
+<p>• 영화 예고편</p>
 https://developers.google.com/youtube/v3/getting-started?hl=ko
