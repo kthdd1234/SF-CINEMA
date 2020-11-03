@@ -24,13 +24,9 @@
 <img width="962" alt="스크린샷 2020-10-20 오전 1 09 20" src="https://user-images.githubusercontent.com/58875822/96477011-f7ebe080-1270-11eb-98a9-97e7424dc8e0.png">
 
 ## 📂 사용 API 출처
-
-#### 영화 포스터 및 상세 정보
 - The Movie Datebase: https://www.themoviedb.org/documentation/api?language=ko
 - 한국영화 데이터베이스: https://www.kmdb.or.kr/info/api/apiDetail/6
 - 네이버 오픈 API: https://developers.naver.com/docs/search/movie/
-
-#### 영화 예고편
 - YouTube Data API: https://developers.google.com/youtube/v3/getting-started?hl=ko
 
 ## 📽 프로젝트 시연 및 소개 영상
