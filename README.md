@@ -80,10 +80,10 @@
 
 ## 사용 API 출처
 
-* 영화 포스터 및 상세 정보
+### 영화 포스터 및 상세 정보
 - https://www.themoviedb.org/documentation/api?language=ko
-- https://www.kmdb.or.kr/info/api/apiDetail/6</div>
-- https://developers.naver.com/docs/search/movie/</div>
+- https://www.kmdb.or.kr/info/api/apiDetail/6
+- https://developers.naver.com/docs/search/movie/
 
-* 영화 예고편
+### 영화 예고편
 - https://developers.google.com/youtube/v3/getting-started?hl=ko
