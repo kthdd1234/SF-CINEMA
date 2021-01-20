@@ -27,6 +27,13 @@
 
 <img width="962" alt="스크린샷 2020-10-20 오전 1 09 20" src="https://user-images.githubusercontent.com/58875822/96477011-f7ebe080-1270-11eb-98a9-97e7424dc8e0.png">
 
+클라이언트
+<ul>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+</ul>
+
 ## 📂 사용 API 출처
 - The Movie Datebase: https://www.themoviedb.org/documentation/api?language=ko
 - 한국영화 데이터베이스: https://www.kmdb.or.kr/info/api/apiDetail/6
