@@ -27,7 +27,7 @@
 
 <img width="962" alt="스크린샷 2020-10-20 오전 1 09 20" src="https://user-images.githubusercontent.com/58875822/96477011-f7ebe080-1270-11eb-98a9-97e7424dc8e0.png">
 
-### 프론트엔드
+### Front-End
 <ul>
   <li>React 를 사용하여 단일 페이지로 구성된 SPA 구현</li>
   <li>Redux 를 사용하여 어플리케이션 내 상태관리 구현</li>
@@ -36,7 +36,7 @@
   <li>AWS S3 서비스를 활용하여 클라이언트 배포</li>
 </ul>
 
-### 백엔드
+### Back-End
 <ul>
   <li>Express 를 사용한 Node.js 서버 환경 구축</li>
   <li>Sequelize 를 활용하여 데이터베이스 스키마 설계 및 구성</li>
