@@ -30,7 +30,7 @@
 ### Front-End
 <ul>
   <li>React 를 사용하여 단일 페이지로 구성된 SPA 구현</li>
-  <li>Redux 를 사용하여 어플리케이션 내 상태관리 구현</li>
+  <li>글로벌 상태 관리를 위해 Redux 사용</li>
   <li>페이지 내에 화면 전환을 위해 React-router-dom 사용</li>
   <li>Ant-Design 을 사용해 전체적인 레이아웃 구성 및 디자인</li>
   <li>AWS S3 서비스를 활용하여 클라이언트 배포</li>
