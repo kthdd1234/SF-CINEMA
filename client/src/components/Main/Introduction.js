@@ -10,7 +10,6 @@ class Introduction extends Component {
                <div className="introduce">
                   <div className="introduce-wrap">
                      <img className="introduce-logo" src={SFCINEMA} />
-
                      <h2 className="introduce-title">Welcome.</h2>
                      <h3 className="introduce-description">
                         lot of SF movies to discover.

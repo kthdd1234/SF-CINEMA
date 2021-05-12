@@ -120,7 +120,7 @@ class Contents extends Component {
    };
 
    handleSettingTrailer(trailer) {
-      handleTrailerVisible(trailer, this.props.contensts.videoId);
+      handleTrailerVisible(trailer, this.props.contents.videoId);
       this.setState({ trailer });
    }
 
