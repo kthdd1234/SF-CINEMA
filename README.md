@@ -8,8 +8,10 @@
 
 ### <p>SF CINEMA 는 SF 영화 소개 사이트입니다.</p>
 
-영화를 좋아하시는 분 누구라도 편리하게 이용할 수 있도록 제작하였으며 특히 SF 영화를 좋아하시는 분들은 보다 다양한 SF 영화를 소개 받을 수 있도록 만들었습니다. :alien:  
+영화를 좋아하시는 분이라면 누구라도 편리하게 이용할 수 있도록 제작하였으며 특히 SF 영화를 좋아하시는 분들은 보다 다양한 SF 영화를 소개 받을 수 있도록 만들었습니다. :alien:  
 사람들이 주로 이용하는 영화 추천 서비스인 왓챠와 넷플릭스를 최대한 비슷하게 클로닝하는 것을 목표로 하고 있습니다. :muscle:
+
+
 
 ## 👍 구현 기능
 
@@ -22,6 +24,28 @@
 ## ⚙ 사용 기술
 
 <img width="962" alt="스크린샷 2020-10-20 오전 1 09 20" src="https://user-images.githubusercontent.com/58875822/96477011-f7ebe080-1270-11eb-98a9-97e7424dc8e0.png">
+
+### Front-End
+<ul>
+  <li>React 를 사용하여 단일 페이지로 구성된 SPA 구현</li>
+  <li>글로벌 상태 관리를 위해 Redux 사용</li>
+  <li>페이지 내에 화면 전환을 위해 React-router-dom 사용</li>
+  <li>Ant-Design 을 사용해 전체적인 레이아웃 구성 및 디자인</li>
+  <li>AWS S3 서비스를 활용하여 클라이언트 배포</li>
+</ul>
+
+### Back-End
+<ul>
+  <li>Express 를 사용한 Node.js 서버 환경 구축</li>
+  <li>Sequelize 를 활용하여 데이터베이스 스키마 설계 및 구성</li>
+  <li>AWS EC2, RDS 서비스를 활용하여 벡엔드 배포 환경 구축</li>
+</ul>
+
+## 📂 사용 API 출처
+- The Movie Datebase: https://www.themoviedb.org/documentation/api?language=ko
+- 한국영화 데이터베이스: https://www.kmdb.or.kr/info/api/apiDetail/6
+- 네이버 오픈 API: https://developers.naver.com/docs/search/movie/
+- YouTube Data API: https://developers.google.com/youtube/v3/getting-started?hl=ko
 
 ## 📽 프로젝트 시연 및 소개 영상
 
@@ -76,3 +100,4 @@
 - 반응형 웹(로그인/회원가입 페이지)
 
 ![반응형 웹(로그인/회원가입 페이지)](https://user-images.githubusercontent.com/58875822/96708512-4bc30a80-13d4-11eb-9b7c-d87967d0e891.gif)
+
