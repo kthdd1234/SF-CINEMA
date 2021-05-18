@@ -1,8 +1,8 @@
 .itemList-select {
-   position: absolute;
+   /* position: absolute;
    width: 10rem;
    margin-left: 5vw;
-   margin-top: 0.5rem;
+   margin-top: 0.5rem; */
 }
 
 @media screen and (max-width: 1280px) {

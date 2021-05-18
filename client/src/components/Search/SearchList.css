@@ -1,10 +1,10 @@
 .search-result-container {
-   margin: 4vw auto;
-   max-width: 88vw;
 }
 
 .search-result-text {
+   margin-top: 3.2vw;
    margin-bottom: 1vw;
+   padding-left: 5rem;
    font-weight: bold;
    font-size: 1.4vw;
    color: whitesmoke;
@@ -23,6 +23,7 @@
 .search-result-list {
    display: flex;
    flex-wrap: wrap;
+   padding-left: 4vw;
 }
 
 .loding-spin {

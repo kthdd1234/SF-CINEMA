@@ -1,4 +1,4 @@
-import Contents from '../../components/Main/Contents';
+import Movie from '../../components/Main/Movie';
 import { setProfile } from '../../actions/user';
 import { setContents } from '../../actions/contents';
 import { connect } from 'react-redux';
@@ -25,4 +25,4 @@ const mapReduxDispatchToReactProps = (dispatch) => {
 export default connect(
    mapReduxStateToReactProps,
    mapReduxDispatchToReactProps,
-)(Contents);
+)(Movie);

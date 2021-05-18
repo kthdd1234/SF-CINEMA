@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Select, Spin, Pagination } from 'antd';
 import { CaretDownFilled } from '@ant-design/icons';
 import MenuListEntry from '../../containers/Menu/MenuListEntry';
+import List from '../Search/List';
 import {
    requestHighlyRatedMovies,
    requestLatestMovies,
@@ -142,24 +143,24 @@ class MenuList extends Component {
          });
       }
 
-      if (prevState.currentMovies.length !== this.state.currentMovies.length) {
-         const domElement = document.querySelectorAll('.moive-content');
-         const lastElement = domElement[domElement.length - 1];
+      // if (prevState.currentMovies.length !== this.state.currentMovies.length) {
+      //    const domElement = document.querySelectorAll('.moive-content');
+      //    const lastElement = domElement[domElement.length - 1];
 
-         const observer = new IntersectionObserver(
-            (entries, observer) => {
-               entries.forEach(async (entry) => {
-                  if (entry.isIntersecting) {
-                     this.setState({ isLoding: true });
-                     await this.handleWatingTimeObserver();
-                     observer.unobserve(entry.target);
-                  }
-               });
-            },
-            { threshold: 0.5 },
-         );
-         observer.observe(lastElement);
-      }
+      //    const observer = new IntersectionObserver(
+      //       (entries, observer) => {
+      //          entries.forEach(async (entry) => {
+      //             if (entry.isIntersecting) {
+      //                this.setState({ isLoding: true });
+      //                await this.handleWatingTimeObserver();
+      //                observer.unobserve(entry.target);
+      //             }
+      //          });
+      //       },
+      //       { threshold: 0.5 },
+      //    );
+      //    observer.observe(lastElement);
+      // }
    };
 
    handleSelectedHighestRating = (movies) => {
@@ -201,7 +202,7 @@ class MenuList extends Component {
    };
 
    render() {
-      const { currentMovies, movePage, isLoding } = this.state;
+      const { currentMovies, movePage, isLoding, movies } = this.state;
 
       return (
          <div className="movie-container">
@@ -224,16 +225,17 @@ class MenuList extends Component {
                </Select>
             ) : null}
 
-            {currentMovies.length ? (
-               currentMovies.map((movie, i) => (
-                  <MenuListEntry key={i} movie={movie} />
-               ))
+            {movies.length ? (
+               <List movieList={movies} keyword="" />
             ) : (
+               // currentMovies.map((movie, i) => (
+               //    <MenuListEntry key={i} movie={movie} />
+               // ))
                <div className="loding-spin">
                   <Spin size="large" />
                </div>
             )}
-            {isLoding ? (
+            {/* {isLoding ? (
                <div
                   className="loding-spin"
                   style={{
@@ -242,7 +244,7 @@ class MenuList extends Component {
                >
                   <Spin size="large" />
                </div>
-            ) : null}
+            ) : null} */}
          </div>
       );
    }

@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Popconfirm, Modal } from 'antd';
-import { LikeOutlined, LikeFilled, CloseOutlined } from '@ant-design/icons';
+import { Button, Popconfirm } from 'antd';
+import { LikeOutlined, LikeFilled } from '@ant-design/icons';
 import { requestLikeCompleted, requestLikeCancel } from '../../requests';
 import {
    handleUserFavoritedData,
-   handleTrailerVisible,
    handlePopconfirmVisible,
    handleLikeCompletedNotification,
    handleLikeCancelNotification,
 } from '../../utils';
-import ContentsModal from '../../containers/Main/ContentsModal';
+
 import Trailer from './Trailer';
+import 'antd/dist/antd.css';
 import './MovieList.css';
 import './MovieListEntry.css';
 
@@ -43,14 +43,11 @@ class MovieListEntry extends Component {
    };
 
    handleModalVisible = (modalVisible, movie) => {
-      window.innerWidth > 1200
-         ? this.setState({ modalVisible })
-         : this.props.history.push(`/contents/${movie.id}`);
+      this.props.history.push(`/contents/${movie.id}`);
    };
 
    handleSettingTrailer(trailer) {
-      handleTrailerVisible(trailer, this.props.movie.videoId);
-      this.setState({ trailer });
+      this.setState({ trailer: trailer });
    }
 
    handlePopconfirmChange = (key) => (visible) => {
@@ -181,39 +178,12 @@ class MovieListEntry extends Component {
                   <div className="card-detail-title">{title}</div>
                </div>
             </div>
-
-            <Modal
-               centered
-               width={1150}
-               visible={modalVisible}
-               onOk={() => this.handleModalVisible(false)}
-               onCancel={() => this.handleModalVisible(false)}
-               footer={null}
-               maskClosable={false}
-            >
-               <ContentsModal
-                  movie={movie}
-                  likedFilled={likedFilled}
-                  numberOfLikes={numberOfLikes}
-                  handleNumberOfLikesIncrease={this.handleNumberOfLikesIncrease}
-                  handleNumberOfLikesDecrease={this.handleNumberOfLikesDecrease}
+            {trailer ? (
+               <Trailer
+                  videoId={movie.videoId}
+                  handleSettingTrailer={this.handleSettingTrailer.bind(this)}
                />
-            </Modal>
-            <Modal
-               visible={trailer}
-               onOk={() => this.handleSettingTrailer(false)}
-               onCancel={() => this.handleSettingTrailer(false)}
-               footer={null}
-               width={1300}
-            >
-               <Button
-                  ghost
-                  icon={<CloseOutlined />}
-                  className="trailer-close"
-                  onClick={() => this.handleSettingTrailer(false)}
-               />
-               <Trailer videoId={videoId} />
-            </Modal>
+            ) : null}
          </div>
       );
    }

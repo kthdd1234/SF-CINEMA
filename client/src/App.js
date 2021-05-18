@@ -10,7 +10,7 @@ import Login from './containers/Login/Login';
 import MenuBar from './containers/Menu/Menubar';
 import MainCinema from './containers/Main/MainCinema';
 import MenuList from './containers/Menu/MenuList';
-import Contents from './containers/Main/Contents';
+import Movie from './containers/Main/Movie';
 import SearchList from './containers/Search/SearchList';
 
 const { Header, Content } = Layout;
@@ -37,7 +37,7 @@ const App = () => {
                <Route
                   exact
                   path="/contents/:movie_id"
-                  render={() => <Contents />}
+                  render={() => <Movie />}
                />
                <Route exact path="/" render={() => <MainCinema />} />
 

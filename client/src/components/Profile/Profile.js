@@ -8,7 +8,7 @@ import {
    ReloadOutlined,
 } from '@ant-design/icons';
 import { handleUserFavoritedData } from '../../utils';
-import ContentsModal from '../../containers/Main/ContentsModal';
+// import ContentsModal from '../../containers/Main/ContentsModal';
 import './Profile.css';
 
 class Profile extends Component {
@@ -23,12 +23,7 @@ class Profile extends Component {
    }
 
    handleModalVisible = (modalVisible, movie) => {
-      if (window.innerWidth > 1200) {
-         return this.setState({ modalVisible });
-      } else {
-         this.props.history.push(`/contents/${movie.id}`);
-         location.reload(true);
-      }
+      this.props.history.push(`/contents/${movie.id}`);
    };
 
    handleCurrentSavedMovie = (currentMovie) => {
@@ -200,24 +195,6 @@ class Profile extends Component {
                   </List.Item>
                )}
             />
-
-            <Modal
-               centered
-               width={1150}
-               visible={modalVisible}
-               onOk={() => this.handleModalVisible(false)}
-               onCancel={() => this.handleModalVisible(false)}
-               footer={null}
-               maskClosable={false}
-            >
-               <ContentsModal
-                  movie={currentMovie}
-                  likedFilled={likedFilled}
-                  numberOfLikes={currentMovie.numberOfLikes}
-                  handleNumberOfLikesIncrease={this.handleNumberOfLikesIncrease}
-                  handleNumberOfLikesDecrease={this.handleNumberOfLikesDecrease}
-               />
-            </Modal>
          </div>
       );
    }

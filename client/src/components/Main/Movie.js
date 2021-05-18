@@ -28,10 +28,10 @@ import {
    requestLikeCancel,
 } from '../../requests';
 import Trailer from './Trailer';
-import './Contents.css';
+import './Movie.css';
 dotenv.config();
 
-class Contents extends Component {
+class Movie extends Component {
    constructor(props) {
       super(props);
       this.state = {
@@ -325,4 +325,4 @@ class Contents extends Component {
    }
 }
 
-export default withRouter(Contents);
+export default withRouter(Movie);

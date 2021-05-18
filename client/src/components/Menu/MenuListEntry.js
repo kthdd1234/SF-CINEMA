@@ -188,9 +188,12 @@ class MenuListEntry extends React.Component {
          },
       ];
 
-      return (
-         <div>
-            <div className="moive-content">
+      return <div>{}</div>;
+   }
+}
+
+export default withRouter(MenuListEntry);
+/* <div className="moive-content">
                <div className="movie-img-box">
                   <div className="img-shadow" />
                   <img
@@ -314,25 +317,4 @@ class MenuListEntry extends React.Component {
                      </Popconfirm>
                   </div>
                </div>
-               <Modal
-                  visible={trailer}
-                  onOk={() => this.handleSettingTrailer(false)}
-                  onCancel={() => this.handleSettingTrailer(false)}
-                  footer={null}
-                  width={1300}
-               >
-                  <Button
-                     ghost
-                     icon={<CloseOutlined />}
-                     className="trailer-close"
-                     onClick={() => this.handleSettingTrailer(false)}
-                  />
-                  <Trailer videoId={videoId} />
-               </Modal>
-            </div>
-         </div>
-      );
-   }
-}
-
-export default withRouter(MenuListEntry);
+            </div> */

@@ -45,9 +45,8 @@ class MainCinema extends Component {
    render() {
       return (
          <div>
-            <TopBackgroundList />
+            {/* <TopBackgroundList /> */}
             <MovieList />
-            <img src="https://image.tmdb.org/t/p/w1920_and_h750_multi_faces/mbtN6V6y5kdawvAkzqN4ohi576a.jpg" />
          </div>
       );
    }

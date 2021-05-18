@@ -10,7 +10,6 @@ import {
    handleLikeCompletedNotification,
    handleLikeCancelNotification,
 } from '../../utils';
-import ContentsModal from '../../containers/Main/ContentsModal';
 import Trailer from '../Main/Trailer';
 import './SearchListEntry.css';
 import '../Main/MovieListEntry.css';
@@ -61,9 +60,7 @@ class SearchListEntry extends Component {
    };
 
    handleModalVisible = (modalVisible, movie) => {
-      window.innerWidth > 1200
-         ? this.setState({ modalVisible })
-         : this.props.history.push(`/contents/${movie.id}`);
+      this.props.history.push(`/contents/${movie.id}`);
    };
 
    handleSettingTrailer(trailer) {
@@ -197,39 +194,6 @@ class SearchListEntry extends Component {
                </div>
             </div>
             <div className="search-result-title">{movie.title}</div>
-
-            <Modal
-               centered
-               width={1150}
-               visible={modalVisible}
-               onOk={() => this.handleModalVisible(false)}
-               onCancel={() => this.handleModalVisible(false)}
-               footer={null}
-               maskClosable={false}
-            >
-               <ContentsModal
-                  movie={movie}
-                  likedFilled={likedFilled}
-                  numberOfLikes={numberOfLikes}
-                  handleNumberOfLikesIncrease={this.handleNumberOfLikesIncrease}
-                  handleNumberOfLikesDecrease={this.handleNumberOfLikesDecrease}
-               />
-            </Modal>
-            <Modal
-               visible={trailer}
-               onOk={() => this.handleSettingTrailer(false)}
-               onCancel={() => this.handleSettingTrailer(false)}
-               footer={null}
-               width={1300}
-            >
-               <Button
-                  ghost
-                  icon={<CloseOutlined />}
-                  className="trailer-close"
-                  onClick={() => this.handleSettingTrailer(false)}
-               />
-               <Trailer videoId={movie.videoId} />
-            </Modal>
          </div>
       );
    }

@@ -11,6 +11,7 @@ import {
    DoubleRightOutlined,
 } from '@ant-design/icons';
 import MovieListEntry from '../../containers/Main/MovieListEntry';
+import 'antd/dist/antd.css';
 import './MovieList.css';
 
 class MovieList extends Component {

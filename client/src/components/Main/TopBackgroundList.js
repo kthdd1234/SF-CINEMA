@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Carousel } from 'antd';
 import Introduction from './Introduction';
-import TopBackgroundListEntry from './TopBackgroundListEntry';
+// import TopBackgroundListEntry from './TopBackgroundListEntry';
 
 class TopBackgroundList extends Component {
    constructor(props) {
@@ -13,7 +13,7 @@ class TopBackgroundList extends Component {
 
       return (
          <div>
-            <Carousel
+            {/* <Carousel
                effect="fade"
                infinite={true}
                dots={false}
@@ -29,7 +29,7 @@ class TopBackgroundList extends Component {
                {background.map((movieData, i) => (
                   <TopBackgroundListEntry key={i} movieData={movieData} />
                ))}
-            </Carousel>
+            </Carousel> */}
          </div>
       );
    }
