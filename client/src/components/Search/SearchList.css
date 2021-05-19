@@ -3,8 +3,7 @@
 
 .search-result-text {
    margin-top: 3.2vw;
-   margin-bottom: 1vw;
-   padding-left: 5rem;
+   padding-left: 5vw;
    font-weight: bold;
    font-size: 1.4vw;
    color: whitesmoke;
@@ -24,6 +23,7 @@
    display: flex;
    flex-wrap: wrap;
    padding-left: 4vw;
+   padding-right: 4vw;
 }
 
 .loding-spin {

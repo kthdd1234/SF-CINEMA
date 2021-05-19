@@ -1,8 +1,19 @@
 .itemList-select {
-   /* position: absolute;
-   width: 10rem;
-   margin-left: 5vw;
-   margin-top: 0.5rem; */
+   width: 12rem;
+}
+
+.menu-list-head {
+   display: flex;
+   justify-content: space-between;
+   margin-top: 3.2vw;
+   padding-left: 5vw;
+   padding-right: 5vw;
+}
+
+.menu-title {
+   color: whitesmoke;
+   font-weight: bold;
+   font-size: 1.4vw;
 }
 
 @media screen and (max-width: 1280px) {
