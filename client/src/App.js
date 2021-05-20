@@ -32,15 +32,10 @@ const App = () => {
          </Header>
          <Content>
             <Switch>
-               <Route exact path="/signup" render={() => <SignUp />} />
-               <Route exact path="/login" render={() => <Login />} />
-               <Route
-                  exact
-                  path="/contents/:movie_id"
-                  render={() => <Movie />}
-               />
-               <Route exact path="/" render={() => <MainCinema />} />
-
+               <Route exact path="/" component={MainCinema} />
+               <Route exact path="/signup" component={SignUp} />
+               <Route exact path="/login" component={Login} />
+               <Route exact path="/contents/:movie_id" component={Movie} />
                <Route
                   exact
                   path="/search"
@@ -48,25 +43,8 @@ const App = () => {
                      <SearchList location={location.search} />
                   )}
                />
-
-               <Route
-                  path="/recommendation/:pathname"
-                  render={({ location }) => (
-                     <MenuList location={location.pathname} />
-                  )}
-               />
-               <Route
-                  path="/genre"
-                  render={({ location }) => (
-                     <MenuList paramsKey="genre" location={location.search} />
-                  )}
-               />
-               <Route
-                  path="/series"
-                  render={({ location }) => (
-                     <MenuList paramsKey="title" location={location.search} />
-                  )}
-               />
+               <Route exact path="/recommendation/:menu" component={MenuList} />
+               <Route exact path="/:menu" component={MenuList} />
             </Switch>
          </Content>
       </div>
