@@ -164,7 +164,7 @@ export const requestSearch = async (keyword) => {
          keyword: keyword,
       },
    });
-   if (data === 'Not Found') return;
+   if (data === 'Not Found') return [];
    return data;
 };
 

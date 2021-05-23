@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Select, Spin } from 'antd';
 import * as icons from '@ant-design/icons';
 import * as request from '../../requests';
@@ -30,6 +30,7 @@ const {
    ReadFilled,
    EyeInvisibleFilled,
    FireFilled,
+   CaretDownFilled,
 } = icons;
 
 const reqList = {
@@ -69,9 +70,7 @@ const SelectBtn = ({ onChangeSelect }) => {
             defaultValue="선택해주세요"
             size="large"
             onChange={onChangeSelect}
-            suffixIcon={
-               <icons.CaretDownFilled style={{ color: 'whitesmoke' }} />
-            }
+            suffixIcon={<CaretDownFilled style={{ color: 'whitesmoke' }} />}
          >
             <Select.Option value="평점이 높은 순">
                ⭐ 평점이 높은 순
@@ -84,10 +83,27 @@ const SelectBtn = ({ onChangeSelect }) => {
 
 const MenuList = () => {
    const [movies, setMovies] = useState([]);
+   const [selectdBtn, setSelectdBtn] = useState(false);
+   const [icon, setIcon] = useState('');
+   const [sub, setSub] = useState('');
+
    const { pathname, search, href } = window.location;
    const pathList = pathname.split('/');
    const path = pathList.pop();
    const query = decodeURI(search.substring(1).split('=').pop());
+
+   useEffect(() => {
+      if (pathList[1] === 'recommendation') {
+         setIcon(subList[path][1]);
+         setSub(subList[path][0]);
+      } else {
+         setSub(query);
+         if (path === 'genre') setIcon(genreIcons[query]);
+      }
+      return () => {
+         setIcon('');
+      };
+   });
 
    useEffect(() => {
       const req = async () => {
@@ -97,35 +113,23 @@ const MenuList = () => {
                ? await getData(query)
                : await getData();
          setMovies(movies);
+         setSelectdBtn(true);
       };
       req();
+
+      return () => {
+         setSelectdBtn(false);
+      };
    }, [href]);
 
-   const onChangeSelect = async (selected) => {
-      const movies = await this.state.movies;
-      const sortMovies =
+   const onChangeSelect = useCallback((selected) => {
+      let sortMovies = [...movies];
+      sortMovies =
          selected === '평점이 높은 순'
-            ? movies.sort((a, b) => b.userRating - a.userRating)
-            : movies.sort((a, b) => b.releaseDate - a.releaseDate);
+            ? sortMovies.sort((a, b) => b.userRating - a.userRating)
+            : sortMovies.sort((a, b) => b.releaseDate - a.releaseDate);
       setMovies(sortMovies);
-   };
-
-   const setSub = () => {
-      let icon, sub;
-
-      if (pathList[1] === 'recommendation') {
-         const setting = subList[path];
-         [icon, sub] = [setting[1], setting[0]];
-      } else {
-         sub = query;
-         if (path == 'genre') {
-            icon = genreIcons[sub];
-         }
-      }
-      return [icon, sub];
-   };
-
-   const [icon, sub] = setSub();
+   });
 
    return (
       <div className="movie-container">
@@ -135,7 +139,7 @@ const MenuList = () => {
                   <div className="menu-title">
                      {icon} {sub}
                   </div>
-                  {pathname ? (
+                  {selectdBtn ? (
                      <SelectBtn onChangeSelect={onChangeSelect} />
                   ) : null}
                </div>

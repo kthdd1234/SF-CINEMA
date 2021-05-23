@@ -36,6 +36,9 @@ const App = () => {
                <Route exact path="/signup" component={SignUp} />
                <Route exact path="/login" component={Login} />
                <Route exact path="/contents/:movie_id" component={Movie} />
+               <Route exact path="/recommendation/:menu" component={MenuList} />
+               <Route exact path="/genre" component={MenuList} />
+               <Route exact path="/series" component={MenuList} />
                <Route
                   exact
                   path="/search"
@@ -43,8 +46,6 @@ const App = () => {
                      <SearchList location={location.search} />
                   )}
                />
-               <Route exact path="/recommendation/:menu" component={MenuList} />
-               <Route exact path="/:menu" component={MenuList} />
             </Switch>
          </Content>
       </div>
