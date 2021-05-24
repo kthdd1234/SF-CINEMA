@@ -1,7 +1,79 @@
 import React from 'react';
 import $ from 'jquery';
 import { notification } from 'antd';
-import { LikeFilled, PushpinFilled } from '@ant-design/icons';
+import {
+   LikeFilled,
+   PushpinFilled,
+   VideoCameraFilled,
+   StarFilled,
+   GiftFilled,
+   CrownFilled,
+   RocketFilled,
+   RedditCircleFilled,
+   DingdingOutlined,
+   ThunderboltFilled,
+   GitlabFilled,
+   RobotFilled,
+   HourglassFilled,
+   ReadFilled,
+   EyeInvisibleFilled,
+   FireFilled,
+   GiftOutlined,
+   HomeOutlined,
+   LoginOutlined,
+   FormOutlined,
+   UserOutlined,
+   BarsOutlined,
+   SearchOutlined,
+   TagOutlined,
+} from '@ant-design/icons';
+
+export const pushList = {
+   'latest-movies': ['최신 영화', <VideoCameraFilled />],
+   'highly-rated-movies': ['평점이 높은 영화', <StarFilled />],
+   'operator-push': ['운영자 추천', <GiftFilled />],
+   'sf-masterpiece': ['SF 명작', <CrownFilled />],
+};
+
+export const tagList = {
+   '우주 탐사': <RocketFilled />,
+   외계인: <RedditCircleFilled />,
+   '슈퍼 히어로': <DingdingOutlined />,
+   액션: <ThunderboltFilled />,
+   몬스터: <GitlabFilled />,
+   '가상 현실 또는 AI': <RobotFilled />,
+   '시간 여행': <HourglassFilled />,
+   드라마: <ReadFilled />,
+   좀비: <EyeInvisibleFilled />,
+   재난: <FireFilled />,
+};
+
+export const seriesList = {
+   '슈퍼 히어로': [
+      '어벤져스',
+      '스파이더맨',
+      '아이언맨',
+      '앤트맨',
+      '캡틴 아메리카',
+      '데드풀',
+      '엑스맨',
+      '가디언즈 오브 갤럭시',
+      '토르',
+      '배트맨',
+   ],
+   몬스터: ['클로버필드', '퍼시픽 림', '쥬라기 월드', '콰이어트 플레이스'],
+   우주배경: ['에이리언', '스타워즈', '스타트렉', '트랜스포머'],
+   액션: [
+      '레지던트 이블',
+      '터미네이터',
+      '메이즈 러너',
+      '헝거게임',
+      '다이버전트',
+      '블레이드 러너',
+      '맨 인 블랙',
+   ],
+   모험: ['백 투 더 퓨쳐', '28일 후', '혹성탈출'],
+};
 
 /* URL 파라미터(query string) 가져오기 */
 export const handleURLSearchParams = (paramsKey) => {

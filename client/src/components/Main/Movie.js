@@ -21,13 +21,14 @@ import {
    handleTrailerVisible,
 } from '../../utils';
 import {
-   requestContests,
+   reqMovie,
    requestSaveCompleted,
    requestSaveCancel,
    requestLikeCompleted,
    requestLikeCancel,
 } from '../../requests';
 import Trailer from './Trailer';
+import '../Menu/MenuListEntry.css';
 import './Movie.css';
 dotenv.config();
 
@@ -45,7 +46,7 @@ class Movie extends Component {
    }
 
    componentDidMount = async () => {
-      const contensts = await requestContests();
+      const contensts = await reqMovie();
       this.props.handleSettingContents(contensts);
 
       if (this.props.isLogin) {
@@ -119,10 +120,9 @@ class Movie extends Component {
       }
    };
 
-   handleSettingTrailer(trailer) {
-      handleTrailerVisible(trailer, this.props.contents.videoId);
-      this.setState({ trailer });
-   }
+   handleSettingTrailer = () => {
+      this.setState({ trailer: !this.state.trailer });
+   };
 
    render() {
       const {
@@ -140,12 +140,15 @@ class Movie extends Component {
          videoId,
       } = this.props.contents;
 
+      const { history } = this.props;
+
       const {
          savedFilled,
          savePopComfirm,
          likedFilled,
          likePopComfirm,
          numberOfLikes,
+         trailer,
       } = this.state;
 
       const tags = [
@@ -177,6 +180,69 @@ class Movie extends Component {
             color: 'default',
          },
       ];
+
+      const PopUpList = [
+         [
+            '혹시 이 영화를 보셨나요?',
+            '로그인을 하여 영화에 대한 평가를 내려주세요.',
+            this.handlePopconfirmChange('likePopComfirm'),
+            likePopComfirm,
+            likedFilled ? 'like-fill btn-color' : 'like-out btn-color',
+            likedFilled ? <LikeFilled /> : <LikeOutlined />,
+            'ghost',
+            this.handleSettingLike,
+            '재밌어요',
+         ],
+         [
+            '로그인이 되어 있지 않습니다.',
+            '로그인을 하여 영화 정보를 저장해보세요.',
+            this.handlePopconfirmChange('savePopComfirm'),
+            savePopComfirm,
+            savedFilled ? 'pushpin-fill btn-color' : 'pushpin-out btn-color',
+            savedFilled ? <PushpinFilled /> : <PushpinOutlined />,
+            'ghost',
+            this.handleSettingSave,
+            '저장하기',
+         ],
+      ];
+
+      const PopUpBtn = ({
+         title,
+         mid,
+         onVisibleChange,
+         onConfirm,
+         visible,
+         className,
+         icon,
+         type,
+         onClick,
+         text,
+      }) => {
+         return (
+            <Popconfirm
+               title={
+                  <div>
+                     {title}
+                     <div>{mid}</div>
+                  </div>
+               }
+               onVisibleChange={onVisibleChange}
+               onConfirm={onConfirm}
+               visible={visible}
+               okText="로그인 하러 가기"
+               cancelText="닫기"
+            >
+               <Button
+                  className={className}
+                  icon={icon}
+                  type={type}
+                  onClick={onClick}
+               >
+                  {text}
+               </Button>
+            </Popconfirm>
+         );
+      };
 
       return (
          <div>
@@ -232,93 +298,34 @@ class Movie extends Component {
                         className="trailer-btn"
                         icon={<PlayCircleOutlined />}
                         type="danger"
-                        onClick={() => this.handleSettingTrailer(true)}
+                        onClick={this.handleSettingTrailer}
                      >
                         예고편 보기
                      </Button>
-                     <Popconfirm
-                        title={
-                           <div>
-                              혹시 이 영화를 보셨나요?
-                              <div>
-                                 로그인을 하여 영화에 대한 평가를 내려주세요.
-                              </div>
-                           </div>
-                        }
-                        onVisibleChange={this.handlePopconfirmChange(
-                           'likePopComfirm',
-                        )}
-                        onConfirm={() => this.props.history.push('/login')}
-                        visible={likePopComfirm}
-                        okText="로그인 하러 가기"
-                        cancelText="닫기"
-                     >
-                        <Button
-                           icon={
-                              likedFilled ? <LikeFilled /> : <LikeOutlined />
-                           }
-                           className={
-                              likedFilled
-                                 ? 'like-fill btn-color'
-                                 : 'like-out btn-color'
-                           }
-                           onClick={this.handleSettingLike}
-                           type="ghost"
-                        >
-                           재밌어요
-                        </Button>
-                     </Popconfirm>
-                     <Popconfirm
-                        title={
-                           <div>
-                              로그인이 되어 있지 않습니다.
-                              <div>로그인을 하여 영화 정보를 저장해보세요.</div>
-                           </div>
-                        }
-                        onVisibleChange={this.handlePopconfirmChange(
-                           'savePopComfirm',
-                        )}
-                        onConfirm={() => this.props.history.push('/login')}
-                        visible={savePopComfirm}
-                        okText="로그인 하러 가기"
-                        cancelText="닫기"
-                     >
-                        <Button
-                           icon={
-                              savedFilled ? (
-                                 <PushpinFilled />
-                              ) : (
-                                 <PushpinOutlined />
-                              )
-                           }
-                           className={
-                              savedFilled
-                                 ? 'pushpin-fill btn-color'
-                                 : 'pushpin-out btn-color'
-                           }
-                           onClick={this.handleSettingSave}
-                           type="ghost"
-                        >
-                           저장하기
-                        </Button>
-                     </Popconfirm>
+                     {PopUpList.map((list, i) => (
+                        <PopUpBtn
+                           key={i}
+                           title={list[0]}
+                           mid={list[1]}
+                           onVisibleChange={list[2]}
+                           onConfirm={() => history.push('/login')}
+                           visible={list[3]}
+                           className={list[4]}
+                           icon={list[5]}
+                           type={list[6]}
+                           onClick={list[7]}
+                           text={list[8]}
+                        />
+                     ))}
                   </div>
                </div>
-               <Modal
-                  visible={this.state.trailer}
-                  onOk={() => this.handleSettingTrailer(false)}
-                  onCancel={() => this.handleSettingTrailer(false)}
-                  footer={null}
-                  width={1300}
-               >
-                  <Button
-                     ghost
-                     icon={<CloseOutlined />}
-                     className="trailer-close"
-                     onClick={() => this.handleSettingTrailer(false)}
+
+               {trailer ? (
+                  <Trailer
+                     videoId={videoId}
+                     handleSettingTrailer={this.handleSettingTrailer.bind(this)}
                   />
-                  <Trailer videoId={videoId} />
-               </Modal>
+               ) : null}
             </div>
          </div>
       );

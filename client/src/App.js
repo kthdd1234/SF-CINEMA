@@ -15,13 +15,26 @@ import SearchList from './containers/Search/SearchList';
 
 const { Header, Content } = Layout;
 
-const App = () => {
+const NotFound = () => {
+   return <div>Not Found</div>;
+};
+
+const routes = [
+   ['/', MainCinema],
+   ['/signup', SignUp],
+   ['/login', Login],
+   ['/movies/:movie_id', Movie],
+   ['/explore', MenuList],
+   ['/search', SearchList],
+];
+
+const App = ({ handleProfileUpdate, handleLoginChange }) => {
    useEffect(() => {
       const accessToken = reactLocalStorage.get('SFCinemaUserToken');
       if (accessToken)
          requestProfile(accessToken).then((profile) => {
-            this.props.handleProfileUpdate(profile);
-            this.props.handleLoginChange(true);
+            handleProfileUpdate(profile);
+            handleLoginChange(true);
          });
    });
 
@@ -32,20 +45,10 @@ const App = () => {
          </Header>
          <Content>
             <Switch>
-               <Route exact path="/" component={MainCinema} />
-               <Route exact path="/signup" component={SignUp} />
-               <Route exact path="/login" component={Login} />
-               <Route exact path="/contents/:movie_id" component={Movie} />
-               <Route exact path="/recommendation/:menu" component={MenuList} />
-               <Route exact path="/genre" component={MenuList} />
-               <Route exact path="/series" component={MenuList} />
-               <Route
-                  exact
-                  path="/search"
-                  render={({ location }) => (
-                     <SearchList location={location.search} />
-                  )}
-               />
+               {routes.map((route, i) => (
+                  <Route exact key={i} path={route[0]} component={route[1]} />
+               ))}
+               <Route path="/" component={NotFound} />
             </Switch>
          </Content>
       </div>

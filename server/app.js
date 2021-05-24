@@ -1,17 +1,15 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const models = require('./models/index');
 const bodyParser = require('body-parser');
 const userRouter = require('./routes/user');
-const recommendationRouter = require('./routes/recommendation');
 const backgroundRouter = require('./routes/background');
-const contentsRouter = require('./routes/contents');
+const moviesRouter = require('./routes/movies');
 const searchRouter = require('./routes/search');
-const genreRouter = require('./routes/genre');
-const seriesRouter = require('./routes/series');
 const likeRouter = require('./routes/like');
 const saveRouter = require('./routes/save');
-const models = require('./models/index');
+const exploreRouter = require('./routes/explore');
 
 app.use(bodyParser.json());
 app.use(
@@ -21,15 +19,19 @@ app.use(
   })
 );
 
-app.use('/user', userRouter);
-app.use('/background', backgroundRouter);
-app.use('/recommendation', recommendationRouter);
-app.use('/contents', contentsRouter);
-app.use('/search', searchRouter);
-app.use('/genre', genreRouter);
-app.use('/series', seriesRouter);
-app.use('/like', likeRouter);
-app.use('/save', saveRouter);
+const routers = [
+  ['/user', userRouter],
+  ['/background', backgroundRouter],
+  ['/movies', moviesRouter],
+  ['/search', searchRouter],
+  ['/like', likeRouter],
+  ['/save', saveRouter],
+  ['/explore', exploreRouter],
+];
+
+routers.forEach((router) => {
+  app.use(router[0], router[1]);
+});
 
 models.sequelize
   .sync()

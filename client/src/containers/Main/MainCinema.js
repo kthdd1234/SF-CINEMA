@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TopBackgroundList from './TopBackgroundList';
 import MovieList from './MovieList';
-import {
-   requestBackground,
-   requestRecommendation,
-   requestHighlyRatedMovies,
-   requestGenre,
-   requestOperatorRecommendation,
-   requestSFMasterpiece,
-} from '../../requests';
+import { requestBackground, reqExplore } from '../../requests';
 import {
    setBackground,
    setRecommendation,
@@ -31,13 +24,13 @@ class MainCinema extends Component {
    async componentDidMount() {
       const movieList = {
          background: await requestBackground(),
-         recommendation: await requestRecommendation(count),
-         highlyRatedMovies: await requestHighlyRatedMovies(count),
-         aliens: await requestGenre('외계인', count),
-         superHero: await requestGenre('슈퍼 히어로', count),
-         operatorRecommendation: await requestOperatorRecommendation(count),
-         sfMasterpiece: await requestSFMasterpiece(count),
-         action: await requestGenre('액션', count),
+         recommendation: await reqExplore('push', 'push'),
+         highlyRatedMovies: await reqExplore('push', 'highly-rated-movies'),
+         aliens: await reqExplore('tag', '외계인'),
+         superHero: await reqExplore('tag', '슈퍼 히어로'),
+         operatorRecommendation: await reqExplore('push', 'operator-push'),
+         sfMasterpiece: await reqExplore('push', 'sf-masterpiece'),
+         action: await reqExplore('tag', '액션'),
       };
       this.props.handleMainMovieList(movieList);
    }

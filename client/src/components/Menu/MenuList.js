@@ -1,66 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Select, Spin } from 'antd';
-import * as icons from '@ant-design/icons';
-import * as request from '../../requests';
+import { CaretDownFilled } from '@ant-design/icons';
+import { reqExplore } from '../../requests';
+import { pushList, tagList } from '../../utils';
 import List from '../Search/List';
-import { handleURLSearchParams } from '../../utils';
 import './MenuList.css';
-
-const {
-   requestHighlyRatedMovies,
-   requestLatestMovies,
-   requestOperatorRecommendation,
-   requestSFMasterpiece,
-   requestGenre,
-   requestSeries,
-} = request;
-
-const {
-   VideoCameraFilled,
-   StarFilled,
-   GiftFilled,
-   CrownFilled,
-   RocketFilled,
-   RedditCircleFilled,
-   DingdingOutlined,
-   ThunderboltFilled,
-   GitlabFilled,
-   RobotFilled,
-   HourglassFilled,
-   ReadFilled,
-   EyeInvisibleFilled,
-   FireFilled,
-   CaretDownFilled,
-} = icons;
-
-const reqList = {
-   'highly-rated-movies': requestHighlyRatedMovies,
-   'latest-movies': requestLatestMovies,
-   'operator-recommendation': requestOperatorRecommendation,
-   'sf-masterpiece': requestSFMasterpiece,
-   genre: requestGenre,
-   series: requestSeries,
-};
-
-const subList = {
-   'latest-movies': ['최신 영화', <VideoCameraFilled />],
-   'highly-rated-movies': ['평점이 높은 영화', <StarFilled />],
-   'operator-recommendation': ['운영자 추천', <GiftFilled />],
-   'sf-masterpiece': ['SF 명작', <CrownFilled />],
-};
-
-const genreIcons = {
-   '우주 탐사': <RocketFilled />,
-   외계인: <RedditCircleFilled />,
-   '슈퍼 히어로': <DingdingOutlined />,
-   액션: <ThunderboltFilled />,
-   몬스터: <GitlabFilled />,
-   '가상 현실 또는 AI': <RobotFilled />,
-   '시간 여행': <HourglassFilled />,
-   드라마: <ReadFilled />,
-   좀비: <EyeInvisibleFilled />,
-   재난: <FireFilled />,
-};
 
 const SelectBtn = ({ onChangeSelect }) => {
    return (
@@ -86,19 +31,21 @@ const MenuList = () => {
    const [selectdBtn, setSelectdBtn] = useState(false);
    const [icon, setIcon] = useState('');
    const [sub, setSub] = useState('');
-
-   const { pathname, search, href } = window.location;
-   const pathList = pathname.split('/');
-   const path = pathList.pop();
-   const query = decodeURI(search.substring(1).split('=').pop());
+   const [key, value] = useLocation().search.substring(1).split('=');
 
    useEffect(() => {
-      if (pathList[1] === 'recommendation') {
-         setIcon(subList[path][1]);
-         setSub(subList[path][0]);
-      } else {
-         setSub(query);
-         if (path === 'genre') setIcon(genreIcons[query]);
+      switch (key) {
+         case 'push':
+            setSub(pushList[value][0]);
+            setIcon(pushList[value][1]);
+            break;
+         case 'tag':
+            setSub(value);
+            setIcon(tagList[value]);
+            break;
+         case 'series':
+            setSub(value);
+            break;
       }
       return () => {
          setIcon('');
@@ -107,12 +54,8 @@ const MenuList = () => {
 
    useEffect(() => {
       const req = async () => {
-         const getData = await reqList[path];
-         const movies =
-            path === 'genre' || path === 'series'
-               ? await getData(query)
-               : await getData();
-         setMovies(movies);
+         const data = await reqExplore(key, value);
+         setMovies(data);
          setSelectdBtn(true);
       };
       req();
@@ -120,7 +63,7 @@ const MenuList = () => {
       return () => {
          setSelectdBtn(false);
       };
-   }, [href]);
+   }, [value]);
 
    const onChangeSelect = useCallback((selected) => {
       let sortMovies = [...movies];

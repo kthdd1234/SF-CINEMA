@@ -66,77 +66,11 @@ export const requestBackground = async () => {
    return data;
 };
 
-/* 추천 영화(랜덤) */
-export const requestRecommendation = async (count) => {
-   const { data } = await serverUrl.get('/recommendation', {
+/* 영화 탐색하기 */
+export const reqExplore = async (key, value) => {
+   const { data } = await serverUrl.get('/explore', {
       params: {
-         count: count,
-      },
-   });
-
-   return data;
-};
-
-/* 별점이 높은 영화 */
-export const requestHighlyRatedMovies = async (count) => {
-   const { data } = await serverUrl.get('/recommendation/highly-rated-movies', {
-      params: {
-         count: count,
-      },
-   });
-
-   return data;
-};
-
-/* 최신 영화 추천 */
-export const requestLatestMovies = async () => {
-   const { data } = await serverUrl.get(`/recommendation/latest-movies`);
-
-   return data;
-};
-
-/* 장르별 영화 추천 */
-export const requestGenre = async (genre, count) => {
-   const { data } = await serverUrl.get(`/genre`, {
-      params: {
-         genre: genre,
-         count: count ? count : undefined,
-      },
-   });
-
-   return data;
-};
-
-/* 운영자가 추천하는 SF 영화 */
-export const requestOperatorRecommendation = async (count) => {
-   const { data } = await serverUrl.get(
-      `/recommendation/operator-recommendation`,
-      {
-         params: {
-            count: count ? count : undefined,
-         },
-      },
-   );
-
-   return data;
-};
-
-/* 주말에 몰아보기 좋은 SF 명작 추천 */
-export const requestSFMasterpiece = async (count) => {
-   const { data } = await serverUrl.get(`/recommendation/sf-masterpiece`, {
-      params: {
-         count: count ? count : undefined,
-      },
-   });
-
-   return data;
-};
-
-/* SF 시리즈 */
-export const requestSeries = async (title) => {
-   const { data } = await serverUrl.get('/series', {
-      params: {
-         title: title,
+         [key]: value,
       },
    });
 
@@ -144,12 +78,12 @@ export const requestSeries = async (title) => {
 };
 
 /* 현재 영화 */
-export const requestContests = async () => {
+export const reqMovie = async () => {
    const url = window.location.pathname;
    const lastOfSlashIdx = url.lastIndexOf('/');
    const movieId = url.substring(lastOfSlashIdx + 1);
 
-   const { data } = await serverUrl.get('/contents', {
+   const { data } = await serverUrl.get('/movies', {
       params: {
          movieId: movieId,
       },

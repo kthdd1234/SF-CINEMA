@@ -43,7 +43,7 @@ class MovieListEntry extends Component {
    };
 
    handleModalVisible = (modalVisible, movie) => {
-      this.props.history.push(`/contents/${movie.id}`);
+      this.props.history.push(`/movies/${movie.id}`);
    };
 
    handleSettingTrailer(trailer) {
