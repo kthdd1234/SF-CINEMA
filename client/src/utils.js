@@ -84,23 +84,17 @@ export const handleURLSearchParams = (paramsKey) => {
 };
 
 /* 사용자의 좋아요, 저장하기 데이터 분석 */
-export const handleUserFavoritedData = async (
-   { savedMovie, likedMovie },
-   contensts,
-) => {
-   const favorite = ['savedFilled', 'likedFilled'];
-   const favaritedData = [savedMovie, likedMovie];
-   let result = {};
+export const favorite = async ({ savedMovie, likedMovie }, id) => {
+   const result = [false, false];
+   const favarited = [savedMovie, likedMovie];
 
-   favaritedData.forEach((data, i) => {
-      data.forEach((movie) => {
-         if (movie.id === contensts.id) {
-            result[favorite[i]] = true;
+   favarited.forEach((movies, i) => {
+      movies.forEach((movie) => {
+         if (movie.id === id) {
+            result[i] = true;
          }
       });
    });
-
-   result = Object.keys(result).length !== 0 ? result : undefined;
 
    return result;
 };

@@ -4,7 +4,7 @@ import { Button, Popconfirm } from 'antd';
 import { LikeOutlined, LikeFilled } from '@ant-design/icons';
 import { requestLikeCompleted, requestLikeCancel } from '../../requests';
 import {
-   handleUserFavoritedData,
+   // handleUserFavoritedData,
    handlePopconfirmVisible,
    handleLikeCompletedNotification,
    handleLikeCancelNotification,

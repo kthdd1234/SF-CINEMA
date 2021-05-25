@@ -7,7 +7,7 @@ import {
    LikeFilled,
    ReloadOutlined,
 } from '@ant-design/icons';
-import { handleUserFavoritedData } from '../../utils';
+// import { handleUserFavoritedData } from '../../utils';
 // import ContentsModal from '../../containers/Main/ContentsModal';
 import './Profile.css';
 
