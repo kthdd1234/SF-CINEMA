@@ -269,30 +269,36 @@ const Movie = ({ isLogin, profile, history }) => {
 
    return (
       <div className="movie">
+         <div className="movie-contents">
+            <Titles
+               title={title}
+               titleEng={titleEng}
+               releaseDate={releaseDate}
+            />
+            <Info
+               userRating={userRating}
+               numberOfLikes={numberOfLikes}
+               genre={genre}
+               ratingGrade={ratingGrade}
+               runtime={runtime}
+            />
+            <Plot plot={plot} />
+            <Details director={director} actors={actors} />
+            <Btns
+               setTrailer={setTrailer}
+               history={history}
+               setPopcomfirm={setPopcomfirm}
+               setLikePopComfirm={setLikePopComfirm}
+               setSavePopComfirm={setSavePopComfirm}
+               likePopComfirm={likePopComfirm}
+               savePopComfirm={savePopComfirm}
+               likedFilled={likedFilled}
+               savedFilled={savedFilled}
+               setLike={setLike}
+               setSave={setSave}
+            />
+         </div>
          <BackDrop backDrop={backDrop} />
-         <Titles title={title} titleEng={titleEng} releaseDate={releaseDate} />
-         <Info
-            userRating={userRating}
-            numberOfLikes={numberOfLikes}
-            genre={genre}
-            ratingGrade={ratingGrade}
-            runtime={runtime}
-         />
-         <Plot plot={plot} />
-         <Details director={director} actors={actors} />
-         <Btns
-            setTrailer={setTrailer}
-            history={history}
-            setPopcomfirm={setPopcomfirm}
-            setLikePopComfirm={setLikePopComfirm}
-            setSavePopComfirm={setSavePopComfirm}
-            likePopComfirm={likePopComfirm}
-            savePopComfirm={savePopComfirm}
-            likedFilled={likedFilled}
-            savedFilled={savedFilled}
-            setLike={setLike}
-            setSave={setSave}
-         />
          {trailer ? (
             <Trailer videoId={videoId} handleSettingTrailer={setTrailer} />
          ) : null}

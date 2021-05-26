@@ -40,9 +40,7 @@ const App = ({ handleProfileUpdate, handleLoginChange }) => {
 
    return (
       <div>
-         <Header>
-            <MenuBar />
-         </Header>
+         <MenuBar />
          <Content>
             <Switch>
                {routes.map((route, i) => (

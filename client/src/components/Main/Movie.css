@@ -1,3 +1,15 @@
+.movie {
+   position: relative;
+   display: flex;
+   align-items: center;
+   top: 6.5rem;
+}
+
+.movie-contents {
+   padding-left: 4rem;
+   padding-right: 4rem;
+}
+
 .img-shadow {
    position: absolute;
    width: 45%;
@@ -15,6 +27,8 @@
 
 .item-tag-wrap {
    position: relative;
+   padding-top: 1rem;
+   padding-bottom: 1.5rem;
 }
 
 .tag-text {
@@ -22,9 +36,9 @@
 }
 
 .movie-img-box {
-   position: absolute;
+   /* position: absolute;
    width: 61.5vw;
-   left: 38vw;
+   left: 38vw; */
 }
 
 .movie-img {
@@ -32,23 +46,22 @@
 }
 
 .movie-info {
-   color: whitesmoke;
    background: rgb(20, 21, 23);
 }
 
 .movie-headers {
-   text-align: left;
 }
 
 .movie-title {
    position: relative;
    z-index: 1;
-   color: whitesmoke;
+   color: darkgray;
 }
 
 .movie-title-sub {
    font-size: 3vw;
    font-weight: bold;
+   color: whitesmoke;
 }
 
 .movie-title-eng {
@@ -88,7 +101,7 @@
 }
 
 .movie-plot {
-   width: 30vw;
+   width: 32vw;
    color: rgba(255, 255, 255, 0.8);
    font-size: 0.9vw;
 }
@@ -98,10 +111,14 @@
 
 .movie-details {
    font-size: 0.8vw;
+   padding-top: 1rem;
+   padding-bottom: 1.5rem;
+   color: rgba(254, 249, 249, 0.6);
 }
 
 .movie-sub {
    padding-right: 0.5vw;
+   color: darkgray;
 }
 
 .btn-color {
