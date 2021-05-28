@@ -24,68 +24,102 @@ const navLeft = [
    [<TagOutlined />, '특징'],
    [<ThunderboltFilled />, '시리즈'],
 ];
+
 const navRight = [
    [<SearchOutlined />, '검색'],
    ['', '로그인'],
    ['', '회원가입'],
 ];
-//#1F2023
 
-const onHover = (item) => {
-   switch (item) {
-      case '추천':
-         break;
-      case '특징':
-         break;
-      case '시리즈':
-         break;
-   }
+const Hover = ({ query, lists, history, onHover }) => {
+   const onClick = (value) => {
+      history.push(`/explore?${query}=${value}`);
+      onHover(false);
+   };
+
+   return (
+      <div className="nav-detail-list">
+         {Object.entries(lists).map((list, i) => (
+            <div
+               key={i}
+               className="nav-detail-list-item"
+               onClick={() => onClick(list[0])}
+            >
+               <span>{list[1][1]}</span>
+               <span className="nav-icon">{list[1][0]}</span>
+            </div>
+         ))}
+      </div>
+   );
 };
 
-const MenuBar = () => {
+const DetailSeries = () => {
+   return <div></div>;
+};
+
+const MenuBar = ({ history }) => {
+   const [pushHover, onPushHover] = useState(false);
+   const [tagHover, onTagHover] = useState(false);
+   const [seriesHover, onSeriesHover] = useState(false);
+
    return (
       <nav className="nav">
          <div className="nav-list">
-            <img className="nav-list-logo" src={SFCINEMA} />
-            {/* {navLeft.map((item, i) => (
-               <div
-                  key={i}
-                  className="nav-list-item"
-                  onMouseOver={() => onHover(item[1])}
-               >
-                  <span>{item[0]}</span>
-                  <span className="nav-icon">{item[1]}</span>
-               </div>
-            ))} */}
-            <div className="nav-list-item">
+            <img
+               className="nav-list-logo"
+               src={SFCINEMA}
+               onClick={() => history.push('/')}
+            />
+
+            <div className="nav-list-item" onClick={() => history.push('/')}>
                <span>{navLeft[0][0]}</span>
                <span className="nav-icon">{navLeft[0][1]}</span>
             </div>
 
-            <div className="wrap">
+            <div
+               className="wrap"
+               onMouseOver={() => onPushHover(true)}
+               onMouseLeave={() => onPushHover(false)}
+            >
                <div className="nav-list-item">
                   <span>{navLeft[1][0]}</span>
                   <span className="nav-icon">{navLeft[1][1]}</span>
                </div>
-               <div className="nav-detail-list">
-                  {Object.entries(pushList).map((list, i) => (
-                     <div key={i} className="nav-detail-list-item">
-                        <span>{list[1][1]}</span>
-                        <span className="nav-icon">{list[1][0]}</span>
-                     </div>
-                  ))}
+               {pushHover ? (
+                  <Hover
+                     query="push"
+                     lists={pushList}
+                     history={history}
+                     onHover={onPushHover}
+                  />
+               ) : null}
+            </div>
+
+            <div
+               className="wrap"
+               onMouseOver={() => onTagHover(true)}
+               onMouseLeave={() => onTagHover(false)}
+            >
+               <div className="nav-list-item">
+                  <span>{navLeft[2][0]}</span>
+                  <span className="nav-icon">{navLeft[2][1]}</span>
+                  {tagHover ? (
+                     <Hover
+                        query="tag"
+                        lists={tagList}
+                        history={history}
+                        onHover={onTagHover}
+                     />
+                  ) : null}
                </div>
             </div>
 
-            <div className="nav-list-item">
-               <span>{navLeft[2][0]}</span>
-               <span className="nav-icon">{navLeft[2][1]}</span>
-            </div>
             <div className="nav-list-item">
                <span>{navLeft[3][0]}</span>
                <span className="nav-icon">{navLeft[3][1]}</span>
             </div>
          </div>
+
          <div className="nav-list">
             {navRight.map((item, i) => (
                <div key={i} className="nav-list-item">

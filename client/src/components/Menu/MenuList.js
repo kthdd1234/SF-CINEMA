@@ -41,7 +41,7 @@ const MenuList = () => {
             break;
          case 'tag':
             setSub(value);
-            setIcon(tagList[value]);
+            setIcon(tagList[value][1]);
             break;
          case 'series':
             setSub(value);

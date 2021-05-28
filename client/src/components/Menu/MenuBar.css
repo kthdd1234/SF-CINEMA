@@ -49,6 +49,8 @@
 }
 
 .nav-list {
+   position: relative;
+   height: 100%;
    display: flex;
    align-items: center;
    color: whitesmoke;
@@ -59,12 +61,15 @@
    width: 10rem;
    border-radius: 15px;
    cursor: pointer;
-   margin-right: 1.5vw;
+   margin-right: 1rem;
 }
 
 .nav-list-item {
-   margin: 0.8rem;
+   display: flex;
+   align-items: center;
+   padding: 1rem;
    cursor: pointer;
+   height: 100%;
 }
 
 .nav-list-item:hover {
@@ -77,12 +82,13 @@
 
 .wrap {
    position: relative;
+   height: 100%;
 }
 
 .nav-detail-list {
    position: absolute;
    width: 12rem;
-   top: 3.5rem;
+   top: 4rem;
    left: 1rem;
    background-color: #1f2023;
    padding-top: 0.5rem;
@@ -90,6 +96,7 @@
 }
 
 .nav-detail-list-item {
+   color: whitesmoke;
    cursor: pointer;
    padding: 1rem;
 }
