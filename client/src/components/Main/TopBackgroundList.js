@@ -11,9 +11,12 @@ class TopBackgroundList extends Component {
    render() {
       const { background } = this.props;
 
-      return (
-         <div>
-            {/* <Carousel
+      return <div></div>;
+   }
+}
+
+export default withRouter(TopBackgroundList);
+/* <Carousel
                effect="fade"
                infinite={true}
                dots={false}
@@ -29,10 +32,4 @@ class TopBackgroundList extends Component {
                {background.map((movieData, i) => (
                   <TopBackgroundListEntry key={i} movieData={movieData} />
                ))}
-            </Carousel> */}
-         </div>
-      );
-   }
-}
-
-export default withRouter(TopBackgroundList);
+            </Carousel> */

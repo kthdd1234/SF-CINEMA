@@ -36,7 +36,7 @@
 } */
 
 .nav {
-   position: sticky;
+   position: fixed;
    display: flex;
    justify-content: space-between;
    align-items: center;
@@ -77,10 +77,10 @@
 }
 
 .nav-icon {
-   padding-left: 7px;
+   padding-right: 7px;
 }
 
-.wrap {
+.nav-list-wrap {
    position: relative;
    height: 100%;
 }
@@ -99,8 +99,21 @@
    color: whitesmoke;
    cursor: pointer;
    padding: 1rem;
+   flex: 25%;
 }
 
 .nav-detail-list-item:hover {
    background-color: rgb(225, 225, 225, 0.1);
+}
+
+.nav-detail-series {
+   position: absolute;
+   width: 48rem;
+   display: flex;
+   flex-wrap: wrap;
+   top: 4rem;
+   left: 1rem;
+   background-color: #1f2023;
+   padding-top: 0.5rem;
+   padding-bottom: 0.5rem;
 }

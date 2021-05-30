@@ -12,6 +12,7 @@ import MainCinema from './containers/Main/MainCinema';
 import MenuList from './containers/Menu/MenuList';
 import Movie from './containers/Main/Movie';
 import SearchList from './containers/Search/SearchList';
+import Profile from './components/Menu/Profile';
 
 const { Header, Content } = Layout;
 
@@ -26,6 +27,7 @@ const routes = [
    ['/movies/:movie_id', Movie],
    ['/explore', MenuList],
    ['/search', SearchList],
+   ['/profile', Profile],
 ];
 
 const App = ({ handleProfileUpdate, handleLoginChange }) => {
