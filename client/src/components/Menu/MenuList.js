@@ -32,6 +32,7 @@ const MenuList = () => {
    const [icon, setIcon] = useState('');
    const [sub, setSub] = useState('');
    const [key, value] = useLocation().search.substring(1).split('=');
+   const decoding = decodeURI(value);
 
    useEffect(() => {
       switch (key) {
@@ -40,11 +41,11 @@ const MenuList = () => {
             setIcon(pushList[value][1]);
             break;
          case 'tag':
-            setSub(value);
-            setIcon(tagList[value][1]);
+            setSub(decoding);
+            setIcon(tagList[decoding][1]);
             break;
          case 'series':
-            setSub(value);
+            setSub(decoding);
             break;
       }
       return () => {
@@ -54,7 +55,7 @@ const MenuList = () => {
 
    useEffect(() => {
       const req = async () => {
-         const data = await reqExplore(key, value);
+         const data = await reqExplore(key, decoding);
          setMovies(data);
          setSelectdBtn(true);
       };

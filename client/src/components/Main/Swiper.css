@@ -1,0 +1,83 @@
+.swiper {
+   position: relative;
+   overflow: hidden;
+   height: 48vw;
+   background-color: white;
+}
+
+.swiper-shadow {
+   z-index: 1;
+   position: absolute;
+   width: 45%;
+   height: 48vw;
+   background-image: linear-gradient(
+      to right,
+      rgb(20, 21, 23) 0%,
+      rgba(20, 21, 23, 0.7) 26%,
+      rgba(20, 21, 23, 0.45) 60%,
+      rgba(20, 21, 23, 0.2) 90%,
+      rgba(20, 21, 23, 0) 100%
+   );
+}
+
+.swiper-contents {
+   position: absolute;
+   z-index: 1;
+   top: 40%;
+   padding-left: 4rem;
+   color: whitesmoke;
+}
+
+.swiper-contents-sub {
+   margin: 0;
+
+   color: whitesmoke;
+   font-size: 4vw;
+   font-weight: bold;
+   font-family: Roboto, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Nanum Gothic',
+      'Malgun Gothic', sans-serif;
+}
+
+.swiper-contents-desc {
+   padding-left: 0.3rem;
+   margin: 0;
+   color: whitesmoke;
+   font-size: 1.3vw;
+   font-weight: 400;
+   font-family: Roboto, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Nanum Gothic',
+      'Malgun Gothic', sans-serif;
+}
+
+.swiper-dir-before {
+   position: absolute;
+   z-index: 2;
+   color: gray;
+   font-size: 2rem;
+   top: 50%;
+   left: 0;
+   padding-left: 1rem;
+   cursor: pointer;
+}
+
+.swiper-dir-next {
+   position: absolute;
+   z-index: 1;
+   color: gray;
+   font-size: 2rem;
+   top: 50%;
+   right: 0;
+   padding-right: 1rem;
+   cursor: pointer;
+}
+
+.swiper-dir-next:hover {
+   color: darkgrey;
+}
+.swiper-dir-before:hover {
+   color: darkgrey;
+}
+
+.swiper-images {
+   background-color: white;
+   width: 100%;
+}

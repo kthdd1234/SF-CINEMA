@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import TopBackgroundList from './TopBackgroundList';
+import React from 'react';
+import Swiper from '../../components/Main/Swiper';
 import MovieList from '../../components/Main/MovieList';
 
 const MainCinema = () => {
    return (
       <div>
-         <TopBackgroundList />
+         <Swiper />
          <MovieList />
       </div>
    );
