@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import {
+   LeftOutlined,
+   RightOutlined,
+   PlayCircleOutlined,
+   ZoomInOutlined,
+   UnorderedListOutlined,
+} from '@ant-design/icons';
+import { Button } from 'antd';
+import 'antd/dist/antd.css';
 import './Swiper.css';
 
 const swiperList = [
@@ -82,12 +90,13 @@ const Shadow = () => {
    return <div className="swiper-shadow" />;
 };
 
-const Contents = ({ currentMovie }) => {
+const Contents = ({ currentMovie, index }) => {
    return (
       <div className="swiper-contents">
          <h1 className="swiper-contents-sub">{currentMovie[0]}</h1>
          <h3 className="swiper-contents-desc">{currentMovie[1]}</h3>
          <h3 className="swiper-contents-desc">{currentMovie[2]}</h3>
+         <Btns index={index} />
       </div>
    );
 };
@@ -98,6 +107,29 @@ const Image = ({ path }) => {
          className="swiper-images"
          src={`https://image.tmdb.org/t/p/w1920_and_h1080_multi_faces${path}`}
       />
+   );
+};
+
+const Btn = ({ value, icon }) => {
+   return (
+      <Button className="swiper-btns-btn" type="link" icon={icon}>
+         {value}
+      </Button>
+   );
+};
+
+const Btns = ({ index }) => {
+   return (
+      <div className="swiper-btns">
+         {index === 0 ? (
+            <div>
+               <Btn icon={<PlayCircleOutlined />} value="예고편 보기" />
+               <Btn icon={<ZoomInOutlined />} value="자세히 보기" />
+            </div>
+         ) : (
+            <Btn icon={<UnorderedListOutlined />} value="목록 보기" />
+         )}
+      </div>
    );
 };
 
@@ -113,7 +145,8 @@ const Swiper = () => {
             setCurrentMovie={setCurrentMovie}
             setIndex={setIndex}
          />
-         <Contents currentMovie={currentMovie} />
+         <Contents currentMovie={currentMovie} index={index} />
+
          <Image path={currentMovie[3]} />
       </div>
    );

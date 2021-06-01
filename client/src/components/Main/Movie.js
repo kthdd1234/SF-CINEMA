@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter, useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Button, Popconfirm, Tag } from 'antd';
 import {
    LikeOutlined,
@@ -269,7 +269,7 @@ const Movie = ({ isLogin, profile, history }) => {
 
    return (
       <div className="movie">
-         <div className="movie-contents">
+         <div className="movie-content">
             <Titles
                title={title}
                titleEng={titleEng}

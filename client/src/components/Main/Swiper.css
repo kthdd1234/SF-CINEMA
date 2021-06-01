@@ -73,11 +73,27 @@
 .swiper-dir-next:hover {
    color: darkgrey;
 }
+
 .swiper-dir-before:hover {
    color: darkgrey;
 }
 
 .swiper-images {
-   background-color: white;
    width: 100%;
+   background-color: white;
+}
+
+.swiper-btns {
+   display: flex;
+   margin-top: 1.5rem;
+}
+
+.swiper-btns-btn {
+   margin-right: 0.5rem;
+   height: 4rem;
+   background-color: rgba(255, 255, 255, 0.04);
+   color: whitesmoke;
+   font-size: 1.6rem;
+   font-weight: bold;
+   backdrop-filter: blur(5px);
 }
