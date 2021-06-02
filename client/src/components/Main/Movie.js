@@ -269,7 +269,7 @@ const Movie = ({ isLogin, profile, history }) => {
 
    return (
       <div className="movie">
-         <div className="movie-content">
+         <div className="movie-contents">
             <Titles
                title={title}
                titleEng={titleEng}

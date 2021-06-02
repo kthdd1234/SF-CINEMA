@@ -5,7 +5,7 @@
 .menu-list-head {
    display: flex;
    justify-content: space-between;
-   margin-top: 3.2vw;
+   margin-top: 7rem;
    padding-left: 5vw;
    padding-right: 5vw;
 }

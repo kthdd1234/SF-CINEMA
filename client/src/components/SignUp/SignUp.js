@@ -16,13 +16,8 @@ class SignUp extends Component {
    };
 
    handleSettingSignUp = async () => {
-      const {
-         loginID,
-         password,
-         confirmPassword,
-         username,
-         history,
-      } = this.props;
+      const { loginID, password, confirmPassword, username, history } =
+         this.props;
 
       if (password !== confirmPassword) {
          return message.error('입력하신 비밀번호가 일치하지 않습니다.');
@@ -170,20 +165,6 @@ class SignUp extends Component {
                                  }}
                               >
                                  가입하기
-                              </Button>
-                           </Form.Item>
-
-                           <Form.Item>
-                              <Button
-                                 type="primary"
-                                 htmlType="submit"
-                                 icon={<FormOutlined />}
-                                 onClick={() => history.push('/login')}
-                                 style={{
-                                    width: '100%',
-                                 }}
-                              >
-                                 소셜 로그인
                               </Button>
                            </Form.Item>
                         </Form>

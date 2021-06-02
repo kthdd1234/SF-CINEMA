@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {
    LeftOutlined,
    RightOutlined,
@@ -8,6 +8,7 @@ import {
    UnorderedListOutlined,
 } from '@ant-design/icons';
 import { Button } from 'antd';
+import Trailer from './Trailer';
 import 'antd/dist/antd.css';
 import './Swiper.css';
 
@@ -90,13 +91,13 @@ const Shadow = () => {
    return <div className="swiper-shadow" />;
 };
 
-const Contents = ({ currentMovie, index }) => {
+const Contents = ({ currentMovie, index, setTrailer }) => {
    return (
       <div className="swiper-contents">
          <h1 className="swiper-contents-sub">{currentMovie[0]}</h1>
          <h3 className="swiper-contents-desc">{currentMovie[1]}</h3>
          <h3 className="swiper-contents-desc">{currentMovie[2]}</h3>
-         <Btns index={index} />
+         <Btns sub={currentMovie[0]} index={index} setTrailer={setTrailer} />
       </div>
    );
 };
@@ -110,25 +111,63 @@ const Image = ({ path }) => {
    );
 };
 
-const Btn = ({ value, icon }) => {
+const Btn = ({ sub, value, icon, setTrailer }) => {
+   const history = useHistory();
+
+   const onClick = () => {
+      const link = (path) => history.push(path);
+      const dict1 = {
+         '예고편 보기': setTrailer,
+         '자세히 보기': '/movies/245',
+      };
+      const dict2 = {
+         '개봉 예정작': `/explore?push=latest-movies`,
+         '최신 SF 신작': '/explore?push=latest-movies',
+         'SF 최고 인기작': '/explore?push=highly-rated-movies',
+         '다양한 외계인 영화': '/explore?tag=외계인',
+         '최고 인기 시리즈': '/explore?tag=슈퍼 히어로',
+      };
+
+      value === '목록 보기'
+         ? link(dict2[sub])
+         : value === '예고편 보기'
+         ? dict1[value](true)
+         : link(dict1[value]);
+   };
+
    return (
-      <Button className="swiper-btns-btn" type="link" icon={icon}>
+      <Button
+         className="swiper-btns-btn"
+         type="link"
+         icon={icon}
+         onClick={onClick}
+      >
          {value}
       </Button>
    );
 };
 
-const Btns = ({ index }) => {
+const Btns = ({ index, sub }) => {
+   const [trailer, setTrailer] = useState(false);
+   const videoId = 'lTE3zHll7ZY';
+
    return (
       <div className="swiper-btns">
          {index === 0 ? (
             <div>
-               <Btn icon={<PlayCircleOutlined />} value="예고편 보기" />
+               <Btn
+                  icon={<PlayCircleOutlined />}
+                  value="예고편 보기"
+                  setTrailer={setTrailer}
+               />
                <Btn icon={<ZoomInOutlined />} value="자세히 보기" />
             </div>
          ) : (
-            <Btn icon={<UnorderedListOutlined />} value="목록 보기" />
+            <Btn sub={sub} icon={<UnorderedListOutlined />} value="목록 보기" />
          )}
+         {trailer ? (
+            <Trailer videoId={videoId} handleSettingTrailer={setTrailer} />
+         ) : null}
       </div>
    );
 };
@@ -146,10 +185,9 @@ const Swiper = () => {
             setIndex={setIndex}
          />
          <Contents currentMovie={currentMovie} index={index} />
-
          <Image path={currentMovie[3]} />
       </div>
    );
 };
 
-export default withRouter(Swiper);
+export default Swiper;

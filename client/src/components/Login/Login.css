@@ -4,8 +4,6 @@
 }
 
 .box-background-image {
-   background-size: cover;
-   display: block;
    width: 100%;
    height: 100%;
 }
@@ -18,19 +16,15 @@
 
 .login-content {
    position: absolute;
-   z-index: 1;
-   top: 70px;
-
+   width: 30rem;
+   top: 20%;
    left: 0;
    right: 0;
    margin-left: auto;
    margin-right: auto;
-   width: 650px;
-}
-
-.login-wrap {
+   z-index: 1;
+   padding: 4rem;
    background: rgba(0, 0, 0, 0.75);
-   padding: 70px 140px 70px 140px;
    border-radius: 10px;
 }
 
@@ -42,53 +36,16 @@
    color: white;
 }
 
-.login-text {
+.login-box-text {
    font-size: 50px;
    color: whitesmoke;
-}
-
-.login-checkbox {
-   color: whitesmoke;
-}
-
-.btn-login {
-   width: 100%;
-}
-
-.btn-signup {
-   width: 100%;
-}
-
-.dividerLogin {
-   color: darkgray;
-   font-size: 14px;
-}
-
-.ant-checkbox-wrapper {
    font-weight: bold;
-   color: whitesmoke;
 }
 
-.login-checkbox-text {
-   font-weight: bold;
-   color: whitesmoke;
-}
-
-/* .btn-google-login {
+.auth-btn {
    width: 100%;
-   background: red;
-   border-color: red;
-   color: rgb(255, 255, 255);
-   border-radius: 4px;
+   margin-top: 1rem;
 }
-
-.btn-kakao-login {
-   width: 100%;
-   border-color: rgb(205, 195, 58);
-   color: rgb(176, 135, 135);
-   border-radius: 4px;
-   background: yellow;
-} */
 
 @media screen and (max-width: 750px) {
    .login-content {
