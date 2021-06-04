@@ -1,4 +1,4 @@
-import Profile from '../../components/Profile/Profile';
+import Profile from '../../components/Auth/pages/Profile';
 import { connect } from 'react-redux';
 
 const mapReduxStateToReactProps = ({ userReducer }) => {

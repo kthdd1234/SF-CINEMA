@@ -2,7 +2,7 @@ const { User } = require('../../models/index');
 
 module.exports = {
   post: (req, res) => {
-    const { loginID, password, username, provider, profileImg } = req.body;
+    const { loginID, password, username } = req.body;
 
     User.findOrCreate({
       where: {
@@ -11,8 +11,6 @@ module.exports = {
       defaults: {
         username: username,
         password: password,
-        profileImg: profileImg,
-        provider: provider,
       },
       raw: true,
     })

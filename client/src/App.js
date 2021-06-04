@@ -1,20 +1,17 @@
 import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Layout } from 'antd';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { requestProfile } from './requests';
 import { setIsLogin, setProfile } from './actions/user';
-import SignUp from './containers/SignUp/Signup';
+import SignUp from './components/Auth/pages/SignUp';
 import Login from './containers/Login/Login';
 import MenuBar from './containers/Menu/Menubar';
 import MainCinema from './containers/Main/MainCinema';
 import MenuList from './containers/Menu/MenuList';
 import Movie from './containers/Main/Movie';
 import SearchList from './containers/Search/SearchList';
-import Profile from './components/Menu/Profile';
-
-const { Header, Content } = Layout;
+import Profile from './containers/Profile/profile';
 
 const NotFound = () => {
    return <div>Not Found</div>;
@@ -43,14 +40,12 @@ const App = ({ handleProfileUpdate, handleLoginChange }) => {
    return (
       <div>
          <MenuBar />
-         <Content>
-            <Switch>
-               {routes.map((route, i) => (
-                  <Route exact key={i} path={route[0]} component={route[1]} />
-               ))}
-               <Route path="/" component={NotFound} />
-            </Switch>
-         </Content>
+         <Switch>
+            {routes.map((route, i) => (
+               <Route exact key={i} path={route[0]} component={route[1]} />
+            ))}
+            <Route path="/" component={NotFound} />
+         </Switch>
       </div>
    );
 };

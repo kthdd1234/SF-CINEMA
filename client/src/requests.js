@@ -6,26 +6,18 @@ const serverUrl = axios.create({
 });
 
 /* 회원가입 */
-export const requestSignUp = async (
-   loginID,
-   password,
-   username,
-   profileImg,
-   provider,
-) => {
+export const requestSignUp = async (loginID, password, username) => {
    const { data } = await serverUrl
       .post('/user/signup', {
          loginID: loginID,
          password: password,
          username: username,
-         profileImg: profileImg,
-         provider: provider,
       })
       .catch((err) => {
          console.log(err);
          return message.warning('이미 회원가입한 계정입니다.');
       });
-   console.log(data);
+
    return data;
 };
 

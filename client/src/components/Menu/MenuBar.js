@@ -8,9 +8,11 @@ import {
    SearchOutlined,
    TagOutlined,
    UserOutlined,
+   LogoutOutlined,
 } from '@ant-design/icons';
 import SFCINEMA from '../../SFCINEMA.png';
 import { pushList, tagList, seriesList } from '../../utils';
+import { reactLocalStorage } from 'reactjs-localstorage';
 import './MenuBar.css';
 
 const SearchBar = ({ onSearch, history }) => {
@@ -130,7 +132,7 @@ const ExploreItem = ({
    );
 };
 
-const AuthItems = ({ history }) => {
+const SignItems = ({ history }) => {
    const auth = [
       ['로그인', '/login'],
       ['회원가입', '/signup'],
@@ -151,12 +153,26 @@ const AuthItems = ({ history }) => {
    );
 };
 
-const ProfileItem = ({ history }) => {
+const ProfileItems = ({ history }) => {
+   const onClick = () => {
+      reactLocalStorage.remove('SFCinemaUserToken');
+      history.push('/');
+      location.reload();
+   };
+
    return (
-      <div className="nav-list-item" onClick={() => history.push('/profile')}>
-         <span className="nav-icon">{<UserOutlined />}</span>
-         <span>프로필</span>
-      </div>
+      <>
+         <div
+            className="nav-list-item"
+            onClick={() => history.push('/profile')}
+         >
+            <span className="nav-icon">{<UserOutlined />}</span>
+            <span>프로필</span>
+         </div>
+         <div className="nav-list-item" onClick={onClick}>
+            <span>로그아웃</span>
+         </div>
+      </>
    );
 };
 
@@ -214,9 +230,9 @@ const MenuBar = ({ history, isLogin }) => {
          <div className="nav-list">
             <Search search={search} onSearch={onSearch} history={history} />
             {!isLogin ? (
-               <AuthItems history={history} />
+               <SignItems history={history} />
             ) : (
-               <ProfileItem history={history} />
+               <ProfileItems history={history} />
             )}
          </div>
       </nav>

@@ -31,14 +31,14 @@ class MovieListEntry extends Component {
       const { movie } = this.props;
       const { numberOfLikes } = movie;
 
-      if (this.props.isLogin) {
-         const favoritedData = await handleUserFavoritedData(
-            this.props.profile,
-            movie,
-         );
+      // if (this.props.isLogin) {
+      //    const favoritedData = await handleUserFavoritedData(
+      //       this.props.profile,
+      //       movie,
+      //    );
 
-         if (favoritedData) this.setState(favoritedData);
-      }
+      //    if (favoritedData) this.setState(favoritedData);
+      // }
       this.setState({ numberOfLikes: numberOfLikes });
    };
 
