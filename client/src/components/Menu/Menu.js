@@ -8,12 +8,11 @@ import {
    SearchOutlined,
    TagOutlined,
    UserOutlined,
-   LogoutOutlined,
 } from '@ant-design/icons';
 import SFCINEMA from '../../SFCINEMA.png';
 import { pushList, tagList, seriesList } from '../../utils';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import './MenuBar.css';
+import './Menu.css';
 
 const SearchBar = ({ onSearch, history }) => {
    const search = (value) => history.push(`/search?query=${value}`);
@@ -176,7 +175,7 @@ const ProfileItems = ({ history }) => {
    );
 };
 
-const MenuBar = ({ history, isLogin }) => {
+const Menu = ({ history, isLogin }) => {
    const [pushHover, onPushHover] = useState(false);
    const [tagHover, onTagHover] = useState(false);
    const [seriesHover, onSeriesHover] = useState(false);
@@ -239,4 +238,4 @@ const MenuBar = ({ history, isLogin }) => {
    );
 };
 
-export default withRouter(MenuBar);
+export default withRouter(Menu);

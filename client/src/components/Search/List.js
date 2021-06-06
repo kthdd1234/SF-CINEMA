@@ -1,11 +1,11 @@
 import React from 'react';
-import SearchListEntry from './SearchListEntry';
+import MovieCard from '../../components/Main/MovieCard';
 
-const List = ({ movieList, keyword }) => {
+const List = ({ movies }) => {
    return (
       <div className="search-result-list">
-         {movieList.map((movie, i) => (
-            <SearchListEntry key={i} movie={movie} keyword={keyword} />
+         {movies.map((movie, i) => (
+            <MovieCard key={i} movie={movie} />
          ))}
       </div>
    );

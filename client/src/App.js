@@ -5,13 +5,13 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import { requestProfile } from './requests';
 import { setIsLogin, setProfile } from './actions/user';
 import SignUp from './components/Auth/pages/SignUp';
-import Login from './containers/Login/Login';
-import MenuBar from './containers/Menu/Menubar';
-import MainCinema from './containers/Main/MainCinema';
-import MenuList from './containers/Menu/MenuList';
-import Movie from './containers/Main/Movie';
-import SearchList from './containers/Search/SearchList';
-import Profile from './containers/Profile/profile';
+import Login from './containers/Login';
+import Menu from './containers/Menu';
+import MainCinema from './containers/MainCinema';
+import Explore from './components/Menu/Explore';
+import Movie from './containers/Movie';
+import SearchList from './components/Search/SearchList';
+import Profile from './containers/Profile';
 
 const NotFound = () => {
    return <div>Not Found</div>;
@@ -22,7 +22,7 @@ const routes = [
    ['/signup', SignUp],
    ['/login', Login],
    ['/movies/:movie_id', Movie],
-   ['/explore', MenuList],
+   ['/explore', Explore],
    ['/search', SearchList],
    ['/profile', Profile],
 ];
@@ -39,7 +39,7 @@ const App = ({ handleProfileUpdate, handleLoginChange }) => {
 
    return (
       <div>
-         <MenuBar />
+         <Menu />
          <Switch>
             {routes.map((route, i) => (
                <Route exact key={i} path={route[0]} component={route[1]} />

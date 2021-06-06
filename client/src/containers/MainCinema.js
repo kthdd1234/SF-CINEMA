@@ -1,6 +1,6 @@
 import React from 'react';
-import Swiper from '../../components/Main/Swiper';
-import MovieList from '../../components/Main/MovieList';
+import Swiper from '../components/Main/Swiper';
+import MovieList from '../components/Main/MovieList';
 
 const MainCinema = () => {
    return (

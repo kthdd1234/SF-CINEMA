@@ -29,7 +29,7 @@ const Profile = ({ profile }) => {
             <Sub username={username} sub={sub} />
             <SelectBtn onChangeSelect={onChangeSelect} />
          </div>
-         <List movieList={movies ? movies : []} />
+         <List movies={movies ? movies : []} />
       </div>
    );
 };

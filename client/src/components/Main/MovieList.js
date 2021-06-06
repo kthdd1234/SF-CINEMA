@@ -10,7 +10,7 @@ import {
    ThunderboltFilled,
    DoubleRightOutlined,
 } from '@ant-design/icons';
-import MovieListEntry from '../../containers/Main/MovieListEntry';
+import MovieCard from '../../components/Main/MovieCard';
 import { reqExplore } from '../../requests';
 import 'antd/dist/antd.css';
 import './MovieList.css';
@@ -109,7 +109,7 @@ const MovieList = () => {
                   </h2>
                   <div className="recommendation-movie-list">
                      {movies[3].map((movie, i) => (
-                        <MovieListEntry key={i} movie={movie} />
+                        <MovieCard key={i} movie={movie} />
                      ))}
                   </div>
                </div>

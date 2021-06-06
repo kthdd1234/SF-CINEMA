@@ -8,12 +8,6 @@
    opacity: 0;
 }
 
-.card-movie-info {
-   background: rgba(0, 0, 0, 0.3);
-   overflow: hidden;
-   background: rgba(20, 21, 23);
-}
-
 .card-box-image {
    position: relative;
    width: 10.8vw;

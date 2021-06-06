@@ -5,7 +5,7 @@ import { CaretDownFilled } from '@ant-design/icons';
 import { reqExplore } from '../../requests';
 import { pushList, tagList } from '../../utils';
 import List from '../Search/List';
-import './MenuList.css';
+import './Explore.css';
 
 const SelectBtn = ({ onChangeSelect }) => {
    return (
@@ -83,7 +83,7 @@ const MenuList = () => {
                      <SelectBtn onChangeSelect={onChangeSelect} />
                   ) : null}
                </div>
-               <List movieList={movies} keyword="" />
+               <List movies={movies} keyword="" />
             </div>
          ) : (
             <div className="loding-spin">

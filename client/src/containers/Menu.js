@@ -1,6 +1,6 @@
-import SearchListEntry from '../../components/Search/SearchListEntry';
+import Menu from '../components/Menu/Menu';
 import { connect } from 'react-redux';
-import { setProfile } from '../../actions/user';
+import { setIsLogin, setProfile } from '../actions/user';
 
 const mapReduxStateToReactProps = ({ userReducer }) => {
    return {
@@ -11,6 +11,9 @@ const mapReduxStateToReactProps = ({ userReducer }) => {
 
 const mapReduxDispatchToReactProps = (dispatch) => {
    return {
+      handleLoginChange: (isLogin) => {
+         dispatch(setIsLogin(isLogin));
+      },
       handleProfileUpdate: (profile) => {
          dispatch(setProfile(profile));
       },
@@ -20,4 +23,4 @@ const mapReduxDispatchToReactProps = (dispatch) => {
 export default connect(
    mapReduxStateToReactProps,
    mapReduxDispatchToReactProps,
-)(SearchListEntry);
+)(Menu);

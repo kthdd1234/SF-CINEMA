@@ -30,7 +30,7 @@ const SearchList = () => {
                <span className="text-detail">건</span>
             </div>
             {movies.length ? (
-               <List movieList={movies} keyword={keyword} />
+               <List movies={movies} keyword={keyword} />
             ) : (
                <div className="loding-spin">
                   <Spin size="large" />
