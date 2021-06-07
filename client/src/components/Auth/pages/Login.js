@@ -8,10 +8,10 @@ import {
    requestBackground,
 } from '../../../requests';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import BackDrop from '../components/BackDrop';
-import FormBtn from '../components/FormBtn';
-import FormItem from '../components/FormItem';
-import FormSub from '../components/FormSub';
+import BackDrop from '../component/BackDrop';
+import FormBtn from '../component/FormBtn';
+import FormItem from '../component/FormItem';
+import FormSub from '../component/FormSub';
 import '../Auth.css';
 
 const Login = ({ handleLoginChange, handleProfileUpdate, history }) => {

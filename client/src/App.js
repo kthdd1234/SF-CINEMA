@@ -4,26 +4,36 @@ import { connect } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { requestProfile } from './requests';
 import { setIsLogin, setProfile } from './actions/user';
-import SignUp from './components/Auth/pages/SignUp';
 import Login from './containers/Login';
-import Menu from './containers/Menu';
-import MainCinema from './containers/MainCinema';
-import Explore from './components/Menu/Explore';
+import Navbar from './containers/Navbar';
 import Movie from './containers/Movie';
-import SearchList from './components/Search/SearchList';
 import Profile from './containers/Profile';
+import SignUp from './components/Auth/pages/SignUp';
+import Explore from './components/Explore/Explore';
+import Search from './components/Search/Search';
+import Swiper from './components/Swiper/Swiper';
+import MovieList from './components/Movies/MovieList';
 
 const NotFound = () => {
    return <div>Not Found</div>;
 };
 
+const Screen = () => {
+   return (
+      <div>
+         <Swiper />
+         <MovieList />
+      </div>
+   );
+};
+
 const routes = [
-   ['/', MainCinema],
+   ['/', Screen],
    ['/signup', SignUp],
    ['/login', Login],
    ['/movies/:movie_id', Movie],
    ['/explore', Explore],
-   ['/search', SearchList],
+   ['/search', Search],
    ['/profile', Profile],
 ];
 
@@ -39,7 +49,7 @@ const App = ({ handleProfileUpdate, handleLoginChange }) => {
 
    return (
       <div>
-         <Menu />
+         <Navbar />
          <Switch>
             {routes.map((route, i) => (
                <Route exact key={i} path={route[0]} component={route[1]} />

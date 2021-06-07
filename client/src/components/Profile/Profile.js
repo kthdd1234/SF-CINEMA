@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import List from '../../../components/Search/List';
-import Sub from '../components/Sub';
-import SelectBtn from '../components/SelectBtn';
+import List from '../Movies/List';
+import Sub from './component/Sub';
+import SelectBtn from './component/SelectBtn';
+import './Profile.css';
 
 const Profile = ({ profile }) => {
    const { username, savedMovie, likedMovie } = profile;
@@ -24,8 +25,8 @@ const Profile = ({ profile }) => {
    };
 
    return (
-      <div className="auth-profile">
-         <div className="auth-profile-head">
+      <div className="profile">
+         <div className="profile-head">
             <Sub username={username} sub={sub} />
             <SelectBtn onChangeSelect={onChangeSelect} />
          </div>

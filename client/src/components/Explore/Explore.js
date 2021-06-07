@@ -1,28 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Select, Spin } from 'antd';
-import { CaretDownFilled } from '@ant-design/icons';
 import { reqExplore } from '../../requests';
 import { pushList, tagList } from '../../utils';
-import List from '../Search/List';
+import Head from './component/Head';
+import Loding from './component/Loding';
+import List from '../Movies/List';
 import './Explore.css';
 
-const SelectBtn = ({ onChangeSelect }) => {
-   return (
-      <Select
-         className="select"
-         defaultValue="선택해주세요"
-         size="large"
-         onChange={onChangeSelect}
-         suffixIcon={<CaretDownFilled style={{ color: 'whitesmoke' }} />}
-      >
-         <Select.Option value="평점이 높은 순">⭐ 평점이 높은 순</Select.Option>
-         <Select.Option value="최신 작품 순">🎞 최신 작품순</Select.Option>
-      </Select>
-   );
-};
-
-const MenuList = () => {
+const Explore = () => {
    const [movies, setMovies] = useState([]);
    const [selectdBtn, setSelectdBtn] = useState(false);
    const [icon, setIcon] = useState('');
@@ -72,29 +57,26 @@ const MenuList = () => {
    });
 
    return (
-      <div className="movie-container">
+      <div>
          {movies.length ? (
             <div>
-               <div className="menu-list-head">
-                  <div className="menu-title">
-                     {icon} {sub}
-                  </div>
-                  {selectdBtn ? (
-                     <SelectBtn onChangeSelect={onChangeSelect} />
-                  ) : null}
-               </div>
-               <List movies={movies} keyword="" />
+               <Head
+                  sub={sub}
+                  icon={icon}
+                  selectdBtn={selectdBtn}
+                  setSelectdBtn={setSelectdBtn}
+                  onChangeSelect={onChangeSelect}
+               />
+               <List movies={movies} />
             </div>
          ) : (
-            <div className="loding-spin">
-               <Spin size="large" />
-            </div>
+            <Loding />
          )}
       </div>
    );
 };
 
-export default MenuList;
+export default Explore;
 
 // class MenuList extends Component {
 //    constructor(props) {

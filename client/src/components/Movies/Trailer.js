@@ -4,6 +4,19 @@ import { CloseOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import './Trailer.css';
 
+const Video = ({ videoId }) => {
+   return (
+      <div className="movie-trailer-container">
+         <iframe
+            className="movie-trailer"
+            src={`https://www.youtube.com/embed/${videoId}?mute=1&autoplay=1&enablejsapi=1&html5=1`}
+            allowFullScreen
+            frameBorder="0"
+         />
+      </div>
+   );
+};
+
 const Trailer = ({ videoId, handleSettingTrailer }) => {
    const [visible, setVisible] = useState(false);
    useEffect(() => {
@@ -28,14 +41,7 @@ const Trailer = ({ videoId, handleSettingTrailer }) => {
             className="trailer-close"
             onClick={() => closeTrailer(false)}
          />
-         <div className="movie-trailer-container">
-            <iframe
-               className="movie-trailer"
-               src={`https://www.youtube.com/embed/${videoId}?mute=1&autoplay=1&enablejsapi=1&html5=1`}
-               allowFullScreen
-               frameBorder="0"
-            />
-         </div>
+         <Video videoId={videoId} />
       </Modal>
    );
 };

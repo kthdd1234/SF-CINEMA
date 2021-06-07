@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useHistory } from 'react-router-dom';
 import { Button, Spin } from 'antd';
 import {
    StarFilled,
@@ -10,21 +10,38 @@ import {
    ThunderboltFilled,
    DoubleRightOutlined,
 } from '@ant-design/icons';
-import MovieCard from '../../components/Main/MovieCard';
+import List from './List';
 import { reqExplore } from '../../requests';
 import 'antd/dist/antd.css';
 import './MovieList.css';
 
-const ShowAllBtn = ({ history, path }) => {
+const ShowAllBtn = ({ path }) => {
+   const history = useHistory();
    return (
-      <Button
-         className="btn-showall-link"
-         type="ghost"
-         onClick={() => history.push(path)}
+      <div
+         className="movie-list-head-btn"
+         onClick={() => history.push(`explore?${path}`)}
       >
          모두 보기
          <DoubleRightOutlined className="showall-icon" />
-      </Button>
+      </div>
+   );
+};
+
+const Sub = ({ icon, sub }) => {
+   return (
+      <div className="movie-list-head-sub">
+         {icon} {sub}
+      </div>
+   );
+};
+
+const Head = ({ icon, sub, path }) => {
+   return (
+      <div className="movie-list-head">
+         <Sub icon={icon} sub={sub} />
+         <ShowAllBtn path={path} />
+      </div>
    );
 };
 
@@ -59,59 +76,52 @@ const MovieList = () => {
    }, []);
 
    const movieList = [
-      ['# 추천 영화', null, '/', push.slice(0, 8)],
+      ['# 추천 영화', null, '/', push.slice(0, 7)],
       [
          '평점이 높은 영화',
          <StarFilled className="recommend-icon" />,
          '/push=highly-rated-movies',
-         highlyRatedMovies.slice(0, 8),
+         highlyRatedMovies.slice(0, 7),
       ],
       [
          '외계인 영화 추천',
          <RedditCircleFilled className="recommend-icon" />,
-         '/tag=외계인',
-         aliens.slice(0, 8),
+         'tag=외계인',
+         aliens.slice(0, 7),
       ],
       [
          '운영자가 추천하는 영화',
          <GiftFilled className="recommend-icon" />,
-         '/push=operator-push',
-         operatorPush.slice(0, 8),
+         'push=operator-push',
+         operatorPush.slice(0, 7),
       ],
       [
          '슈퍼 히어로 영화 추천',
          <DingdingOutlined className="recommend-icon" />,
-         '/tag=슈퍼 히어로',
-         superHero.slice(0, 8),
+         'tag=슈퍼 히어로',
+         superHero.slice(0, 7),
       ],
       [
          '주말에 몰아보기 좋은 SF 명작 추천',
          <CrownFilled className="recommend-icon" />,
-         '/push=sf-masterpiece',
-         sfMasterpiece.slice(0, 8),
+         'push=sf-masterpiece',
+         sfMasterpiece.slice(0, 7),
       ],
       [
          '액션 영화 추천',
          <ThunderboltFilled className="recommend-icon" />,
-         '/tag=액션',
-         action.slice(0, 8),
+         'tag=액션',
+         action.slice(0, 7),
       ],
    ];
 
    if (action.length) {
       return (
-         <div className="recommendation-wrap">
-            {movieList.map((movies, i) => (
-               <div key={i}>
-                  <h2 className="recommendation-list-title">
-                     {movies[1]} {movies[0]}
-                     <ShowAllBtn history={history} path={movies[2]} />
-                  </h2>
-                  <div className="recommendation-movie-list">
-                     {movies[3].map((movie, i) => (
-                        <MovieCard key={i} movie={movie} />
-                     ))}
-                  </div>
+         <div>
+            {movieList.map((list, i) => (
+               <div className="movie-list" key={i}>
+                  <Head icon={list[1]} sub={list[0]} path={list[2]} />
+                  <List movies={list[3]} />
                </div>
             ))}
          </div>

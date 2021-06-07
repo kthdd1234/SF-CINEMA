@@ -1,9 +1,10 @@
-.search-result-container {
+.search {
+   padding-top: 7rem;
 }
 
-.search-result-text {
-   margin-top: 3.2vw;
-   padding-left: 5vw;
+.search-head {
+   padding-left: 3vw;
+   padding-bottom: 1vw;
    font-weight: bold;
    font-size: 1.4vw;
    color: whitesmoke;
@@ -14,16 +15,9 @@
    margin-right: 0.3vw;
 }
 
-.text-detail {
+.search-head-sub {
    color: rgba(255, 255, 255, 0.7);
    margin-left: 0.3vw;
-}
-
-.search-result-list {
-   display: flex;
-   flex-wrap: wrap;
-   padding-left: 4vw;
-   padding-right: 4vw;
 }
 
 .loding-spin {

@@ -22,11 +22,6 @@ code {
       monospace;
 }
 
-.ant-layout-header {
-   padding-right: 1vw;
-   padding-left: 1vw;
-}
-
 .ant-list-item {
    border-bottom: 0px;
    border-bottom-width: 0px;

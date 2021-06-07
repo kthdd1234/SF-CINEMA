@@ -41,27 +41,6 @@
    margin-top: 1rem;
 }
 
-.auth-profile {
-   padding-top: 8rem;
-}
-
-.auth-profile-head {
-   display: flex;
-   justify-content: space-between;
-   padding-left: 5vw;
-   padding-right: 5vw;
-}
-
-.auth-profile-sub {
-   color: whitesmoke;
-   font-weight: bold;
-   font-size: 2rem;
-}
-
-.auth-profile-data {
-   margin-bottom: 5rem;
-}
-
 /* @media screen and (max-width: 750px) {
     .login-content {
        top: 0;

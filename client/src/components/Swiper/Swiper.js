@@ -8,7 +8,7 @@ import {
    UnorderedListOutlined,
 } from '@ant-design/icons';
 import { Button } from 'antd';
-import Trailer from './Trailer';
+import Trailer from '../Movies/Trailer';
 import 'antd/dist/antd.css';
 import './Swiper.css';
 

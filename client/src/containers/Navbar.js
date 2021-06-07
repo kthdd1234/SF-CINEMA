@@ -1,4 +1,4 @@
-import Menu from '../components/Menu/Menu';
+import Navbar from '../components/Navbar/Navbar';
 import { connect } from 'react-redux';
 import { setIsLogin, setProfile } from '../actions/user';
 
@@ -23,4 +23,4 @@ const mapReduxDispatchToReactProps = (dispatch) => {
 export default connect(
    mapReduxStateToReactProps,
    mapReduxDispatchToReactProps,
-)(Menu);
+)(Navbar);

@@ -1,9 +1,10 @@
 import React from 'react';
-import MovieCard from '../../components/Main/MovieCard';
+import MovieCard from './MovieCard';
+import './List.css';
 
 const List = ({ movies }) => {
    return (
-      <div className="search-result-list">
+      <div className="list">
          {movies.map((movie, i) => (
             <MovieCard key={i} movie={movie} />
          ))}

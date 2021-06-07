@@ -1,0 +1,21 @@
+.profile {
+   padding-top: 8rem;
+}
+
+.profile-head {
+   display: flex;
+   justify-content: space-between;
+   padding-left: 3vw;
+   padding-right: 3vw;
+   padding-bottom: 1rem;
+}
+
+.profile-sub {
+   color: whitesmoke;
+   font-weight: bold;
+   font-size: 2rem;
+}
+
+.profile-head-select {
+   width: 10rem;
+}

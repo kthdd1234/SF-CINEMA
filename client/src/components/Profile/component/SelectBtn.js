@@ -5,7 +5,7 @@ import { CaretDownFilled } from '@ant-design/icons';
 const SelectBtn = ({ onChangeSelect }) => {
    return (
       <Select
-         className="select"
+         className="profile-head-select"
          defaultValue="저장한 작품"
          size="large"
          onChange={onChangeSelect}

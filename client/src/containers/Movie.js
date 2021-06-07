@@ -1,4 +1,4 @@
-import Movie from '../components/Main/Movie';
+import Movie from '../components/Movies/Movie';
 import { setProfile } from '../actions/user';
 import { connect } from 'react-redux';
 
