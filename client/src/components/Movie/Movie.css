@@ -1,0 +1,200 @@
+.movie {
+   position: relative;
+   display: flex;
+   align-items: center;
+   top: 10rem;
+}
+
+.movie-contents {
+   padding-left: 4rem;
+   padding-right: 4rem;
+}
+
+.movie-shadow {
+   position: absolute;
+   width: 45%;
+   height: 100%;
+   background-image: linear-gradient(
+      to right,
+      rgb(20, 21, 23) 3%,
+      rgba(20, 21, 23, 0.7) 26%,
+      rgba(20, 21, 23, 0.45) 50%,
+      rgba(20, 21, 23, 0.2) 80%,
+      rgba(20, 21, 23, 0) 100%
+   );
+   color: rgb(0, 0, 0);
+}
+
+.movie-contents-info {
+   position: relative;
+   padding-top: 1rem;
+   padding-bottom: 1.5rem;
+}
+
+.movie-contents-info-tag {
+   font-size: 0.7vw;
+}
+
+.movie-backdrop {
+   width: 100%;
+}
+
+.movie-contents-sub {
+   font-size: 3vw;
+   font-weight: bold;
+   color: whitesmoke;
+}
+
+.movie-contents-eng {
+   font-size: 0.85vw;
+   font-weight: bold;
+   color: darkgrey;
+}
+
+.movie-contents-plot {
+   width: 32vw;
+   color: rgba(255, 255, 255, 0.8);
+   font-size: 1vw;
+}
+
+.movie-contents-person {
+   font-size: 0.8vw;
+   padding-top: 1rem;
+   padding-bottom: 1.5rem;
+   color: rgba(254, 249, 249, 0.6);
+}
+
+.movie-contents-person-sub {
+   padding-right: 0.5vw;
+   color: darkgray;
+}
+
+.pushpin-btn {
+   padding: 0 0 15px 0;
+   border: none;
+   background: none;
+}
+
+.pushpin-btn:hover {
+   border: none;
+   background: none;
+}
+
+.pushpin-icon {
+   font-size: 1.5vw;
+   color: red;
+}
+
+.pushpin-btn:focus {
+   background: none;
+}
+
+.movie-trailer {
+   position: absolute;
+   width: 100%;
+   height: 45rem;
+}
+
+.ant-modal-header {
+   display: none;
+}
+
+.ant-modal-close-x {
+   width: 30px;
+   height: 30px;
+   line-height: 30px;
+   color: whitesmoke;
+   background: rgba(0, 0, 0, 0.75);
+   margin: 5px;
+   border-radius: 5rem;
+}
+
+.ant-modal-body {
+   padding: 0;
+}
+
+.trailer-close {
+   position: absolute;
+   left: 1300px;
+}
+
+.movie-btns-btn {
+   padding: 0.5vw 1vw 2.5vw 1vw;
+   margin-right: 0.5rem;
+   font-size: 1.25vw;
+   font-weight: 900;
+   border-radius: 0.3rem;
+}
+
+.color-gray {
+   border-color: gray;
+   color: gray;
+}
+
+.color-blue {
+   border-color: #1890ff;
+   color: #1890ff;
+}
+
+@media screen and (max-width: 1280px) {
+   .img-shadow {
+      display: none;
+   }
+
+   .movie-img-box {
+      position: relative;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      margin-top: 3.5rem;
+   }
+
+   .movie-plot {
+      width: 83vw;
+   }
+}
+/* 
+@media screen and (max-width: 1280px) {
+   .pushpin-fill {
+      padding: 0.32rem 0.7rem 1.78rem 0.6rem;
+      font-size: 1rem;
+   }
+
+   .pushpin-out {
+      padding: 0.32rem 0.7rem 1.78rem 0.6rem;
+      font-size: 1rem;
+   }
+
+   .like-fill {
+      padding: 0.32rem 0.7rem 1.78rem 0.6rem;
+      font-size: 1rem;
+   }
+
+   .like-out {
+      padding: 0.32rem 0.7rem 1.78rem 0.6rem;
+      font-size: 1rem;
+   }
+   .trailer-btn {
+      padding: 0.32rem 0.7rem 1.78rem 0.6rem;
+      font-size: 1rem;
+   }
+}
+
+@media screen and (max-width: 400px) {
+   .next-arrow-btn {
+      display: none;
+   }
+   .pre-arrow-btn {
+      display: none;
+   }
+}
+
+.img-list {
+   width: 1920px;
+   margin: 100px 0 100px 0;
+   overflow: hidden;
+}
+
+.img-back-drop {
+   width: 100%;
+} */

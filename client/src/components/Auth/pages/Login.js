@@ -2,16 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Form, message } from 'antd';
 import { LoginOutlined } from '@ant-design/icons';
-import {
-   requestLogin,
-   requestProfile,
-   requestBackground,
-} from '../../../requests';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import BackDrop from '../component/BackDrop';
 import FormBtn from '../component/FormBtn';
 import FormItem from '../component/FormItem';
 import FormSub from '../component/FormSub';
+import { backdrop } from '../requests/backdrop';
+import { login } from '../requests/login';
+import { userProfile } from '../../Profile/request/profile';
+
 import '../Auth.css';
 
 const Login = ({ handleLoginChange, handleProfileUpdate, history }) => {
@@ -21,19 +20,19 @@ const Login = ({ handleLoginChange, handleProfileUpdate, history }) => {
 
    useEffect(() => {
       const req = async () => {
-         const data = await requestBackground();
-         setBackDrop(data[0].backgroundImg);
+         const data = await backdrop();
+         setBackDrop(data[0].backDrop);
       };
       req();
    }, []);
 
    const onFinish = async () => {
-      const result = await requestLogin(id, password);
+      const result = await login(id, password);
 
       if (result !== undefined) {
          const { accessToken } = result;
          reactLocalStorage.set('SFCinemaUserToken', accessToken);
-         const profile = await requestProfile(accessToken);
+         const profile = await userProfile(accessToken);
 
          handleLoginChange(true);
          handleProfileUpdate(profile);

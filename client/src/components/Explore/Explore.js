@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { reqExplore } from '../../requests';
+import { explore } from './request/explore';
 import { pushList, tagList } from '../../utils';
 import Head from './component/Head';
 import Loding from './component/Loding';
-import List from '../Movies/List';
+import List from '../Lists/component/List';
 import './Explore.css';
 
 const Explore = () => {
@@ -36,7 +36,7 @@ const Explore = () => {
 
    useEffect(() => {
       const req = async () => {
-         const data = await reqExplore(key, decoding);
+         const data = await explore(key, decoding);
          setMovies(data);
          setSelectdBtn(true);
       };

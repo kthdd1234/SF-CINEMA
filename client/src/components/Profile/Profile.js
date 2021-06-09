@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import List from '../Movies/List';
+import List from '../Lists/component/List';
 import Sub from './component/Sub';
 import SelectBtn from './component/SelectBtn';
 import './Profile.css';

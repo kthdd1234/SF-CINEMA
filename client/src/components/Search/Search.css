@@ -20,9 +20,11 @@
    margin-left: 0.3vw;
 }
 
-.loding-spin {
-   margin-top: 10vw;
-   text-align: center;
+.search-loding {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 50vh;
 }
 
 @media screen and (max-width: 1600px) {

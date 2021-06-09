@@ -48,7 +48,7 @@
       'Malgun Gothic', sans-serif;
 }
 
-.swiper-dir-before {
+.swiper-before {
    position: absolute;
    z-index: 2;
    color: gray;
@@ -59,7 +59,7 @@
    cursor: pointer;
 }
 
-.swiper-dir-next {
+.swiper-next {
    position: absolute;
    z-index: 1;
    color: gray;
@@ -70,11 +70,11 @@
    cursor: pointer;
 }
 
-.swiper-dir-next:hover {
+.swiper-next:hover {
    color: darkgrey;
 }
 
-.swiper-dir-before:hover {
+.swiper-before:hover {
    color: darkgrey;
 }
 

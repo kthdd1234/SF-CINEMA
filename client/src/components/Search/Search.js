@@ -1,37 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Spin } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
-import { requestSearch } from '../../requests';
-import List from '../Movies/List';
+import { search } from './request/search';
+import Head from './component/Head';
+import Loding from './component/Loding';
+import List from '../Lists/component/List';
 import './Search.css';
-
-const Icon = () => {
-   return <SearchOutlined className="search-icon" />;
-};
-
-const Sub = ({ sub }) => {
-   return <span className="search-head-sub">{sub}</span>;
-};
-
-const Head = ({ keyword, len }) => {
-   return (
-      <div className="search-head">
-         <Icon />
-         {keyword}
-         <Sub sub="검색 결과" />
-         {len}
-         <Sub sub="건" />
-      </div>
-   );
-};
-
-const Loding = () => {
-   return (
-      <div className="loding-spin">
-         <Spin size="large" />
-      </div>
-   );
-};
 
 const SearchList = () => {
    const [movies, setMovies] = useState([]);
@@ -40,7 +12,7 @@ const SearchList = () => {
 
    useEffect(() => {
       const req = async () => {
-         const data = await requestSearch(query);
+         const data = await search(query);
          setMovies(data);
          setKeword(query);
       };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter, useHistory } from 'react-router-dom';
-import { Button, Spin } from 'antd';
+import { withRouter } from 'react-router-dom';
+import { Spin } from 'antd';
 import {
    StarFilled,
    GiftFilled,
@@ -8,44 +8,14 @@ import {
    RedditCircleFilled,
    DingdingOutlined,
    ThunderboltFilled,
-   DoubleRightOutlined,
 } from '@ant-design/icons';
-import List from './List';
-import { reqExplore } from '../../requests';
+import List from './component/List';
+import Head from './component/Head';
+import { explore } from '../Explore/request/explore';
 import 'antd/dist/antd.css';
-import './MovieList.css';
+import './Lists.css';
 
-const ShowAllBtn = ({ path }) => {
-   const history = useHistory();
-   return (
-      <div
-         className="movie-list-head-btn"
-         onClick={() => history.push(`explore?${path}`)}
-      >
-         모두 보기
-         <DoubleRightOutlined className="showall-icon" />
-      </div>
-   );
-};
-
-const Sub = ({ icon, sub }) => {
-   return (
-      <div className="movie-list-head-sub">
-         {icon} {sub}
-      </div>
-   );
-};
-
-const Head = ({ icon, sub, path }) => {
-   return (
-      <div className="movie-list-head">
-         <Sub icon={icon} sub={sub} />
-         <ShowAllBtn path={path} />
-      </div>
-   );
-};
-
-const MovieList = () => {
+const Lists = () => {
    const [push, SetPush] = useState([]);
    const [highlyRatedMovies, SetHighlyRatedMovies] = useState([]);
    const [aliens, SetAliens] = useState([]);
@@ -56,13 +26,13 @@ const MovieList = () => {
 
    useEffect(() => {
       const req = async () => {
-         const pushMovies = await reqExplore('push', 'push');
-         const ratedMovies = await reqExplore('push', 'highly-rated-movies');
-         const aliensMovies = await reqExplore('tag', '외계인');
-         const superHeroMovies = await reqExplore('tag', '슈퍼 히어로');
-         const operatorPush = await reqExplore('push', 'operator-push');
-         const sfMasterpieceMovies = await reqExplore('push', 'sf-masterpiece');
-         const actionMovies = await reqExplore('tag', '액션');
+         const pushMovies = await explore('push', 'push');
+         const ratedMovies = await explore('push', 'highly-rated-movies');
+         const aliensMovies = await explore('tag', '외계인');
+         const superHeroMovies = await explore('tag', '슈퍼 히어로');
+         const operatorPush = await explore('push', 'operator-push');
+         const sfMasterpieceMovies = await explore('push', 'sf-masterpiece');
+         const actionMovies = await explore('tag', '액션');
 
          SetPush(pushMovies);
          SetHighlyRatedMovies(ratedMovies);
@@ -131,4 +101,4 @@ const MovieList = () => {
    }
 };
 
-export default withRouter(MovieList);
+export default withRouter(Lists);

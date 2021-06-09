@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Form, message } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
-import { requestSignUp, requestBackground } from '../../../requests';
 import BackDrop from '../component/BackDrop';
 import FormBtn from '../component/FormBtn';
 import FormItem from '../component/FormItem';
 import FormSub from '../component/FormSub';
+import { backdrop } from '../requests/backdrop';
+import { signup } from '../requests/signup';
 import '../Auth.css';
 
 const SignUp = ({ history }) => {
@@ -25,8 +26,8 @@ const SignUp = ({ history }) => {
 
    useEffect(() => {
       const req = async () => {
-         const data = await requestBackground();
-         setBackDrop(data[0].backgroundImg);
+         const data = await backdrop();
+         setBackDrop(data[0].backDrop);
       };
       req();
    }, []);
@@ -35,7 +36,7 @@ const SignUp = ({ history }) => {
       if (password !== comfirmPw) {
          return message.error('입력하신 비밀번호가 일치하지 않습니다.');
       } else {
-         const result = await requestSignUp(id, password, name);
+         const result = await signup(id, password, name);
          if (result !== undefined) {
             message.success(`${result} 로그인해주세요.`);
             history.push('/login');
