@@ -89,7 +89,7 @@ const Lists = () => {
       return (
          <div>
             {movieList.map((list, i) => (
-               <div className="movie-list" key={i}>
+               <div className="lists" key={i}>
                   <Head icon={list[1]} sub={list[0]} path={list[2]} />
                   <List movies={list[3]} />
                </div>

@@ -4,7 +4,7 @@ import ShowAllBtn from './ShowAllBtn';
 
 const Head = ({ icon, sub, path }) => {
    return (
-      <div className="movie-list-head">
+      <div className="lists-head">
          <Sub icon={icon} sub={sub} />
          <ShowAllBtn path={path} />
       </div>

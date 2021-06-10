@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import Title from './Title';
-import Poster from './Poster';
-import Trailer from '../../Movie/component/Trailer';
-import Fade from './Fade';
+import Title from './component/Title';
+import Poster from './component/Poster';
+import Trailer from '../Movie/component/Trailer';
+import Fade from './component/Fade';
 import 'antd/dist/antd.css';
-import '../Lists.css';
+import './Card.css';
 
 const Card = ({ movie }) => {
    const [trailer, setTrailer] = useState(false);

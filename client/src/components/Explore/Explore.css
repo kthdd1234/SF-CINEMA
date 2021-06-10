@@ -1,62 +1,49 @@
+.explore {
+  position: relative;
+}
+
 .explore-head {
-   display: flex;
-   justify-content: space-between;
-   margin-top: 7rem;
-   margin-bottom: 1rem;
-   padding-left: 3vw;
-   padding-right: 3vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 7rem;
+  margin-bottom: 1rem;
+  padding-left: 3vw;
+  padding-right: 3vw;
 }
 
 .explore-head-sub {
-   color: whitesmoke;
-   font-weight: bold;
-   font-size: 1.4vw;
+  color: whitesmoke;
+  font-weight: bold;
+  font-size: 1.4vw;
 }
 
 .explore-head-select {
-   width: 12rem;
+  width: 12rem;
 }
 
 .explore-loding {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100vh;
 }
 
 .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
-   background: black;
-   color: whitesmoke;
+  background: black;
+  color: whitesmoke;
 }
 
 .ant-select-arrow {
-   color: whitesmoke;
+  color: whitesmoke;
 }
-
-@media screen and (max-width: 1280px) {
-   .itemList-select {
-      width: 10.5rem;
-      top: 4rem;
-      right: 1.5rem;
-   }
-}
-
-@media screen and (max-width: 880px) {
-   .itemList-select {
-      width: 9rem;
-      top: 3.7rem;
-   }
-}
-
-@media screen and (max-width: 510px) {
-   .itemList-select {
-      width: 9rem;
-      top: 3.5rem;
-   }
-}
-
-@media screen and (max-width: 465px) {
-   .itemList-select {
-      top: 3.3rem;
-   }
-}
+/*# sourceMappingURL=Explore.css.map */

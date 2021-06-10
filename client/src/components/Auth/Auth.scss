@@ -1,0 +1,42 @@
+.auth {
+   position: relative;
+   overflow: hidden;
+
+   &-backdrop {
+      min-width: 100%;
+      min-height: 100vh;
+      filter: brightness(50%);
+   }
+
+   &-form {
+      position: absolute;
+      margin: auto;
+      width: 30rem;
+      top: -10%;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 4rem;
+      background-color: rgba(0, 0, 0, 0.75);
+      z-index: 1;
+      border-radius: 0.5rem;
+
+      &-sub {
+         margin-bottom: 1rem;
+         font-size: 3rem;
+         color: whitesmoke;
+         font-weight: bold;
+         text-align: center;
+      }
+
+      &-label {
+         color: whitesmoke;
+         font-weight: bold;
+      }
+
+      &-btn {
+         width: 100%;
+         margin-top: 1rem;
+      }
+   }
+}

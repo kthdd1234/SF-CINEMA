@@ -6,7 +6,7 @@ import {
    ThunderboltFilled,
    TagOutlined,
 } from '@ant-design/icons';
-import { pushList, tagList, seriesList } from '../../utils';
+import { pushList, tagList, seriesList } from './data';
 import Logo from './component/Logo';
 import HomeItem from './component/HomeItem';
 import ExploreItem from './component/ExploreItem';

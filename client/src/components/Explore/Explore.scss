@@ -1,0 +1,38 @@
+.explore {
+   position: relative;
+
+   &-head {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 7rem;
+      margin-bottom: 1rem;
+      padding-left: 3vw;
+      padding-right: 3vw;
+
+      &-sub {
+         color: whitesmoke;
+         font-weight: bold;
+         font-size: 1.4vw;
+      }
+
+      &-select {
+         width: 12rem;
+      }
+   }
+
+   &-loding {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+   }
+}
+
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+   background: black;
+   color: whitesmoke;
+}
+
+.ant-select-arrow {
+   color: whitesmoke;
+}

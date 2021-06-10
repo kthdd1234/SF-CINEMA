@@ -7,7 +7,7 @@ const ShowAllBtn = ({ path }) => {
 
    return (
       <div
-         className="movie-list-head-btn"
+         className="lists-head-btn"
          onClick={() => history.push(`explore?${path}`)}
       >
          모두 보기

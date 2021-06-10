@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { explore } from './request/explore';
-import { pushList, tagList } from '../../utils';
+import { pushList, tagList } from '../Navbar/data';
 import Head from './component/Head';
 import Loding from './component/Loding';
 import List from '../Lists/component/List';
@@ -57,7 +57,7 @@ const Explore = () => {
    });
 
    return (
-      <div>
+      <div className="explore">
          {movies.length ? (
             <div>
                <Head

@@ -3,7 +3,7 @@ import FadeBtn from './FadeBtn';
 
 const Fade = ({ movieId, handleSettingTrailer }) => {
    return (
-      <div className="card-fade fade">
+      <div className="card-fade card-fade-show">
          <div className="card-btns">
             <FadeBtn value="영화상세정보" movieId={movieId} />
             <FadeBtn
