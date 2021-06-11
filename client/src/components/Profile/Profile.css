@@ -1,21 +1,26 @@
 .profile {
-   padding-top: 8rem;
+  padding-top: 8rem;
 }
 
 .profile-head {
-   display: flex;
-   justify-content: space-between;
-   padding-left: 3vw;
-   padding-right: 3vw;
-   padding-bottom: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding-left: 3vw;
+  padding-right: 3vw;
+  padding-bottom: 1rem;
 }
 
-.profile-sub {
-   color: whitesmoke;
-   font-weight: bold;
-   font-size: 2rem;
+.profile-head-sub {
+  color: whitesmoke;
+  font-weight: bold;
+  font-size: 2rem;
 }
 
 .profile-head-select {
-   width: 10rem;
+  width: 10rem;
 }
+/*# sourceMappingURL=Profile.css.map */

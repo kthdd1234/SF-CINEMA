@@ -19,8 +19,8 @@ const Btns = ({
    setTrailer,
    handleProfileUpdate,
 }) => {
-   const classGray = 'movie-btns-btn color-gray';
-   const classblue = 'movie-btns-btn color-blue';
+   const classGray = 'movie-contents-btn color-gray';
+   const classblue = 'movie-contents-btn color-blue';
    const [savedFilled, setSavedFilled] = useState(false);
    const [likedFilled, setLikedFilled] = useState(false);
    const [likedClass, setLikedClass] = useState(classGray);
@@ -84,7 +84,7 @@ const Btns = ({
    };
 
    const settings = [
-      ['movie-btns-btn', <PlayCircleOutlined />, setTrailer, '예고편 보기'],
+      ['movie-contents-btn', <PlayCircleOutlined />, setTrailer, '예고편 보기'],
       [
          likedClass,
          likedFilled ? <CheckOutlined /> : <LikeOutlined />,
@@ -100,7 +100,7 @@ const Btns = ({
    ];
 
    return (
-      <div className="movie-btns">
+      <div>
          {settings.map((setting, i) => (
             <Btn
                key={i}

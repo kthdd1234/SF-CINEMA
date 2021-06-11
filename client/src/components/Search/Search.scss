@@ -1,0 +1,38 @@
+@mixin flexSetting {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+@mixin headSetting($left, $right) {
+   margin: {
+      left: $left;
+      right: $right;
+   }
+   color: rgba(255, 255, 255, 0.7);
+}
+
+.search {
+   padding-top: 7rem;
+
+   &-head {
+      padding-left: 3vw;
+      padding-bottom: 1vw;
+      font-weight: bold;
+      font-size: 1.4vw;
+      color: whitesmoke;
+
+      &-icon {
+         @include headSetting(0, 0.5vw);
+      }
+
+      &-sub {
+         @include headSetting(0.5vw, 0);
+      }
+   }
+
+   &-loding {
+      @include flexSetting();
+      height: 50vh;
+   }
+}

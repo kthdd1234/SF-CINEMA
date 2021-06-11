@@ -1,0 +1,92 @@
+.nav {
+   position: fixed;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+   height: 4rem;
+   top: 0;
+   padding-left: 3rem;
+   padding-right: 3rem;
+   z-index: 2;
+
+   &-list {
+      position: relative;
+      display: flex;
+      align-items: center;
+      height: 100%;
+      color: whitesmoke;
+      font-weight: 700;
+
+      &-logo {
+         width: 10rem;
+         border-radius: 15px;
+         cursor: pointer;
+         margin-right: 1rem;
+      }
+
+      &-item {
+         display: flex;
+         align-items: center;
+         height: 100%;
+         padding: 1rem;
+         cursor: pointer;
+
+         &:hover {
+            color: darkgray;
+         }
+
+         &-icon {
+            padding-right: 7px;
+         }
+
+         &-name {
+            letter-spacing: 0.5px;
+            font-weight: bold;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+               sans-serif;
+         }
+      }
+
+      &-explore {
+         position: relative;
+         height: 100%;
+      }
+
+      &-menu {
+         background-color: #1f2023;
+         padding-top: 0.5rem;
+         padding-bottom: 0.5rem;
+
+         &-item {
+            padding: 1rem;
+            flex: 25%;
+            color: whitesmoke;
+            cursor: pointer;
+
+            &:hover {
+               background-color: rgb(225, 225, 225, 0.1);
+            }
+         }
+      }
+   }
+}
+
+.menu-column {
+   position: absolute;
+   width: 12rem;
+   top: 4rem;
+   left: 1rem;
+}
+
+.menu-flex {
+   position: absolute;
+   width: 48rem;
+   display: flex;
+   flex-wrap: wrap;
+   top: 4rem;
+   left: 1rem;
+   background-color: #1f2023;
+   padding-top: 0.5rem;
+   padding-bottom: 0.5rem;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { UserOutlined } from '@ant-design/icons';
+import Item from './Item';
 
 const SettingItems = () => {
    const history = useHistory();
@@ -13,16 +14,12 @@ const SettingItems = () => {
 
    return (
       <>
-         <div
-            className="nav-list-item"
+         <Item
+            name="프로필"
+            icon={<UserOutlined />}
             onClick={() => history.push('/profile')}
-         >
-            <span className="nav-icon">{<UserOutlined />}</span>
-            <span>프로필</span>
-         </div>
-         <div className="nav-list-item" onClick={onClick}>
-            <span>로그아웃</span>
-         </div>
+         />
+         <Item name="로그아웃" icon={null} onClick={onClick} />
       </>
    );
 };

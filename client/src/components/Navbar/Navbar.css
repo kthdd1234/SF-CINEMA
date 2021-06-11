@@ -39,37 +39,35 @@
    color: darkgray;
 }
 
-.nav-icon {
+.nav-list-item-icon {
    padding-right: 7px;
 }
 
-.nav-list-wrap {
+.nav-list-item-name {
+   letter-spacing: 0.5px;
+   font-weight: bold;
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.nav-list-explore {
    position: relative;
    height: 100%;
 }
 
-.nav-detail-list {
-   position: absolute;
-   width: 12rem;
-   top: 4rem;
-   left: 1rem;
+.nav-list-menu {
    background-color: #1f2023;
    padding-top: 0.5rem;
    padding-bottom: 0.5rem;
 }
 
-.nav-detail-list-item {
-   color: whitesmoke;
-   cursor: pointer;
-   padding: 1rem;
-   flex: 25%;
+.menu-column {
+   position: absolute;
+   width: 12rem;
+   top: 4rem;
+   left: 1rem;
 }
 
-.nav-detail-list-item:hover {
-   background-color: rgb(225, 225, 225, 0.1);
-}
-
-.nav-detail-series {
+.menu-flex {
    position: absolute;
    width: 48rem;
    display: flex;
@@ -79,4 +77,15 @@
    background-color: #1f2023;
    padding-top: 0.5rem;
    padding-bottom: 0.5rem;
+}
+
+.nav-list-menu-item {
+   color: whitesmoke;
+   cursor: pointer;
+   padding: 1rem;
+   flex: 25%;
+}
+
+.nav-list-menu-item:hover {
+   background-color: rgb(225, 225, 225, 0.1);
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Item from './Item';
 
 const AuthItems = () => {
    const history = useHistory();
@@ -11,13 +12,12 @@ const AuthItems = () => {
    return (
       <>
          {auth.map((item, i) => (
-            <div
+            <Item
                key={i}
-               className="nav-list-item"
+               name={item[0]}
+               icon={null}
                onClick={() => history.push(item[1])}
-            >
-               <span>{item[0]}</span>
-            </div>
+            />
          ))}
       </>
    );

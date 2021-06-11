@@ -1,14 +1,17 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Item from './Item';
+import { HomeOutlined } from '@ant-design/icons';
 
-const HomeItem = ({ icon, value }) => {
+const HomeItem = () => {
    const history = useHistory();
 
    return (
-      <div className="nav-list-item" onClick={() => history.push('/')}>
-         <span className="nav-icon">{icon}</span>
-         <span>{value}</span>
-      </div>
+      <Item
+         name="홈"
+         icon={<HomeOutlined />}
+         onClick={() => history.push('/')}
+      />
    );
 };
 

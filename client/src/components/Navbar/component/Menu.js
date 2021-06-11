@@ -8,31 +8,31 @@ const Menu = ({ query, onHover, lists }) => {
       onHover(false);
    };
 
-   if (query === 'series') {
+   if (query !== 'series') {
       return (
-         <div className="nav-detail-series">
-            {lists.map((series, i) => (
+         <div className="nav-list-menu menu-column">
+            {Object.entries(lists).map((list, i) => (
                <div
                   key={i}
-                  className="nav-detail-list-item"
-                  onClick={() => onClick(series)}
+                  className="nav-list-menu-item"
+                  onClick={() => onClick(list[0])}
                >
-                  <span>{series}</span>
+                  <span className="nav-list-item-icon">{list[1][1]}</span>
+                  <span>{list[1][0]}</span>
                </div>
             ))}
          </div>
       );
    } else {
       return (
-         <div className="nav-detail-list">
-            {Object.entries(lists).map((list, i) => (
+         <div className="nav-list-menu menu-flex">
+            {lists.map((series, i) => (
                <div
                   key={i}
-                  className="nav-detail-list-item"
-                  onClick={() => onClick(list[0])}
+                  className="nav-list-menu-item"
+                  onClick={() => onClick(series)}
                >
-                  <span className="nav-icon">{list[1][1]}</span>
-                  <span>{list[1][0]}</span>
+                  <span>{series}</span>
                </div>
             ))}
          </div>

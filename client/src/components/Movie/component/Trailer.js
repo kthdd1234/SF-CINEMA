@@ -26,7 +26,7 @@ const Trailer = ({ videoId, handleSettingTrailer }) => {
          <Button
             ghost
             icon={<CloseOutlined />}
-            className="trailer-close"
+            className="movie-trailer-close"
             onClick={() => closeTrailer(false)}
          />
          <Video videoId={videoId} />

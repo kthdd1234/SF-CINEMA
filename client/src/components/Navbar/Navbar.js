@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import {
    GiftOutlined,
-   HomeOutlined,
    ThunderboltFilled,
    TagOutlined,
 } from '@ant-design/icons';
@@ -15,12 +14,12 @@ import AuthItems from './component/AuthItems';
 import SettingItems from './component/SettingItems';
 import './Navbar.css';
 
-const Navbar = ({ history, isLogin }) => {
+const Navbar = ({ isLogin }) => {
    const [pushHover, onPushHover] = useState(false);
    const [tagHover, onTagHover] = useState(false);
    const [seriesHover, onSeriesHover] = useState(false);
    const [search, onSearch] = useState(false);
-   const items = [
+   const exploreItems = [
       [onPushHover, '추천', <GiftOutlined />, 'push', pushList, pushHover],
       [onTagHover, '특징', <TagOutlined />, 'tag', tagList, tagHover],
       [
@@ -49,9 +48,9 @@ const Navbar = ({ history, isLogin }) => {
    return (
       <nav className="nav">
          <div className="nav-list">
-            <Logo history={history} />
-            <HomeItem history={history} icon={<HomeOutlined />} value="홈" />
-            {items.map((items, i) => (
+            <Logo />
+            <HomeItem />
+            {exploreItems.map((items, i) => (
                <ExploreItem
                   key={i}
                   onHover={items[0]}
@@ -60,18 +59,13 @@ const Navbar = ({ history, isLogin }) => {
                   query={items[3]}
                   lists={items[4]}
                   hover={items[5]}
-                  history={history}
                />
             ))}
          </div>
 
          <div className="nav-list">
-            <SearchItem search={search} onSearch={onSearch} history={history} />
-            {!isLogin ? (
-               <AuthItems history={history} />
-            ) : (
-               <SettingItems history={history} />
-            )}
+            <SearchItem search={search} onSearch={onSearch} />
+            {!isLogin ? <AuthItems /> : <SettingItems />}
          </div>
       </nav>
    );
