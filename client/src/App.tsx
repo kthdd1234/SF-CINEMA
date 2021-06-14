@@ -14,30 +14,39 @@ import Search from './components/Search/Search';
 import Swiper from './components/Swiper/Swiper';
 import MovieList from './components/Lists/Lists';
 
-const NotFound = () => {
-   return <div>Not Found</div>;
-};
+interface UserProps {
+   handleProfileUpdate: Function;
+   handleLoginChange: Function;
+}
 
-const Screen = () => {
-   return (
-      <div>
-         <Swiper />
-         <MovieList />
-      </div>
-   );
-};
+interface Routes {
+   path: string;
+   component: any;
+}
 
-const routes = [
-   ['/', Screen],
-   ['/signup', SignUp],
-   ['/login', Login],
-   ['/movies/:movie_id', Movie],
-   ['/explore', Explore],
-   ['/search', Search],
-   ['/profile', Profile],
-];
+const App = ({ handleProfileUpdate, handleLoginChange }: UserProps) => {
 
-const App = ({ handleProfileUpdate, handleLoginChange }) => {
+   const Screen = () => {
+      return (
+         <div>
+            <Swiper />
+            <MovieList />
+         </div>
+      );
+   };
+
+   const routes: Routes[] = [
+      {path: '/', component:  Screen},
+      {path: '/signup', component: SignUp},
+      {path: '/login',component: Login},
+      {path: '/movies/:movie_id', component:Movie},
+      {path: '/explore',component: Explore},
+      {path: '/search', component:Search},
+      {path: '/profile',component: Profile},
+   ];
+   
+
+
    useEffect(() => {
       const accessToken = reactLocalStorage.get('SFCinemaUserToken');
       if (accessToken)
@@ -52,20 +61,20 @@ const App = ({ handleProfileUpdate, handleLoginChange }) => {
          <Navbar />
          <Switch>
             {routes.map((route, i) => (
-               <Route exact key={i} path={route[0]} component={route[1]} />
+               <Route exact key={i} path={route.path} component={route.component} />
             ))}
-            <Route path="/" component={NotFound} />
+            <Route path="/" component={() => <div>Not Found</div>} />
          </Switch>
       </div>
    );
 };
 
-const mapReduxDispatchToReactProps = (dispatch) => {
+const mapReduxDispatchToReactProps = (dispatch: Function) => {
    return {
-      handleLoginChange: (isLogin) => {
+      handleLoginChange: (isLogin: boolean) => {
          dispatch(setIsLogin(isLogin));
       },
-      handleProfileUpdate: (profile) => {
+      handleProfileUpdate: (profile: object) => {
          dispatch(setProfile(profile));
       },
    };

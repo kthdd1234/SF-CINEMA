@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore } from 'redux';
+import { compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import App from './App';
 import reducers from './reducers';
 import 'antd/dist/antd.css';
 import './index.css';
+
+declare global {
+   interface Window {
+     devToolsExtension: typeof compose;
+   }
+ }
+ 
 
 const store = createStore(
    reducers,
