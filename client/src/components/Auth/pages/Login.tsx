@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Form, message } from 'antd';
 import { LoginOutlined } from '@ant-design/icons';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import BackDrop from '../component/BackDrop';
-import FormBtn from '../component/FormBtn';
-import FormItem from '../component/FormItem';
-import FormSub from '../component/FormSub';
-import { backdrop } from '../requests/backdrop';
-import { login } from '../requests/login';
+import { BackDrop, FormBtn, FormItem, FormSub } from '../component';
+import { backdrop, login } from '../requests';
 import { userProfile } from '../../Profile/request/profile';
-
+import { IProps } from '../../../App'
 import '../Auth.css';
 
-const Login = ({ handleLoginChange, handleProfileUpdate, history }) => {
-   const [backDrop, setBackDrop] = useState([]);
+const Login = ({ handleProfileUpdate, handleLoginChange }: IProps) => {
+   const [backDrop, setBackDrop] = useState('');
    const [id, setId] = useState('');
    const [password, setPassword] = useState('');
+   const history = useHistory();
 
    useEffect(() => {
       const req = async () => {
@@ -58,13 +55,13 @@ const Login = ({ handleLoginChange, handleProfileUpdate, history }) => {
                   label="아이디"
                   name="아이디"
                   messages="아이디를 입력해주세요"
-                  onChange={({ target }) => setId(target.value)}
+                  onChange={setId}
                />
                <FormItem
                   label="비밀번호"
                   name="비밀번호"
                   messages="비밀번호를 입력해주세요"
-                  onChange={({ target }) => setPassword(target.value)}
+                  onChange={setPassword}
                />
 
                <FormBtn value="로그인" icon={<LoginOutlined />} />
@@ -74,4 +71,4 @@ const Login = ({ handleLoginChange, handleProfileUpdate, history }) => {
    );
 };
 
-export default withRouter(Login);
+export default Login;

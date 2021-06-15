@@ -1,6 +1,10 @@
 import React from 'react';
 
-const BackDrop = ({ backDrop }) => {
+interface IBackDrop {
+   backDrop: string
+}
+
+const BackDrop = ({ backDrop }: IBackDrop) => {
    return (
       <img
          className="auth-backdrop"

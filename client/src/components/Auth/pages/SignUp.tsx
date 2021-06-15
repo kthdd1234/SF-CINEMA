@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Form, message } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
 import BackDrop from '../component/BackDrop';
@@ -10,18 +10,19 @@ import { backdrop } from '../requests/backdrop';
 import { signup } from '../requests/signup';
 import '../Auth.css';
 
-const SignUp = ({ history }) => {
-   const [backDrop, setBackDrop] = useState([]);
+const SignUp = () => {
+   const [backDrop, setBackDrop] = useState('');
    const [id, setId] = useState('');
    const [password, setPassword] = useState('');
    const [comfirmPw, setComfirmPw] = useState('');
    const [name, setName] = useState('');
+   const history = useHistory();
 
    const formItemList = [
-      ['아이디', '아이디를 입력해주세요', setId],
-      ['비밀번호', '비밀번호를 입력해주세요', setPassword],
-      ['비밀번호 확인', '비밀번호를 재입력해주세요', setComfirmPw],
-      ['이름', '이름을 입력해주세요', setName],
+      {label: '아이디', messages: '아이디를 입력해주세요', method: setId},
+      {label: '비밀번호', messages: '비밀번호를 입력해주세요', method: setPassword},
+      {label: '비밀번호 확인', messages: '비밀번호를 재입력해주세요',method: setComfirmPw},
+      {label: '이름', messages: '이름을 입력해주세요', method: setName},
    ];
 
    useEffect(() => {
@@ -59,10 +60,10 @@ const SignUp = ({ history }) => {
                {formItemList.map((item, i) => (
                   <FormItem
                      key={i}
-                     label={item[0]}
-                     name={item[0]}
-                     messages={item[1]}
-                     onChange={({ target }) => item[2](target.value)}
+                     label={item.label}
+                     name={item.label}
+                     messages={item.messages}
+                     onChange={item.method}
                   />
                ))}
 
@@ -73,4 +74,4 @@ const SignUp = ({ history }) => {
    );
 };
 
-export default withRouter(SignUp);
+export default SignUp;

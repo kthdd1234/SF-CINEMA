@@ -2,7 +2,13 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 
-const FadeBtn = ({ value, movieId, handleSettingTrailer }) => {
+interface IFadeBtn {
+   value: string;
+   movieId?: string;
+   setTrailer?: Function;
+}
+
+const FadeBtn = ({ value, movieId, setTrailer }: IFadeBtn) => {
    const history = useHistory();
 
    return (
@@ -12,7 +18,7 @@ const FadeBtn = ({ value, movieId, handleSettingTrailer }) => {
          onClick={() =>
             value !== '예고편 보기'
                ? history.push(`/movies/${movieId}`)
-               : handleSettingTrailer(true)
+               : setTrailer(true)
          }
       >
          {value}

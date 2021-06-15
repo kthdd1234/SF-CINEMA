@@ -1,17 +1,20 @@
 import Movie from '../components/Movie/Movie';
 import { setProfile } from '../actions/user';
 import { connect } from 'react-redux';
+import { IReducer, IUser } from './Navbar'
 
-const mapReduxStateToReactProps = ({ userReducer }) => {
+const mapReduxStateToReactProps = ({ userReducer }: IReducer) => {
+   const { isLogin,  profile}: IUser = userReducer
+
    return {
-      isLogin: userReducer.isLogin,
-      profile: userReducer.profile,
+      isLogin: isLogin,
+      profile: profile,
    };
 };
 
-const mapReduxDispatchToReactProps = (dispatch) => {
+const mapReduxDispatchToReactProps = (dispatch: Function) => {
    return {
-      handleProfileUpdate: (profile) => {
+      handleProfileUpdate: (profile: object) => {
          dispatch(setProfile(profile));
       },
    };

@@ -1,6 +1,10 @@
 import React from 'react';
 
-const FormSub = ({ value }) => {
+interface FormSub {
+   value: string
+}
+
+const FormSub = ({ value }: FormSub) => {
    return <div className="auth-form-sub">{value}</div>;
 };
 

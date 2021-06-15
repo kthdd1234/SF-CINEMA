@@ -14,17 +14,17 @@ import Search from './components/Search/Search';
 import Swiper from './components/Swiper/Swiper';
 import MovieList from './components/Lists/Lists';
 
-interface UserProps {
+export interface IProps {
    handleProfileUpdate: Function;
    handleLoginChange: Function;
 }
 
-interface Routes {
+interface IRoutes {
    path: string;
    component: any;
 }
 
-const App = ({ handleProfileUpdate, handleLoginChange }: UserProps) => {
+const App = ({ handleProfileUpdate, handleLoginChange }: IProps) => {
 
    const Screen = () => {
       return (
@@ -35,7 +35,7 @@ const App = ({ handleProfileUpdate, handleLoginChange }: UserProps) => {
       );
    };
 
-   const routes: Routes[] = [
+   const routes: IRoutes[] = [
       {path: '/', component:  Screen},
       {path: '/signup', component: SignUp},
       {path: '/login',component: Login},

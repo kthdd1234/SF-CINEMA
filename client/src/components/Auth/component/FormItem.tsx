@@ -1,9 +1,16 @@
 import React from 'react';
 import { Form, Input } from 'antd';
 
+interface IFormItem {
+   label: string;
+   name: string;
+   messages: string;
+   onChange: Function;
+}
+
 const { Item } = Form;
 
-const FormItem = ({ label, name, messages, onChange }) => {
+const FormItem = ({ label, name, messages, onChange }: IFormItem) => {
    return (
       <Item
          label={<div className="auth-form-label">{label}</div>}
@@ -15,7 +22,7 @@ const FormItem = ({ label, name, messages, onChange }) => {
             },
          ]}
       >
-         <Input onChange={onChange} />
+         <Input onChange={({ target }) => onChange(target.value)} />
       </Item>
    );
 };

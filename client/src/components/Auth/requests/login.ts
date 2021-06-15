@@ -2,7 +2,7 @@ import { serverUrl } from './index';
 import { message } from 'antd';
 
 /* 로그인 */
-export const login = async (loginID, password) => {
+export const login = async (loginID: string, password: string) => {
    try {
       const { data } = await serverUrl.post('/user/login', {
          loginID: loginID,

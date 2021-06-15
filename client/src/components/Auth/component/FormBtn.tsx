@@ -1,7 +1,12 @@
 import React from 'react';
 import { Button } from 'antd';
 
-const FormBtn = ({ value, icon }) => {
+interface IFormBtn {
+   value: string;
+   icon: any
+}
+
+const FormBtn = ({ value, icon }: IFormBtn) => {
    return (
       <div>
          <Button

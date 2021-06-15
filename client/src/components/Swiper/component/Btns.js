@@ -26,7 +26,7 @@ const Btns = ({ index, sub }) => {
             <Btn sub={sub} icon={<UnorderedListOutlined />} value="목록 보기" />
          )}
          {trailer ? (
-            <Trailer videoId={videoId} handleSettingTrailer={setTrailer} />
+            <Trailer videoId={videoId} setTrailer={setTrailer} />
          ) : null}
       </div>
    );

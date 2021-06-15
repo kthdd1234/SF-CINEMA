@@ -66,7 +66,7 @@ const Movie = ({ isLogin, profile, handleProfileUpdate }) => {
          </div>
          <BackDrop backDrop={backDrop} />
          {trailer ? (
-            <Trailer videoId={videoId} handleSettingTrailer={setTrailer} />
+            <Trailer videoId={videoId} setTrailer={setTrailer} />
          ) : null}
       </div>
    );

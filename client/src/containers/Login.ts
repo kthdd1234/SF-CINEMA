@@ -2,12 +2,12 @@ import Login from '../components/Auth/pages/Login';
 import { setIsLogin, setProfile } from '../actions/user';
 import { connect } from 'react-redux';
 
-const mapReduxDispatchToReactProps = (dispatch) => {
+const mapReduxDispatchToReactProps = (dispatch: Function) => {
    return {
-      handleLoginChange: (isLogin) => {
+      handleLoginChange: (isLogin: boolean) => {
          dispatch(setIsLogin(isLogin));
       },
-      handleProfileUpdate: (profile) => {
+      handleProfileUpdate: (profile: object) => {
          dispatch(setProfile(profile));
       },
    };

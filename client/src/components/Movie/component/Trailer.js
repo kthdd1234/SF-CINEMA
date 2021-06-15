@@ -5,14 +5,14 @@ import Video from './Video';
 import 'antd/dist/antd.css';
 import '../Movie.css';
 
-const Trailer = ({ videoId, handleSettingTrailer }) => {
+const Trailer = ({ videoId, setTrailer }) => {
    const [visible, setVisible] = useState(false);
    useEffect(() => {
       setVisible(true);
    }, []);
 
    const closeTrailer = useCallback((setting) => {
-      handleSettingTrailer(setting);
+      setTrailer(setting);
       setVisible(setting);
    });
 
