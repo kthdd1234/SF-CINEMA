@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Title = ({ title }) => {
+interface ITitle {
+   title?: string
+}
+
+const Title = ({ title }:ITitle) => {
    return <div className="card-title">{title}</div>;
 };
 

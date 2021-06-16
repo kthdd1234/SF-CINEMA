@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Poster = ({ poster }) => {
+interface IPoster {
+   poster?: string
+}
+
+const Poster = ({ poster }:IPoster) => {
    return (
       <img
          className="card-poster-img"

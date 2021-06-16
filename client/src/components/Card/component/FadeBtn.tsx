@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 
 interface IFadeBtn {
-   value: string;
+   value?: string;
    movieId?: string;
    setTrailer?: Function;
 }
 
 const FadeBtn = ({ value, movieId, setTrailer }: IFadeBtn) => {
    const history = useHistory();
+   const onClickTrailer = (trailer: Function | void) => {
+      trailer ? trailer(true) : null
+   };
 
    return (
       <Button
@@ -18,7 +21,7 @@ const FadeBtn = ({ value, movieId, setTrailer }: IFadeBtn) => {
          onClick={() =>
             value !== '예고편 보기'
                ? history.push(`/movies/${movieId}`)
-               : setTrailer(true)
+               : onClickTrailer(setTrailer)
          }
       >
          {value}

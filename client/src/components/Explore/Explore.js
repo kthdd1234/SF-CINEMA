@@ -2,8 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { explore } from './request/explore';
 import { pushList, tagList } from '../Navbar/data';
-import Head from './component/Head';
-import Loding from './component/Loding';
+import { Head, Loding } from './component';
 import List from '../Lists/component/List';
 import './Explore.css';
 

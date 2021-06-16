@@ -1,7 +1,14 @@
 import React from 'react';
 import SelectBtn from './SelectBtn';
 
-const Head = ({ sub, icon, selectdBtn, onChangeSelect }) => {
+interface IHead {
+   sub: string;
+   icon: any;
+   selectdBtn : boolean;
+   onChangeSelect: Function;
+}
+
+const Head = ({ sub, icon, selectdBtn, onChangeSelect }: IHead) => {
    return (
       <div className="explore-head">
          <div className="explore-head-sub">
