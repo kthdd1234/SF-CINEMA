@@ -8,36 +8,24 @@ const Menu = ({ query, onHover, lists }) => {
       onHover(false);
    };
 
-   if (query !== 'series') {
-      return (
-         <div className="nav-list-menu menu-column">
-            {Object.entries(lists).map((list, i) => (
-               <div
-                  key={i}
-                  className="nav-list-menu-item"
-                  onClick={() => onClick(list[0])}
-               >
-                  <span className="nav-list-item-icon">{list[1][1]}</span>
-                  <span>{list[1][0]}</span>
-               </div>
-            ))}
-         </div>
-      );
-   } else {
-      return (
-         <div className="nav-list-menu menu-flex">
-            {lists.map((series, i) => (
-               <div
-                  key={i}
-                  className="nav-list-menu-item"
-                  onClick={() => onClick(series)}
-               >
-                  <span>{series}</span>
-               </div>
-            ))}
-         </div>
-      );
-   }
+   return (
+      <div
+         className={`nav-list-menu ${
+            query === 'series' ? 'menu-flex' : 'menu-column'
+         }`}
+      >
+         {lists.map((obj, i) => (
+            <div
+               key={i}
+               className="nav-list-menu-item"
+               onClick={() => onClick(obj.path)}
+            >
+               <span className="nav-list-item-icon">{obj.icon}</span>
+               <span>{obj.sub}</span>
+            </div>
+         ))}
+      </div>
+   );
 };
 
 export default Menu;

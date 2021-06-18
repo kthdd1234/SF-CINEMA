@@ -1,37 +1,57 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { explore } from './request/explore';
-import { pushList, tagList } from '../Navbar/data';
+import { pushList, pushIndex,tagList, tagIndex } from '../Navbar/data';
 import { Head, Loding } from './component';
 import List from '../Lists/component/List';
 import './Explore.css';
 
+interface IMovies {
+   // id: number;
+   // title: string;
+   // titleEng: string;
+   // director: string;
+   // nation: string;
+   // plot: string;
+   // posters: string;
+   // actors: string;
+   // ratingGrade: string;
+   // seriesName: any;
+   // runtime: string;
+   // videoId: string;
+   // keywords: string;
+   // genre: string;
+   // backDrop: string;
+   // backgroundImg: any;
+   // numberOfLikes: number;
+   userRating: number;
+   releaseDate: number;
+   
+}
+
 const Explore = () => {
-   const [movies, setMovies] = useState([]);
+   const [movies, setMovies] = useState<Array<any>>([]);
    const [selectdBtn, setSelectdBtn] = useState(false);
-   const [icon, setIcon] = useState('');
    const [sub, setSub] = useState('');
+   const [icon, setIcon] = useState(<div />);
    const [key, value] = useLocation().search.substring(1).split('=');
    const decoding = decodeURI(value);
 
    useEffect(() => {
-      switch (key) {
-         case 'push':
-            setSub(pushList[value][0]);
-            setIcon(pushList[value][1]);
-            break;
-         case 'tag':
-            setSub(decoding);
-            setIcon(tagList[decoding][1]);
-            break;
-         case 'series':
-            setSub(decoding);
-            break;
+      if(key === 'push') {
+         setSub(pushList[pushIndex[decoding]].sub);
+         setIcon(pushList[pushIndex[decoding]].icon);
+      } else if (key === 'tag') {
+         setSub(decoding);
+         setIcon(tagList[tagIndex[decoding]].icon);
+      } else {
+         setSub(decoding);
       }
+      
       return () => {
-         setIcon('');
+         setIcon(<div />);
       };
-   });
+   }, [decoding]);
 
    useEffect(() => {
       const req = async () => {
@@ -44,16 +64,16 @@ const Explore = () => {
       return () => {
          setSelectdBtn(false);
       };
-   }, [value]);
+   }, [decoding]);
 
-   const onChangeSelect = useCallback((selected) => {
-      let sortMovies = [...movies];
+   const onChangeSelect = (selected: string) => {
+      let sortMovies:IMovies[] = [...movies];
       sortMovies =
          selected === '평점이 높은 순'
             ? sortMovies.sort((a, b) => b.userRating - a.userRating)
             : sortMovies.sort((a, b) => b.releaseDate - a.releaseDate);
       setMovies(sortMovies);
-   });
+   };
 
    return (
       <div className="explore">
@@ -63,7 +83,6 @@ const Explore = () => {
                   sub={sub}
                   icon={icon}
                   selectdBtn={selectdBtn}
-                  setSelectdBtn={setSelectdBtn}
                   onChangeSelect={onChangeSelect}
                />
                <List movies={movies} />
