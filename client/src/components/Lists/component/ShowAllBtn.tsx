@@ -2,7 +2,11 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { DoubleRightOutlined } from '@ant-design/icons';
 
-const ShowAllBtn = ({ path }) => {
+interface IShowAllBtn {
+   path: string
+}
+
+const ShowAllBtn = ({ path }: IShowAllBtn) => {
    const history = useHistory();
 
    return (

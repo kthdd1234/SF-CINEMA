@@ -1,6 +1,11 @@
 import React from 'react';
 
-const Sub = ({ icon, sub }) => {
+interface ISub {
+   sub: string;
+   icon: any;
+}
+
+const Sub = ({ icon, sub }: ISub) => {
    return (
       <div className="lists-head-sub">
          {icon} {sub}

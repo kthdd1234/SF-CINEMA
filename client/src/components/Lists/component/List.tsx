@@ -2,7 +2,11 @@ import React from 'react';
 import Card from '../../Card/Card';
 import '../Lists.css';
 
-const List = ({ movies }) => {
+interface IList {
+   movies: Array<object>
+}
+
+const List = ({ movies }:IList) => {
    return (
       <div className="lists-list">
          {movies.map((movie, i) => (
