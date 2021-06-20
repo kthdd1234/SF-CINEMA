@@ -1,7 +1,11 @@
 import React from 'react';
 import Shadow from './Shadow';
 
-const BackDrop = ({ backDrop }) => {
+interface IBackDrop {
+   backDrop: string;
+}
+
+const BackDrop = ({ backDrop }: IBackDrop) => {
    return (
       <div>
          <Shadow />

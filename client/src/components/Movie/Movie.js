@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import { getMovie } from './request/getMovie';
+import { getMovie } from './request';
 import Trailer from './component/Trailer';
 import Titles from './component/Titles';
 import BackDrop from './component/BackDrop';
