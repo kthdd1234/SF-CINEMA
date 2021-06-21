@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { IReducer, IUser } from './Navbar'
 
 const mapReduxStateToReactProps = ({ userReducer }: IReducer) => {
-   const { isLogin,  profile}: IUser = userReducer
+   const { isLogin,  profile }: IUser = userReducer
 
    return {
       isLogin: isLogin,

@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
 import {
    GiftOutlined,
    ThunderboltFilled,
    TagOutlined,
 } from '@ant-design/icons';
 import { pushList, tagList, seriesList } from './data';
-import Logo from './component/Logo';
-import HomeItem from './component/HomeItem';
-import ExploreItem from './component/ExploreItem';
-import SearchItem from './component/SearchItem';
-import AuthItems from './component/AuthItems';
-import SettingItems from './component/SettingItems';
+import {
+   Logo,
+   HomeItem,
+   ExploreItem,
+   SearchItem,
+   AuthItems,
+   SettingItems,
+} from './component';
 import './Navbar.css';
 
 const Navbar = ({ isLogin }) => {
@@ -71,4 +72,4 @@ const Navbar = ({ isLogin }) => {
    );
 };
 
-export default withRouter(Navbar);
+export default Navbar;

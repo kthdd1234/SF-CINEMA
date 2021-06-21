@@ -1,17 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
 import { getMovie } from './request';
-import Trailer from './component/Trailer';
-import Titles from './component/Titles';
-import BackDrop from './component/BackDrop';
-import Info from './component/Info';
-import Plot from './component/Plot';
-import Person from './component/Person';
-import Btns from './component/Btns';
+import {
+   Trailer,
+   Titles,
+   BackDrop,
+   Info,
+   Plot,
+   Person,
+   Btns,
+} from './component';
 import './Movie.css';
 
-const Movie = ({ isLogin, profile, handleProfileUpdate }) => {
-   const [movie, setMovie] = useState([]);
+interface IProps {
+   isLogin?: boolean;
+   profile?: object;
+   handleProfileUpdate: Function;
+}
+
+interface IMovie {
+   id: number;
+   title: string;
+   titleEng: string;
+   genre: string;
+   director: string;
+   plot: string;
+   actors: string;
+   releaseDate: number;
+   runtime: string;
+   ratingGrade: string;
+   userRating: number;
+   backDrop: string;
+   videoId: string;
+   numberOfLikes: number;
+}
+
+const data = { 
+   id: 0,
+   title: '',
+   titleEng: '',
+   genre: '',
+   director: '',
+   plot: '',
+   actors: '',
+   releaseDate: 0,
+   runtime: '',
+   ratingGrade: '',
+   userRating: 0,
+   backDrop: '',
+   videoId: '',
+   numberOfLikes: 0, 
+}
+
+const Movie = ({ isLogin, profile, handleProfileUpdate }: IProps) => {
+   const [movie, setMovie] = useState(data);
    const [trailer, setTrailer] = useState(false);
 
    useEffect(() => {
@@ -37,7 +78,7 @@ const Movie = ({ isLogin, profile, handleProfileUpdate }) => {
       backDrop,
       videoId,
       numberOfLikes,
-   } = movie;
+   }: IMovie = movie;
 
    return (
       <div className="movie">
@@ -61,7 +102,7 @@ const Movie = ({ isLogin, profile, handleProfileUpdate }) => {
                movieId={id}
                profile={profile}
                handleProfileUpdate={handleProfileUpdate}
-               setTrailer={setTrailer}
+               setTrailer={() => setTrailer}
             />
          </div>
          <BackDrop backDrop={backDrop} />
@@ -72,4 +113,4 @@ const Movie = ({ isLogin, profile, handleProfileUpdate }) => {
    );
 };
 
-export default withRouter(Movie);
+export default Movie;

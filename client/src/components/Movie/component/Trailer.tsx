@@ -5,13 +5,19 @@ import Video from './Video';
 import 'antd/dist/antd.css';
 import '../Movie.css';
 
-const Trailer = ({ videoId, setTrailer }) => {
+interface ITrailer {
+   videoId?: string;
+   setTrailer: Function
+}
+
+const Trailer = ({ videoId, setTrailer }: ITrailer) => {
    const [visible, setVisible] = useState(false);
+
    useEffect(() => {
       setVisible(true);
    }, []);
 
-   const closeTrailer = useCallback((setting) => {
+   const closeTrailer = ((setting: boolean) => {
       setTrailer(setting);
       setVisible(setting);
    });

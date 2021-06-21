@@ -2,9 +2,13 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Input } from 'antd';
 
-const SearchBar = ({ onSearch }) => {
+interface ISearchBar {
+   onSearch: Function
+}
+
+const SearchBar = ({ onSearch }: ISearchBar) => {
    const history = useHistory();
-   const search = (value) => history.push(`/search?query=${value}`);
+   const search = (value: string) => history.push(`/search?query=${value}`);
 
    return (
       <Input.Search

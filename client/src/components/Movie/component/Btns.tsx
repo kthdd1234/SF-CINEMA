@@ -10,9 +10,9 @@ import Btn from './Btn';
 import { saveCompleted, saveCancel, likeCompleted, likeCancel } from '../request'
 
 interface IBtns {
-   isLogin: boolean;
+   isLogin?: boolean;
+   profile?: object;
    movieId: number;
-   profile: object;
    setTrailer: (event: React.MouseEvent<HTMLElement>) => void;
    handleProfileUpdate: Function;
 }
@@ -56,7 +56,7 @@ const Btns = ({
 
    useEffect(() => {
       if (isLogin) {
-         const { likedMovie, savedMovie }: IProfile = profile;
+         const { likedMovie, savedMovie }: IProfile = profile || {};
          const setting = [
             { data: likedMovie, setFilled: setLikedFilled, setClass: setLikedClass },
             { data: savedMovie, setFilled: setSavedFilled, setClass: setSavedClass }
@@ -75,7 +75,7 @@ const Btns = ({
 
    const setSave = async () => {
       if (isLogin) {
-         const { id }: IProfile = profile; 
+         const { id }: IProfile = profile || {}; 
 
          if (!savedFilled) {
             const data = await saveCompleted(id, movieId);
@@ -96,7 +96,7 @@ const Btns = ({
 
    const setLike = async () => {
       if (isLogin) {
-         const { id }: IProfile = profile; 
+         const { id }: IProfile = profile || {}; 
 
          if (!likedFilled) {
             const data = await likeCompleted(id, movieId);

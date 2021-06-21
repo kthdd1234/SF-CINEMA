@@ -3,7 +3,12 @@ import { SearchOutlined } from '@ant-design/icons';
 import SearchBar from '../component/SearchBar';
 import Item from './Item';
 
-const SearchItem = ({ search, onSearch }) => {
+interface ISearchItem {
+   search: boolean;
+   onSearch: Function;
+}
+
+const SearchItem = ({ search, onSearch }: ISearchItem) => {
    return (
       <div>
          {search ? (

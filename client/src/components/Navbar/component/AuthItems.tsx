@@ -5,18 +5,18 @@ import Item from './Item';
 const AuthItems = () => {
    const history = useHistory();
    const auth = [
-      ['로그인', '/login'],
-      ['회원가입', '/signup'],
+      { name: '로그인', path: '/login' },
+      { name: '회원가입', path: '/signup' },
    ];
 
    return (
       <>
-         {auth.map((item, i) => (
+         {auth.map((obj, i) => (
             <Item
                key={i}
-               name={item[0]}
+               name={obj.name}
                icon={null}
-               onClick={() => history.push(item[1])}
+               onClick={() => history.push(obj.path)}
             />
          ))}
       </>

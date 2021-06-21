@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Video = ({ videoId }) => {
+interface IVideo {
+   videoId?: string;
+}
+
+const Video = ({ videoId }: IVideo) => {
    return (
       <div className="movie-trailer-container">
          <iframe

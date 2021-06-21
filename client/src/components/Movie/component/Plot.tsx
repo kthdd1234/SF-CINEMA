@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Plot = ({ plot }) => {
+interface IPlot {
+   plot: string;
+}
+
+const Plot = ({ plot }: IPlot) => {
    return <div className="movie-contents-plot">{plot}</div>;
 };
 

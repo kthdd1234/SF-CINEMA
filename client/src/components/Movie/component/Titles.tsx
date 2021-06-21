@@ -1,6 +1,12 @@
 import React from 'react';
 
-const Titles = ({ title, titleEng, releaseDate }) => {
+interface ITitles {
+   title: string;
+   titleEng: string;
+   releaseDate: number;
+}
+
+const Titles = ({ title, titleEng, releaseDate }:ITitles) => {
    return (
       <div>
          <div className="movie-contents-sub">{title}</div>

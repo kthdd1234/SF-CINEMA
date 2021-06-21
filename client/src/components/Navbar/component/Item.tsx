@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { MouseEvent } from 'react';
 
-const Item = ({ name, icon, onClick }) => {
+interface IItem {
+   name: string;
+   icon: any;
+   onClick: (event: MouseEvent<HTMLDivElement>) => void;
+}
+
+const Item = ({ name, icon, onClick }: IItem) => {
    return (
       <div className="nav-list-item" onClick={onClick}>
          <span className="nav-list-item-icon">{icon}</span>

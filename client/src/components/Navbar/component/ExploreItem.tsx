@@ -2,14 +2,32 @@ import React from 'react';
 import Menu from '../component/Menu';
 import Item from './Item';
 
-const ExploreItem = ({ query, lists, onHover, value, icon, hover }) => {
+
+interface IExploreItem {
+   query: string;
+   lists: Array<ILists>;
+   onHover: Function;
+   value: string;
+   icon: any;
+   hover: boolean;
+}
+
+
+export interface ILists {
+   path: string;
+   icon: any;
+   sub: string;
+}
+
+const ExploreItem = ({ query, lists, onHover, value, icon, hover }: IExploreItem) => {
+
    return (
       <div
          className="nav-list-explore"
          onMouseOver={() => onHover(true)}
          onMouseLeave={() => onHover(false)}
       >
-         <Item name={value} icon={icon} onClick={null} />
+         <Item name={value} icon={icon} onClick={() => null} />
          {hover ? <Menu query={query} lists={lists} onHover={onHover} /> : null}
       </div>
    );
