@@ -13,10 +13,10 @@ const Person = ({ director, actors }: IPerson) => {
 
    return (
       <div className="movie-contents-person">
-         {persons.map((data) => (
-            <div>
-               <strong className="movie-contents-person-sub">{data.sub}</strong>
-               <span>{data.person}</span>
+         {persons.map(({ sub, person }, personIdx) => (
+            <div key={personIdx}>
+               <strong className="movie-contents-person-sub">{sub}</strong>
+               <span>{person}</span>
             </div>
          ))}
       </div>

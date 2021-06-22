@@ -51,6 +51,9 @@ const data = {
    numberOfLikes: 0, 
 }
 
+
+
+
 const Movie = ({ isLogin, profile, handleProfileUpdate }: IProps) => {
    const [movie, setMovie] = useState(data);
    const [trailer, setTrailer] = useState(false);
@@ -80,6 +83,7 @@ const Movie = ({ isLogin, profile, handleProfileUpdate }: IProps) => {
       numberOfLikes,
    }: IMovie = movie;
 
+
    return (
       <div className="movie">
          <div className="movie-contents">
@@ -102,7 +106,7 @@ const Movie = ({ isLogin, profile, handleProfileUpdate }: IProps) => {
                movieId={id}
                profile={profile}
                handleProfileUpdate={handleProfileUpdate}
-               setTrailer={() => setTrailer}
+               setTrailer={setTrailer}
             />
          </div>
          <BackDrop backDrop={backDrop} />

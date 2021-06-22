@@ -13,7 +13,7 @@ interface IBtns {
    isLogin?: boolean;
    profile?: object;
    movieId: number;
-   setTrailer: (event: React.MouseEvent<HTMLElement>) => void;
+   setTrailer: Function;
    handleProfileUpdate: Function;
 }
 
@@ -36,7 +36,7 @@ interface IData {
 interface IProps {
    className: string;
    icon: any;
-   onClick: (event: React.MouseEvent<HTMLElement>) => void;
+   onClick:Function;
    value: string;
 }
 
@@ -53,6 +53,7 @@ const Btns = ({
    const [likedFilled, setLikedFilled] = useState(false);
    const [likedClass, setLikedClass] = useState(classGray);
    const [savedClass, setSavedClass] = useState(classGray);
+
 
    useEffect(() => {
       if (isLogin) {
