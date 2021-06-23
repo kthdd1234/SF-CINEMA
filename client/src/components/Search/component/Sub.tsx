@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Sub = ({ sub }) => {
+interface ISub {
+   sub: string;
+}
+
+const Sub = ({ sub }: ISub) => {
    return <span className="search-head-sub">{sub}</span>;
 };
 

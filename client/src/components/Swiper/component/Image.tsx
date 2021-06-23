@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Image = ({ path }) => {
+interface IPath {
+   path: string;
+}
+
+const Image = ({ path }: IPath) => {
    return (
       <img
          className="swiper-images"

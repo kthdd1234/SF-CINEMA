@@ -2,7 +2,13 @@ import React from 'react';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import { swiperList } from '../data';
 
-const Direction = ({ setCurrentMovie, setIndex, index }) => {
+interface IDirection {
+   setCurrentMovie: Function;
+   setIndex: Function;
+   index: number;
+}
+
+const Direction = ({ setCurrentMovie, setIndex, index }: IDirection) => {
    return (
       <div>
          <div

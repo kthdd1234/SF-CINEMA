@@ -1,0 +1,90 @@
+@mixin displayContents($paddingLeft, $fontSize, $fontWeight) {
+   margin: 0;
+   color: whitesmoke;
+   padding-left: $paddingLeft;
+   font-size: $fontSize;
+   font-weight: $fontWeight;
+   font-family: Roboto, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Nanum Gothic',
+      'Malgun Gothic', sans-serif;
+}
+
+@mixin directionSetting($direction, $paddingDirection) {
+   position: absolute;
+   top: 50%;
+   #{$direction}: 0;
+   #{$paddingDirection}: 1rem;
+   color: gray;
+   font-size: 2rem;
+   z-index: 2;
+   cursor: pointer;
+
+   &:hover {
+      color: darkgrey;
+   }
+}
+
+.swiper {
+   position: relative;
+   overflow: hidden;
+   height: 48vw;
+   background-color: white;
+
+   &-shadow {
+      position: absolute;
+      width: 45%;
+      height: 48vw;
+      background-image: linear-gradient(
+         to right,
+         rgb(20, 21, 23) 0%,
+         rgba(20, 21, 23, 0.7) 26%,
+         rgba(20, 21, 23, 0.45) 60%,
+         rgba(20, 21, 23, 0.2) 90%,
+         rgba(20, 21, 23, 0) 100%
+      );
+      z-index: 1;
+   }
+
+   &-contents {
+      position: absolute;
+      top: 40%;
+      padding-left: 4rem;
+      color: whitesmoke;
+      z-index: 1;
+
+      &-sub {
+         @include displayContents(0, 4vw, bold);
+      }
+
+      &-exp {
+         @include displayContents(0.3rem, 1.3vw, 400);
+      }
+   }
+
+   &-before {
+      @include directionSetting(left, padding-left);
+   }
+
+   &-next {
+      @include directionSetting(right, padding-right);
+   }
+
+   &-images {
+      width: 100%;
+      background-color: white;
+   }
+
+   &-btns {
+      display: flex;
+      margin-top: 1.5rem;
+
+      &-btn {
+         margin-right: 0.5rem;
+         height: 4rem;
+         background-color: rgba(255, 255, 255, 0.04);
+         backdrop-filter: blur(5px);
+         color: whitesmoke;
+         font-size: 1.6rem;
+         font-weight: bold;
+      }
+   }
+}

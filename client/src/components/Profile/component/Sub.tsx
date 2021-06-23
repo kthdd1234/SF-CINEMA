@@ -1,6 +1,11 @@
 import React from 'react';
 
-const Sub = ({ username, sub }) => {
+interface ISub {
+   username: string;
+   sub: string;
+}
+
+const Sub = ({ username, sub }: ISub) => {
    return (
       <div className="profile-head-sub">{`${
          username ? username : ''

@@ -7,7 +7,12 @@ import {
 import Trailer from '../../Movie/component/Trailer';
 import Btn from './Btn';
 
-const Btns = ({ index, sub }) => {
+interface IBtns {
+   index: number;
+   sub: string;
+}
+
+const Btns = ({ index, sub }: IBtns) => {
    const [trailer, setTrailer] = useState(false);
    const videoId = 'lTE3zHll7ZY';
 
@@ -16,17 +21,18 @@ const Btns = ({ index, sub }) => {
          {index === 0 ? (
             <div>
                <Btn
+                  sub=""
                   icon={<PlayCircleOutlined />}
                   value="예고편 보기"
                   setTrailer={setTrailer}
                />
-               <Btn icon={<ZoomInOutlined />} value="자세히 보기" />
+               <Btn  sub="" icon={<ZoomInOutlined />} value="자세히 보기" setTrailer={() => null}/>
             </div>
          ) : (
-            <Btn sub={sub} icon={<UnorderedListOutlined />} value="목록 보기" />
+            <Btn sub={sub} icon={<UnorderedListOutlined />} value="목록 보기" setTrailer={() => null}/>
          )}
          {trailer ? (
-            <Trailer videoId={videoId} setTrailer={setTrailer} />
+            <Trailer  videoId={videoId} setTrailer={setTrailer} />
          ) : null}
       </div>
    );

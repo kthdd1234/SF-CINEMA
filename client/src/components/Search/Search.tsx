@@ -7,7 +7,7 @@ import './Search.css';
 
 const SearchList = () => {
    const [movies, setMovies] = useState([]);
-   const [keyword, setKeword] = useState('');
+   const [keyword, setKeword] = useState<string | null>('');
    const query = new URLSearchParams(window.location.search).get('query');
 
    useEffect(() => {
@@ -21,7 +21,7 @@ const SearchList = () => {
 
    return (
       <div className="search">
-         <Head keyword={keyword} len={movies.length} />
+         <Head keyword={keyword ? keyword : ''} len={movies.length} />
          {movies.length ? <List movies={movies} /> : <Loding />}
       </div>
    );

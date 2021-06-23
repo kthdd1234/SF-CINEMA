@@ -1,7 +1,7 @@
 import { serverUrl } from './index';
 
 /* 키워드 검색 */
-export const search = async (keyword) => {
+export const search = async (keyword: any) => {
    try {
       const { data } = await serverUrl.get('/search', {
          params: {

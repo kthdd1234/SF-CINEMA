@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import List from '../Lists/component/List';
-import Sub from './component/Sub';
-import SelectBtn from './component/SelectBtn';
+import { Sub, SelectBtn } from './component';
 import './Profile.css';
 
-const Profile = ({ profile }) => {
-   const { username, savedMovie, likedMovie } = profile;
-   const [movies, setMovies] = useState([]);
+interface IProfile {
+   profile?: object;
+}
+
+interface IData {
+   username?: string;
+   savedMovie?: Array<object>;
+   likedMovie?: Array<object>;
+}
+
+const Profile = ({ profile }: IProfile) => {
+   const { username, savedMovie, likedMovie }: IData = profile || {};
+   const [movies, setMovies] = useState<Array<object> | void>([]);
    const [sub, setSub] = useState('');
 
    useEffect(() => {
@@ -14,7 +23,7 @@ const Profile = ({ profile }) => {
       setMovies(savedMovie);
    }, [savedMovie]);
 
-   const onChangeSelect = (value) => {
+   const onChangeSelect = (value: string) => {
       if (value === '저장한 작품') {
          setSub('저장한');
          setMovies(savedMovie);
@@ -27,7 +36,7 @@ const Profile = ({ profile }) => {
    return (
       <div className="profile">
          <div className="profile-head">
-            <Sub username={username} sub={sub} />
+            <Sub username={username ? username : ''} sub={sub} />
             <SelectBtn onChangeSelect={onChangeSelect} />
          </div>
          <List movies={movies ? movies : []} />

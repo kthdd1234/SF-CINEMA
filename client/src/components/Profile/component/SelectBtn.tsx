@@ -2,7 +2,11 @@ import React from 'react';
 import { Select } from 'antd';
 import { CaretDownFilled } from '@ant-design/icons';
 
-const SelectBtn = ({ onChangeSelect }) => {
+interface ISelectBtn {
+   onChangeSelect: any
+}
+
+const SelectBtn = ({ onChangeSelect }: ISelectBtn) => {
    return (
       <Select
          className="profile-head-select"

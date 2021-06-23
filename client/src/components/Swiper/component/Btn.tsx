@@ -2,16 +2,25 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button } from 'antd';
 
-const Btn = ({ sub, value, icon, setTrailer }) => {
+interface IBtn {
+   sub: string;
+   value: string;
+   icon: any;
+   setTrailer: Function;
+}
+
+
+
+const Btn = ({ sub, value, icon, setTrailer }: IBtn) => {
    const history = useHistory();
 
    const onClick = () => {
-      const link = (path) => history.push(path);
-      const dict1 = {
+      const link = (path: string) => history.push(path);
+      const dict1 : any = {
          '예고편 보기': setTrailer,
          '자세히 보기': '/movies/245',
       };
-      const dict2 = {
+      const dict2: any = {
          '개봉 예정작': `/explore?push=latest-movies`,
          '최신 SF 신작': '/explore?push=latest-movies',
          'SF 최고 인기작': '/explore?push=highly-rated-movies',

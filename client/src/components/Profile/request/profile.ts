@@ -1,8 +1,10 @@
 import { serverUrl } from './index';
 import { message } from 'antd';
 
+type UserProfile = string | number | true;
+
 /* 프로필 */
-export const userProfile = async (accessToken) => {
+export const userProfile = async (accessToken: UserProfile) => {
    try {
       const { data } = await serverUrl.get('/user/profile', {
          headers: {

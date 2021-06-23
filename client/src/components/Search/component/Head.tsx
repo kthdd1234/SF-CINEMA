@@ -2,7 +2,12 @@ import React from 'react';
 import Icon from '../component/Icon';
 import Sub from '../component/Sub';
 
-const Head = ({ keyword, len }) => {
+interface IHead {
+   keyword: string;
+   len: number;
+}
+
+const Head = ({ keyword, len }: IHead) => {
    return (
       <div className="search-head">
          <Icon />

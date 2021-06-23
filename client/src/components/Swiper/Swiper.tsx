@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { swiperList } from './data';
-import Direction from './component/Direction';
-import Shadow from './component/Shadow';
-import Contents from './component/Contents';
-import Image from './component/Image';
+import { Shadow, Direction, Contents, Image } from './component'
 import 'antd/dist/antd.css';
 import './Swiper.css';
 
@@ -19,8 +16,8 @@ const Swiper = () => {
             setCurrentMovie={setCurrentMovie}
             setIndex={setIndex}
          />
-         <Contents currentMovie={currentMovie} index={index} />
-         <Image path={currentMovie[3]} />
+         <Contents index={index} currentMovie={currentMovie} />
+         <Image path={currentMovie.img} />
       </div>
    );
 };
