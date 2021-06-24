@@ -48,7 +48,7 @@
 - 네이버 오픈 API: https://developers.naver.com/docs/search/movie/
 - YouTube Data API: https://developers.google.com/youtube/v3/getting-started?hl=ko
 
-## 📽 프로젝트 시연 및 소개 영상
+## 📽 프로젝트 시연 및 소개 영상(GIF)
 
 - 메인화면
 
