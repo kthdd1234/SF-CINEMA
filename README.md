@@ -37,7 +37,7 @@
 
 <ul>
   <li>Express 를 사용한 Node.js 서버 환경 구축</li>
-  <li>Sequelize 를 활용하여 데이터베이스 스키마 설계 및 구성</li>
+  <li>Sequelize 를 활용하여 MySQL 데이터베이스 스키마 설계 및 구성</li>
   <li>AWS EC2, RDS 서비스를 활용하여 서버, 데이터베이스 배포</li>
 </ul>
 
