@@ -21,13 +21,13 @@
 
 ## ⚙ 사용 기술
 
-<img width="962" alt="스크린샷 2020-10-20 오전 1 09 20" src="https://user-images.githubusercontent.com/58875822/96477011-f7ebe080-1270-11eb-98a9-97e7424dc8e0.png">
+<img width="1117" alt="사용 기술" src="https://user-images.githubusercontent.com/58875822/123219152-86eb7f80-d507-11eb-8302-cd9b786b1a7e.png">
 
 ### Front-End
 
 <ul>
   <li>React 를 사용하여 단일 페이지로 구성된 SPA 구현</li>
-  <li>React-Redux 사용하여 사용자의 데이터를 글로벌 상태로 관리</li>
+  <li>사용자의 데이터를 글로벌 상태로 관리하기 위해 React-Redux 사용</li>
   <li>TypeScript 를 도입하여 디버깅, 개발 효율 개선</li>
   <li>SCSS 를 사용하여 CSS 코드의 간결화 및 유지보수 향상</li>
   <li>AWS S3 서비스를 활용하여 클라이언트 배포</li>
