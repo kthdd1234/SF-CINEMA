@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { setIsLogin, setProfile } from './actions/user';
 import { userProfile } from './components/Profile/request/profile';
-import Login from './containers/Login';
-import Navbar from './containers/Navbar';
-import Movie from './containers/Movie';
-import Profile from './containers/Profile';
+import { Login, Navbar, Movie, Profile } from './containers'
 import SignUp from './components/Auth/pages/SignUp';
 import Explore from './components/Explore/Explore';
 import Search from './components/Search/Search';
