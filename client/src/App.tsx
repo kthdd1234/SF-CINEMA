@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { setIsLogin, setProfile } from './actions/user';
 import { userProfile } from './components/Profile/request/profile';
-import { Login, Navbar, Movie, Profile } from './containers'
+import { Login, Navbar, Movie, Profile } from './containers';
 import SignUp from './components/Auth/pages/SignUp';
 import Explore from './components/Explore/Explore';
 import Search from './components/Search/Search';
@@ -22,7 +22,6 @@ interface IRoutes {
 }
 
 const App = ({ handleProfileUpdate, handleLoginChange }: IProps) => {
-
    const Screen = () => {
       return (
          <div>
@@ -33,16 +32,14 @@ const App = ({ handleProfileUpdate, handleLoginChange }: IProps) => {
    };
 
    const routes: IRoutes[] = [
-      {path: '/', component:  Screen},
-      {path: '/signup', component: SignUp},
-      {path: '/login',component: Login},
-      {path: '/movies/:movie_id', component:Movie},
-      {path: '/explore',component: Explore},
-      {path: '/search', component:Search},
-      {path: '/profile',component: Profile},
+      { path: '/', component: Screen },
+      { path: '/signup', component: SignUp },
+      { path: '/login', component: Login },
+      { path: '/movies/:movie_id', component: Movie },
+      { path: '/explore', component: Explore },
+      { path: '/search', component: Search },
+      { path: '/profile', component: Profile },
    ];
-   
-
 
    useEffect(() => {
       const accessToken = reactLocalStorage.get('SFCinemaUserToken');
@@ -57,8 +54,8 @@ const App = ({ handleProfileUpdate, handleLoginChange }: IProps) => {
       <div>
          <Navbar />
          <Switch>
-            {routes.map((route, i) => (
-               <Route exact key={i} path={route.path} component={route.component} />
+            {routes.map(({ path, component }, i) => (
+               <Route exact key={i} path={path} component={component} />
             ))}
             <Route path="/" component={() => <div>Not Found</div>} />
          </Switch>
