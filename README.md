@@ -27,7 +27,7 @@
 
 <ul>
   <li>React 를 사용하여 단일 페이지로 구성된 SPA 구현</li>
-  <li>사용자의 프로필 정보를 글로벌 상태로 관리하기 위해 React-Redux 사용</li>
+  <li>Redux 를 사용하여 전역 상태 관리 구현</li>
   <li>TypeScript 를 도입하여 디버깅, 개발 효율 개선</li>
   <li>SCSS 를 사용하여 CSS 코드의 간결화 및 유지보수 향상</li>
   <li>AWS S3 서비스를 활용하여 클라이언트 배포</li>

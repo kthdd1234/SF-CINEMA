@@ -1,36 +1,36 @@
 import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { setIsLogin, setProfile } from './actions/user';
-import { userProfile } from './components/Profile/request/profile';
-import { Login, Navbar, Movie, Profile } from './containers';
-import SignUp from './components/Auth/pages/SignUp';
-import Explore from './components/Explore/Explore';
-import Search from './components/Search/Search';
-import Swiper from './components/Swiper/Swiper';
-import MovieList from './components/Lists/Lists';
+import { setIsLogin, setProfile } from './features/Auth/authSlice';
+import { userProfile } from './features/Profile/request/profile';
+import {
+   Profile,
+   Navbar,
+   Movie,
+   Login,
+   SignUp,
+   Explore,
+   Search,
+   Swiper,
+   MovieList,
+} from './features';
 
-export interface IProps {
-   handleProfileUpdate: Function;
-   handleLoginChange: Function;
-}
+const Screen = () => {
+   return (
+      <div>
+         <Swiper />
+         <MovieList />
+      </div>
+   );
+};
 
 interface IRoutes {
    path: string;
    component: any;
 }
 
-const App = ({ handleProfileUpdate, handleLoginChange }: IProps) => {
-   const Screen = () => {
-      return (
-         <div>
-            <Swiper />
-            <MovieList />
-         </div>
-      );
-   };
-
+const App = () => {
    const routes: IRoutes[] = [
       { path: '/', component: Screen },
       { path: '/signup', component: SignUp },
@@ -41,12 +41,14 @@ const App = ({ handleProfileUpdate, handleLoginChange }: IProps) => {
       { path: '/profile', component: Profile },
    ];
 
+   const dispatch = useDispatch();
+
    useEffect(() => {
       const accessToken = reactLocalStorage.get('SFCinemaUserToken');
       if (accessToken)
          userProfile(accessToken).then((profile) => {
-            handleProfileUpdate(profile);
-            handleLoginChange(true);
+            dispatch(setIsLogin(true));
+            dispatch(setProfile(profile));
          });
    });
 
@@ -63,16 +65,4 @@ const App = ({ handleProfileUpdate, handleLoginChange }: IProps) => {
    );
 };
 
-const mapReduxDispatchToReactProps = (dispatch: Function) => {
-   return {
-      handleLoginChange: (isLogin: boolean) => {
-         dispatch(setIsLogin(isLogin));
-      },
-      handleProfileUpdate: (profile: object) => {
-         dispatch(setProfile(profile));
-      },
-   };
-};
-
-// eslint-disable-next-line
-export default connect(null, mapReduxDispatchToReactProps)(App);
+export default App;
