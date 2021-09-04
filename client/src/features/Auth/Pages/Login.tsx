@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setIsLogin, setProfile } from '../authSlice';
+import { setIsLogin, setProfile } from '../ReducersAndActions/authSlice';
 import { Form, message } from 'antd';
 import { LoginOutlined } from '@ant-design/icons';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { BackDrop, FormBtn, FormItem, FormSub } from '../Components';
 import { backdrop, login } from '../requests';
+import { loginAsync } from '../ReducersAndActions/authSlice';
 import { userProfile } from '../../Profile/request/profile';
 import '../Styles/Auth.css';
 
@@ -26,7 +27,7 @@ const Login = () => {
    }, []);
 
    const onFinish = async () => {
-      const result = await login(id, password);
+      const result = await loginAsync({ loginID: id, password: password });
 
       if (result !== undefined) {
          const { accessToken } = result;

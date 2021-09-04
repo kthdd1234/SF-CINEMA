@@ -2,7 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import { setIsLogin, setProfile } from '../../Auth/authSlice';
+import {
+   setIsLogin,
+   setProfile,
+} from '../../Auth/ReducersAndActions/authSlice';
 import { UserOutlined } from '@ant-design/icons';
 
 import Item from './Item';

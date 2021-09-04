@@ -49,7 +49,6 @@ const Navbar = () => {
       },
    ];
    const isLogin = useSelector((state: RootState) => state.auth.isLogin);
-   console.log('navbar state: ', isLogin);
 
    useEffect(() => {
       let navbar: Element | null = window.document.querySelector('.nav');
