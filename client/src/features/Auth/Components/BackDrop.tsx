@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface IBackDrop {
-   backDrop: string
+   backDrop: string;
 }
 
 const BackDrop = ({ backDrop }: IBackDrop) => {

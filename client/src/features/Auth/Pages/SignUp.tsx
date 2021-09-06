@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, message } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
 import { BackDrop, FormBtn, FormItem, FormSub } from '../Components';
-import { backdrop } from '../requests/backdrop';
 import { signup } from '../requests/signup';
 import '../Styles/Auth.css';
 
 const SignUp = () => {
-   const [backDrop, setBackDrop] = useState('');
    const [id, setId] = useState('');
    const [password, setPassword] = useState('');
    const [comfirmPw, setComfirmPw] = useState('');
@@ -30,14 +28,6 @@ const SignUp = () => {
       { label: '이름', messages: '이름을 입력해주세요', method: setName },
    ];
 
-   useEffect(() => {
-      const req = async () => {
-         const data = await backdrop();
-         setBackDrop(data[0].backDrop);
-      };
-      req();
-   }, []);
-
    const onFinish = async () => {
       if (password !== comfirmPw) {
          return message.error('입력하신 비밀번호가 일치하지 않습니다.');
@@ -52,7 +42,7 @@ const SignUp = () => {
 
    return (
       <div className="auth">
-         <BackDrop backDrop={backDrop} />
+         <BackDrop backDrop="orjiB3oUIsyz60hoEqkiGpy5CeO.jpg" />
          <div style={{ height: '47rem' }} className="auth-form">
             <Form
                layout="vertical"

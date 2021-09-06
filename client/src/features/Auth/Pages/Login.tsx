@@ -1,36 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setIsLogin, setProfile } from '../ReducersAndActions/authSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { useAppSelector, useAppDispatch } from '../../../app/hook';
+import { setIsLogin, setProfile, loginAsync } from '../Reducer/authSlice';
 import { Form, message } from 'antd';
 import { LoginOutlined } from '@ant-design/icons';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { BackDrop, FormBtn, FormItem, FormSub } from '../Components';
-import { backdrop, login } from '../requests';
-import { loginAsync } from '../ReducersAndActions/authSlice';
+import { RootState } from '../../../app/store';
 import { userProfile } from '../../Profile/request/profile';
 import '../Styles/Auth.css';
 
 const Login = () => {
-   const [backDrop, setBackDrop] = useState('');
    const [id, setId] = useState('');
    const [password, setPassword] = useState('');
    const history = useHistory();
-   const dispatch = useDispatch();
-
-   useEffect(() => {
-      const req = async () => {
-         const data = await backdrop();
-         setBackDrop(data[0].backDrop);
-      };
-      req();
-   }, []);
+   const { loginStatus } = useAppSelector((state: RootState) => state.auth);
+   const dispatch = useAppDispatch();
 
    const onFinish = async () => {
-      const result = await loginAsync({ loginID: id, password: password });
-
-      if (result !== undefined) {
-         const { accessToken } = result;
+      try {
+         const resultAction = await dispatch(
+            loginAsync({ loginID: id, password: password }),
+         );
+         const { accessToken } = unwrapResult(resultAction);
          reactLocalStorage.set('SFCinemaUserToken', accessToken);
          const profile = await userProfile(accessToken);
 
@@ -39,12 +32,12 @@ const Login = () => {
 
          message.success('로그인 완료!');
          history.push('/');
-      }
+      } catch (error) {}
    };
 
    return (
       <div className="auth">
-         <BackDrop backDrop={backDrop} />
+         <BackDrop backDrop="pZvZjxPFfWWIwtPQodsNygQ6u5Z.jpg" />
          <div style={{ height: '33rem' }} className="auth-form">
             <Form
                layout="vertical"

@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { reactLocalStorage } from 'reactjs-localstorage';
-import {
-   setIsLogin,
-   setProfile,
-} from './features/Auth/ReducersAndActions/authSlice';
+import { setIsLogin, setProfile } from './features/Auth/Reducer/authSlice';
 import { userProfile } from './features/Profile/request/profile';
 import {
    Profile,

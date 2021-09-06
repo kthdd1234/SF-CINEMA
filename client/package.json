@@ -35,14 +35,8 @@
    },
    "eslintConfig": {
       "extends": [
-         "react-app",
-         "airbnb"
-      ],
-      "rules": {
-         "react/prefer-stateless-function": 0,
-         "react/jsx-filename-extension": 0,
-         "react/jsx-one-expression-per-line": 0
-      }
+         "react-app"
+      ]
    },
    "env": {
       "browser": true
@@ -60,11 +54,6 @@
       ]
    },
    "devDependencies": {
-      "eslint-config-airbnb": "^18.2.0",
-      "eslint-plugin-import": "^2.22.0",
-      "eslint-plugin-jsx-a11y": "^6.3.1",
-      "eslint-plugin-react": "^7.20.3",
-      "eslint-plugin-react-hooks": "^4.0.0",
       "typescript": "^4.3.2"
    }
 }

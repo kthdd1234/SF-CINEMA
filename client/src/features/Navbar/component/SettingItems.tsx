@@ -5,7 +5,7 @@ import { reactLocalStorage } from 'reactjs-localstorage';
 import {
    setIsLogin,
    setProfile,
-} from '../../Auth/ReducersAndActions/authSlice';
+} from '../../Auth/Reducer/authSlice';
 import { UserOutlined } from '@ant-design/icons';
 
 import Item from './Item';

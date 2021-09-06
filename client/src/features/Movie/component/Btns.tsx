@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../app/store';
-import { setProfile } from '../../Auth/ReducersAndActions/authSlice';
+import { setProfile } from '../../Auth/Reducer/authSlice';
 import { message } from 'antd';
 import {
    LikeOutlined,

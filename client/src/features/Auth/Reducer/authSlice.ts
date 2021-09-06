@@ -6,9 +6,7 @@ dotenv.config();
 interface AuthState {
    isLogin: boolean;
    profile: object;
-   loginData: object;
-   loginStatus: string;
-   signUpData: object;
+   loginStatus: 'idle' | 'loading' | 'error';
    signUpStatus: string;
 }
 
@@ -20,9 +18,7 @@ interface IUserData {
 const initialState: AuthState = {
    isLogin: false,
    profile: {},
-   loginData: {},
    loginStatus: 'idle',
-   signUpData: {},
    signUpStatus: 'idle',
 };
 
@@ -31,13 +27,12 @@ const baseURL = axios.create({
 });
 
 export const loginAsync = createAsyncThunk(
-   'login/fetchLoginStatus',
+   'login/fetchLogin',
    async ({ loginID, password }: IUserData) => {
       const { data } = await baseURL.post('/user/login', {
          loginID: loginID,
          password: password,
       });
-
       return data;
    },
 );
@@ -58,13 +53,11 @@ export const authSlice = createSlice({
          .addCase(loginAsync.pending, (state) => {
             state.loginStatus = 'loading';
          })
-         .addCase(loginAsync.fulfilled, (state, action) => {
+         .addCase(loginAsync.fulfilled, (state) => {
             state.loginStatus = 'idle';
-            state.loginData = action.payload;
          })
          .addCase(loginAsync.rejected, (state) => {
             state.loginStatus = 'error';
-            console.log(state);
          });
    },
 });
