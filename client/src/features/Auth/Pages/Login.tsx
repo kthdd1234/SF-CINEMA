@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { useAppSelector, useAppDispatch } from '../../../app/hook';
+import { useAppDispatch } from '../../../app/hook';
 import { setIsLogin, setProfile, loginAsync } from '../Reducer/authSlice';
 import { Form, message } from 'antd';
 import { LoginOutlined } from '@ant-design/icons';
 import { reactLocalStorage } from 'reactjs-localstorage';
 import { BackDrop, FormBtn, FormItem, FormSub } from '../Components';
-import { RootState } from '../../../app/store';
 import { userProfile } from '../../Profile/request/profile';
 import '../Styles/Auth.css';
 
@@ -15,7 +14,6 @@ const Login = () => {
    const [id, setId] = useState('');
    const [password, setPassword] = useState('');
    const history = useHistory();
-   const { loginStatus } = useAppSelector((state: RootState) => state.auth);
    const dispatch = useAppDispatch();
 
    const onFinish = async () => {
@@ -32,7 +30,9 @@ const Login = () => {
 
          message.success('로그인 완료!');
          history.push('/');
-      } catch (error) {}
+      } catch (error) {
+         message.warning('가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.');
+      }
    };
 
    return (
