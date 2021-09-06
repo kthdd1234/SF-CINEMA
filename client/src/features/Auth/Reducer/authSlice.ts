@@ -6,7 +6,7 @@ dotenv.config();
 interface AuthState {
    isLogin: boolean;
    profile: object;
-   loginStatus: 'idle' | 'loading' | 'error';
+   loginStatus: string;
    signUpStatus: string;
 }
 
@@ -54,7 +54,7 @@ export const authSlice = createSlice({
             state.loginStatus = 'loading';
          })
          .addCase(loginAsync.fulfilled, (state) => {
-            state.loginStatus = 'idle';
+            state.loginStatus = 'success';
          })
          .addCase(loginAsync.rejected, (state) => {
             state.loginStatus = 'error';
